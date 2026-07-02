@@ -1,0 +1,85 @@
+/* DQ Páginas de Captação - CSS base */
+
+:root {
+  --dq-laranja: #f67828;
+  --dq-verde: #6EA27C;
+  --dq-texto: #1a1a1a;
+  --dq-fundo: #ffffff;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--dq-texto);
+  background-color: var(--dq-fundo);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0 0 0.5em;
+  line-height: 1.2;
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+a {
+  color: var(--dq-laranja);
+  text-decoration: none;
+}
+
+ul,
+ol {
+  margin: 0 0 1em;
+  padding-left: 1.25em;
+}
+
+.container {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.btn-cta {
+  display: inline-block;
+  background-color: var(--dq-laranja);
+  color: #ffffff;
+  font-weight: bold;
+  text-align: center;
+  padding: 0.9em 1.75em;
+  border: none;
+  border-radius: 8px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: filter 0.15s ease-in-out;
+}
+
+.btn-cta:hover,
+.btn-cta:focus {
+  filter: brightness(0.92);
+}
