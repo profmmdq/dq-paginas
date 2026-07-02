@@ -28,3 +28,31 @@ https://wa.link/dq-consultor
   preview bom quando o link for compartilhado no Instagram/WhatsApp
 - Sempre incluir UTM no link de CTA quando a campanha tiver origem
   definida (ex: ?utm_source=instagram&utm_campaign=pericia-r1)
+
+## Formulário de captação integrado ao CRM
+
+Toda isca com formulário usa o módulo de páginas externas do CRM DQ.
+
+### Fluxo (designer + Claude Code)
+1. A designer cadastra a página na tela do CRM: **Páginas / UTMs →
+   aba "Captação Externa"** (slug, tag UnniChat, destino pós-submit,
+   campanha opcional e textos: titulo, subtitulo, texto_botao,
+   url_download_isca, texto_obrigado).
+2. Ela pede o layout informando o **slug**. O slug do `data-slug` do
+   formulário É o nome da pasta da isca (`/iscas/<slug>/index.html`).
+3. O formulário entra via snippet canônico em
+   `/templates/formulario.html` (classe `dq-lead-form` + `data-slug` +
+   campos `nome`/`whatsapp`/`email`) + o script fixo
+   `/assets/js/lead-capture.js` antes do `</body>`.
+
+### Como funciona (não mexer sem necessidade)
+- `lead-capture.js` carrega os textos do CRM no load (elementos com
+  `data-dq-text="chave"` — o conteúdo estático é só fallback) e, no
+  submit, envia o lead + UTMs da URL pro CRM, que responde o redirect
+  (WhatsApp, grupo ou `/obrigado/?slug=...`).
+- `/obrigado/index.html` é genérica: lê `?slug=`, busca a config e
+  mostra `texto_obrigado` + botão de download (`url_download_isca`).
+- **A tag do UnniChat NÃO existe mais no HTML** — é aplicada pelo
+  servidor no submit. Nunca colocar tag/segredo no repo.
+- Editar textos/destino/tag = tela do CRM, sem tocar no HTML.
+- Página de teste de referência: `/iscas/teste-captacao/`.

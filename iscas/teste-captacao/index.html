@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Página de Teste — Dissecando Questões</title>
+  <meta name="robots" content="noindex">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Página de Teste — Dissecando Questões">
+  <meta property="og:description" content="Página de teste do módulo de captação externa.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://site.dissecandoquestoes.com/iscas/teste-captacao/">
+
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <style>
+    .hero { padding: 3rem 0 2rem; text-align: center; }
+    .hero h1 { color: var(--dq-laranja); }
+    .form-card { max-width: 480px; margin: 0 auto 4rem; padding: 1.5rem; border: 1px solid #e5e5e5; border-radius: 12px; }
+    .form-card input { width: 100%; padding: 0.75em; border: 1px solid #ccc; border-radius: 8px; font-size: 1rem; }
+    .form-card label { font-weight: bold; font-size: 0.875rem; }
+    .form-card .btn-cta { width: 100%; font-size: 1.05rem; }
+  </style>
+</head>
+<body>
+  <header class="hero container">
+    <h1 data-dq-text="titulo">Página de Teste — Captação Externa</h1>
+    <p data-dq-text="subtitulo">Formulário de teste do módulo de páginas externas do CRM DQ</p>
+  </header>
+
+  <main class="container">
+    <div class="form-card">
+      <form class="dq-lead-form" data-slug="teste-captacao">
+        <p>
+          <label for="dq-nome">Nome</label><br>
+          <input id="dq-nome" name="nome" type="text" placeholder="Seu nome" required autocomplete="name">
+        </p>
+        <p>
+          <label for="dq-whatsapp">WhatsApp</label><br>
+          <input id="dq-whatsapp" name="whatsapp" type="tel" placeholder="(73) 9 9999-0002" required autocomplete="tel" inputmode="numeric">
+        </p>
+        <p>
+          <label for="dq-email">E-mail</label><br>
+          <input id="dq-email" name="email" type="email" placeholder="seu@email.com" autocomplete="email">
+        </p>
+        <button type="submit" class="btn-cta" data-dq-text="texto_botao">QUERO RECEBER O MATERIAL</button>
+      </form>
+    </div>
+  </main>
+
+  <script src="../../assets/js/lead-capture.js"></script>
+</body>
+</html>
