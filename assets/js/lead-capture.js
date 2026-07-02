@@ -31,6 +31,10 @@
 
   var API_URL = "https://kqvwmmiguoqfuseabmtt.supabase.co/functions/v1/api-pagina-externa";
   var RESERVED = { nome: 1, whatsapp: 1, email: 1 };
+  // Bug-fix 02/jul: sem timeout, uma resposta lenta/pendurada do servidor deixava o
+  // botão preso em "Enviando..." para sempre. Todo caminho (timeout incluso) DEVE
+  // reabilitar o botão e mostrar mensagem.
+  var REQUEST_TIMEOUT_MS = 20000;
 
   // Base do site derivada da localização deste script — funciona tanto em
   // site.dissecandoquestoes.com quanto em profmmdq.github.io/dq-paginas/
@@ -134,54 +138,74 @@
     if (!secao || !slug) return; // form sem identificação completa é ignorado
     ev.preventDefault();
 
-    clearError(form);
+    // Blindagem: qualquer exceção síncrona daqui pra baixo reabilita o botão e
+    // mostra mensagem (nunca deixar o usuário preso em "Enviando...").
+    try {
+      clearError(form);
 
-    var nome = ((form.elements.nome && form.elements.nome.value) || "").trim();
-    var whatsapp = ((form.elements.whatsapp && form.elements.whatsapp.value) || "").trim();
-    var email = ((form.elements.email && form.elements.email.value) || "").trim();
-    if (!nome || !whatsapp) {
-      showError(form, "Preencha nome e WhatsApp.");
-      return;
-    }
+      var nome = ((form.elements.nome && form.elements.nome.value) || "").trim();
+      var whatsapp = ((form.elements.whatsapp && form.elements.whatsapp.value) || "").trim();
+      var email = ((form.elements.email && form.elements.email.value) || "").trim();
+      if (!nome || !whatsapp) {
+        showError(form, "Preencha nome e WhatsApp.");
+        return;
+      }
 
-    var payload = { action: "submit", secao: secao, slug: slug, nome: nome, whatsapp: whatsapp };
-    if (email) payload.email = email;
-    var extras = coletarExtras(form);
-    if (extras) payload.extras = extras;
-    var utms = getUtms();
-    for (var k in utms) payload[k] = utms[k];
+      var payload = { action: "submit", secao: secao, slug: slug, nome: nome, whatsapp: whatsapp };
+      if (email) payload.email = email;
+      var extras = coletarExtras(form);
+      if (extras) payload.extras = extras;
+      var utms = getUtms();
+      for (var k in utms) payload[k] = utms[k];
 
-    setLoading(form, true);
-    fetch(API_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    })
-      .then(function (res) {
-        return res.json().catch(function () { return {}; }).then(function (json) {
-          return { status: res.status, json: json };
-        });
+      setLoading(form, true);
+
+      var controller = typeof AbortController !== "undefined" ? new AbortController() : null;
+      var timeoutId = controller
+        ? setTimeout(function () { controller.abort(); }, REQUEST_TIMEOUT_MS)
+        : null;
+
+      fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+        signal: controller ? controller.signal : undefined,
       })
-      .then(function (r) {
-        if (r.status === 200 && r.json && r.json.success) {
-          if (r.json.unlock) {
-            setLoading(form, false);
-            unlock(r.json);
-          } else {
-            window.location.href = resolveRedirect(r.json.redirect);
+        .then(function (res) {
+          return res.json().catch(function () { return {}; }).then(function (json) {
+            return { status: res.status, json: json };
+          });
+        })
+        .then(function (r) {
+          if (timeoutId) clearTimeout(timeoutId);
+          if (r.status === 200 && r.json && r.json.success) {
+            if (r.json.unlock) {
+              setLoading(form, false);
+              unlock(r.json);
+            } else {
+              window.location.href = resolveRedirect(r.json.redirect);
+            }
+            return;
           }
-          return;
-        }
-        setLoading(form, false);
-        if (r.status === 404) {
-          showError(form, "Esta página não está recebendo cadastros no momento.");
-        } else {
-          showError(form, (r.json && r.json.error) || "Erro ao enviar. Tente novamente.");
-        }
-      })
-      .catch(function () {
-        setLoading(form, false);
-        showError(form, "Erro de conexão. Tente novamente.");
-      });
+          setLoading(form, false);
+          if (r.status === 404) {
+            showError(form, "Esta página não está recebendo cadastros no momento.");
+          } else {
+            showError(form, (r.json && r.json.error) || "Erro ao enviar. Tente novamente.");
+          }
+        })
+        .catch(function (err) {
+          if (timeoutId) clearTimeout(timeoutId);
+          setLoading(form, false);
+          if (err && err.name === "AbortError") {
+            showError(form, "O envio demorou mais que o esperado. Tente novamente.");
+          } else {
+            showError(form, "Erro de conexão. Tente novamente.");
+          }
+        });
+    } catch (e) {
+      setLoading(form, false);
+      showError(form, "Erro ao enviar. Tente novamente.");
+    }
   });
 })();
