@@ -1,25 +1,36 @@
 <!--
-  SNIPPET CANÔNICO — formulário de captação DQ (páginas externas)
+  SNIPPET CANÔNICO — formulário de captação DQ (páginas externas v2)
 
-  Como usar ao criar uma isca em /iscas/nome-da-isca/index.html:
-  1. Troque data-slug pelo slug cadastrado na tela "Captação Externa" do CRM.
-     O slug DEVE ser igual ao nome da pasta da isca.
-  2. Inclua o script lead-capture.js antes do </body> (caminho relativo à pasta da isca).
+  Como usar ao criar uma página em /{secao}/{pagina}/index.html:
+  1. Troque data-secao e data-slug pelos valores cadastrados na tela
+     "Captação Externa" do CRM. Eles SÃO os nomes das pastas:
+     /{data-secao}/{data-slug}/index.html
+     (a seção precisa existir na tela do CRM — botão "Seções" — ANTES do push).
+  2. Inclua o script lead-capture.js antes do </body> (caminho relativo:
+     a partir de /{secao}/{pagina}/ é ../../assets/js/lead-capture.js).
   3. TODA a copy (títulos, subtítulos, texto do botão) é ESTÁTICA no HTML —
      o HTML é a fonte única de apresentação. A tela do CRM governa apenas o
-     comportamento (destino pós-submit, campanha, automação UnniChat).
-  4. Se o destino da página for "obrigado", crie a subpasta obrigado/ da isca
-     (/iscas/nome-da-isca/obrigado/index.html) com copy estática — exemplo em
-     /iscas/teste-captacao/obrigado/.
-  5. NÃO existe tag nem link do UnniChat no HTML — o acionamento acontece no
+     comportamento (final pós-cadastro, campos extras, campanha, automação).
+  4. CAMPOS EXTRAS (opcional): qualquer input/select/textarea com name além
+     de nome/whatsapp/email (ex: name="instituto") — desde que o campo esteja
+     cadastrado na página no CRM (mesmo name + mesmas opções). O valor é salvo
+     no lead e vira tag automática (ex: instituto-ifba-ba).
+  5. FINAL PÓS-CADASTRO (definido no CRM, nunca aqui):
+     - "Conteúdo": a página desbloqueia inline — escute o evento dq:unlock
+       (document.addEventListener('dq:unlock', fn)) ou marque o bloco travado
+       com data-dq-gate + display:none (o script revela sozinho).
+     - "Página de obrigado": crie a subpasta /{secao}/{pagina}/obrigado/
+       com copy estática (convenção — o CRM redireciona pra ela).
+     - "Link externo" / "Brinde": o CRM redireciona (link colado na tela).
+  6. NÃO existe tag nem link do UnniChat no HTML — o acionamento acontece no
      servidor, no submit.
 -->
 
 <section class="container">
-  <h1>Título da isca</h1>
-  <p>Subtítulo da isca</p>
+  <h1>Título da página</h1>
+  <p>Subtítulo da página</p>
 
-  <form class="dq-lead-form" data-slug="TROCAR-PELO-SLUG">
+  <form class="dq-lead-form" data-secao="TROCAR-PELA-SECAO" data-slug="TROCAR-PELO-SLUG">
     <p>
       <label for="dq-nome">Nome</label><br>
       <input id="dq-nome" name="nome" type="text" placeholder="Seu nome" required
@@ -35,9 +46,19 @@
       <input id="dq-email" name="email" type="email" placeholder="seu@email.com"
              autocomplete="email" style="width:100%;max-width:420px;padding:0.75em;border:1px solid #ccc;border-radius:8px;">
     </p>
+    <!-- exemplo de campo extra (remova se a página não tiver):
+    <p>
+      <label for="dq-instituto">Instituto de interesse</label><br>
+      <select id="dq-instituto" name="instituto" required
+              style="width:100%;max-width:420px;padding:0.75em;border:1px solid #ccc;border-radius:8px;">
+        <option value="Ver todos / ainda decidindo" selected>Quero ver todos / ainda decidindo</option>
+        <option value="IFBA (BA)">IFBA — BA</option>
+      </select>
+    </p>
+    -->
     <button type="submit" class="btn-cta">QUERO RECEBER</button>
   </form>
 </section>
 
-<!-- antes do </body> (a partir de /iscas/nome-da-isca/ o caminho é ../../): -->
+<!-- antes do </body> (a partir de /{secao}/{pagina}/ o caminho é ../../): -->
 <script src="../../assets/js/lead-capture.js"></script>
