@@ -5,15 +5,19 @@
   1. Troque data-slug pelo slug cadastrado na tela "Captação Externa" do CRM.
      O slug DEVE ser igual ao nome da pasta da isca.
   2. Inclua o script lead-capture.js antes do </body> (caminho relativo à pasta da isca).
-  3. Os elementos com data-dq-text são preenchidos automaticamente com os textos
-     cadastrados no CRM (titulo, subtitulo, texto_botao). O conteúdo estático serve
-     de fallback enquanto carrega.
-  4. NÃO existe tag UnniChat no HTML — ela é aplicada pelo servidor no submit.
+  3. TODA a copy (títulos, subtítulos, texto do botão) é ESTÁTICA no HTML —
+     o HTML é a fonte única de apresentação. A tela do CRM governa apenas o
+     comportamento (destino pós-submit, campanha, automação UnniChat).
+  4. Se o destino da página for "obrigado", crie a subpasta obrigado/ da isca
+     (/iscas/nome-da-isca/obrigado/index.html) com copy estática — exemplo em
+     /iscas/teste-captacao/obrigado/.
+  5. NÃO existe tag nem link do UnniChat no HTML — o acionamento acontece no
+     servidor, no submit.
 -->
 
 <section class="container">
-  <h1 data-dq-text="titulo">Título da isca</h1>
-  <p data-dq-text="subtitulo">Subtítulo da isca</p>
+  <h1>Título da isca</h1>
+  <p>Subtítulo da isca</p>
 
   <form class="dq-lead-form" data-slug="TROCAR-PELO-SLUG">
     <p>
@@ -31,7 +35,7 @@
       <input id="dq-email" name="email" type="email" placeholder="seu@email.com"
              autocomplete="email" style="width:100%;max-width:420px;padding:0.75em;border:1px solid #ccc;border-radius:8px;">
     </p>
-    <button type="submit" class="btn-cta" data-dq-text="texto_botao">QUERO RECEBER</button>
+    <button type="submit" class="btn-cta">QUERO RECEBER</button>
   </form>
 </section>
 

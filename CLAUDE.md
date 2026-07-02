@@ -41,9 +41,9 @@ Toda isca com formulário usa o módulo de páginas externas do CRM DQ.
    `https://unnichat.com.br/a/start/...`).
 3. **Cadastrar a página na tela do CRM**: Páginas / UTMs → aba
    "Captação Externa" (slug, **colar o link de acionamento**, destino
-   pós-submit, campanha opcional e textos: titulo, subtitulo,
-   texto_botao, url_download_isca, texto_obrigado). O campo "Tag
-   UnniChat" ali é só registro/documentação.
+   pós-submit, campanha opcional). O campo "Tag UnniChat" ali é só
+   registro/documentação. A tela governa APENAS comportamento —
+   nenhum texto de apresentação vive no CRM.
 4. **Pedir o layout ao Claude Code informando o slug**. O slug do
    `data-slug` do formulário É o nome da pasta da isca
    (`/iscas/<slug>/index.html`). O formulário entra via snippet
@@ -51,15 +51,23 @@ Toda isca com formulário usa o módulo de páginas externas do CRM DQ.
    `data-slug` + campos `nome`/`whatsapp`/`email`) + o script fixo
    `/assets/js/lead-capture.js` antes do `</body>`.
 
+### A designer é dona de 100% da copy
+Todo texto que o lead vê (títulos, subtítulos, bullets, texto do botão,
+OG tags e a página de obrigado) é ESTÁTICO no HTML da isca — o HTML é a
+fonte única de apresentação. Alterar copy = editar o HTML e pushar.
+O CRM não tem campos de texto para páginas externas.
+
 ### Como funciona (não mexer sem necessidade)
-- `lead-capture.js` carrega os textos do CRM no load (elementos com
-  `data-dq-text="chave"` — o conteúdo estático é só fallback) e, no
-  submit, envia o lead + UTMs da URL pro CRM, que responde o redirect
-  (WhatsApp, grupo ou `/obrigado/?slug=...`).
-- `/obrigado/index.html` é genérica: lê `?slug=`, busca a config e
-  mostra `texto_obrigado` + botão de download (`url_download_isca`).
+- `lead-capture.js` só intercepta o submit: envia nome/whatsapp/email +
+  UTMs da URL pro CRM, que responde o redirect (WhatsApp, grupo ou a
+  página de obrigado da própria isca). Página desativada no CRM →
+  mensagem amigável no próprio formulário.
+- **Toda isca com destino "obrigado" cria a própria subpasta**
+  `/iscas/<slug>/obrigado/index.html` com copy estática (convenção —
+  o CRM redireciona para ela por padrão). Exemplo:
+  `/iscas/teste-captacao/obrigado/`.
 - **A tag do UnniChat NÃO existe no HTML nem no payload** — o CRM faz
   POST no link de acionamento da automação e a tag é aplicada dentro
   dela. Nunca colocar tag, link de acionamento ou segredo no repo.
-- Editar textos/destino/tag = tela do CRM, sem tocar no HTML.
+- Editar destino/campanha/automação = tela do CRM; editar copy = HTML.
 - Página de teste de referência: `/iscas/teste-captacao/`.

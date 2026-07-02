@@ -5,14 +5,12 @@
  * (snippet canônico em /templates/formulario.html). O slug DEVE ser o mesmo cadastrado
  * na tela "Captação Externa" do CRM (e igual ao nome da pasta em /iscas/).
  *
- * O que faz:
- *  1. No load: busca a config da página no CRM (action load) e preenche os elementos
- *     com [data-dq-text="chave"] (titulo, subtitulo, texto_botao, ...). Página
- *     inexistente/inativa → formulário desabilitado com aviso.
- *  2. No submit: envia nome/whatsapp/email + UTMs da URL (action submit) e
- *     redireciona conforme a resposta do CRM (whatsapp / grupo / obrigado).
+ * TODA a apresentação (títulos, copy, botão, página de obrigado) é ESTÁTICA no HTML —
+ * o HTML é a fonte única de verdade. Este script só intercepta o submit:
+ * envia nome/whatsapp/email + UTMs da URL ao CRM e redireciona conforme a resposta
+ * (whatsapp / grupo / página de obrigado da própria isca).
  *
- * Endpoint público (sem secret — a tag UnniChat é aplicada no servidor).
+ * Endpoint público (sem secret — o acionamento do UnniChat acontece no servidor).
  */
 (function () {
   "use strict";
@@ -38,28 +36,6 @@
       if (v) utms[k] = v;
     });
     return utms;
-  }
-
-  function api(body) {
-    return fetch(API_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    }).then(function (res) {
-      return res.json().then(function (json) {
-        return { status: res.status, json: json };
-      });
-    });
-  }
-
-  function applyConfig(config) {
-    if (!config) return;
-    var nodes = document.querySelectorAll("[data-dq-text]");
-    for (var i = 0; i < nodes.length; i++) {
-      var chave = nodes[i].getAttribute("data-dq-text");
-      var valor = config[chave];
-      if (valor) nodes[i].textContent = valor; // textContent = XSS-safe
-    }
   }
 
   function setError(form, msg) {
@@ -88,30 +64,10 @@
     }
   }
 
-  function disableForm(form, msg) {
-    var fields = form.querySelectorAll("input, button, textarea, select");
-    for (var i = 0; i < fields.length; i++) fields[i].disabled = true;
-    setError(form, msg);
-  }
-
   function initForm(form) {
     var slug = form.getAttribute("data-slug");
     if (!slug) return;
 
-    // 1) Carregar config da página (textos + estado ativo)
-    api({ action: "load", slug: slug })
-      .then(function (res) {
-        if (res.status === 200 && res.json && res.json.success) {
-          applyConfig(res.json.data.config);
-        } else {
-          disableForm(form, "Esta página não está disponível no momento.");
-        }
-      })
-      .catch(function () {
-        // Sem rede no load: mantém o formulário utilizável com os textos estáticos
-      });
-
-    // 2) Submit
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       setError(form, "");
@@ -131,10 +87,22 @@
       for (var k in utms) payload[k] = utms[k];
 
       setLoading(form, true);
-      api(payload)
+      fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      })
+        .then(function (res) {
+          return res.json().then(function (json) {
+            return { status: res.status, json: json };
+          });
+        })
         .then(function (res) {
           if (res.status === 200 && res.json && res.json.success) {
             window.location.href = resolveRedirect(res.json.redirect);
+          } else if (res.status === 404) {
+            setLoading(form, false);
+            setError(form, "Esta página não está recebendo cadastros no momento.");
           } else {
             setLoading(form, false);
             setError(form, (res.json && res.json.error) || "Erro ao enviar. Tente novamente.");
