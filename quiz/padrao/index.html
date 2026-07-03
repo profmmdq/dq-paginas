@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-W5TCMGSW');</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- DESIGNER: ajuste title/description/OG conforme o Quiz -->
+<title>Quiz — Dissecando Questões</title>
+<meta name="description" content="Quiz — descubra seu perfil de preparação.">
+<link rel="canonical" href="https://site.dissecandoquestoes.com/quiz/padrao/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Quiz — Dissecando Questões">
+<meta property="og:description" content="Quiz — descubra seu perfil de preparação.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--laranja-vivo:#FF751F;--laranja:#FC7F48;--creme:#F1F3E6;--carvao:#131F2C;--navy:#0C3D64;--petrol:#16495C;--verde:#6EA27C}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'DM Sans',system-ui,sans-serif;background:radial-gradient(ellipse at top,var(--petrol),var(--navy) 40%,var(--carvao));min-height:100vh;color:var(--creme);-webkit-font-smoothing:antialiased}
+  .wrap{max-width:560px;margin:0 auto;padding:40px 20px}
+  h1{font-family:'Plus Jakarta Sans';font-size:30px;font-weight:800;text-align:center;margin-bottom:8px}
+  p.sub{text-align:center;color:rgba(241,243,230,.8);margin-bottom:24px}
+  .ph{border:2px dashed var(--laranja);border-radius:14px;padding:24px;margin:16px 0;text-align:center;color:rgba(241,243,230,.9)}
+  form{background:rgba(19,31,44,.6);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:24px;backdrop-filter:blur(8px)}
+  label{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
+  .field{margin-bottom:16px}
+  input{width:100%;height:52px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);border-radius:12px;padding:0 16px;color:var(--creme);font-size:16px;outline:none;font-family:inherit}
+  input:focus{border-color:var(--laranja-vivo)}
+  button{width:100%;height:56px;border:none;border-radius:12px;background:linear-gradient(135deg,var(--laranja-vivo),var(--laranja));color:#fff;font-family:'Plus Jakarta Sans';font-weight:800;font-size:17px;cursor:pointer}
+  [data-dq-error]{display:none;color:#b3450a;background:#fde6da;border-radius:10px;padding:12px;font-size:14px;font-weight:600;margin-top:12px}
+  [data-dq-error].dq-visible{display:block}
+</style>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W5TCMGSW" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     ESQUELETO — QUIZ (F20 / Missão 3)
+     DESIGNER: monte as perguntas do quiz como campos (radios/selects) DENTRO
+     do <form class="dq-lead-form">. Cada campo extra precisa estar cadastrado
+     no CRM (Páginas → Captação Externa → Quiz → Campos extras) para ser aceito.
+     O form já está ligado ao lead-capture.js (submit → CRM → lead + tags).
+     NÃO remova: GTM, o <form class="dq-lead-form" data-secao/data-slug>, os
+     campos nome/whatsapp/email, o <script lead-capture.js> e o ping.
+     ═══════════════════════════════════════════════════════════════════ -->
+
+<div class="wrap">
+  <h1>Quiz</h1>
+  <p class="sub">DESIGNER: subtítulo / promessa do quiz aqui.</p>
+
+  <div class="ph"><b>DESIGNER:</b> perguntas do quiz vão aqui (radios/selects), como campos extras cadastrados no CRM.</div>
+
+  <form class="dq-lead-form" data-secao="quiz" data-slug="padrao">
+    <div class="field"><label>Nome</label><input type="text" name="nome" placeholder="Seu nome" required></div>
+    <div class="field"><label>WhatsApp</label><input type="tel" name="whatsapp" placeholder="(00) 00000-0000" required></div>
+    <div class="field"><label>E-mail</label><input type="email" name="email" placeholder="seu@email.com" required></div>
+    <!-- DESIGNER: adicione aqui os campos extras do quiz (name= igual ao cadastro no CRM) -->
+    <button type="submit">Ver meu resultado</button>
+    <div data-dq-error></div>
+  </form>
+</div>
+
+<!-- Submit ao CRM (api-pagina-externa) via lead-capture.js -->
+<script src="../../assets/js/lead-capture.js"></script>
+<script>
+  var ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtxdndtbWlndW9xZnVzZWFibXR0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1Mjc2MTAsImV4cCI6MjA4OTEwMzYxMH0.61Qh2PKIHXJDtWHXiG-l5-u3NSKYUu9q25om2ABzG2o';
+  try{fetch('https://kqvwmmiguoqfuseabmtt.supabase.co/rest/v1/rpc/fn_registrar_visita',{method:'POST',headers:{'Content-Type':'application/json','apikey':ANON,'Authorization':'Bearer '+ANON},body:JSON.stringify({p_pagina:'quiz/padrao'})}).catch(function(){});}catch(e){}
+</script>
+</body>
+</html>
