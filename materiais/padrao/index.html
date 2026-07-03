@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-W5TCMGSW');</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- DESIGNER: ajuste title/description/OG conforme a oferta do Materiais Dissecados -->
+<title>Materiais Dissecados — Dissecando Questões</title>
+<meta name="description" content="Materiais Dissecados — Dissecando Questões.">
+<link rel="canonical" href="https://site.dissecandoquestoes.com/materiais/padrao/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Materiais Dissecados — Dissecando Questões">
+<meta property="og:description" content="Materiais Dissecados — Dissecando Questões.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  /* Paleta DQ — laranja-vivo #FF751F · laranja #FC7F48 · creme #F1F3E6 · carvão #131F2C · navy #0C3D64 · petrol #16495C · verde #6EA27C */
+  :root{--laranja-vivo:#FF751F;--laranja:#FC7F48;--creme:#F1F3E6;--carvao:#131F2C;--navy:#0C3D64;--petrol:#16495C;--verde:#6EA27C}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'DM Sans',system-ui,sans-serif;background:var(--creme);color:var(--carvao);-webkit-font-smoothing:antialiased;line-height:1.55}
+  .wrap{max-width:960px;margin:0 auto;padding:0 20px}
+  /* Placeholder visual para a designer (some quando o layout real entra) */
+  .ph{border:2px dashed var(--laranja);background:#fff;border-radius:14px;padding:28px;margin:18px 0;text-align:center;color:var(--petrol)}
+  .ph b{color:var(--navy)}
+  .ph small{display:block;margin-top:6px;color:#8a94a0;font-size:12px}
+  header.hero{background:linear-gradient(160deg,var(--navy),var(--carvao));color:#fff;padding:56px 0;text-align:center}
+  h1{font-family:'Plus Jakarta Sans';font-size:clamp(28px,5vw,44px);font-weight:800;line-height:1.1}
+  .cta{display:inline-block;background:var(--laranja-vivo);color:#fff;font-family:'Plus Jakarta Sans';font-weight:800;font-size:18px;padding:16px 40px;border-radius:12px;text-decoration:none;box-shadow:0 10px 30px -10px rgba(255,117,31,.6);cursor:pointer;margin-top:20px}
+  footer{background:var(--petrol);color:#c4d5e1;text-align:center;padding:24px;font-size:13px;margin-top:40px}
+</style>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W5TCMGSW" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     ESQUELETO — LP CÓDIGO IF (F20 / Missão 3)
+     DESIGNER: substitua os blocos .ph pela copy/layout reais. NÃO remova:
+       (1) o <script> GTM no <head>
+       (2) o botão de compra com data-dq-checkout (o CRM governa a URL)
+       (3) o <script checkout-links.js> e o ping no fim do body
+     O checkout é configurado no CRM (Páginas → Captação Externa → Materiais Dissecados →
+     Links de checkout por UTM). O href abaixo é só o fallback fail-open.
+     ═══════════════════════════════════════════════════════════════════ -->
+
+<header class="hero">
+  <div class="wrap">
+    <h1>Materiais Dissecados</h1>
+    <p style="opacity:.85;margin-top:10px">DESIGNER: headline e subtítulo da oferta aqui.</p>
+    <!-- Botão de compra: data-dq-checkout (checkout governado pelo CRM) -->
+    <a href="#" data-dq-checkout class="cta" onclick="try{window.dataLayer.push({event:'InitiateCheckout',event_id:(window.crypto&&crypto.randomUUID?crypto.randomUUID():'e'+Date.now()),content_name:'materiais_dissecados'});}catch(e){}">Quero os Materiais</a>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="ph"><b>Seção: Problema/Dor</b><small>DESIGNER — o que trava o professor hoje</small></div>
+  <div class="ph"><b>Seção: A Virada / Big Idea</b><small>DESIGNER</small></div>
+  <div class="ph"><b>Seção: O que é o Materiais Dissecados</b><small>DESIGNER — entregáveis, módulos</small></div>
+  <div class="ph"><b>Seção: Prova social / Depoimentos</b><small>DESIGNER</small></div>
+  <div class="ph"><b>Seção: Oferta / Preço</b><small>DESIGNER — o botão de compra usa data-dq-checkout (repita o botão do hero aqui)</small>
+    <br><a href="#" data-dq-checkout class="cta" onclick="try{window.dataLayer.push({event:'InitiateCheckout',event_id:(window.crypto&&crypto.randomUUID?crypto.randomUUID():'e'+Date.now()),content_name:'materiais_dissecados'});}catch(e){}">Garantir meu acesso</a>
+  </div>
+  <div class="ph"><b>Seção: Garantia + FAQ</b><small>DESIGNER</small></div>
+</div>
+
+<footer>Dissecando Questões · Prof. Manoel Machado</footer>
+
+<!-- Checkout governado pelo CRM (config.checkout da página materiais/padrao) -->
+<script src="../../assets/js/checkout-links.js" data-secao="materiais" data-slug="padrao"></script>
+<script>
+  var ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtxdndtbWlndW9xZnVzZWFibXR0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1Mjc2MTAsImV4cCI6MjA4OTEwMzYxMH0.61Qh2PKIHXJDtWHXiG-l5-u3NSKYUu9q25om2ABzG2o';
+  try{window.dataLayer.push({event:'ViewContent',content_name:'materiais/padrao'});}catch(e){}
+  try{fetch('https://kqvwmmiguoqfuseabmtt.supabase.co/rest/v1/rpc/fn_registrar_visita',{method:'POST',headers:{'Content-Type':'application/json','apikey':ANON,'Authorization':'Bearer '+ANON},body:JSON.stringify({p_pagina:'materiais/padrao'})}).catch(function(){});}catch(e){}
+</script>
+</body>
+</html>
