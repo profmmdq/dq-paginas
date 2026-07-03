@@ -52,17 +52,36 @@
     return (config && config.default_url) || null;
   }
 
+  // DEC-4 (paridade com appendUtmsToCheckout do app): propaga utm_*, fbclid e
+  // gclid da URL do visitante para a URL do checkout — é assim que compras.utm_*
+  // recebe atribuição de criativo/vendedor. Não sobrescreve params existentes.
+  function comUtmsDoVisitante(url) {
+    try {
+      var dest = new URL(url);
+      var atual = new URLSearchParams(window.location.search);
+      var keys = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "fbclid", "gclid"];
+      for (var i = 0; i < keys.length; i++) {
+        var v = atual.get(keys[i]);
+        if (v && !dest.searchParams.has(keys[i])) dest.searchParams.set(keys[i], v);
+      }
+      return dest.toString();
+    } catch (e) {
+      return url; // à prova de URL inválida
+    }
+  }
+
   function aplicar(url) {
     if (!url) return; // fail-open: mantém o href original do HTML
+    var final = comUtmsDoVisitante(url);
     for (var i = 0; i < els.length; i++) {
       var el = els[i];
       if (el.tagName === "A") {
-        el.setAttribute("href", url);
+        el.setAttribute("href", final);
       } else {
         // botões não-âncora: navega no clique
         (function (u) {
           el.addEventListener("click", function () { window.location.href = u; });
-        })(url);
+        })(final);
       }
     }
   }

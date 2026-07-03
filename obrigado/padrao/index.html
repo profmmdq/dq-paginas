@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-W5TCMGSW');</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Parabéns! Cadastro realizado — Dissecando Questões</title>
+<meta name="description" content="Entre no grupo do WhatsApp e receba as mensagens importantes nos próximos dias.">
+<link rel="canonical" href="https://site.dissecandoquestoes.com/obrigado/padrao/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Parabéns! Cadastro realizado 🎉">
+<meta property="og:description" content="Entre no grupo do WhatsApp e receba as mensagens importantes nos próximos dias.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@800;900&display=swap" rel="stylesheet">
+<style>
+  :root{--laranja-vivo:#FF751F;--laranja:#FC7F48;--creme:#F1F3E6;--carvao:#131F2C;--navy:#0C3D64;--petrol:#16495C;--verde:#6EA27C}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'DM Sans',system-ui,sans-serif;min-height:100vh;background:radial-gradient(ellipse at top,var(--petrol) 0%,var(--navy) 40%,var(--carvao) 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 20px;-webkit-font-smoothing:antialiased;text-align:center}
+  .logo{font-family:'Plus Jakarta Sans';font-weight:800;font-size:24px;color:var(--creme);margin-bottom:28px;letter-spacing:-.01em}
+  h1{font-family:'Plus Jakarta Sans';font-size:34px;font-weight:900;color:var(--laranja-vivo);text-transform:uppercase;letter-spacing:-.02em;margin-bottom:12px;text-shadow:0 2px 12px rgba(0,0,0,.5);line-height:1.1}
+  p.sub{color:rgba(255,255,255,.9);font-size:16px;max-width:520px;margin:0 auto 24px;line-height:1.55;text-shadow:0 1px 4px rgba(0,0,0,.4)}
+  .box{border:1px solid rgba(255,255,255,.3);border-radius:12px;background:rgba(0,0,0,.5);backdrop-filter:blur(6px);padding:20px 24px;max-width:400px;width:100%}
+  .box p{color:#fff;font-size:15px;font-weight:600;line-height:1.4}
+  .box .cd{color:var(--laranja-vivo);font-weight:900;font-size:20px}
+  .box a{color:var(--verde);text-decoration:underline;text-underline-offset:2px;font-weight:700}
+</style>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W5TCMGSW" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<div class="logo">Dissecando Questões</div>
+<h1>Parabéns! Cadastro realizado 🎉</h1>
+<p class="sub">Entre no grupo agora e você receberá mensagens importantes no seu WhatsApp nos próximos dias.</p>
+<div class="box" id="box">
+  <p id="msg">Carregando o link do grupo…</p>
+</div>
+<script>
+  var ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtxdndtbWlndW9xZnVzZWFibXR0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1Mjc2MTAsImV4cCI6MjA4OTEwMzYxMH0.61Qh2PKIHXJDtWHXiG-l5-u3NSKYUu9q25om2ABzG2o';
+  // Link do grupo é DINÂMICO (D8): o SendFlow rotaciona grupos por trás do mesmo link,
+  // editável pelo admin em Configurações → Links de Grupo. Hidratar em runtime.
+  var FALLBACK='https://sndflw.com/i/D44WGy8IPL92V6WPPX2b';
+  var grupoLink=null, redirected=false, seconds=5;
+  var msg=document.getElementById('msg');
+
+  function startCountdown(){
+    if(!grupoLink){ grupoLink=FALLBACK; }
+    tick();
+  }
+  function tick(){
+    if(redirected) return;
+    if(seconds<=0){
+      redirected=true;
+      window.location.href=grupoLink;
+      return;
+    }
+    msg.innerHTML='Você será redirecionado para o grupo do WhatsApp em <span class="cd">'+seconds+'</span> segundo'+(seconds!==1?'s':'')+'…';
+    seconds--;
+    setTimeout(tick,1000);
+  }
+  function showManual(){
+    msg.innerHTML='Se não for redirecionado, <a href="'+(grupoLink||FALLBACK)+'" target="_blank" rel="noopener noreferrer">clique aqui.</a>';
+  }
+
+  // Resolve o link e então inicia; fallback fail-open após 2s ou em erro.
+  var resolved=false;
+  var safety=setTimeout(function(){ if(!resolved){ resolved=true; startCountdown(); } },2000);
+  try{
+    fetch('https://kqvwmmiguoqfuseabmtt.supabase.co/rest/v1/paginas?grupo=eq.obrigado&slug_pagina=eq.padrao&select=config',{headers:{'apikey':ANON,'Authorization':'Bearer '+ANON}})
+      .then(function(r){return r.json();})
+      .then(function(rows){
+        if(resolved) return; resolved=true; clearTimeout(safety);
+        try{ var c=rows&&rows[0]&&rows[0].config; if(c&&c.grupo_url) grupoLink=c.grupo_url; }catch(e){}
+        startCountdown();
+      })
+      .catch(function(){ if(!resolved){ resolved=true; clearTimeout(safety); startCountdown(); } });
+  }catch(e){ if(!resolved){ resolved=true; clearTimeout(safety); startCountdown(); } }
+
+  // após o countdown zerar, o tick redireciona; se por algum motivo não redirecionar, mostra link manual
+  setTimeout(function(){ if(!redirected) showManual(); }, 8000);
+
+  try{fetch('https://kqvwmmiguoqfuseabmtt.supabase.co/rest/v1/rpc/fn_registrar_visita',{method:'POST',headers:{'Content-Type':'application/json','apikey':ANON,'Authorization':'Bearer '+ANON},body:JSON.stringify({p_pagina:'obrigado/padrao'})}).catch(function(){});}catch(e){}
+</script>
+</body>
+</html>
