@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-W5TCMGSW');</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Libere seu acesso — Mapa das Questões + Calculadora de Salários</title>
+<meta name="description" content="Preencha seus dados e digite a palavra-chave para receber o acesso ao Mapa das Questões + Calculadora de Salários.">
+<link rel="canonical" href="https://site.dissecandoquestoes.com/mapa/acesso/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Libere seu acesso — Mapa das Questões + Calculadora de Salários">
+<meta property="og:description" content="Preencha seus dados e digite a palavra-chave para receber o acesso.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--laranja-vivo:#FF751F;--laranja:#FC7F48;--creme:#F1F3E6;--carvao:#131F2C;--navy:#0C3D64;--petrol:#16495C;--verde:#6EA27C;--danger:#fa5d5d}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'DM Sans',system-ui,sans-serif;min-height:100vh;background:radial-gradient(ellipse at top,var(--petrol) 0%,var(--navy) 40%,var(--carvao) 100%);-webkit-font-smoothing:antialiased}
+  section{display:flex;flex-direction:column;align-items:center}
+  .hero{min-height:100vh;justify-content:center;padding:32px 20px 48px;text-align:center}
+  .logo{font-family:'Plus Jakarta Sans';font-weight:800;font-size:24px;color:var(--creme);margin-bottom:40px}
+  .hero h1{font-family:'Plus Jakarta Sans';font-size:36px;font-weight:800;color:var(--creme);line-height:1.15;margin-bottom:16px;max-width:560px}
+  .hero h1 span{color:var(--laranja-vivo)}
+  .hero p{font-size:17px;color:rgba(241,243,230,.78);line-height:1.5;margin-bottom:40px;max-width:560px}
+  .btn{width:100%;max-width:320px;height:56px;border-radius:12px;border:none;cursor:pointer;background:linear-gradient(135deg,var(--laranja-vivo) 0%,var(--laranja) 100%);color:#fff;font-family:'Plus Jakarta Sans';font-size:17px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 10px 30px -10px rgba(255,117,31,.6)}
+  .btn:disabled{background:rgba(252,127,72,.4);cursor:not-allowed;box-shadow:none}
+  .form-sec{padding:48px 20px 64px}
+  .wrap{width:100%;max-width:480px}
+  .oferta{text-align:center;margin:8px 0 28px}
+  .oferta .de{font-size:16px;color:rgba(241,243,230,.6);text-decoration:line-through;margin-bottom:6px}
+  .oferta .por{font-size:40px;font-weight:800;color:var(--laranja-vivo);font-family:'Plus Jakarta Sans';line-height:1.1}
+  form{background:rgba(19,31,44,.6);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:24px;backdrop-filter:blur(8px)}
+  label{display:block;font-size:13px;font-weight:600;color:rgba(241,243,230,.85);margin-bottom:6px}
+  .field{margin-bottom:16px}
+  input{width:100%;height:52px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);border-radius:12px;padding:0 16px;color:var(--creme);font-size:16px;outline:none;font-family:inherit}
+  input:focus{border-color:var(--laranja-vivo)}
+  input.err{border-color:var(--danger)}
+  .keyerr{color:var(--danger);font-size:13px;margin-top:8px;display:none}
+</style>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W5TCMGSW" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<section class="hero">
+  <div class="logo">Dissecando Questões</div>
+  <div class="wrap" style="max-width:560px">
+    <h1>Libere seu acesso ao <span>Mapa das Questões + Calculadora de Salários</span></h1>
+    <p>Preencha seus dados e digite a palavra-chave para receber o acesso.</p>
+    <div style="max-width:320px;margin:0 auto">
+      <button type="button" class="btn" onclick="document.getElementById('formulario').scrollIntoView({behavior:'smooth'})">Baixe agora</button>
+    </div>
+  </div>
+</section>
+<section class="form-sec" id="formulario">
+  <div class="wrap">
+    <div class="oferta"><div class="de">De R$ 97,00</div><div class="por">por R$ 0,00</div></div>
+    <form id="leadForm">
+      <div class="field"><label>Nome</label><input type="text" id="nome" placeholder="Seu nome completo" autocomplete="name" required></div>
+      <div class="field"><label>Email</label><input type="email" id="email" placeholder="Seu melhor email" autocomplete="email" required></div>
+      <div class="field"><label>Telefone (WhatsApp)</label><input type="tel" id="telefone" placeholder="(00) 00000-0000" inputmode="numeric" autocomplete="tel" required></div>
+      <div class="field"><label>Palavra-chave</label><input type="text" id="palavra" placeholder="Digite a palavra-chave" required><p class="keyerr" id="keyerr">Palavra-chave incorreta. Verifique e tente novamente.</p></div>
+      <button type="submit" class="btn" id="submitBtn" disabled>Garantir meu acesso gratuito</button>
+    </form>
+  </div>
+</section>
+<script>
+  var ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtxdndtbWlndW9xZnVzZWFibXR0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1Mjc2MTAsImV4cCI6MjA4OTEwMzYxMH0.61Qh2PKIHXJDtWHXiG-l5-u3NSKYUu9q25om2ABzG2o';
+  var API='https://kqvwmmiguoqfuseabmtt.supabase.co/functions/v1/api-liberar-acesso';
+  var nome=document.getElementById('nome'),email=document.getElementById('email'),tel=document.getElementById('telefone'),palavra=document.getElementById('palavra'),btn=document.getElementById('submitBtn'),keyerr=document.getElementById('keyerr'),form=document.getElementById('leadForm');
+  function maskPhone(v){var d=v.replace(/\D/g,'').slice(0,11);if(d.length<=2)return d.length?'('+d:'';if(d.length<=7)return '('+d.slice(0,2)+') '+d.slice(2);return '('+d.slice(0,2)+') '+d.slice(2,7)+'-'+d.slice(7);}
+  tel.addEventListener('input',function(){this.value=maskPhone(this.value);validate();});
+  function telDigits(){return tel.value.replace(/\D/g,'');}
+  function isValid(){return nome.value.trim().length>1 && /\S+@\S+\.\S+/.test(email.value) && telDigits().length>=10 && palavra.value.trim().length>0;}
+  function validate(){btn.disabled=!isValid();}
+  [nome,email,palavra].forEach(function(el){el.addEventListener('input',function(){if(el===palavra){keyerr.style.display='none';palavra.classList.remove('err');}validate();});});
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    if(!isValid()||btn.disabled) return;
+    keyerr.style.display='none';palavra.classList.remove('err');
+    btn.disabled=true;btn.textContent='Liberando seu acesso...';
+    var ctrl=('AbortController' in window)?new AbortController():null;
+    var to=ctrl?setTimeout(function(){ctrl.abort();},20000):null;
+    fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:nome.value.trim(),email:email.value.trim(),whatsapp:telDigits(),palavra_chave:palavra.value.trim()}),signal:ctrl?ctrl.signal:undefined})
+      .then(function(r){return r.json().catch(function(){return {};});})
+      .then(function(data){
+        if(to)clearTimeout(to);
+        if(data&&data.success){ window.location.href='../../obrigado/acesso/'; return; }
+        btn.disabled=false;btn.textContent='Garantir meu acesso gratuito';
+        if(data&&data.error==='palavra_chave_invalida'){ keyerr.style.display='block';palavra.classList.add('err'); }
+        else { keyerr.textContent='Ocorreu um erro. Tente novamente.';keyerr.style.display='block'; }
+      })
+      .catch(function(){ if(to)clearTimeout(to); btn.disabled=false;btn.textContent='Garantir meu acesso gratuito';keyerr.textContent='Ocorreu um erro. Tente novamente.';keyerr.style.display='block'; });
+  });
+  try{fetch('https://kqvwmmiguoqfuseabmtt.supabase.co/rest/v1/rpc/fn_registrar_visita',{method:'POST',headers:{'Content-Type':'application/json','apikey':ANON,'Authorization':'Bearer '+ANON},body:JSON.stringify({p_pagina:'mapa/acesso'})}).catch(function(){});}catch(e){}
+</script>
+</body>
+</html>
