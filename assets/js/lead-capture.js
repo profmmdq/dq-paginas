@@ -1,5 +1,11 @@
 /*
- * lead-capture.js v2 — captura de leads das páginas externas (dq-paginas → CRM DQ).
+ * lead-capture.js v3 — captura de leads das páginas externas (dq-paginas → CRM DQ).
+ *
+ * v3 (M3 F18 — CAPI): o payload agora leva capi_event_id (gerado aqui e também
+ * empurrado ao dataLayer como "Lead" para dedup browser×server quando a página
+ * tem GTM/Pixel), fbclid (da URL, persistido em sessionStorage para sobreviver
+ * à navegação interna), _fbp (cookie do Pixel) e pagina_url. O servidor dispara
+ * o evento Lead na Conversions API com esses dados — NUNCA fabrique valores aqui.
  *
  * USO (snippet canônico em /templates/formulario.html):
  *   <form class="dq-lead-form" data-secao="SECAO" data-slug="PAGINA">
@@ -56,6 +62,35 @@
       if (v) utms[keys[i]] = v;
     }
     return utms;
+  }
+
+  // ── CAPI (v3) ────────────────────────────────────────────────────────────
+  function getCookie(name) {
+    var m = document.cookie.match(new RegExp("(?:^|; )" + name + "=([^;]*)"));
+    return m ? decodeURIComponent(m[1]) : null;
+  }
+
+  // fbclid da URL; persiste em sessionStorage (o clique no anúncio traz o fbclid
+  // só na primeira URL — se o visitante navegar internamente antes de enviar,
+  // ainda recuperamos). NUNCA inventado.
+  function getFbclid() {
+    try {
+      var fromUrl = new URLSearchParams(window.location.search).get("fbclid");
+      if (fromUrl) {
+        sessionStorage.setItem("dq_fbclid", fromUrl);
+        return fromUrl;
+      }
+      return sessionStorage.getItem("dq_fbclid");
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function newEventId() {
+    try {
+      if (window.crypto && window.crypto.randomUUID) return window.crypto.randomUUID();
+    } catch (e) { /* fallback abaixo */ }
+    return "dq-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 10);
   }
 
   function errorEl(form) {
@@ -157,6 +192,22 @@
       if (extras) payload.extras = extras;
       var utms = getUtms();
       for (var k in utms) payload[k] = utms[k];
+
+      // CAPI (v3): event_id compartilhado browser×server + sinais do Pixel
+      var eventId = newEventId();
+      payload.capi_event_id = eventId;
+      payload.pagina_url = window.location.href;
+      var fbclid = getFbclid();
+      if (fbclid) payload.fbclid = fbclid;
+      var fbp = getCookie("_fbp");
+      if (fbp) payload.fbp = fbp;
+      // Se a página tem GTM/Pixel, o push abaixo dispara o Lead client-side com o
+      // MESMO event_id do server (dedup no Meta). Sem GTM: no-op inofensivo.
+      try {
+        if (window.dataLayer && window.dataLayer.push) {
+          window.dataLayer.push({ event: "Lead", event_id: eventId });
+        }
+      } catch (e) { /* no-op */ }
 
       setLoading(form, true);
 
