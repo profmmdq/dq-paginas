@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-W5TCMGSW');</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagnóstico de Qualificação · O Conselho IF — Dissecando Questões</title>
+<meta name="description" content="Preencha o diagnóstico de qualificação em 5 minutos. Raio-X honesto do seu momento, ações imediatas e — se fizer sentido — uma conversa 1:1 sobre sua aprovação no Instituto Federal.">
+<link rel="canonical" href="https://site.dissecandoquestoes.com/quiz/mentoria/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://site.dissecandoquestoes.com/quiz/mentoria/">
+<meta property="og:title" content="Diagnóstico de Qualificação — O Conselho IF">
+<meta property="og:description" content="Seu atalho inteligente para transformar o que você já sabe em desempenho de prova e estabilidade no IF. Responda com transparência: aqui é triagem estratégica, não prova.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --laranja-vivo:#FF751F; --laranja:#FC7F48; --creme:#F1F3E6;
+    --carvao:#131F2C; --navy:#0C3D64; --petrol:#16495C; --verde:#6EA27C;
+    --ink:#0f1a24; --line:rgba(255,255,255,.08);
+    --card:rgba(255,255,255,.03); --card-bd:rgba(255,255,255,.09);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'DM Sans',Arial,sans-serif;color:#dfe7ee;
+    background:linear-gradient(180deg,#0d1721 0%,#101d29 55%,#0d1721 100%);
+    line-height:1.55;-webkit-font-smoothing:antialiased;min-height:100vh
+  }
+  h1,h2,h3,h4,.jak{font-family:'Plus Jakarta Sans','DM Sans',sans-serif}
+  .app{min-height:100vh;display:flex;flex-direction:column}
+
+  /* ── PROGRESS BAR (topo fixo) ── */
+  .topbar{position:sticky;top:0;z-index:20;background:rgba(13,23,33,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .prog{height:4px;width:100%;background:rgba(255,255,255,.06)}
+  .prog span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--laranja),var(--laranja-vivo));transition:width .5s ease-out}
+  .topinner{max-width:680px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .brand{display:flex;align-items:center;gap:11px}
+  .crown{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,var(--laranja),var(--laranja-vivo));display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(255,117,31,.28);flex:none}
+  .crown svg{width:20px;height:20px;fill:var(--carvao)}
+  .brand .t{font-weight:800;font-size:14px;color:#fff;line-height:1.1}
+  .brand .s{font-size:10px;color:#7d90a1;text-transform:uppercase;letter-spacing:.14em;margin-top:2px}
+  .counter{font-size:12px;color:#7d90a1;font-variant-numeric:tabular-nums;font-weight:600}
+
+  /* ── CONTEÚDO ── */
+  .main{flex:1;display:flex;flex-direction:column;align-items:center;padding:30px 16px 40px}
+  .box{width:100%;max-width:680px}
+  .card{
+    border:1px solid var(--card-bd);background:var(--card);
+    backdrop-filter:blur(4px);border-radius:20px;padding:26px 22px;
+    box-shadow:0 22px 60px rgba(0,0,0,.35)
+  }
+  @media(min-width:640px){.card{padding:38px 34px}}
+  .step{transition:opacity .2s ease,transform .2s ease}
+  .step.out-left{opacity:0;transform:translateX(28px)}
+  .step.out-right{opacity:0;transform:translateX(-28px)}
+
+  /* section header */
+  .sechead{margin-bottom:26px;padding-bottom:18px;border-bottom:1px solid var(--card-bd)}
+  .sechead .row{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+  .sechead .ic{font-size:24px}
+  .sechead h2{font-size:20px;font-weight:800;color:#fff}
+  .sechead .sub{font-size:13px;font-style:italic;color:#8ea0b0;margin-left:36px}
+
+  /* anchor text (pre-step 17) */
+  .anchor{margin-bottom:26px;padding:18px;border:1px solid rgba(255,117,31,.32);background:rgba(255,117,31,.06);border-radius:14px}
+  .anchor p{font-size:14px;color:#d6dee6;line-height:1.6}
+  .anchor b{color:var(--laranja);font-weight:800}
+
+  /* label da pergunta */
+  .qlabel{display:block;font-family:'Plus Jakarta Sans',sans-serif;font-size:20px;font-weight:700;color:#fff;line-height:1.3;margin-bottom:20px}
+  .qlabel .req{color:var(--laranja);margin-left:3px}
+
+  /* ── INTRO (step 1) ── */
+  .intro{margin-bottom:26px}
+  .greet{display:flex;align-items:flex-start;gap:15px;margin-bottom:20px}
+  .avatar{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--laranja),var(--laranja-vivo));display:flex;align-items:center;justify-content:center;flex:none;box-shadow:0 10px 26px rgba(255,117,31,.24);border:2px solid rgba(255,117,31,.3)}
+  .avatar svg{width:32px;height:32px;fill:var(--carvao)}
+  .greet .who .n{font-family:'Plus Jakarta Sans',sans-serif;font-size:18px;font-weight:800;color:#fff}
+  .greet .who .r{font-size:11px;color:rgba(255,117,31,.85);text-transform:uppercase;letter-spacing:.12em;font-weight:700;margin-top:3px}
+  .introtxt p{margin-bottom:11px}
+  .introtxt .lead{color:#e6edf3;font-weight:600;font-size:15px}
+  .introtxt .desc{color:#9fb0bf;font-size:14px;line-height:1.6}
+
+  .accordion{margin:20px 0}
+  .acc{border:1px solid var(--card-bd);border-radius:13px;overflow:hidden;background:rgba(255,255,255,.03);margin-bottom:10px}
+  .acc>button{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 16px;background:none;border:none;cursor:pointer;font-family:inherit;text-align:left;font-size:14px;font-weight:700;color:#d7e0e8;transition:background .15s}
+  .acc>button:hover{background:rgba(255,255,255,.03)}
+  .acc .lt{display:flex;align-items:center;gap:11px}
+  .acc .lt .em{font-size:16px}
+  .acc .chev{width:16px;height:16px;flex:none;fill:none;stroke:var(--laranja);stroke-width:2.2;transition:transform .3s}
+  .acc.open .chev{transform:rotate(180deg)}
+  .acc .body{max-height:0;overflow:hidden;transition:max-height .3s ease,opacity .3s ease;opacity:0}
+  .acc.open .body{max-height:520px;opacity:1}
+  .acc .body .inner{padding:0 16px 15px}
+  .acc .body p{font-size:13.5px;color:#93a5b4;line-height:1.6;margin-bottom:8px}
+
+  .introcta{padding:16px;border:1px solid rgba(255,117,31,.2);background:rgba(255,117,31,.06);border-radius:13px}
+  .introcta p{font-size:14px;color:#d6dee6;font-weight:600;line-height:1.55}
+
+  /* ── OPTIONS (radio / multi) ── */
+  .opts{display:flex;flex-direction:column;gap:11px}
+  .opt{
+    width:100%;text-align:left;display:flex;align-items:center;gap:13px;
+    padding:15px 16px;border-radius:13px;border:2px solid var(--card-bd);
+    background:rgba(255,255,255,.02);color:#c3d0db;font-family:inherit;
+    font-size:14.5px;cursor:pointer;transition:transform .15s,border-color .15s,background .15s;line-height:1.35
+  }
+  .opt:hover{border-color:rgba(255,117,31,.5);background:rgba(255,255,255,.05);transform:translateX(2px)}
+  .opt.on{border-color:var(--laranja);background:rgba(255,117,31,.1);color:#fff;box-shadow:0 8px 22px rgba(255,117,31,.1)}
+  .opt .mark{width:22px;height:22px;border-radius:50%;border:2px solid #4a5c6b;flex:none;display:flex;align-items:center;justify-content:center;transition:all .15s}
+  .opt.multi .mark{border-radius:7px}
+  .opt.on .mark{border-color:var(--laranja);background:var(--laranja)}
+  .opt .mark svg{width:13px;height:13px;fill:none;stroke:var(--carvao);stroke-width:3;opacity:0;transition:opacity .15s}
+  .opt.on .mark svg{opacity:1}
+  .opt .txt{font-weight:600}
+  .multihint{font-size:12px;color:#7d90a1;margin-top:3px}
+
+  /* ── AREA CASCADE ── */
+  .cascap{font-size:11px;color:#7d90a1;text-transform:uppercase;letter-spacing:.1em;font-weight:700;margin-bottom:12px}
+  .areagrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  @media(min-width:520px){.areagrid{grid-template-columns:repeat(4,1fr)}}
+  .areacard{display:flex;flex-direction:column;align-items:center;gap:8px;padding:15px 8px;border-radius:13px;border:2px solid var(--card-bd);background:rgba(255,255,255,.02);cursor:pointer;text-align:center;transition:transform .15s,border-color .15s,background .15s;font-family:inherit}
+  .areacard:hover{border-color:rgba(255,117,31,.5);background:rgba(255,255,255,.05);transform:translateY(-2px)}
+  .areacard.on{border-color:var(--laranja);background:rgba(255,117,31,.14)}
+  .areacard .em{font-size:24px}
+  .areacard .lbl{font-size:11.5px;font-weight:600;color:#c3d0db;line-height:1.15}
+  .areacard.on .lbl{color:var(--laranja)}
+  .subwrap{max-height:0;overflow:hidden;opacity:0;transition:max-height .35s ease,opacity .35s ease}
+  .subwrap.show{max-height:800px;opacity:1;margin-top:18px}
+  .subwrap .div{border-top:1px solid var(--card-bd);padding-top:16px}
+
+  /* ── INPUTS ── */
+  .fld{width:100%;padding:15px 16px;border-radius:13px;border:2px solid var(--card-bd);background:rgba(255,255,255,.03);color:#fff;font-family:inherit;font-size:15px;transition:border-color .15s}
+  .fld::placeholder{color:#5f7284}
+  .fld:focus{outline:none;border-color:var(--laranja)}
+  textarea.fld{resize:none;min-height:118px}
+  .phonewrap{display:flex;align-items:center;gap:10px}
+  .ddi{padding:15px 14px;border-radius:13px;background:rgba(255,255,255,.05);border:2px solid var(--card-bd);color:#9fb0bf;font-weight:600;font-size:15px;flex:none}
+  .phonewrap .fld{flex:1}
+
+  /* ── ERROR ── */
+  .err{margin-top:16px;padding:13px 15px;border-radius:13px;background:rgba(224,66,66,.1);border:1px solid rgba(224,66,66,.32);color:#f0a3a3;font-size:13.5px;display:none}
+  .err.show{display:block}
+
+  /* ── NAV BOTTOM ── */
+  .nav{position:sticky;bottom:0;z-index:20;background:rgba(13,23,33,.85);backdrop-filter:blur(10px);border-top:1px solid var(--line)}
+  .navinner{max-width:680px;margin:0 auto;padding:15px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .back{display:flex;align-items:center;gap:6px;padding:11px 16px;border:none;background:none;color:#8ea0b0;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;border-radius:12px;transition:color .15s,background .15s}
+  .back:hover:not(:disabled){color:#fff;background:rgba(255,255,255,.05)}
+  .back:disabled{color:#465563;cursor:not-allowed}
+  .back svg,.next svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.4}
+  .next{display:flex;align-items:center;gap:7px;padding:12px 26px;border:none;border-radius:13px;font-family:'Plus Jakarta Sans',sans-serif;font-size:14.5px;font-weight:800;cursor:pointer;color:var(--carvao);background:linear-gradient(90deg,var(--laranja),var(--laranja-vivo));box-shadow:0 10px 24px rgba(255,117,31,.24);transition:transform .1s,filter .15s,opacity .15s}
+  .next:hover:not(:disabled){filter:brightness(1.06)}
+  .next:active:not(:disabled){transform:scale(.98)}
+  .next:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
+  .next.final{background:linear-gradient(90deg,var(--verde),#5a9a70);color:#fff}
+  .spin{width:16px;height:16px;border:2.4px solid rgba(19,31,44,.3);border-top-color:var(--carvao);border-radius:50%;animation:sp .7s linear infinite}
+  .next.final .spin{border-color:rgba(255,255,255,.3);border-top-color:#fff}
+  @keyframes sp{to{transform:rotate(360deg)}}
+
+  /* ── LOADING / SUCESSO ── */
+  .full{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;text-align:center;position:relative;overflow:hidden}
+  .glow{position:absolute;top:32%;left:50%;transform:translate(-50%,-50%);width:360px;height:360px;border-radius:50%;background:rgba(255,117,31,.12);filter:blur(120px);pointer-events:none}
+  .loadspin{width:34px;height:34px;border:3px solid rgba(255,117,31,.25);border-top-color:var(--laranja);border-radius:50%;animation:sp .7s linear infinite}
+  .load .l{margin-top:14px;font-size:14px;color:#8ea0b0}
+  .ok-ring{width:96px;height:96px;border-radius:50%;background:linear-gradient(135deg,var(--laranja),var(--laranja-vivo));display:flex;align-items:center;justify-content:center;box-shadow:0 20px 50px rgba(255,117,31,.3);position:relative;z-index:2;margin:0 auto}
+  .ok-ring svg{width:48px;height:48px;fill:none;stroke:var(--carvao);stroke-width:3.4}
+  .succ{max-width:520px;position:relative;z-index:2}
+  .succ h1{font-family:'Plus Jakarta Sans',sans-serif;font-size:28px;font-weight:800;color:#fff;margin:28px 0 14px}
+  .succ .bar{width:64px;height:4px;background:linear-gradient(90deg,var(--laranja),var(--laranja-vivo));border-radius:4px;margin:0 auto 22px}
+  .succ p{color:#c3d0db;font-size:15.5px;line-height:1.6}
+  .succ p b{color:var(--laranja);font-weight:700}
+  .succ a{display:inline-flex;align-items:center;gap:8px;margin-top:28px;padding:14px 30px;border-radius:13px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:15px;color:var(--carvao);background:linear-gradient(90deg,var(--laranja),var(--laranja-vivo));text-decoration:none;box-shadow:0 12px 28px rgba(255,117,31,.24)}
+  .succ a svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.4}
+</style>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W5TCMGSW" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<div id="app" class="app" style="display:none">
+  <div class="topbar">
+    <div class="prog"><span id="progBar"></span></div>
+    <div class="topinner">
+      <div class="brand">
+        <div class="crown"><svg viewBox="0 0 24 24"><path d="M5 16L3 6l5.5 4L12 4l3.5 6L21 6l-2 10H5zm0 2h14v2H5v-2z"/></svg></div>
+        <div><div class="t">O Conselho IF</div><div class="s">Diagnóstico de Qualificação</div></div>
+      </div>
+      <span class="counter" id="counter">1/18</span>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="box">
+      <div class="card">
+        <div id="stepWrap" class="step"></div>
+        <div class="err" id="errBox" data-dq-error></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav">
+    <div class="navinner">
+      <button class="back" id="backBtn" disabled>
+        <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg> Voltar
+      </button>
+      <button class="next" id="nextBtn">Próximo <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </div>
+</div>
+
+<!-- LOADING -->
+<div id="loading" class="full load">
+  <div class="loadspin"></div>
+  <div class="l">Carregando diagnóstico...</div>
+</div>
+
+<!-- SUCESSO (inline, sem redirect) -->
+<div id="success" class="full" style="display:none">
+  <div class="glow"></div>
+  <div class="succ">
+    <div class="ok-ring"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg></div>
+    <h1>Diagnóstico enviado com sucesso! 🚀</h1>
+    <div class="bar"></div>
+    <p>Muito obrigado pelo seu tempo. Vamos analisar cuidadosamente suas respostas para garantir que a <b>Mentoria de Aceleração Individual — O Conselho IF</b> — é o que você precisa neste momento e que você preenche os requisitos para ser meu mentorado.</p>
+    <a href="https://site.dissecandoquestoes.com/">Voltar ao início <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></a>
+  </div>
+</div>
+
+<script src="./script.js"></script>
+</body>
+</html>
