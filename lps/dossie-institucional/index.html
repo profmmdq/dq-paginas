@@ -36,6 +36,14 @@
     text-transform:uppercase;letter-spacing:1.5px;width:100%;line-height:1.4;font-weight:600;
   }
 
+  /* Imagens do dossiê */
+  .dossie-img{
+    width:100%;height:100%;display:block;object-fit:cover;
+    border-radius:8px;background:#fff;border:1px solid var(--line);
+  }
+  .hero-bg .dossie-img{border:none;border-radius:0;object-position:center}
+  img.card-img-top{width:100%;object-fit:cover;display:block}
+
   /* Reveal */
   .reveal{opacity:0;transform:translateY(24px);transition:opacity 600ms ease,transform 600ms ease}
   .reveal.is-visible{opacity:1;transform:translateY(0)}
@@ -94,7 +102,7 @@
   .quote-text{font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;font-style:italic;font-size:20px;color:var(--blue);margin-bottom:8px;line-height:1.4}
   .quote-source{font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(19,31,44,.4)}
   .cenario-imgs{display:flex;flex-direction:column;gap:16px}
-  .cenario-imgs .ph{height:220px}
+  .cenario-imgs .ph, .cenario-imgs .dossie-img{height:220px}
 
   .desafio{background:#fff;margin:80px -48px 0;padding:80px 48px 100px}
   .desafio-inner{max-width:800px;margin:0 auto}
@@ -121,7 +129,7 @@
   .passo-badge{font-family:'DM Sans',monospace;font-size:13px;color:var(--orange);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;display:block;font-weight:700}
   .passo h3{font-size:24px;margin-bottom:16px}
   .passo p{font-size:15px;color:var(--night)}
-  .passo-img .ph{height:280px}
+  .passo-img .ph, .passo-img .dossie-img{height:280px}
 
   /* JORNADA */
   .jornada{background:#fff;padding:100px 48px}
@@ -134,7 +142,7 @@
   .week-day{font-family:'DM Sans',sans-serif;font-weight:600;font-size:12px;color:var(--orange);text-transform:uppercase;letter-spacing:1px;min-width:130px}
   .week-desc{font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(19,31,44,.7);line-height:1.5}
   .jornada-imgs{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:40px}
-  .jornada-imgs .ph{height:220px}
+  .jornada-imgs .ph, .jornada-imgs .dossie-img{height:220px}
   .jornada-final{font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(19,31,44,.8);margin-top:24px;line-height:1.6}
 
   /* PROGRAMA */
@@ -304,7 +312,7 @@
 
   <!-- HERO -->
   <section class="hero">
-    <div class="hero-bg"><div class="ph">IMG-01 · BANNER FACHADA OU CAMPUS DE INSTITUTO FEDERAL</div></div>
+    <div class="hero-bg"><img class="dossie-img" src="SCREENSHOTS%20DOSSI%C3%8A%20IF/Fachada_campus%20de%20IF%20%2B%20Manoel.png" alt="Fachada de campus de Instituto Federal com Prof. Manoel"></div>
     <div class="hero-overlay"></div>
     <div class="hero-inner">
       <span class="mono">DISSECANDO QUESTÕES</span>
@@ -339,8 +347,8 @@
           </div>
         </div>
         <div class="cenario-imgs">
-          <div class="ph">IMG-02 · PROFESSOR EM SALA DE AULA — ROTINA REAL</div>
-          <div class="ph">IMG-03 · TIMELINE CONCURSO — AUTORIZAÇÃO → COMISSÃO → BANCA → EDITAL → PROVA</div>
+          <img class="dossie-img" src="SCREENSHOTS%20DOSSI%C3%8A%20IF/PROFESSOR%20EM%20SALA%20DE%20AULA.png" alt="Professor em sala de aula — rotina real">
+          <img class="dossie-img" src="SCREENSHOTS%20DOSSI%C3%8A%20IF/INFOGR%C3%81FICO%20TIMELINE%20DO%20CONCURSO.png" alt="Timeline do concurso: autorização, comissão, banca, edital, prova">
         </div>
       </div>
 
@@ -380,7 +388,7 @@
           <h3>Diagnóstico da Banca</h3>
           <p>Antes de abrir qualquer material, você entende como a sua banca cobra. O Mapa das Questões analisa os padrões de recorrência por instituto, disciplina e tema. Você não estuda tudo — estuda o que aparece.</p>
         </div>
-        <div class="passo-img"><div class="ph">IMG-04 · MAPA DAS QUESTÕES — RECORRÊNCIA POR TEMA E BANCA</div></div>
+        <div class="passo-img"><img class="dossie-img" src="SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DO%20MAPA%20DAS%20QUEST%C3%95ES.png" alt="Mapa das Questões — recorrência por tema e banca"></div>
       </div>
     </div>
 
@@ -391,7 +399,7 @@
           <h3>Conteúdo Direcionado</h3>
           <p>Com o mapa na mão, você estuda os materiais de conhecimentos básicos e específicos da sua área. Tudo em texto, direto ao ponto, sem videoaula de 2 horas. Cada página existe porque a banca cobra.</p>
         </div>
-        <div class="passo-img"><div class="ph">IMG-05 · MATERIAL DIDÁTICO ENXUTO — DISCIPLINA ESPECÍFICA</div></div>
+        <div class="passo-img"><img class="dossie-img" src="SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DO%20MATERIAL%20DID%C3%81TICO%20ENXUTO.png" alt="Material didático enxuto por disciplina específica"></div>
       </div>
     </div>
 
@@ -402,7 +410,7 @@
           <h3>Prática com Inteligência</h3>
           <p>O Banco de Questões Dissecadas traz as provas anteriores com resolução estratégica. Você não só acerta ou erra — entende por que a banca formulou daquele jeito e o que ela quer testar.</p>
         </div>
-        <div class="passo-img"><div class="ph">IMG-06 · QUESTÃO DISSECADA COM RESOLUÇÃO ESTRATÉGICA</div></div>
+        <div class="passo-img"><img class="dossie-img" src="SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DE%20QUEST%C3%83O%20DISSECADA.png" alt="Questão dissecada com resolução estratégica"></div>
       </div>
     </div>
 
@@ -413,7 +421,7 @@
           <h3>Revisão Espaçada</h3>
           <p>Flashcards calibrados pelo seu desempenho. O que você erra, volta mais vezes. O que você domina, espaça. A revisão é ativa, não passiva — e acontece dentro da plataforma.</p>
         </div>
-        <div class="passo-img"><div class="ph">IMG-07 · FLASHCARDS COM INDICADORES DE DESEMPENHO</div></div>
+        <div class="passo-img"><img class="dossie-img" src="SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DOS%20FLASHCARDS.png" alt="Flashcards com indicadores de desempenho"></div>
       </div>
     </div>
 
@@ -424,7 +432,7 @@
           <h3>Cronograma que se Adapta</h3>
           <p>A plataforma gera seu cronograma com base no tempo que você realmente tem. Se sua semana muda, o plano muda junto. Você não abandona o cronograma — ele se ajusta a você.</p>
         </div>
-        <div class="passo-img"><div class="ph">IMG-08 · CRONOGRAMA ADAPTÁVEL COM METAS SEMANAIS</div></div>
+        <div class="passo-img"><img class="dossie-img" src="SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DO%20CRONOGRAMA%20ADAPT%C3%81VEL.png" alt="Cronograma adaptável com metas semanais"></div>
       </div>
     </div>
 
@@ -435,7 +443,7 @@
           <h3>Acompanhamento Real</h3>
           <p>Todo mês, encontro ao vivo com o Prof. Manoel Machado. Correção de rota, dúvidas estratégicas, alinhamento de prioridades. Você não está sozinho — tem alguém que já percorreu esse caminho acompanhando o seu.</p>
         </div>
-        <div class="passo-img"><div class="ph">IMG-09 · PROF. MANOEL EM MENTORIA AO VIVO</div></div>
+        <div class="passo-img"><img class="dossie-img" src="SCREENSHOTS%20DOSSI%C3%8A%20IF/FOTO%20DO%20PROF.%20MANOEL%20EM%20MENTORIA%20AO%20VIVO.png" alt="Prof. Manoel em mentoria ao vivo"></div>
       </div>
     </div>
   </section>
@@ -456,8 +464,8 @@
       </div>
 
       <div class="jornada-imgs">
-        <div class="ph">IMG-10 · DASHBOARD DO ALUNO — METAS DO DIA E PROGRESSO</div>
-        <div class="ph">IMG-11 · CRONOGRAMA SEMANAL — DISTRIBUIÇÃO POR DIA</div>
+        <img class="dossie-img" src="SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DO%20DASHBOARD%20DO%20ALUNO.png" alt="Dashboard do aluno — metas do dia e progresso">
+        <img class="dossie-img" src="SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DO%20CRONOGRAMA%20SEMANAL.png" alt="Cronograma semanal — distribuição por dia">
       </div>
 
       <p class="jornada-final">Tudo acontece dentro da plataforma. Sem precisar montar nada, sem decidir sozinho o que estudar a cada dia. O cronograma guia. A plataforma rastreia. O mentor corrige.</p>
@@ -486,7 +494,7 @@
           <h3>Conteúdo e Inteligência</h3>
           <p>O conhecimento completo dos Institutos Federais — organizado, direcionado e pronto para estudar. Sem garimpar material, sem improvisar.</p>
         </div>
-        <div class="ph" style="height:200px">IMG-12 · VISÃO GERAL DOS MATERIAIS NA PLATAFORMA</div>
+        <img class="dossie-img" style="height:200px" src="SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DA%20VIS%C3%83O%20GERAL%20DOS%20MATERIAIS.png" alt="Visão geral dos materiais na plataforma">
       </div>
 
       <div class="d1-grid">
@@ -504,7 +512,7 @@
   <section class="prog-b">
     <div class="prog-inner reveal">
       <div class="dim-header reverse">
-        <div class="ph" style="height:200px">IMG-13 · SIMULADO EM ANDAMENTO</div>
+        <img class="dossie-img" style="height:200px" src="SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DE%20SIMULADO%20EM%20ANDAMENTO.png" alt="Simulado em andamento">
         <div>
           <span class="dim-badge">DIMENSÃO 02</span>
           <h3>Prática e Revisão</h3>
@@ -513,9 +521,9 @@
       </div>
 
       <div class="d2-grid">
-        <div class="card card-img"><div class="ph card-img-top">IMG-14 · CHAT COM ROBÔ TUTOR</div><div class="card-body"><div class="card-icon">🤖</div><h4>Robô Tutor Dissecador</h4><p>Tira-dúvidas por IA especializado nas suas disciplinas. Resposta clara e direta, na hora.</p></div></div>
-        <div class="card card-img"><div class="ph card-img-top">IMG-15 · RESULTADO DE SIMULADO</div><div class="card-body"><div class="card-icon">📝</div><h4>Simulados Dissecados</h4><p>Gerados por histórico de questões, direcionados por banca e área. Ajuste fino para a prova.</p></div></div>
-        <div class="card card-img"><div class="ph card-img-top">IMG-16 · TELA DE FLASHCARDS</div><div class="card-body"><div class="card-icon">🔄</div><h4>Flashcards de Revisão</h4><p>Revisão espaçada calibrada pelo desempenho. O que você erra, volta mais vezes.</p></div></div>
+        <div class="card card-img"><img class="card-img-top" src="SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DO%20CHAT%20COM%20ROB%C3%94%20TUTOR.png" alt="Chat com o Robô Tutor"><div class="card-body"><div class="card-icon">🤖</div><h4>Robô Tutor Dissecador</h4><p>Tira-dúvidas por IA especializado nas suas disciplinas. Resposta clara e direta, na hora.</p></div></div>
+        <div class="card card-img"><img class="card-img-top" src="SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DE%20RESULTADO%20DE%20SIMULADO.png" alt="Resultado de simulado"><div class="card-body"><div class="card-icon">📝</div><h4>Simulados Dissecados</h4><p>Gerados por histórico de questões, direcionados por banca e área. Ajuste fino para a prova.</p></div></div>
+        <div class="card card-img"><img class="card-img-top" src="SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DA%20TELA%20DE%20FLASHCARDS.png" alt="Tela de flashcards"><div class="card-body"><div class="card-icon">🔄</div><h4>Flashcards de Revisão</h4><p>Revisão espaçada calibrada pelo desempenho. O que você erra, volta mais vezes.</p></div></div>
       </div>
     </div>
   </section>
@@ -530,8 +538,8 @@
       </div>
 
       <div class="d3-featured">
-        <div class="d3-feat-card"><div class="ph card-img-top">IMG-17 · DASHBOARD DA PLATAFORMA</div><div class="d3-feat-body"><div class="card-icon">🖥️</div><h4>Plataforma Inteligente</h4><p>Organiza seu progresso, identifica lacunas e sugere próximos passos. Seu copiloto de preparação.</p></div></div>
-        <div class="d3-feat-card"><div class="ph card-img-top">IMG-18 · CRONOGRAMA COM METAS</div><div class="d3-feat-body"><div class="card-icon">📅</div><h4>Cronograma Adaptável</h4><p>Gerado automaticamente com base no seu tempo real. Se a semana muda, o plano muda junto.</p></div></div>
+        <div class="d3-feat-card"><img class="card-img-top" src="SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DO%20DASHBOARD%20DA%20PLATAFORMA.png" alt="Dashboard da plataforma"><div class="d3-feat-body"><div class="card-icon">🖥️</div><h4>Plataforma Inteligente</h4><p>Organiza seu progresso, identifica lacunas e sugere próximos passos. Seu copiloto de preparação.</p></div></div>
+        <div class="d3-feat-card"><img class="card-img-top" src="SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DO%20CRONOGRAMA%20COM%20METAS.png" alt="Cronograma com metas"><div class="d3-feat-body"><div class="card-icon">📅</div><h4>Cronograma Adaptável</h4><p>Gerado automaticamente com base no seu tempo real. Se a semana muda, o plano muda junto.</p></div></div>
       </div>
 
       <div class="d3-compact">
@@ -573,7 +581,7 @@
         </div>
       </div>
 
-      <div class="ph" style="height:280px">IMG-21 · RETRATO PROFISSIONAL PROF. MANOEL MACHADO</div>
+      <img class="dossie-img" style="height:280px" src="SCREENSHOTS%20DOSSI%C3%8A%20IF/FOTO%20PROFISSIONAL%20DO%20PROF.%20MANOEL%20MACHADO.png" alt="Retrato profissional do Prof. Manoel Machado">
       <div class="bio">
         <div class="bio-bar"></div>
         <div>
