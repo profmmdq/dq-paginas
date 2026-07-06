@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><!-- NÃO REMOVER (contrato CRM) -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><!-- NÃO REMOVER (contrato CRM) -->
+
+<title>Teste de Formulário — DQ</title>
+<meta name="description" content="Página interna de teste do formulário de captação.">
+<link rel="canonical" href="https://site.dissecandoquestoes.com/captacao/teste/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://site.dissecandoquestoes.com/captacao/teste/">
+<meta property="og:title" content="Teste de Formulário — DQ">
+<meta property="og:description" content="Página interna de teste do formulário de captação.">
+<meta name="robots" content="noindex, nofollow">
+
+<style>
+  :root {
+    --dq-laranja: #FF751F;
+    --dq-verde: #6EA27C;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+    background: #f4f4f4;
+    color: #1a1a1a;
+    padding: 24px 16px 60px;
+  }
+  main {
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  h1 {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+  }
+  p.subtitulo {
+    color: #555;
+    margin-bottom: 24px;
+  }
+  form {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.08);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  label {
+    display: flex;
+    flex-direction: column;
+    font-size: .9rem;
+    font-weight: 600;
+    gap: 4px;
+  }
+  input, select {
+    font-size: 1rem;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-weight: 400;
+  }
+  button {
+    background: var(--dq-laranja);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 14px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 8px;
+  }
+  button:hover { opacity: .9; }
+  [data-dq-error] {
+    display: none;
+    color: #c0392b;
+    font-size: .85rem;
+  }
+  [data-dq-error].dq-visible { display: block; }
+  #dataZone {
+    margin-top: 24px;
+    background: #eaf4ee;
+    border: 1px solid var(--dq-verde);
+    border-radius: 12px;
+    padding: 20px;
+  }
+</style>
+</head>
+<body>
+
+<main>
+  <h1>Teste de formulário</h1>
+  <p class="subtitulo">Página interna para validar o cadastro no CRM (seção <code>captacao</code>, página <code>teste</code>). Não é uma LP pra tráfego.</p>
+
+  <!-- NÃO REMOVER (contrato CRM) -->
+  <form class="dq-lead-form" data-secao="captacao" data-slug="teste">
+    <!-- NÃO REMOVER (contrato CRM): name="nome" e name="whatsapp" são obrigatórios -->
+    <label>Nome
+      <input type="text" name="nome" placeholder="Seu nome" required autocomplete="name">
+    </label>
+    <label>WhatsApp
+      <input type="tel" name="whatsapp" placeholder="(00) 00000-0000" required autocomplete="tel" inputmode="numeric">
+    </label>
+    <label>E-mail
+      <input type="email" name="email" placeholder="seu@email.com" autocomplete="email">
+    </label>
+
+    <!-- NÃO REMOVER (contrato CRM): o botão de envio -->
+    <button type="submit">Enviar teste</button>
+
+    <!-- NÃO REMOVER (contrato CRM) -->
+    <div data-dq-error></div>
+  </form>
+</main>
+
+<div id="dataZone" style="display:none"><!-- NÃO REMOVER (contrato CRM) se o final = Conteúdo -->
+  <p>Cadastro recebido. Se você está vendo isto, o gate de conteúdo funcionou.</p>
+</div>
+
+<!-- NÃO REMOVER (contrato CRM) -->
+<script src="../../assets/js/lead-capture.js"></script>
+
+<!-- NÃO REMOVER (contrato CRM) se o final = Conteúdo -->
+<script>
+  document.addEventListener('dq:unlock', function () {
+    var zone = document.getElementById('dataZone');
+    if (zone) zone.style.display = 'block';
+  });
+</script>
+</body>
+</html>
