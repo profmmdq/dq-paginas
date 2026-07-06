@@ -70,10 +70,6 @@ Regras dos moldes:
   `aula/oportunidade` ainda NÃO tem botão de compra nem config de checkout —
   quando ganhar CTA de venda, adicionar `data-dq-checkout` + `checkout-links.js`
   E cadastrar a config de checkout no CRM (passo pareado).
-- **Exceção `lps/dossie-institucional` → Path B (inline), legado consciente.**
-  Checkout por link inline (aponta pro app), sem `data-dq-checkout` /
-  `checkout-links.js`. Migrar pra Path A é passo **pareado** com cadastrar a
-  config de checkout no CRM — backlog, sem urgência.
 - Passo a passo não-técnico da designer: **`MANUAL-DESIGNER.md`** na raiz.
 
 ## CTAs de WhatsApp (D3 — regra dura)
