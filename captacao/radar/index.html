@@ -499,13 +499,8 @@
     unlock();
   });
 
-  // máscara leve de telefone
-  $('whatsapp').addEventListener('input', function(){
-    let v=this.value.replace(/\D/g,'').slice(0,11);
-    if(v.length>6) this.value=`(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`;
-    else if(v.length>2) this.value=`(${v.slice(0,2)}) ${v.slice(2)}`;
-    else this.value=v;
-  });
+  // máscara de telefone: centralizada no lead-capture.js (form.dq-lead-form) —
+  // insere o 9 quando falta e trata +55 / DDD 55 / fixo. Não duplicar aqui.
 </script>
 </body>
 </html>

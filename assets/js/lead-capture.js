@@ -31,6 +31,13 @@
  * TODA a apresentação (títulos, copy, botão, obrigado) é ESTÁTICA no HTML — fonte
  * única. Endpoint público (sem secret). A tag UnniChat NUNCA passa por aqui: é
  * aplicada dentro da automação UnniChat, acionada pelo servidor do CRM.
+ *
+ * v3.1: máscara de WhatsApp BR centralizada aqui (formatLive / normalizeWhatsApp /
+ * maskWhatsApp) — auto-aplicada a form.dq-lead-form input[name="whatsapp"]. Insere
+ * o "9" do celular SÓ quando falta, preserva fixo (10 díg.) e o DDD 55 (Santa
+ * Maria/RS), corta o +55 de código de país e o zero de tronco. O payload passa a
+ * enviar dígitos nacionais normalizados (11 celular / 10 fixo). Uma página pode
+ * desligar a máscara de um campo com o atributo data-dq-no-mask.
  */
 (function () {
   "use strict";
@@ -51,6 +58,53 @@
     if (!redirect) return SITE_BASE + "/";
     if (redirect.charAt(0) === "/") return SITE_BASE + redirect;
     return redirect;
+  }
+
+  // ── Máscara de WhatsApp BR (v3.1) ─────────────────────────────────────────
+  // Lógica validada com testes (DDD 55 vs +55, fixo, celular sem o 9, zero de
+  // tronco, colado/parcial). ORDEM das regras é crítica: tira zero à esquerda
+  // ANTES de cortar o país (senão "071...", 12 díg., viraria falso +55); corta o
+  // +55 só por COMPRIMENTO 12/13 (protege o DDD 55 de 11 díg.); insere o 9 só em
+  // celular legado de 10 díg. cujo 3º dígito é 6-9 (fixo começa 2-5, não ganha 9).
+  function onlyDigits(v) {
+    if (v == null) return "";
+    return String(v).replace(/[^0-9]/g, "");
+  }
+  function stripLeadingZeros(d) {
+    var i = 0;
+    while (i < d.length && d.charAt(i) === "0") i++;
+    return d.slice(i);
+  }
+  // Dígitos nacionais canônicos: 11 (celular) / 10 (fixo) / <10 (incompleto).
+  function normalizeWhatsApp(v) {
+    var d = stripLeadingZeros(onlyDigits(v));
+    if ((d.length === 12 || d.length === 13) && d.slice(0, 2) === "55") d = d.slice(2);
+    if (d.length > 11) d = d.slice(0, 11);
+    if (d.length === 10 && "6789".indexOf(d.charAt(2)) !== -1) d = d.slice(0, 2) + "9" + d.slice(2);
+    return d;
+  }
+  function maskCanonical(d) {
+    var n = d.length;
+    if (n === 11) return "(" + d.slice(0, 2) + ") " + d.slice(2, 7) + "-" + d.slice(7);
+    if (n === 10) return "(" + d.slice(0, 2) + ") " + d.slice(2, 6) + "-" + d.slice(6);
+    if (n >= 7 && n <= 9) return "(" + d.slice(0, 2) + ") " + d.slice(2, 7) + "-" + d.slice(7);
+    if (n >= 3 && n <= 6) return "(" + d.slice(0, 2) + ") " + d.slice(2);
+    if (n >= 1 && n <= 2) return "(" + d;
+    return "";
+  }
+  function maskWhatsApp(v) { return maskCanonical(normalizeWhatsApp(v)); }
+  // Máscara ao vivo: progressiva, NUNCA insere o 9 no meio da digitação.
+  function formatLive(v) {
+    var d = stripLeadingZeros(onlyDigits(v));
+    if (d.length >= 12 && d.slice(0, 2) === "55") d = d.slice(2);
+    if (d.length > 11) d = d.slice(0, 11);
+    if (d.length <= 2) return d === "" ? "" : "(" + d;
+    if (d.length <= 6) return "(" + d.slice(0, 2) + ") " + d.slice(2);
+    return "(" + d.slice(0, 2) + ") " + d.slice(2, 7) + "-" + d.slice(7);
+  }
+  function isWhatsField(el) {
+    return !!(el && el.name === "whatsapp" && el.form && el.form.classList &&
+      el.form.classList.contains("dq-lead-form") && !el.hasAttribute("data-dq-no-mask"));
   }
 
   function getUtms() {
@@ -179,12 +233,20 @@
       clearError(form);
 
       var nome = ((form.elements.nome && form.elements.nome.value) || "").trim();
-      var whatsapp = ((form.elements.whatsapp && form.elements.whatsapp.value) || "").trim();
+      var whatsappRaw = ((form.elements.whatsapp && form.elements.whatsapp.value) || "").trim();
       var email = ((form.elements.email && form.elements.email.value) || "").trim();
-      if (!nome || !whatsapp) {
+      if (!nome || !whatsappRaw) {
         showError(form, "Preencha nome e WhatsApp.");
         return;
       }
+      // Normaliza para dígitos nacionais (insere o 9 do celular quando falta) e
+      // valida o comprimento — evita mandar telefone quebrado pro CRM.
+      var whatsapp = normalizeWhatsApp(whatsappRaw);
+      if (whatsapp.length < 10) {
+        showError(form, "Confira o WhatsApp: informe DDD + número.");
+        return;
+      }
+      if (form.elements.whatsapp) form.elements.whatsapp.value = maskWhatsApp(whatsappRaw);
 
       var payload = { action: "submit", secao: secao, slug: slug, nome: nome, whatsapp: whatsapp };
       if (email) payload.email = email;
@@ -258,5 +320,17 @@
       setLoading(form, false);
       showError(form, "Erro ao enviar. Tente novamente.");
     }
+  });
+
+  // Máscara nos campos WhatsApp dos form.dq-lead-form (delegação no document —
+  // pega qualquer form, sem duplo-registro). "input" = máscara ao vivo;
+  // "focusout" (blur borbulha) = forma canônica com o 9 inserido.
+  document.addEventListener("input", function (ev) {
+    var el = ev.target;
+    if (isWhatsField(el)) el.value = formatLive(el.value);
+  });
+  document.addEventListener("focusout", function (ev) {
+    var el = ev.target;
+    if (isWhatsField(el) && el.value) el.value = maskWhatsApp(el.value);
   });
 })();

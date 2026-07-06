@@ -140,6 +140,12 @@ pushar. O CRM não tem campos de texto para páginas externas.
     e revela elementos `[data-dq-gate]` automaticamente.
   - **Link externo / Obrigado / Brinde**: `{redirect}` → navegação.
   - Página desativada no CRM → mensagem amigável no próprio formulário.
+- **Máscara de WhatsApp (v3.1)**: o `lead-capture.js` mascara ao vivo e
+  normaliza qualquer `form.dq-lead-form input[name="whatsapp"]` — insere o
+  `9` do celular SÓ quando falta, preserva fixo (10 díg.) e o DDD 55, corta
+  `+55` e zero de tronco. O payload envia dígitos nacionais normalizados
+  (11/10), não o texto cru. Desligar num campo: `data-dq-no-mask`. Cada
+  página NÃO precisa de máscara própria (não duplicar; ver histórico do radar).
 - **Campos extras** viram valor no lead + tag automática no CRM
   (ex: `instituto-ifba-ba`). O lead também ganha sempre as tags
   `pagina-{secao}-{slug}` e `campanha-{slug}` (se houver campanha).
