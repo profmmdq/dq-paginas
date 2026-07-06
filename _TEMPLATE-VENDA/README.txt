@@ -1,5 +1,5 @@
 MOLDE de landing page de VENDA (Path A — checkout governado pelo CRM). SEM formulário.
 Contrato (blocos <!-- NÃO REMOVER -->): botão <a data-dq-checkout href="FALLBACK">, o <script ../../assets/js/checkout-links.js data-secao/data-slug> e o push InitiateCheckout no clique. data-secao/data-slug batem com o cadastro no CRM.
-Fail-open: sem config de checkout no CRM, o href de fallback (link PRONTO, colado — D3) permanece e ainda leva os UTMs. Cadastre a config (aba Captação Externa -> Links de checkout) para rotear por campanha.
+Fail-open: sem config de checkout no CRM, o href de fallback (link PRONTO, colado — D3) permanece e ainda leva os UTMs. Cadastre a config de checkout no cadastro da página (Páginas / UTMs → aba Captação Externa; o Kit da Página do card mostra o snippet do botão) para rotear por campanha.
 Visual (blocos <!-- EDITE À VONTADE --> e placeholders {{...}} "PREENCHER"): título, OG (og:image OBRIGATÓRIA), fontes, CSS inline e a copy são 100% seus.
 TODO MANUAL (imagens): comprima o hero/imagens antes de commitar. Ex.: na LP lps/dossie-institucional o hero tem ~17,6 MB — pesado demais (alvo ~200-400 KB, WebP). Não recomprima por código; faça manual. Guia: MANUAL-DESIGNER.md na raiz. Copie este arquivo para /{secao}/{slug}/index.html antes de publicar.

@@ -2,10 +2,12 @@
   SNIPPET CANÔNICO — formulário de captação DQ (páginas externas v2)
 
   Como usar ao criar uma página em /{secao}/{pagina}/index.html:
-  1. Troque data-secao e data-slug pelos valores cadastrados na tela
-     "Captação Externa" do CRM. Eles SÃO os nomes das pastas:
+  1. Troque data-secao e data-slug pelos valores cadastrados no CRM em
+     Páginas / UTMs → aba "Captação Externa" (o botão Kit do card da página —
+     o "Kit da Página" — entrega este snippet já preenchido, com os campos
+     extras do cadastro). Eles SÃO os nomes das pastas:
      /{data-secao}/{data-slug}/index.html
-     (a seção precisa existir na tela do CRM — botão "Seções" — ANTES do push).
+     (a seção precisa existir no CRM — botão "Seções" da aba — ANTES do push).
   2. Inclua o script lead-capture.js antes do </body> (caminho relativo:
      a partir de /{secao}/{pagina}/ é ../../assets/js/lead-capture.js).
   3. TODA a copy (títulos, subtítulos, texto do botão) é ESTÁTICA no HTML —
@@ -38,7 +40,7 @@
     </p>
     <p>
       <label for="dq-whatsapp">WhatsApp</label><br>
-      <input id="dq-whatsapp" name="whatsapp" type="tel" placeholder="(73) 9 9999-0002" required
+      <input id="dq-whatsapp" name="whatsapp" type="tel" placeholder="(00) 0 0000-0000" required
              autocomplete="tel" inputmode="numeric" style="width:100%;max-width:420px;padding:0.75em;border:1px solid #ccc;border-radius:8px;">
     </p>
     <p>

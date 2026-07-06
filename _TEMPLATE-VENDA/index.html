@@ -84,7 +84,9 @@
 <script src="../../assets/js/checkout-links.js" data-secao="{{SECAO}}" data-slug="{{SLUG}}"></script>
 
 <!-- NÃO REMOVER (contrato): InitiateCheckout no clique (padrão lps/dossie, lps/banco).
-     Alimenta GTM Web + CAPI. Sem GTM ativo, é um no-op inofensivo. -->
+     Alimenta GTM Web + CAPI. Sem GTM ativo, é um no-op inofensivo.
+     ÚNICA edição permitida neste bloco: PREENCHER o {{PRODUTO}} abaixo com o
+     nome do produto — se ficar literal, o funil Meta/GA registra "{{PRODUTO}}". -->
 <script>
   (function () {
     "use strict";
