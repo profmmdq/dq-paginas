@@ -11,6 +11,7 @@
 <meta property="og:url" content="https://site.dissecandoquestoes.com/lps/dossie-institucional/">
 <meta property="og:title" content="Dossiê IF — O programa de preparação mais completo para os Institutos Federais">
 <meta property="og:description" content="Plataforma inteligente. Cronograma que se adapta à sua rotina. Materiais completos em texto. Acompanhamento mensal com o Prof. Manoel Machado.">
+<meta property="og:image" content="https://site.dissecandoquestoes.com/lps/dossie-institucional/SCREENSHOTS%20DOSSI%C3%8A%20IF/FOTO%20PROFISSIONAL%20DO%20PROF.%20MANOEL%20MACHADO.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
@@ -696,11 +697,20 @@
     });
   });
 
-  // ---- checkout CTA: preserve query string + #preco ----
+  // ---- checkout CTA: preserve query string + #preco (Path B inline) ----
   try{
     var checkout = document.getElementById("checkoutBtn");
     if(checkout){
       checkout.setAttribute("href","https://app.dissecandoquestoes.com/dossie/padrao" + (window.location.search || "") + "#preco");
+      // dataLayer InitiateCheckout no clique (padrão das LPs irmãs lps/dossie, lps/banco — GTM Web + CAPI)
+      checkout.addEventListener("click", function(){
+        try{
+          window.dataLayer = window.dataLayer || [];
+          var eid;
+          try{ eid = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : ("e"+Date.now()+Math.random().toString(36).slice(2)); }catch(e){ eid = "e"+Date.now(); }
+          window.dataLayer.push({event:"InitiateCheckout", event_id:eid, content_name:"dossie_if"});
+        }catch(e){}
+      });
     }
   }catch(e){}
 

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<!-- ═══════════════════════════════════════════════════════════════════════
+     MOLDE de LANDING PAGE DE VENDA (Path A — checkout governado pelo CRM).
+     Não tem formulário: a LP apresenta a copy e leva o botão de compra ao
+     checkout carregando a atribuição (UTM).
+       • O botão de compra é marcado com data-dq-checkout e tem um href de
+         FALLBACK colado (D3 — o sistema NUNCA monta link).
+       • O checkout-links.js busca a config no CRM (por data-secao/data-slug),
+         escolhe a URL por campanha e anexa os UTMs. Sem config → fail-open:
+         o href de fallback permanece (a página nunca quebra).
+       • O clique dispara InitiateCheckout no dataLayer (mesmo padrão das LPs
+         irmãs lps/dossie e lps/banco).
+     Copie este arquivo para /{secao}/{slug}/index.html antes de publicar.
+════════════════════════════════════════════════════════════════════════ -->
+<head>
+<meta charset="UTF-8"><!-- NÃO REMOVER -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><!-- NÃO REMOVER -->
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     SEO / OPEN GRAPH — a designer é dona de 100% da copy.
+     PREENCHER todos os {{...}}. og:image é OBRIGATÓRIA: link ABSOLUTO + arquivo
+     COMMITADO no repo (senão o preview no WhatsApp/Insta sai sem imagem).
+     Evite usar como og:image um arquivo pesado (>~5 MB): crawlers ignoram.
+     EDITE À VONTADE.
+════════════════════════════════════════════════════════════════════════ -->
+<title>{{TITULO}}</title><!-- PREENCHER -->
+<meta name="description" content="{{DESCRICAO}}"><!-- PREENCHER -->
+<link rel="canonical" href="https://site.dissecandoquestoes.com/{{SECAO}}/{{SLUG}}/"><!-- PREENCHER -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://site.dissecandoquestoes.com/{{SECAO}}/{{SLUG}}/"><!-- PREENCHER -->
+<meta property="og:title" content="{{OG_TITULO}}"><!-- PREENCHER -->
+<meta property="og:description" content="{{OG_DESCRICAO}}"><!-- PREENCHER -->
+<meta property="og:image" content="https://site.dissecandoquestoes.com/{{SECAO}}/{{SLUG}}/{{OG_IMAGEM}}"><!-- PREENCHER (OBRIGATÓRIO): URL absoluta, arquivo commitado -->
+
+<!-- FONTES (opcional) — escolha a família da designer. Descomente e troque {{FONTE}}.
+     EDITE À VONTADE.
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family={{FONTE}}&display=swap" rel="stylesheet">
+-->
+
+<!-- GTM (OPCIONAL, mas RECOMENDADO em venda p/ o funil Meta/GA).
+     Se ficar comentado, o InitiateCheckout lá embaixo vira no-op inofensivo.
+     EDITE À VONTADE.
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-W5TCMGSW');</script>
+-->
+
+<!-- EDITE À VONTADE — cole TODO o seu CSS aqui; pode reescrever do zero.
+     (Não linkamos /assets/css/style.css: ele não é usado por nenhuma página.) -->
+<style>
+  /* COLE SEU CSS AQUI — pode reescrever tudo */
+</style>
+</head>
+<body>
+
+<!-- GTM noscript (OPCIONAL) — só se você ativou o GTM no <head> acima. EDITE À VONTADE.
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W5TCMGSW" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+-->
+
+<!-- ═══════════════ ÁREA VISUAL (hero, copy, preço, provas...) ═══════════════
+     Tudo aqui é seu. EDITE À VONTADE. -->
+<main>
+  <h1>{{TITULO_H1}}</h1><!-- PREENCHER -->
+  <p>{{SUBTITULO}}</p><!-- PREENCHER -->
+
+  <!-- ─────────────────────────────────────────────────────────────────────
+       BOTÃO DE COMPRA — pode ter mais de um na página (repita o data-dq-checkout).
+       NÃO REMOVER (contrato) o atributo data-dq-checkout: é por ele que o
+       checkout-links.js reescreve o href certo (por campanha) e o InitiateCheckout
+       é disparado no clique.
+       O href abaixo é o FALLBACK: cole aqui o link de checkout PRONTO (D3 — o
+       sistema não monta link). Ele é usado tal-qual se não houver config no CRM.
+  ────────────────────────────────────────────────────────────────────── -->
+  <a data-dq-checkout href="{{FALLBACK_CHECKOUT}}" class="cta"><!-- PREENCHER href; class/estilo é seu -->
+    {{TEXTO_DO_BOTAO}}<!-- PREENCHER -->
+  </a>
+</main>
+
+<!-- NÃO REMOVER (contrato): checkout-links.js — resolve o href de compra pela
+     config do CRM (data-secao/data-slug) e anexa os UTMs do visitante.
+     O caminho ../../ assume que a página vive em /{secao}/{slug}/ (2 níveis).
+     data-secao/data-slug DEVEM bater com o cadastro da página no CRM. -->
+<script src="../../assets/js/checkout-links.js" data-secao="{{SECAO}}" data-slug="{{SLUG}}"></script>
+
+<!-- NÃO REMOVER (contrato): InitiateCheckout no clique (padrão lps/dossie, lps/banco).
+     Alimenta GTM Web + CAPI. Sem GTM ativo, é um no-op inofensivo. -->
+<script>
+  (function () {
+    "use strict";
+    function euuid(){
+      try{ if(window.crypto && crypto.randomUUID) return crypto.randomUUID(); }catch(e){}
+      return 'e' + Date.now() + Math.random().toString(36).slice(2);
+    }
+    window.dataLayer = window.dataLayer || [];
+    var botoes = document.querySelectorAll('[data-dq-checkout]');
+    for (var i = 0; i < botoes.length; i++) {
+      botoes[i].addEventListener('click', function () {
+        try {
+          window.dataLayer.push({ event: 'InitiateCheckout', event_id: euuid(), content_name: '{{PRODUTO}}' });
+        } catch (e) {}
+        // o checkout-links.js já resolveu o href real (data-dq-checkout) — deixa o link seguir
+      });
+    }
+  })();
+</script>
+</body>
+</html>

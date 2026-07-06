@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<!-- ═══════════════════════════════════════════════════════════════════════
+     MOLDE de captação com FINAL POR REDIRECIONAMENTO.
+     Para páginas cujo final pós-cadastro no CRM é Obrigado / Link externo /
+     Brinde: o CRM devolve { redirect } e o lead-capture.js REDIRECIONA sozinho
+     (window.location.href) — NÃO precisa de gate (#dataZone / dq:unlock).
+     Se o final for "Conteúdo" (revelar bloco na própria página), use o outro
+     molde: /_TEMPLATE-CAPTACAO/ (com gate).
+     Copie este arquivo para /{secao}/{slug}/index.html antes de publicar.
+════════════════════════════════════════════════════════════════════════ -->
+<head>
+<meta charset="UTF-8"><!-- NÃO REMOVER (contrato CRM) -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><!-- NÃO REMOVER (contrato CRM) -->
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     SEO / OPEN GRAPH — a designer é dona de 100% da copy.
+     PREENCHER todos os {{...}}. A og:image precisa ser um link ABSOLUTO e o
+     arquivo tem que estar COMMITADO no repo — senão o preview no WhatsApp /
+     Instagram sai sem imagem (abre local, quebra no ar).
+     EDITE À VONTADE — nada nesta seção é contrato de CRM.
+════════════════════════════════════════════════════════════════════════ -->
+<title>{{TITULO}}</title><!-- PREENCHER -->
+<meta name="description" content="{{DESCRICAO}}"><!-- PREENCHER -->
+<link rel="canonical" href="https://site.dissecandoquestoes.com/{{SECAO}}/{{SLUG}}/"><!-- PREENCHER -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://site.dissecandoquestoes.com/{{SECAO}}/{{SLUG}}/"><!-- PREENCHER -->
+<meta property="og:title" content="{{OG_TITULO}}"><!-- PREENCHER -->
+<meta property="og:description" content="{{OG_DESCRICAO}}"><!-- PREENCHER -->
+<meta property="og:image" content="https://site.dissecandoquestoes.com/{{SECAO}}/{{SLUG}}/{{OG_IMAGEM}}"><!-- PREENCHER: URL absoluta, arquivo commitado -->
+
+<!-- FONTES (opcional) — escolha a família da designer. Descomente e troque {{FONTE}}.
+     Os preconnect só aceleram o carregamento; nenhuma fonte é imposta aqui.
+     EDITE À VONTADE.
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family={{FONTE}}&display=swap" rel="stylesheet">
+-->
+
+<!-- GTM (OPCIONAL) — só descomente se esta página tiver tracking Meta/GA.
+     A captação FUNCIONA sem isto: a página de referência /captacao/radar/ não usa GTM.
+     EDITE À VONTADE.
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-W5TCMGSW');</script>
+-->
+
+<!-- EDITE À VONTADE — cole TODO o seu CSS aqui; pode reescrever do zero.
+     (Não linkamos /assets/css/style.css: ele não é usado por nenhuma página.
+      Cada página carrega o próprio estilo inline.) -->
+<style>
+  /* COLE SEU CSS AQUI — pode reescrever tudo */
+</style>
+</head>
+<body>
+
+<!-- GTM noscript (OPCIONAL) — só se você ativou o GTM no <head> acima. EDITE À VONTADE.
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W5TCMGSW" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+-->
+
+<!-- ═══════════════ ÁREA VISUAL (hero, copy, bullets, imagens) ═══════════════
+     Tudo aqui é seu. EDITE À VONTADE. -->
+<main>
+  <h1>{{TITULO_H1}}</h1><!-- PREENCHER -->
+  <p>{{SUBTITULO}}</p><!-- PREENCHER -->
+
+  <!-- ─────────────────────────────────────────────────────────────────────
+       COMO ADICIONAR UM CAMPO EXTRA (além de nome / whatsapp / email):
+       cole um input/select/textarea COM atributo name DENTRO do <form>.
+       Exemplo:
+           <label>Instituto de interesse
+             <select name="instituto" required>
+               <option value="Ver todos / ainda decidindo" selected>Quero ver todos</option>
+               <option value="IFBA (BA)">IFBA — BA</option>
+             </select>
+           </label>
+       ⚠️ CADASTRAR O name NO CRM ANTES (aba Captação Externa → campos extras,
+          COM O MESMO name E AS MESMAS OPÇÕES), SENÃO O ENVIO É REJEITADO
+          PELO SERVIDOR.
+       O valor é salvo no lead e vira tag automática (ex.: instituto-ifba-ba).
+  ────────────────────────────────────────────────────────────────────── -->
+
+  <!-- NÃO REMOVER (contrato CRM) — a classe dq-lead-form + data-secao + data-slug
+       são o que liga este form ao lead-capture.js. Sem os três, o submit é
+       IGNORADO (a página recarrega e o lead se perde).
+       {{SECAO}}/{{SLUG}} = os nomes das pastas /{secao}/{slug}/ E o cadastro no CRM. -->
+  <form class="dq-lead-form" data-secao="{{SECAO}}" data-slug="{{SLUG}}">
+    <!-- NÃO REMOVER (contrato CRM): name="nome" e name="whatsapp" são obrigatórios -->
+    <label>Nome
+      <input type="text" name="nome" placeholder="Seu nome" required autocomplete="name">
+    </label>
+    <label>WhatsApp
+      <input type="tel" name="whatsapp" placeholder="(00) 00000-0000" required autocomplete="tel" inputmode="numeric">
+    </label>
+    <!-- email é OPCIONAL — pode apagar este bloco se não for coletar e-mail -->
+    <label>E-mail
+      <input type="email" name="email" placeholder="seu@email.com" autocomplete="email">
+    </label>
+
+    <!-- ↓↓↓ CAMPOS EXTRAS entram aqui (veja o comentário-guia acima) — EDITE À VONTADE ↓↓↓ -->
+
+    <!-- NÃO REMOVER (contrato CRM): o botão de envio. O texto é seu — PREENCHER. -->
+    <button type="submit">{{TEXTO_DO_BOTAO}}</button>
+
+    <!-- NÃO REMOVER (contrato CRM): onde o lead-capture.js escreve as mensagens
+         de erro. Estilize [data-dq-error] e [data-dq-error].dq-visible no seu CSS
+         (ex.: começa com display:none e vira visível quando ganha a classe
+         .dq-visible). Se você não estilizar, o script ainda mostra o texto. -->
+    <div data-dq-error></div>
+  </form>
+</main>
+
+<!-- SEM GATE: no sucesso, o CRM responde { redirect } e o lead-capture.js leva o
+     lead para a página de Obrigado / Link externo / Brinde automaticamente.
+     Não há #dataZone nem listener dq:unlock aqui — de propósito. -->
+
+<!-- NÃO REMOVER (contrato CRM): o motor da captação.
+     O caminho ../../ assume que a página vive em /{secao}/{slug}/ (2 níveis abaixo
+     da raiz). Este template está em /_TEMPLATE-CAPTACAO-REDIRECT/ apenas como MOLDE:
+     copie-o para /{secao}/{slug}/index.html e o ../../ passa a resolver corretamente. -->
+<script src="../../assets/js/lead-capture.js"></script>
+</body>
+</html>
