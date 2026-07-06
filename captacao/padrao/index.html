@@ -62,7 +62,7 @@
   .spinner{width:20px;height:20px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;display:none}
   @keyframes spin{to{transform:rotate(360deg)}}
   [data-dq-error]{display:none;font-size:14px;font-weight:600;border-radius:8px;padding:11px;background:#fde6da;color:#b3450a;margin-top:2px}
-  [data-dq-error].show{display:block}
+  [data-dq-error].dq-visible{display:block}
 
   /* ===== MOBILE FORM BLOCK ===== */
   .mob-formblock{padding:24px 20px 40px;text-align:center;background:var(--carvao)}
@@ -146,12 +146,12 @@
           <p class="lead1">Garanta a sua vaga para assistir a</p>
           <p class="lead2">Aula do Plano de 3 Passos!</p>
           <div class="onlinebar"><span class="dot">🌐</span><span class="txt">100% ONLINE E GRATUITO</span></div>
-          <form class="leadform" id="leadFormDesk" novalidate autocomplete="on">
+          <form class="leadform dq-lead-form" id="leadFormDesk" data-secao="captacao" data-slug="padrao" novalidate autocomplete="on">
             <input type="text" name="nome" placeholder="Nome" required autocomplete="name">
             <div>
               <div class="warow">
                 <div class="waprefix" data-wa-prefix>+55</div>
-                <input type="tel" name="whatsapp" placeholder="(73) 9 9999-0002" maxlength="17" inputmode="numeric" required autocomplete="tel">
+                <input type="tel" name="whatsapp" placeholder="(73) 9 9999-0002" inputmode="numeric" required autocomplete="tel">
               </div>
               <div class="waerr" data-wa-err></div>
             </div>
@@ -171,12 +171,12 @@
   <p class="lead1">Garanta a sua vaga para assistir a</p>
   <p class="lead2">Aula do Plano de 3 Passos!</p>
   <div class="onlinebar"><span class="dot">🌐</span><span class="txt">100% ONLINE E GRATUITO</span></div>
-  <form class="leadform" id="leadFormMob" novalidate autocomplete="on">
+  <form class="leadform dq-lead-form" id="leadFormMob" data-secao="captacao" data-slug="padrao" novalidate autocomplete="on">
     <input type="text" name="nome" placeholder="Nome" required autocomplete="name">
     <div>
       <div class="warow">
         <div class="waprefix" data-wa-prefix>+55</div>
-        <input type="tel" name="whatsapp" placeholder="(73) 9 9999-0002" maxlength="17" inputmode="numeric" required autocomplete="tel">
+        <input type="tel" name="whatsapp" placeholder="(73) 9 9999-0002" inputmode="numeric" required autocomplete="tel">
       </div>
       <div class="waerr" data-wa-err></div>
     </div>
@@ -266,6 +266,7 @@
 
 <footer><p>Copyright 2026 © Todos os direitos reservados.</p></footer>
 
+<script src="../../assets/js/lead-capture.js"></script>
 <script src="./script.js"></script>
 </body>
 </html>
