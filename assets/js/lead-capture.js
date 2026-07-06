@@ -76,6 +76,9 @@
     return d.slice(i);
   }
   // Dígitos nacionais canônicos: 11 (celular) / 10 (fixo) / <10 (incompleto).
+  // Fixo 10 díg é aceito pela máscara, mas o servidor grava com 9 inserido
+  // (pseudo-celular) — limitação conhecida do server, WhatsApp-first
+  // (P-PARIDADE-TEL 06/jul).
   function normalizeWhatsApp(v) {
     var d = stripLeadingZeros(onlyDigits(v));
     if ((d.length === 12 || d.length === 13) && d.slice(0, 2) === "55") d = d.slice(2);
