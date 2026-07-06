@@ -7,7 +7,7 @@ estudando pra concursos de Instituto Federal (IF), TAE, Magistério
 Superior e Perícia Criminal.
 
 ## Marca
-- Cores: laranja #f67828 (primária/CTA) e verde #6EA27C (secundária)
+- Cores: laranja #FF751F (primária/CTA) e verde #6EA27C (secundária)
 - Tom de voz: direto, técnico, motivador — "Dissecador" e "RAQUeR"
   fazem parte do vocabulário
 - Nunca tom genérico de infoproduto — professor falando com professor
@@ -28,6 +28,43 @@ URLs no formato **/{secao}/{pagina}/** (ex: `/captacao/radar/`).
   nem re-linkar; cada página carrega o próprio estilo (ver os `_TEMPLATE-*`).
 - Existe um `.nojekyll` na raiz (GitHub Pages serve os arquivos as-is;
   sem ele, pastas com prefixo `_` não publicam). Não remover.
+
+## Templates (estrutura oficial — ponto de partida de toda página)
+
+Toda página nova NASCE da cópia de um dos 3 moldes `_TEMPLATE-*` da raiz —
+nunca montar do zero nem clonar uma página no ar. Escolha o molde pelo final
+da página (o `tipo_final` cadastrado no CRM):
+
+- **`_TEMPLATE-CAPTACAO/` → Gate.** Libera o conteúdo na hora, na própria
+  página (ex: `/captacao/radar/`). Contrato: `form.dq-lead-form`
+  (`data-secao`/`data-slug` + `nome`/`whatsapp`/`email` + extras),
+  `lead-capture.js`, `[data-dq-error]` e o gate `#dataZone` / `dq:unlock`.
+- **`_TEMPLATE-CAPTACAO-REDIRECT/` → Redirect.** Após o cadastro leva pra
+  outro lugar (Obrigado / Link externo / Brinde). Mesmo contrato do de
+  captação, **sem** o gate — o CRM devolve `{redirect}` e o `lead-capture.js`
+  navega sozinho.
+- **`_TEMPLATE-VENDA/` → Venda.** LP com botão de compra, **sem formulário**.
+  Contrato: botão `<a data-dq-checkout href="FALLBACK">`, `checkout-links.js`
+  (`data-secao`/`data-slug`) e o push `InitiateCheckout` no clique.
+
+Regras dos moldes:
+
+- **O contrato vive em blocos `<!-- NÃO REMOVER -->`** — as linhas que ligam a
+  página ao sistema (form/scripts/gate ou botão de checkout). Se uma sair, o
+  cadastro/checkout para de funcionar e o erro é SILENCIOSO. Todo o resto
+  (`<!-- EDITE À VONTADE -->` + placeholders `{{...}}`) é 100% visual e livre.
+- **Cada molde traz um `README.txt` do lado** explicando, naquele template,
+  o que é contrato e o que é livre. Leitura de 1 min antes de copiar.
+- **Venda = Path A é o padrão.** O molde de venda roteia o checkout via
+  `data-dq-checkout` + `/assets/js/checkout-links.js`: o `href` é um fallback
+  PRONTO (fail-open, ainda leva os UTMs) e o CRM roteia por campanha quando há
+  config de checkout cadastrada. As LPs vivas seguem Path A (`lps/banco`,
+  `lps/dossie`, `lps/mapa`, `aula/oportunidade`).
+- **Exceção `lps/dossie-institucional` → Path B (inline), legado consciente.**
+  Checkout por link inline (aponta pro app), sem `data-dq-checkout` /
+  `checkout-links.js`. Migrar pra Path A é passo **pareado** com cadastrar a
+  config de checkout no CRM — backlog, sem urgência.
+- Passo a passo não-técnico da designer: **`MANUAL-DESIGNER.md`** na raiz.
 
 ## CTAs de WhatsApp (D3 — regra dura)
 O SISTEMA NUNCA MONTA LINK DE WHATSAPP. Links de WhatsApp/grupo dentro do
@@ -62,10 +99,14 @@ Toda página com formulário usa o módulo de páginas externas do CRM DQ.
    registro. A tela governa APENAS comportamento — nenhum texto de
    apresentação vive no CRM.
 4. **Pedir o layout ao Claude Code informando seção + slug**. Eles são os
-   nomes das pastas (`/{secao}/{slug}/index.html`). O formulário entra via
-   snippet canônico em `/templates/formulario.html` (classe `dq-lead-form` +
-   `data-secao` + `data-slug` + campos `nome`/`whatsapp`/`email` + extras) +
-   o script fixo `/assets/js/lead-capture.js` antes do `</body>`.
+   nomes das pastas (`/{secao}/{slug}/index.html`). O layout parte da CÓPIA de
+   um dos moldes `_TEMPLATE-*` da raiz: `_TEMPLATE-CAPTACAO/` (gate — libera
+   conteúdo na hora), `_TEMPLATE-CAPTACAO-REDIRECT/` (Obrigado / Link externo /
+   Brinde) ou `_TEMPLATE-VENDA/` (LP com botão de compra). Os moldes de captação
+   já trazem o `form.dq-lead-form` (`data-secao` + `data-slug` + campos
+   `nome`/`whatsapp`/`email` + extras) e o `/assets/js/lead-capture.js` nos
+   blocos `NÃO REMOVER`; o de venda traz o botão `data-dq-checkout` e o
+   `/assets/js/checkout-links.js`. Passo a passo da designer: `MANUAL-DESIGNER.md`.
 5. **Push na main** = deploy (GitHub Pages). Validar a URL final.
 
 ### A designer é dona de 100% da copy
@@ -75,7 +116,7 @@ o HTML é a fonte única de apresentação. Alterar copy = editar o HTML e
 pushar. O CRM não tem campos de texto para páginas externas.
 
 ### Como funciona (não mexer sem necessidade)
-- `lead-capture.js` (v2) só intercepta o submit de `form.dq-lead-form`
+- `lead-capture.js` (v3) só intercepta o submit de `form.dq-lead-form`
   com `data-secao` + `data-slug`: envia nome/whatsapp/email + campos
   extras + UTMs da URL pro CRM. A resposta decide o final:
   - **Conteúdo**: `{unlock:true}` → o script dispara o evento `dq:unlock`
