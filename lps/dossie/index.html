@@ -80,11 +80,9 @@
   .hero-actions{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-bottom:38px}
   .hero-trust{display:flex;align-items:center;gap:14px}
   .avatars{display:flex}
-  .avatars span{width:34px;height:34px;border-radius:50%;border:2px solid var(--ink)}
-  .avatars span+span{margin-left:-11px}
-  .av1{background:linear-gradient(135deg,#5e9558,#104438)}
-  .av2{background:linear-gradient(135deg,#35bdf8,#0c3d64)}
-  .av3{background:linear-gradient(135deg,var(--acc),#c25510)}
+  .avatars .av{width:34px;height:34px;border-radius:50%;border:2px solid var(--ink);flex:none;display:block}
+  .avatars .av+.av{margin-left:-11px}
+  .avatars img.av{object-fit:cover}
   .av4{background:#1a2539;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;color:var(--cream)}
   .hero-trust-txt{font-size:13.5px;color:rgba(241,243,230,.7);line-height:1.35}
   .hero-trust-txt strong{color:var(--cream);font-weight:700}
@@ -421,7 +419,10 @@
       </div>
       <div class="hero-trust hero-up" style="animation-delay:.32s">
         <div class="avatars">
-          <span class="av1"></span><span class="av2"></span><span class="av3"></span><span class="av4">+</span>
+          <img class="av" src="SCREENSHOTS%20DOSSI%C3%8A%20IF/avatar-1-fabricio.jpg" alt="" loading="lazy" width="34" height="34">
+          <img class="av" src="SCREENSHOTS%20DOSSI%C3%8A%20IF/avatar-2-ligiane.jpg" alt="" loading="lazy" width="34" height="34">
+          <img class="av" src="SCREENSHOTS%20DOSSI%C3%8A%20IF/avatar-3-daniele.jpg" alt="" loading="lazy" width="34" height="34">
+          <span class="av av4">+</span>
         </div>
         <div class="hero-trust-txt"><strong>+300 professores aprovados</strong><br>em Institutos Federais de 18 estados</div>
       </div>
