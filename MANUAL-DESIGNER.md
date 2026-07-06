@@ -35,9 +35,10 @@ gate; se a pessoa **é levada pra outra página/link**, é redirect.
 
 ## Passo 2 — Copie a pasta e renomeie
 
-Copie a pasta inteira do template escolhido e renomeie no formato
+Copie a pasta do template escolhido e renomeie no formato
 **`{secao}/{pagina}`** — sempre **dois níveis**. A seção é o endereço "de fora"
-e a página é a pasta de dentro.
+e a página é a pasta de dentro. **Apague o `README.txt` da cópia** depois de
+ler (ele é do molde; se ficar na pasta, é publicado junto com a página).
 
 Exemplo: a partir de `_TEMPLATE-CAPTACAO`, para publicar em
 `site.dissecandoquestoes.com/captacao/radar/`, o arquivo final é
@@ -50,6 +51,11 @@ Depois de copiar, **edite só o visual e o texto**:
 
 - Troque todos os `{{...}}` marcados como **PREENCHER** (título, subtítulos,
   OG, texto do botão, conteúdo).
+- **Atalho que evita erro de digitação:** no CRM, o card da sua página tem um
+  botão **Kit** (o "Kit da Página"). Ele entrega o formulário já preenchido
+  com a seção, o slug e os campos extras do cadastro — copie de lá e cole no
+  lugar do form do molde, em vez de trocar `{{SECAO}}`/`{{SLUG}}` na mão.
+  Antes de pedir o layout ao Claude, abra o Kit e copie esse snippet pronto.
 - Fique à vontade em tudo que estiver marcado **EDITE À VONTADE**.
 - **Não encoste** nos blocos marcados **`NÃO REMOVER (contrato CRM)`**. São eles
   que ligam a página ao sistema. Se um desses sair, o cadastro para de
@@ -74,7 +80,9 @@ livre naquele template. Vale a leitura de 1 minuto antes de começar.
 O `name` é o apelido técnico do campo dentro do HTML (ex.:
 `<select name="instituto">`). É esse apelido que precisa existir dos dois lados:
 no HTML **e** no CRM. Ordem certa: primeiro o Manoel cadastra, depois você
-publica.
+publica. Depois do cadastro, o **Kit da Página** (botão Kit no card da página)
+já mostra o pedaço do formulário com o campo — copie de lá que o `name` e as
+opções vêm certinhos.
 
 ---
 
@@ -95,6 +103,10 @@ propósito. Não tente reaproveitá-lo; cada página carrega o próprio estilo.
 Code pra salvar e publicar** — ele cuida de colocar no ar (a URL fica no ar em
 poucos minutos).
 
+A URL final certinha — e o que deve acontecer depois do cadastro — está no
+**Kit da Página**, no card da página no CRM (o Kit também traz um checklist
+de publicação próprio).
+
 Depois que publicar, **abra a URL final e teste com o seu próprio contato**:
 preencha o formulário (ou clique no botão de compra, se for venda) e confira se
 o final acontece — o conteúdo libera, o redirect leva pro lugar certo, ou o
@@ -111,7 +123,8 @@ Confirme que os blocos `NÃO REMOVER` continuam intactos:
 1. `<meta charset="UTF-8">` e `<meta name="viewport">` no topo do `<head>`.
 2. O formulário `<form class="dq-lead-form" data-secao="..." data-slug="...">`
    — a `secao` e o `slug` **batem** com o nome das duas pastas **e** com o
-   cadastro da página no CRM.
+   cadastro da página no CRM (pra conferir sem depender de ninguém: o **Kit
+   da Página** mostra o form com a seção e o slug do cadastro).
 3. O campo `name="nome"` está presente.
 4. O campo `name="whatsapp"` está presente (o e-mail é opcional — pode apagar).
 5. O botão de envio `<button type="submit">` está **dentro** do form (o texto
@@ -120,11 +133,15 @@ Confirme que os blocos `NÃO REMOVER` continuam intactos:
 7. O script `<script src="../../assets/js/lead-capture.js"></script>` está no
    fim da página.
 8. **Se for GATE:** o bloco `<div id="dataZone" style="display:none">` e o
-   `<script>` do `dq:unlock` continuam lá. **Se for REDIRECT:** esses dois
-   **não** existem (o molde redirect já vem sem eles — não cole de volta).
+   `<script>` do `dq:unlock` continuam lá — **ou**, se você usou a alternativa
+   do molde de marcar os blocos travados com `data-dq-gate` + `display:none`,
+   aí o `#dataZone` e o `<script>` saem mesmo (o próprio molde manda apagar
+   nesse caso; um dos dois jeitos precisa existir). **Se for REDIRECT:** nada
+   disso existe (o molde redirect já vem sem gate — não cole de volta).
 
 Além dos 8: todo campo extra tem o `name` **já cadastrado no CRM** (regra de
-ouro acima), e a `og:image` é um link **absoluto** apontando pra um arquivo que
+ouro acima — o **Kit da Página** lista os campos extras cadastrados; confira
+por lá), e a `og:image` é um link **absoluto** apontando pra um arquivo que
 foi **publicado junto** (senão o preview no WhatsApp/Instagram sai sem imagem).
 
 ### Página de venda — 3 itens
@@ -134,10 +151,15 @@ foi **publicado junto** (senão o preview no WhatsApp/Instagram sai sem imagem).
    pesada some do preview).
 2. **Botão de compra `<a data-dq-checkout href="...">`** com o link de checkout
    **pronto** colado no `href` (é o link que você recebeu já traqueado — o
-   sistema nunca monta link sozinho).
+   sistema nunca monta link sozinho). Detalhe esperado: se a página tiver
+   checkout **cadastrado no CRM**, o sistema troca esse link pelo da campanha
+   na hora — se no teste abrir um link diferente do que você colou, é isso,
+   não é bug.
 3. **Script `<script src="../../assets/js/checkout-links.js" data-secao="..."
    data-slug="...">`** no fim da página, com `secao`/`slug` batendo com o
    cadastro no CRM. (O `<script>` do `InitiateCheckout` logo abaixo também fica.)
+   Quando a página tem checkout cadastrado, o **Kit da Página** traz esse
+   snippet pronto — copie de lá em vez de digitar.
 
 ---
 
@@ -145,5 +167,8 @@ foi **publicado junto** (senão o preview no WhatsApp/Instagram sai sem imagem).
 
 O funcionamento técnico do sistema (o que cada script faz, como o CRM decide o
 final, as tags automáticas) está no **`CLAUDE.md`** na raiz deste repositório.
-Comportamento (final, campos, campanha, automação) é sempre tela do CRM —
-peça ao Manoel. Copy e visual são sempre o HTML — seu.
+Pra **ver** como a página está configurada (final pós-cadastro, tags,
+checklist), abra o **Kit da Página** no card dela; o hub Páginas / UTMs do CRM
+também tem a aba **Guia**, com o passo a passo do operador. Pra **mudar**
+comportamento (final, campos, campanha, automação), aí sim — peça ao Manoel.
+Copy e visual são sempre o HTML — seu.

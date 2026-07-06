@@ -33,7 +33,8 @@ URLs no formato **/{secao}/{pagina}/** (ex: `/captacao/radar/`).
 
 Toda página nova NASCE da cópia de um dos 3 moldes `_TEMPLATE-*` da raiz —
 nunca montar do zero nem clonar uma página no ar. Escolha o molde pelo final
-da página (o `tipo_final` cadastrado no CRM):
+da página (o `tipo_final` cadastrado no CRM — o **Kit da Página** no card da
+página já indica o template recomendado; em caso de dúvida, ele é a fonte):
 
 - **`_TEMPLATE-CAPTACAO/` → Gate.** Libera o conteúdo na hora, na própria
   página (ex: `/captacao/radar/`). Contrato: `form.dq-lead-form`
@@ -55,11 +56,20 @@ Regras dos moldes:
   (`<!-- EDITE À VONTADE -->` + placeholders `{{...}}`) é 100% visual e livre.
 - **Cada molde traz um `README.txt` do lado** explicando, naquele template,
   o que é contrato e o que é livre. Leitura de 1 min antes de copiar.
+- **`templates/formulario.html` NÃO é molde de página** — é o snippet canônico
+  só do formulário (referência histórica citada pelo `lead-capture.js` e pelo
+  Kit da Página do CRM). Página nova nasce SEMPRE de um `_TEMPLATE-*`. O shape
+  do snippet diverge do dos moldes (sem `[data-dq-error]`, placeholders
+  `TROCAR-PELA-SECAO` vs `{{SECAO}}`); a convergência é backlog pareado com o
+  gerador do Kit no dq-crm — não consolidar os dois por conta própria.
 - **Venda = Path A é o padrão.** O molde de venda roteia o checkout via
   `data-dq-checkout` + `/assets/js/checkout-links.js`: o `href` é um fallback
   PRONTO (fail-open, ainda leva os UTMs) e o CRM roteia por campanha quando há
-  config de checkout cadastrada. As LPs vivas seguem Path A (`lps/banco`,
-  `lps/dossie`, `lps/mapa`, `aula/oportunidade`).
+  config de checkout cadastrada. As LPs vivas em Path A são `lps/banco`,
+  `lps/dossie` e `lps/mapa` (as três com config de checkout no CRM).
+  `aula/oportunidade` ainda NÃO tem botão de compra nem config de checkout —
+  quando ganhar CTA de venda, adicionar `data-dq-checkout` + `checkout-links.js`
+  E cadastrar a config de checkout no CRM (passo pareado).
 - **Exceção `lps/dossie-institucional` → Path B (inline), legado consciente.**
   Checkout por link inline (aponta pro app), sem `data-dq-checkout` /
   `checkout-links.js`. Migrar pra Path A é passo **pareado** com cadastrar a
@@ -97,9 +107,14 @@ Toda página com formulário usa o módulo de páginas externas do CRM DQ.
    tiver campos além de nome/whatsapp/email — ex: instituto), campanha
    opcional, link de acionamento UnniChat. O campo "Tag UnniChat" ali é só
    registro. A tela governa APENAS comportamento — nenhum texto de
-   apresentação vive no CRM.
-4. **Pedir o layout ao Claude Code informando seção + slug**. Eles são os
-   nomes das pastas (`/{secao}/{slug}/index.html`). O layout parte da CÓPIA de
+   apresentação vive no CRM. Ao salvar, o card da página ganha o **Kit da
+   Página** (botão Kit): URL final, template recomendado, snippet do form com
+   `data-secao`/`data-slug` e campos extras já preenchidos, snippet de
+   checkout (quando houver), tags automáticas e checklist de publicação.
+4. **Pedir o layout ao Claude Code informando seção + slug** — antes, abrir o
+   **Kit da Página** no CRM (card da página → botão Kit) e copiar o snippet
+   pronto do formulário; colar o Kit no pedido elimina erro de contrato.
+   Seção e slug são os nomes das pastas (`/{secao}/{slug}/index.html`). O layout parte da CÓPIA de
    um dos moldes `_TEMPLATE-*` da raiz: `_TEMPLATE-CAPTACAO/` (gate — libera
    conteúdo na hora), `_TEMPLATE-CAPTACAO-REDIRECT/` (Obrigado / Link externo /
    Brinde) ou `_TEMPLATE-VENDA/` (LP com botão de compra). Os moldes de captação
@@ -107,7 +122,8 @@ Toda página com formulário usa o módulo de páginas externas do CRM DQ.
    `nome`/`whatsapp`/`email` + extras) e o `/assets/js/lead-capture.js` nos
    blocos `NÃO REMOVER`; o de venda traz o botão `data-dq-checkout` e o
    `/assets/js/checkout-links.js`. Passo a passo da designer: `MANUAL-DESIGNER.md`.
-5. **Push na main** = deploy (GitHub Pages). Validar a URL final.
+5. **Push na main** = deploy (GitHub Pages). Validar usando a URL final e o
+   checklist de publicação do Kit da Página.
 
 ### A designer é dona de 100% da copy
 Todo texto que o lead vê (títulos, subtítulos, bullets, texto do botão,
