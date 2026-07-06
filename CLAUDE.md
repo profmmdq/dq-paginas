@@ -23,8 +23,9 @@ URLs no formato **/{secao}/{pagina}/** (ex: `/captacao/radar/`).
   o CRM redireciona pra ela; não há override).
 - Slugs de topo RESERVADOS (não criar seção com esses nomes): `assets`,
   `iscas` (aposentada), `templates`.
-- CSS compartilhado em /assets/css/style.css — sempre reaproveitar,
-  evitar estilo inline exceto quando for específico daquela página.
+- CSS é inline por página (dentro do `<style>` de cada `index.html`);
+  `assets/css/style.css` está MORTO — nenhuma página o linka. Não reaproveitar
+  nem re-linkar; cada página carrega o próprio estilo (ver os `_TEMPLATE-*`).
 - Existe um `.nojekyll` na raiz (GitHub Pages serve os arquivos as-is;
   sem ele, pastas com prefixo `_` não publicam). Não remover.
 
