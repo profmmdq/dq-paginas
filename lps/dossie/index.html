@@ -258,14 +258,28 @@
   .res-stat:hover{transform:translateY(-5px);box-shadow:0 28px 56px -28px rgba(15,24,41,.4)}
   .res-num{font-family:var(--disp);font-weight:800;font-size:clamp(42px,5.4vw,54px);color:var(--acc);line-height:1;margin-bottom:16px;letter-spacing:-2px}
   .res-stat p{font-size:14px;color:var(--txt2);line-height:1.5}
-  .testis{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-bottom:clamp(42px,5vw,56px)}
-  .testi{background:#fff;border:1px solid rgba(15,24,41,.09);border-radius:16px;padding:32px;position:relative}
-  .testi .q{font-family:var(--disp);font-weight:800;font-size:60px;line-height:.6;color:rgba(255,117,31,.3);margin-bottom:6px}
-  .testi blockquote{font-family:var(--disp);font-weight:600;font-size:17px;color:var(--blue);margin-bottom:22px;line-height:1.44}
-  .testi-meta{display:flex;align-items:center;gap:13px}
-  .testi-av{width:48px;height:48px;border-radius:50%;flex-shrink:0;background-image:repeating-linear-gradient(45deg,#ecdcc1,#ecdcc1 6px,#e3d0b2 6px,#e3d0b2 12px);border:1px dashed #b9a07d;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:6.5px;color:#8a7050;text-align:center;padding:4px;line-height:1.15}
-  .testi-name{font-weight:700;font-size:13.5px;color:var(--ink)}
-  .testi-role{font-size:11.5px;color:var(--txt3)}
+  /* DEPOIMENTOS (portado de lps/banco — carrossel de vídeos + marquee de prints).
+     Classes com prefixo depo- de propósito: o .marquee-* desta página já é o
+     ticker de stats do hero — NÃO reaproveitar. */
+  .depo-sub{margin-bottom:clamp(42px,5vw,56px)}
+  .depo-sub h3{font-size:clamp(22px,2.8vw,30px);letter-spacing:-.8px;text-align:center;margin-bottom:28px}
+  .depo-video-wrap{position:relative;max-width:520px;margin:0 auto}
+  .depo-video-wrap video{width:100%;border-radius:16px;display:block;background:#000;box-shadow:0 30px 60px -28px rgba(15,24,41,.45)}
+  .depo-caption{text-align:center;margin-top:10px;font-size:14px;font-weight:700;color:var(--ink)}
+  .depo-caption .inst{color:var(--acc)}
+  .depo-nav{position:absolute;top:40%;transform:translateY(-50%);width:38px;height:38px;border-radius:50%;border:none;background:var(--ink);color:var(--cream);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(15,24,41,.3);z-index:2}
+  .depo-nav.prev{left:-14px}
+  .depo-nav.next{right:-14px}
+  .depo-dots{display:flex;justify-content:center;gap:8px;margin-top:12px}
+  .depo-dot{height:8px;width:8px;border-radius:4px;border:none;background:rgba(15,24,41,.2);cursor:pointer;transition:all .3s ease;padding:0}
+  .depo-dot.on{width:24px;background:var(--acc)}
+  .depo-marquee-outer{overflow:hidden;width:100%;margin-top:36px}
+  .depo-marquee-track{display:flex;gap:16px;width:max-content;animation:dqDepoMarquee 60s linear infinite}
+  .depo-marquee-track:hover{animation-play-state:paused}
+  @keyframes dqDepoMarquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+  .depo-marquee-item{flex:0 0 auto;width:220px}
+  .depo-marquee-item img{width:100%;border-radius:10px;display:block}
+  .depo-marquee-item .cap{font-size:12.5px;font-weight:600;color:var(--txt2);text-align:center;margin-top:8px}
   .bio{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));align-items:stretch;background:var(--ink);border-radius:22px;overflow:hidden;box-shadow:0 40px 84px -40px rgba(15,24,41,.55)}
   .bio-img{min-height:340px;position:relative}
   .bio-img img{width:100%;height:100%;min-height:340px;object-fit:cover;object-position:22% center}
@@ -583,12 +597,11 @@
     </div>
 
     <div class="dim reveal">
-      <div>
+      <div style="max-width:640px">
         <span class="dim-badge">Dimensão 01</span>
         <h3>Conteúdo e Inteligência</h3>
         <p>O conhecimento completo dos Institutos Federais — organizado, direcionado e pronto para estudar. Sem garimpar material, sem improvisar.</p>
       </div>
-      <div class="simframe"><div class="bbar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div><img data-zoom src="SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DA%20VIS%C3%83O%20GERAL%20DOS%20MATERIAIS.png" alt="Visão geral dos materiais da plataforma"></div>
     </div>
 
     <div class="cards c6 reveal">
@@ -601,8 +614,7 @@
     </div>
 
     <div class="dim reveal">
-      <div class="simframe"><div class="bbar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div><img data-zoom src="SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DE%20SIMULADO%20EM%20ANDAMENTO.png" alt="Simulado em andamento na plataforma"></div>
-      <div>
+      <div style="max-width:640px">
         <span class="dim-badge">Dimensão 02</span>
         <h3>Prática e Revisão</h3>
         <p>Treinar como a banca cobra e fixar o que importa. Com ferramentas inteligentes que se adaptam ao seu desempenho.</p>
@@ -650,20 +662,24 @@
       <div class="res-stat"><div class="res-num" data-count data-target="85" data-suf="%">85%</div><p>Dos aprovados de primeira começaram entre 6 e 10 meses antes da prova</p></div>
       <div class="res-stat"><div class="res-num" data-count data-target="18" data-suf="+">18+</div><p>Estados com alunos aprovados, em mais de 15 disciplinas diferentes</p></div>
     </div>
-    <div class="testis reveal">
-      <div class="testi">
-        <div class="q" aria-hidden="true">“</div>
-        <blockquote>Espaço reservado para depoimento real de aluno aprovado. Nome, área, instituto, e como o Dossiê fez diferença.</blockquote>
-        <div class="testi-meta"><div class="testi-av">FOTO ALUNO 1</div><div><div class="testi-name">Nome do Aluno</div><div class="testi-role">Área · Instituto Federal de [Estado]</div></div></div>
+    <!-- DEPOIMENTOS — portado de lps/banco (carrossel de vídeos + marquee de prints) -->
+    <div class="depo-sub reveal">
+      <h3>Quem já dissecou o IF pelo método DQ</h3>
+      <div class="depo-video-wrap">
+        <video id="depoVideo" controls playsinline preload="metadata">
+          <source id="depoSource" src="https://kqvwmmiguoqfuseabmtt.supabase.co/storage/v1/object/public/depoimentos/depoimento-video-1.mp4" type="video/mp4">
+        </video>
+        <p class="depo-caption" id="depoCaption">Fábio — <span class="inst">aprovado(a) no IFAC</span></p>
+        <button type="button" class="depo-nav prev" id="depoPrev" aria-label="Vídeo anterior">‹</button>
+        <button type="button" class="depo-nav next" id="depoNext" aria-label="Próximo vídeo">›</button>
+        <div class="depo-dots" id="depoDots"></div>
       </div>
-      <div class="testi">
-        <div class="q" aria-hidden="true">“</div>
-        <blockquote>Espaço reservado para depoimento real de aluno aprovado. Nome, área, instituto, e como o Dossiê fez diferença.</blockquote>
-        <div class="testi-meta"><div class="testi-av">FOTO ALUNO 2</div><div><div class="testi-name">Nome do Aluno</div><div class="testi-role">Área · Instituto Federal de [Estado]</div></div></div>
+      <div class="depo-marquee-outer">
+        <div class="depo-marquee-track" id="depoMarqueeTrack"></div>
       </div>
     </div>
     <div class="bio reveal">
-      <div class="bio-img"><img src="SCREENSHOTS%20DOSSI%C3%8A%20IF/FOTO%20PROFISSIONAL%20DO%20PROF.%20MANOEL%20MACHADO.png" alt="Retrato profissional do Prof. Manoel Machado"></div>
+      <div class="bio-img"><img src="SCREENSHOTS%20DOSSI%C3%8A%20IF/FOTO%20PROFISSIONAL%20DO%20PROF.%20MANOEL%20MACHADO2.png" alt="Retrato profissional do Prof. Manoel Machado"></div>
       <div class="bio-body">
         <div class="bio-top">
           <div class="bio-bar"></div>
@@ -703,13 +719,12 @@
         </div>
         <div class="pricing-right">
           <div class="pre">em até</div>
-          <div class="price">12x <span class="sm">de</span> R$ 99,70</div>
-          <div class="pix">ou R$ 997 à vista no Pix</div>
+          <div class="price">12x <span class="sm">de</span> R$ 124,70</div>
+          <div class="pix">ou R$ 1.247 à vista no Pix</div>
           <!-- CHECKOUT Path A: o href é fallback PRONTO (fail-open, ainda leva os
                UTMs); o checkout-links.js roteia por campanha quando há config de
                checkout cadastrada no CRM. NÃO trocar por link montado em JS. -->
           <a href="https://checkout.dissecandoquestoes.com.br/checkout/lnc-grupos2-dossie-if-2-anos" class="btn-primary cta-full" data-dq-checkout data-comprar="cartao">Começar minha preparação <span aria-hidden="true">→</span></a>
-          <div class="bonus">Inscrições realizadas neste mês incluem +1 ano de acesso como bônus.</div>
           <div class="guar"><span class="sh" aria-hidden="true">🛡️</span><span class="t">Garantia incondicional de 7 dias. Se por qualquer motivo sentir que não é pra você, devolvemos 100% do valor. Sem perguntas.</span></div>
         </div>
       </div>
@@ -756,8 +771,8 @@
 <div class="sticky" id="sticky">
   <div class="sticky-in">
     <div class="sticky-txt">
-      <div class="a">Dossiê IF · 12x de R$ 99,70</div>
-      <div class="b">Garantia de 7 dias · +1 ano bônus</div>
+      <div class="a">Dossiê IF · 12x de R$ 124,70</div>
+      <div class="b">Garantia de 7 dias</div>
     </div>
     <a href="#investimento" class="sticky-cta" data-scroll="investimento">Garantir vaga <span aria-hidden="true">→</span></a>
   </div>
@@ -854,6 +869,70 @@
   window.addEventListener('scroll',onScroll,{passive:true});
   window.addEventListener('resize',onScroll,{passive:true});
   onScroll();
+
+  // ---- depoimentos (portado de lps/banco): carrossel de vídeos ----
+  var DEPO='https://kqvwmmiguoqfuseabmtt.supabase.co/storage/v1/object/public/depoimentos';
+  var VIDEOS=[
+    { src: DEPO+'/depoimento-video-1.mp4', nome:'Fábio', inst:'IFAC' },
+    { src: DEPO+'/depoimento-video-2.mp4', nome:'Fabrício', inst:'IFAP' },
+    { src: DEPO+'/depoimento-video-3.mp4', nome:'Jocielle', inst:'IFS' }
+  ];
+  var vIdx=0;
+  var videoEl=document.getElementById('depoVideo');
+  var sourceEl=document.getElementById('depoSource');
+  var captionEl=document.getElementById('depoCaption');
+  var dotsEl=document.getElementById('depoDots');
+  function renderDots(){
+    if(!dotsEl) return;
+    var html='';
+    for(var i=0;i<VIDEOS.length;i++){
+      html+='<button type="button" class="depo-dot'+(i===vIdx?' on':'')+'" data-i="'+i+'" aria-label="Ir para vídeo '+(i+1)+'"></button>';
+    }
+    dotsEl.innerHTML=html;
+  }
+  function setVideo(i){
+    vIdx=(i+VIDEOS.length)%VIDEOS.length;
+    var v=VIDEOS[vIdx];
+    try{ sourceEl.setAttribute('src',v.src); videoEl.load(); }catch(e){}
+    captionEl.innerHTML=v.nome+' — <span class="inst">aprovado(a) no '+v.inst+'</span>';
+    renderDots();
+  }
+  var prevBtn=document.getElementById('depoPrev');
+  var nextBtn=document.getElementById('depoNext');
+  if(prevBtn) prevBtn.addEventListener('click',function(){ setVideo(vIdx-1); });
+  if(nextBtn) nextBtn.addEventListener('click',function(){ setVideo(vIdx+1); });
+  if(dotsEl) dotsEl.addEventListener('click',function(e){
+    var t=e.target.closest?e.target.closest('.depo-dot'):null;
+    if(t) setVideo(+t.getAttribute('data-i'));
+  });
+  renderDots();
+
+  // ---- depoimentos: marquee de prints (duplicado p/ loop infinito) ----
+  var PRINTS=[
+    { src: DEPO+'/depoimento-print-1.jpg', nome:'Nádia', inst:'IFRN' },
+    { src: DEPO+'/depoimento-print-2.jpg?v=2', nome:'Fabrício', inst:'IFAP' },
+    { src: DEPO+'/depoimento-print-3.jpg', nome:'Olena', inst:'IFMT' },
+    { src: DEPO+'/depoimento-print-4.jpg', nome:'Caio', inst:'IFSul e IFFar' },
+    { src: DEPO+'/depoimento-print-5.jpg', nome:'Clarisvaldo', inst:'IFFar' },
+    { src: DEPO+'/depoimento-print-6.webp?v=2', nome:'Daniele', inst:'IFPA' },
+    { src: DEPO+'/depoimento-print-7.jpg?v=2', nome:'Emily', inst:'IFPE' },
+    { src: DEPO+'/depoimento-print-8.jpg?v=2', nome:'Ligiane', inst:'IFPB' },
+    { src: DEPO+'/depoimento-print-9.jpg?v=2', nome:'Diandra', inst:'IFSertão' },
+    { src: DEPO+'/depoimento-print-10.jpg?v=2', nome:'Alexandre', inst:'IFPE' }
+  ];
+  var depoTrack=document.getElementById('depoMarqueeTrack');
+  if(depoTrack){
+    var full=PRINTS.concat(PRINTS);
+    var dhtml='';
+    for(var dp=0;dp<full.length;dp++){
+      var it=full[dp];
+      dhtml+='<div class="depo-marquee-item">'
+        +'<img src="'+it.src+'" alt="Depoimento de '+it.nome+', aprovado(a) no '+it.inst+'" loading="'+(dp===0?'eager':'lazy')+'">'
+        +'<div class="cap">'+it.nome+' — '+it.inst+'</div>'
+        +'</div>';
+    }
+    depoTrack.innerHTML=dhtml;
+  }
 
   // ═══ TRACKING lps/dossie (portado da versão anterior da página — manter) ═══
   var ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtxdndtbWlndW9xZnVzZWFibXR0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1Mjc2MTAsImV4cCI6MjA4OTEwMzYxMH0.61Qh2PKIHXJDtWHXiG-l5-u3NSKYUu9q25om2ABzG2o';
