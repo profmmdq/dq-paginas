@@ -4,422 +4,858 @@
 <meta charset="UTF-8">
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-W5TCMGSW');</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dossiê IF — Você já é Professor. Agora só falta ser do IF. · Dissecando Questões</title>
-<meta name="description" content="9.587 vagas EBTT autorizadas, 111 novos campi, de 6 a 9 meses até as provas. O Dossiê IF é o caminho mais curto: direção, método, plano tático, comunidade e didática. 2 anos de acesso completo.">
+<title>Dossiê IF — O programa de preparação mais completo para os Institutos Federais</title>
+<meta name="description" content="Plataforma inteligente, cronograma que se adapta à sua rotina, materiais completos em texto e acompanhamento mensal com o Prof. Manoel Machado. O programa de preparação mais completo para os Institutos Federais.">
 <link rel="canonical" href="https://site.dissecandoquestoes.com/lps/dossie/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://site.dissecandoquestoes.com/lps/dossie/">
-<meta property="og:title" content="Você já é Professor. Agora só falta ser do IF.">
-<meta property="og:description" content="9.587 vagas autorizadas. 111 novos campi. De 6 a 9 meses até as provas. O Dossiê IF é o caminho mais curto para a sua vaga.">
+<meta property="og:title" content="Dossiê IF — O programa de preparação mais completo para os Institutos Federais">
+<meta property="og:description" content="Plataforma inteligente. Cronograma que se adapta à sua rotina. Materiais completos em texto. Acompanhamento mensal com o Prof. Manoel Machado.">
+<meta property="og:image" content="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/Fachada_campus%20de%20IF%20%2B%20Manoel.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --laranja-vivo:#FF751F; --laranja:#FC7F48; --laranja-legacy:#f67828;
-    --creme:#F1F3E6; --carvao:#131F2C; --navy:#0C3D64; --petrol:#16495C;
-    --verde:#6EA27C; --ink:#222; --muted:#555; --line:#e6e8dc;
+    --ink:#0f1829; --blue:#0c3d64; --acc:#ff751f; --cream:#f1f3e6; --cream2:#fbfcf6;
+    --tan:#ecdcc1; --green:#5e9558; --sky:#35bdf8; --panel:#0f1a26; --panelbar:#0b141d;
+    --petrol:#16495c; --bluecard:#0a2f4e; --txt:#38424f; --txt2:#5a6572; --txt3:#8a94a0;
+    --disp:'Bricolage Grotesque',system-ui,sans-serif;
+    --body:'Hanken Grotesk',system-ui,-apple-system,Segoe UI,sans-serif;
+    --mono:'Geist Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
-  body{font-family:'DM Sans',Arial,sans-serif;color:var(--ink);background:#fff;line-height:1.55;-webkit-font-smoothing:antialiased}
-  h1,h2,h3,h4,.jakarta{font-family:'Plus Jakarta Sans','DM Sans',Arial,sans-serif}
-  .wrap{max-width:1024px;margin:0 auto;padding:0 20px}
-  .wrap-sm{max-width:640px;margin:0 auto;padding:0 20px}
-  .wrap-xs{max-width:560px;margin:0 auto;padding:0 20px}
-  img{max-width:100%;display:block}
+  body{font-family:var(--body);color:var(--ink);background:var(--cream);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  img{display:block}
+  a{text-decoration:none}
+  ::selection{background:var(--acc);color:#fff}
 
-  /* BUTTONS */
-  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:none;cursor:pointer;
-    font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;text-decoration:none;border-radius:11px;
-    transition:transform .08s,opacity .15s,background .15s}
-  .btn:active{transform:scale(.99)}
-  .btn-lg{padding:20px 32px;font-size:16px}
-  .btn-orange{background:var(--laranja-legacy);color:#fff;box-shadow:0 10px 24px rgba(246,120,40,.3)}
-  .btn-orange:hover{background:#e0691f}
-  .btn-orange-vivo{background:var(--laranja-vivo);color:#fff;box-shadow:0 10px 24px rgba(255,117,31,.3)}
-  .btn-orange-vivo:hover{opacity:.9}
-  .btn-full{width:100%}
-  .arrow{font-weight:900}
+  @keyframes heroUp{from{opacity:0;transform:translateY(34px)}to{opacity:1;transform:none}}
+  @keyframes pulseRing{0%{transform:scale(1);opacity:.55}70%{transform:scale(1.75);opacity:0}100%{opacity:0}}
+  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-11px)}}
+  @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-  /* ═══ HERO ═══ */
-  .hero{position:relative;background-image:url('../../assets/img/dossie/hero.png');background-size:cover;background-position:center;overflow:hidden;padding:64px 0}
-  .hero::after{content:"";position:absolute;inset:0;background:rgba(26,26,46,.75);z-index:1}
-  .hero-inner{position:relative;z-index:2;max-width:960px;margin:0 auto;padding:0 20px;display:flex;flex-direction:column;align-items:center;text-align:center}
-  .hero-logo{width:128px;margin-bottom:40px;object-fit:contain}
-  .hero h1{font-size:34px;font-weight:800;color:#fff;line-height:1.12;margin-bottom:24px}
-  .hero h1 .accent{color:var(--laranja-legacy)}
-  .hero-benefits{display:flex;flex-direction:column;gap:12px;margin-bottom:24px}
-  .hero-benefit{display:flex;align-items:center;gap:8px;justify-content:center}
-  .hero-benefit .ck{color:#F43700;font-weight:900;font-size:18px;flex:none}
-  .hero-benefit span{color:#fff;font-size:15px;font-weight:500}
-  .hero-sub{color:rgba(255,255,255,.8);font-size:16px;margin-bottom:32px;max-width:640px}
+  .eyebrow{font-family:var(--mono);text-transform:uppercase;letter-spacing:2.6px;color:var(--acc);font-size:11.5px;font-weight:500;display:inline-block}
+  .eyebrow.line::before{content:"";display:inline-block;width:26px;height:1px;background:var(--acc);vertical-align:middle;margin-right:11px}
+  h1,h2,h3,h4,h5{font-family:var(--disp);font-weight:800;color:var(--blue);line-height:1.05;letter-spacing:-1px}
 
-  /* ═══ STATS BAR ═══ */
-  .statsbar{background:var(--navy);padding:40px 0}
-  .stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:32px;text-align:center}
-  .stat .n{font-size:32px;font-weight:800;color:#fff;margin-bottom:8px;font-family:'Plus Jakarta Sans',sans-serif}
-  .stat .l{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.7)}
+  .grain{position:fixed;inset:0;z-index:70;pointer-events:none;opacity:.06;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22140%22 height=%22140%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22 numOctaves=%222%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/%3E%3C/svg%3E");background-size:140px 140px}
+  .progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--acc);z-index:130;transition:width .12s linear;box-shadow:0 0 12px rgba(255,117,31,.7)}
 
-  /* ═══ URGÊNCIA + DOR ═══ */
-  .urgencia{background:var(--carvao);padding:64px 0}
-  .eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.2em;color:var(--laranja);text-align:center;margin-bottom:12px;font-weight:700}
-  .urgencia h2{font-size:28px;font-weight:800;color:#fff;text-align:center;margin-bottom:40px}
-  .timeline{display:flex;flex-direction:column;gap:12px;margin-bottom:24px}
-  .tl-item{flex:1;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:16px;text-align:center}
-  .tl-item .t{color:#fff;font-weight:700;font-size:14px;margin-bottom:8px}
-  .tl-item .p{font-size:12px;font-weight:600;color:var(--laranja)}
-  .tl-item .p.done{color:#34d399}
-  .tl-item .i{color:rgba(255,255,255,.6);font-size:12px;margin-top:8px}
-  .urg-highlight{background:rgba(252,127,72,.1);border:1px solid rgba(252,127,72,.4);border-radius:12px;padding:20px;text-align:center;margin-bottom:48px}
-  .urg-highlight p{color:var(--laranja);font-weight:700;font-size:18px}
-  .dores{display:grid;grid-template-columns:1fr;gap:20px;margin-bottom:32px}
-  .dor{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:24px}
-  .dor h3{color:#fff;font-weight:700;font-size:18px;margin-bottom:8px}
-  .dor p{color:rgba(255,255,255,.7);font-size:14px;line-height:1.6}
-  .urg-quote{color:rgba(255,255,255,.9);text-align:center;font-size:18px;font-weight:600;font-style:italic;max-width:720px;margin:0 auto}
+  /* NAV */
+  .nav{position:fixed;top:0;left:0;right:0;z-index:120;display:flex;align-items:center;gap:16px;height:66px;padding:0 clamp(16px,4vw,44px);background:rgba(241,243,230,.76);backdrop-filter:blur(16px) saturate(1.25);-webkit-backdrop-filter:blur(16px) saturate(1.25);border-bottom:1px solid rgba(15,24,41,.08);transition:background .35s ease,box-shadow .35s ease,height .35s ease}
+  .nav.solid{background:rgba(241,243,230,.94);box-shadow:0 6px 24px -14px rgba(15,24,41,.4);height:58px}
+  .nav-logo{display:flex;align-items:center;gap:11px;margin-right:auto}
+  .nav-mark{position:relative;width:28px;height:28px;border-radius:8px;background:var(--acc);display:inline-flex;align-items:center;justify-content:center;box-shadow:0 6px 14px -4px rgba(255,117,31,.75)}
+  .nav-mark::after{content:"";width:9px;height:9px;background:#fff;border-radius:2px}
+  .nav-word{font-family:var(--disp);font-weight:800;font-size:17px;letter-spacing:-.4px;color:var(--ink)}
+  .nav-links{display:flex;gap:1px;overflow-x:auto;scrollbar-width:none}
+  .nav-links::-webkit-scrollbar{display:none}
+  .nav-links a{font-family:var(--mono);font-weight:500;font-size:11px;text-transform:uppercase;letter-spacing:1.4px;color:rgba(15,24,41,.5);padding:8px 13px;border-radius:7px;white-space:nowrap;transition:color .2s ease,background .2s ease}
+  .nav-links a:hover{color:var(--ink);background:rgba(15,24,41,.06)}
+  .nav-links a.active{color:var(--acc)}
+  .nav-cta{flex-shrink:0;display:inline-flex;align-items:center;gap:7px;background:var(--acc);color:#fff;font-family:var(--body);font-weight:700;font-size:13px;padding:10px 18px;border-radius:9px;box-shadow:0 10px 22px -10px rgba(255,117,31,.8);transition:transform .3s ease,box-shadow .3s ease}
+  .nav-cta:hover{transform:translateY(-2px);box-shadow:0 16px 30px -10px rgba(255,117,31,.85)}
 
-  /* ═══ PROVA SOCIAL ═══ */
-  .prova{background:var(--carvao);padding:64px 0;border-top:1px solid rgba(255,255,255,.05)}
-  .prova-inner{max-width:720px;margin:0 auto;padding:0 20px;text-align:center}
-  .prova .big{font-size:56px;font-weight:800;color:var(--laranja);margin-bottom:16px;font-family:'Plus Jakarta Sans',sans-serif}
-  .prova h3{font-size:22px;font-weight:700;color:#fff;margin-bottom:12px;line-height:1.3}
-  .prova p{color:rgba(255,255,255,.6);font-size:14px}
+  .btn-primary{display:inline-flex;align-items:center;gap:10px;background:var(--acc);color:#fff;font-family:var(--body);font-weight:700;font-size:16px;letter-spacing:.2px;padding:17px 32px;border-radius:11px;box-shadow:0 18px 40px -14px rgba(255,117,31,.85);transition:transform .3s ease,box-shadow .3s ease;border:0;cursor:pointer}
+  .btn-primary:hover{transform:translateY(-3px);box-shadow:0 26px 50px -14px rgba(255,117,31,.9)}
+  .btn-ghost{display:inline-flex;align-items:center;gap:9px;background:rgba(241,243,230,.06);color:var(--cream);font-family:var(--body);font-weight:600;font-size:15px;padding:16px 26px;border-radius:11px;border:1px solid rgba(241,243,230,.2);transition:background .3s ease,border-color .3s ease}
+  .btn-ghost:hover{background:rgba(241,243,230,.12);border-color:rgba(241,243,230,.4)}
 
-  /* ═══ ETAPAS ═══ */
-  .etapas{background:var(--creme);padding:64px 0}
-  .etapas-list{max-width:1024px;margin:0 auto;padding:0 20px;display:flex;flex-direction:column;gap:64px}
-  .etapa-card{border-radius:20px;padding:28px 24px;border:1px solid}
-  .etapa-eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.2em;font-weight:700;margin-bottom:12px}
-  .etapa-card h2{font-size:26px;font-weight:800;margin-bottom:24px}
-  .etapa-dor{background:rgba(255,255,255,.6);border-left:4px solid currentColor;border-radius:0 8px 8px 0;padding:16px;margin-bottom:32px;font-style:italic;color:#444}
-  .entregaveis{display:grid;grid-template-columns:1fr;gap:16px;margin-bottom:32px}
-  .entreg{border-radius:12px;padding:20px;border:1px solid}
-  .entreg.plain{background:#fff;border-color:#e5e7eb}
-  .entreg-head{display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;flex-wrap:wrap}
-  .entreg-head h3{font-weight:700;font-size:16px}
-  .entreg-badge{font-size:10px;font-weight:700;text-transform:uppercase;background:var(--laranja);color:#fff;padding:2px 8px;border-radius:20px;line-height:1.6}
-  .entreg p{font-size:14px;color:#555;line-height:1.6}
-  .etapa-result{border-radius:8px;padding:16px;display:flex;align-items:flex-start;gap:12px;border:1px solid}
-  .etapa-result .ck{font-weight:900;flex:none;font-size:16px;margin-top:1px}
-  .etapa-result p{font-weight:600}
-  .etapa-ponte{text-align:center;color:#555;font-style:italic;max-width:640px;margin:32px auto 0;font-size:16px}
+  /* HERO */
+  .hero{position:relative;min-height:clamp(620px,96vh,940px);display:flex;align-items:center;background:var(--ink);overflow:hidden;padding-top:66px}
+  .hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:78% center;z-index:0}
+  .hero-scrim1{position:absolute;inset:0;z-index:1;background:linear-gradient(102deg,#0f1829 0%,rgba(15,24,41,.96) 34%,rgba(15,24,41,.62) 62%,rgba(15,24,41,.12) 100%)}
+  .hero-scrim2{position:absolute;inset:0;z-index:1;background:linear-gradient(to top,#0f1829 2%,rgba(15,24,41,0) 46%)}
+  .hero-glow{position:absolute;top:-16%;left:-6%;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(255,117,31,.26) 0%,transparent 66%);z-index:1;filter:blur(8px)}
+  .hero-grid{position:absolute;inset:0;z-index:1;opacity:.5;background-image:linear-gradient(rgba(241,243,230,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(241,243,230,.05) 1px,transparent 1px);background-size:64px 64px;-webkit-mask-image:radial-gradient(ellipse 70% 60% at 30% 50%,#000,transparent);mask-image:radial-gradient(ellipse 70% 60% at 30% 50%,#000,transparent)}
+  .hero-inner{position:relative;z-index:3;width:100%;max-width:1200px;margin:0 auto;padding:clamp(40px,8vh,90px) clamp(22px,5vw,56px)}
+  .hero-col{max-width:660px}
+  .hero .eyebrow{margin-bottom:24px;letter-spacing:3px;font-size:12px}
+  .hero h1{color:var(--cream);font-size:clamp(38px,6vw,74px);line-height:1;letter-spacing:-1.8px;margin-bottom:24px;text-wrap:balance}
+  .hero h1 .accent{color:var(--acc)}
+  .hero .sub{color:rgba(241,243,230,.82);font-size:clamp(16px,1.55vw,19px);line-height:1.6;max-width:530px;margin-bottom:36px}
+  .hero-actions{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-bottom:38px}
+  .hero-trust{display:flex;align-items:center;gap:14px}
+  .avatars{display:flex}
+  .avatars span{width:34px;height:34px;border-radius:50%;border:2px solid var(--ink)}
+  .avatars span+span{margin-left:-11px}
+  .av1{background:linear-gradient(135deg,#5e9558,#104438)}
+  .av2{background:linear-gradient(135deg,#35bdf8,#0c3d64)}
+  .av3{background:linear-gradient(135deg,var(--acc),#c25510)}
+  .av4{background:#1a2539;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;color:var(--cream)}
+  .hero-trust-txt{font-size:13.5px;color:rgba(241,243,230,.7);line-height:1.35}
+  .hero-trust-txt strong{color:var(--cream);font-weight:700}
+  .hero-up{animation:heroUp .8s cubic-bezier(.16,.84,.44,1) both}
+  .hero-float{position:absolute;z-index:3;right:clamp(20px,5vw,64px);bottom:clamp(96px,14vh,150px);background:rgba(15,24,41,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(241,243,230,.16);border-radius:14px;padding:16px 20px;box-shadow:0 24px 50px -18px rgba(0,0,0,.6);display:none}
+  .hero-float .inner{animation:floaty 5s ease-in-out infinite}
+  .hero-float .k{font-family:var(--mono);font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:var(--acc);margin-bottom:8px}
+  .hero-float .big{font-family:var(--disp);font-weight:800;font-size:26px;color:var(--cream);line-height:1}
+  .hero-float .s{font-size:12px;color:rgba(241,243,230,.68);margin-top:3px}
 
-  /* etapa color variants */
-  .e-emerald .etapa-card{background:#ecfdf5;border-color:#a7f3d0}
-  .e-emerald .etapa-eyebrow,.e-emerald .etapa-result .ck{color:#047857}
-  .e-emerald .etapa-card h2,.e-emerald .entreg-head h3,.e-emerald .etapa-result p{color:#064e3b}
-  .e-emerald .entreg.hl{background:#d1fae5;border-color:#6ee7b7}
-  .e-emerald .etapa-result{background:#d1fae5;border-color:#6ee7b7}
-  .e-emerald .etapa-dor{color:#064e3b}
+  /* STATS */
+  .stats-wrap{padding:0 clamp(16px,4vw,44px);margin-top:clamp(-58px,-5vw,-48px);position:relative;z-index:40}
+  .stats{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(15,24,41,.1);border-radius:18px;overflow:hidden;border:1px solid rgba(15,24,41,.08);box-shadow:0 44px 90px -46px rgba(15,24,41,.5)}
+  .stats-cell{background:var(--cream2);padding:clamp(26px,3vw,38px) 18px;text-align:center}
+  .stats-val{font-family:var(--disp);font-weight:800;font-size:clamp(30px,3.4vw,40px);color:var(--blue);margin-bottom:9px;letter-spacing:-1px;line-height:1}
+  .stats-label{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:1.3px;color:rgba(15,24,41,.5)}
 
-  .e-blue .etapa-card{background:#eff6ff;border-color:#bfdbfe}
-  .e-blue .etapa-eyebrow,.e-blue .etapa-result .ck{color:#1d4ed8}
-  .e-blue .etapa-card h2,.e-blue .entreg-head h3,.e-blue .etapa-result p{color:#1e3a8a}
-  .e-blue .entreg.hl{background:#dbeafe;border-color:#93c5fd}
-  .e-blue .etapa-result{background:#dbeafe;border-color:#93c5fd}
-  .e-blue .etapa-dor{color:#1e3a8a}
+  /* MARQUEE */
+  .marquee{margin-top:clamp(56px,7vw,84px);overflow:hidden;background:var(--ink);border-top:1px solid rgba(241,243,230,.08);border-bottom:1px solid rgba(241,243,230,.08)}
+  .marquee-track{display:flex;width:max-content;animation:ticker 34s linear infinite;padding:15px 0}
+  .marquee:hover .marquee-track{animation-play-state:paused}
+  .marquee-group{display:flex;align-items:center}
+  .marquee-item{display:inline-flex;align-items:center;gap:22px;padding:0 22px;font-family:var(--mono);font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:rgba(241,243,230,.66);white-space:nowrap}
+  .marquee-item::after{content:"";width:5px;height:5px;border-radius:50%;background:var(--acc)}
 
-  .e-orange .etapa-card{background:#fff7ed;border-color:#fed7aa}
-  .e-orange .etapa-eyebrow,.e-orange .etapa-result .ck{color:#c2410c}
-  .e-orange .etapa-card h2,.e-orange .entreg-head h3,.e-orange .etapa-result p{color:#7c2d12}
-  .e-orange .entreg.hl{background:#ffedd5;border-color:#fdba74}
-  .e-orange .etapa-result{background:#ffedd5;border-color:#fdba74}
-  .e-orange .etapa-dor{color:#7c2d12}
+  /* SECTION BASICS */
+  .sec{padding:clamp(78px,10vw,124px) clamp(22px,5vw,56px)}
+  .sec.dark{background:var(--ink)}
+  .sec.cream{background:var(--cream)}
+  .wrap{max-width:1120px;margin:0 auto}
+  .wrap-sm{max-width:900px;margin:0 auto}
+  .sec-head h2{font-size:clamp(29px,3.8vw,48px);letter-spacing:-1.6px;margin:16px 0 18px;text-wrap:balance}
+  .lead{font-size:16.5px;color:var(--txt);line-height:1.62}
+  .dark .lead{color:rgba(241,243,230,.78)}
 
-  .e-purple .etapa-card{background:#faf5ff;border-color:#e9d5ff}
-  .e-purple .etapa-eyebrow,.e-purple .etapa-result .ck{color:#7e22ce}
-  .e-purple .etapa-card h2,.e-purple .entreg-head h3,.e-purple .etapa-result p{color:#581c87}
-  .e-purple .entreg.hl{background:#f3e8ff;border-color:#d8b4fe}
-  .e-purple .etapa-result{background:#f3e8ff;border-color:#d8b4fe}
-  .e-purple .etapa-dor{color:#581c87}
+  /* CENARIO */
+  .cenario-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:clamp(38px,5vw,72px);align-items:center}
+  .cenario-grid h2{font-size:clamp(29px,3.7vw,46px);line-height:1.04;letter-spacing:-1.4px;margin:16px 0 24px;max-width:460px;text-wrap:balance}
+  .cenario-grid p{font-size:16px;color:var(--txt);line-height:1.68;margin-bottom:18px}
+  .cenario-grid p:last-child{margin-bottom:0}
+  .imgframe{position:relative;border-radius:20px;overflow:hidden;box-shadow:0 40px 80px -36px rgba(15,24,41,.5);transition:transform .5s cubic-bezier(.16,.84,.44,1)}
+  .imgframe:hover{transform:translateY(-6px)}
+  .imgframe img{width:100%;height:clamp(320px,44vw,480px);object-fit:cover}
+  .imgtag{position:absolute;left:16px;bottom:16px;background:rgba(15,24,41,.6);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(241,243,230,.16);border-radius:9px;padding:8px 14px;font-family:var(--mono);font-size:10.5px;letter-spacing:1.3px;text-transform:uppercase;color:var(--cream)}
+  .stat85{margin-top:clamp(48px,6vw,68px);background:var(--tan);border-radius:22px;padding:clamp(32px,4.5vw,52px);display:grid;grid-template-columns:auto 1fr;gap:clamp(24px,4vw,48px);align-items:center}
+  .stat85 .num{font-family:var(--disp);font-weight:800;font-size:clamp(64px,10vw,128px);line-height:.82;color:var(--acc);letter-spacing:-3px}
+  .stat85 .t{font-family:var(--disp);font-weight:700;font-size:clamp(19px,2.3vw,27px);color:var(--ink);line-height:1.32;margin-bottom:14px;text-wrap:pretty}
+  .stat85 .t .accent{color:var(--acc)}
+  .stat85 .src{font-family:var(--mono);font-size:11px;color:rgba(15,24,41,.5);text-transform:uppercase;letter-spacing:1.2px}
 
-  .e-amber .etapa-card{background:#fffbeb;border-color:#fde68a}
-  .e-amber .etapa-eyebrow,.e-amber .etapa-result .ck{color:#b45309}
-  .e-amber .etapa-card h2,.e-amber .entreg-head h3,.e-amber .etapa-result p{color:#78350f}
-  .e-amber .entreg.hl{background:#fef3c7;border-color:#fcd34d}
-  .e-amber .etapa-result{background:#fef3c7;border-color:#fcd34d}
-  .e-amber .etapa-dor{color:#78350f}
+  /* TIMELINE */
+  .tl-head{max-width:680px;margin:0 auto clamp(38px,5vw,56px);text-align:center}
+  .tl-head h2{font-size:clamp(26px,3.4vw,42px);line-height:1.06;letter-spacing:-1.2px;margin:16px 0 16px;text-wrap:balance}
+  .dark .tl-head h2{color:var(--cream)}
+  .tl-frame{max-width:1080px;margin:0 auto;border-radius:18px;overflow:hidden;box-shadow:0 44px 100px -40px rgba(0,0,0,.7);transition:transform .5s cubic-bezier(.16,.84,.44,1)}
+  .tl-frame:hover{transform:translateY(-5px)}
+  .tl-frame.dark-frame{border:1px solid rgba(241,243,230,.1)}
+  .tl-frame.light-frame{background:#fff;border:1px solid rgba(15,24,41,.1);box-shadow:0 46px 96px -42px rgba(15,24,41,.42)}
+  .tl-bar{display:flex;align-items:center;gap:10px;padding:12px 18px;font-family:var(--mono);font-size:10px;letter-spacing:1.4px;text-transform:uppercase}
+  .tl-bar.d{background:#0a1119;border-bottom:1px solid rgba(241,243,230,.08)}
+  .tl-bar.l{background:var(--cream2);border-bottom:1px solid rgba(15,24,41,.08)}
+  .tl-bar .a{color:var(--acc)}
+  .tl-bar .m{color:rgba(241,243,230,.4)}
+  .tl-bar.l .m{color:rgba(15,24,41,.4)}
+  .tl-bar .z{margin-left:auto;color:rgba(241,243,230,.4)}
+  .tl-bar.l .z{color:rgba(15,24,41,.4)}
+  .tl-frame picture,.tl-frame img{display:block;width:100%;height:auto;cursor:zoom-in}
+  .glowbox{position:absolute;border-radius:50%;z-index:0;pointer-events:none}
 
-  /* ═══ PREÇO ═══ */
-  .preco{background:var(--creme);padding:48px 0}
-  .preco-card{max-width:560px;margin:0 auto;background:#fff;border-radius:24px;box-shadow:0 12px 40px rgba(0,0,0,.1);border:1px solid #f0f0f0;overflow:hidden}
-  .preco-head{background:var(--navy);padding:20px 24px;text-align:center}
-  .preco-head .k{color:rgba(255,255,255,.7);font-size:13px;text-transform:uppercase;letter-spacing:.2em;margin-bottom:4px}
-  .preco-head h2{color:#fff;font-size:22px;font-weight:800}
-  .preco-mockup{padding:24px 16px 0}
-  .preco-mockup img{margin:0 auto;width:100%}
-  .preco-body{padding:24px;text-align:center}
-  .preco-price{font-size:48px;font-weight:900;color:#222;line-height:1.05;font-family:'Plus Jakarta Sans',sans-serif}
-  .preco-avista{font-size:18px;color:#666;margin-top:12px}
-  .preco-dia{color:#666;font-size:14px;margin-top:12px}
-  .preco-cta{padding:0 24px 24px}
-  .preco-cta .btn{height:64px;text-transform:uppercase;letter-spacing:.02em}
-  .preco-trust{border-top:1px solid #f0f0f0;padding:16px 24px;display:flex;align-items:center;justify-content:center;gap:24px;font-size:12px;color:#999;flex-wrap:wrap}
-  .preco-trust span{display:inline-flex;align-items:center;gap:6px}
-  .preco-trust .ic{font-size:14px}
-  .preco-trust .ic.star{color:var(--laranja-legacy)}
+  /* DESAFIO */
+  .desafio{position:relative;overflow:hidden}
+  .desafio .g{top:10%;right:-8%;width:480px;height:480px;background:radial-gradient(circle,rgba(255,117,31,.14) 0%,transparent 68%)}
+  .desafio-in{position:relative;z-index:1}
+  .desafio h3{font-size:clamp(27px,3.5vw,42px);line-height:1.06;letter-spacing:-1.2px;margin:16px 0 24px;color:var(--cream);text-wrap:balance}
+  .desafio p{font-size:16px;color:rgba(241,243,230,.78);line-height:1.68;margin-bottom:18px}
+  .pains{display:grid;grid-template-columns:repeat(auto-fit,minmax(212px,1fr));gap:14px;margin-top:40px}
+  .pain{background:#151f2e;border:1px solid rgba(241,243,230,.09);border-radius:15px;padding:26px 24px;transition:transform .35s ease,border-color .35s ease,background .35s ease}
+  .pain:hover{transform:translateY(-4px);border-color:rgba(255,117,31,.45);background:#18232f}
+  .pain .n{font-family:var(--mono);font-size:11px;color:rgba(241,243,230,.35);letter-spacing:1.5px;margin-bottom:14px}
+  .pain .ti{font-family:var(--disp);font-weight:700;font-size:16px;color:var(--acc);margin-bottom:9px}
+  .pain .tx{font-size:14px;color:rgba(241,243,230,.66);line-height:1.55}
+  .desafio-close{margin:clamp(46px,6vw,64px) auto 0;text-align:center;max-width:740px;font-family:var(--disp);font-weight:700;font-size:clamp(21px,2.8vw,32px);color:var(--cream);line-height:1.28;text-wrap:balance}
+  .desafio-close .accent{color:var(--acc)}
 
-  /* ═══ GARANTIA ═══ */
-  .garantia{background:#fff;padding:64px 0}
-  .garantia-inner{max-width:560px;margin:0 auto;padding:0 20px;text-align:center}
-  .garantia-badge{width:80px;height:80px;border-radius:50%;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;background:rgba(110,162,124,.1)}
-  .garantia-badge .shield{font-size:38px;color:var(--verde)}
-  .garantia h2{font-size:26px;font-weight:800;color:#333;margin-bottom:16px}
-  .garantia p{color:#666;line-height:1.6;max-width:440px;margin:0 auto}
+  /* METODO */
+  .metodo-head h2{font-size:clamp(29px,3.8vw,48px);line-height:1.02;letter-spacing:-1.6px;margin:16px 0 20px;max-width:600px;text-wrap:balance}
+  .steps{display:flex;flex-direction:column;gap:clamp(52px,7vw,92px);padding-top:clamp(48px,6vw,76px)}
+  .step{display:flex;flex-wrap:wrap;gap:clamp(30px,4vw,60px);align-items:center}
+  .step.rev{flex-direction:row-reverse}
+  .step-text{flex:1 1 300px;min-width:262px}
+  .step-num{font-family:var(--disp);font-weight:800;font-size:clamp(58px,7vw,92px);line-height:.8;letter-spacing:-3px;color:transparent;-webkit-text-stroke:1.6px rgba(255,117,31,.5);margin-bottom:14px}
+  .step-text h3{font-size:clamp(23px,2.8vw,31px);line-height:1.1;letter-spacing:-.6px;margin-bottom:14px}
+  .step-text p{font-size:16px;color:var(--txt);line-height:1.66}
+  .step-media{flex:1.28 1 400px;min-width:308px}
 
-  /* ═══ CTA FINAL ═══ */
-  .final{background:var(--creme);padding:64px 0}
-  .final-inner{max-width:768px;margin:0 auto;padding:0 20px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:32px}
-  .final-lead{font-size:20px;font-weight:700;color:#333}
-  .final .btn-fale{height:56px;padding:0 40px;font-size:18px;text-transform:uppercase;letter-spacing:.02em}
-  .final-box{background:#fff;border-radius:16px;padding:32px 24px;box-shadow:0 4px 18px rgba(0,0,0,.05);max-width:560px;margin:0 auto;text-align:center}
-  .final-box p{font-size:19px;font-weight:700;color:#333;margin-bottom:24px;line-height:1.5}
-  .final-box .btn{height:56px;padding:0 24px;text-transform:uppercase;letter-spacing:.02em;font-size:15px}
+  /* BROWSER FRAME */
+  .bframe{border-radius:16px;overflow:hidden;background:var(--panel);border:1px solid rgba(22,73,92,.5);box-shadow:0 36px 76px -30px rgba(15,24,41,.6);transition:transform .5s cubic-bezier(.16,.84,.44,1),box-shadow .5s ease}
+  .bframe:hover{transform:translateY(-7px);box-shadow:0 46px 90px -30px rgba(15,24,41,.7)}
+  .bbar{display:flex;align-items:center;gap:7px;padding:12px 15px;background:var(--panelbar);border-bottom:1px solid rgba(255,255,255,.06)}
+  .dot{width:11px;height:11px;border-radius:50%}
+  .dot.r{background:#FF6057}.dot.y{background:#FEBC2E}.dot.g{background:#28C840}
+  .url{margin-left:12px;display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.06);border-radius:6px;padding:4px 12px;font-family:var(--mono);font-size:10.5px;color:rgba(241,243,230,.5)}
+  .url::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--green)}
+  .zoomlbl{margin-left:auto;font-family:var(--mono);font-size:9.5px;color:rgba(241,243,230,.34)}
+  .bframe img{width:100%;height:auto;cursor:zoom-in}
+  .photoframe{position:relative;border-radius:18px;overflow:hidden;box-shadow:0 34px 70px -30px rgba(15,24,41,.5);transition:transform .5s cubic-bezier(.16,.84,.44,1)}
+  .photoframe:hover{transform:translateY(-6px)}
+  .photoframe img{width:100%;height:clamp(270px,32vw,400px);object-fit:cover;cursor:zoom-in}
 
-  /* ═══ FOOTER ═══ */
-  footer{background:var(--petrol);color:#c4d5e1;text-align:center;padding:28px 20px;font-size:12.5px}
-  footer b{color:#fff}
+  /* PROGRAMA */
+  .prog-head h2{font-size:clamp(29px,3.8vw,48px);line-height:1.02;letter-spacing:-1.6px;margin:16px 0 18px;max-width:640px;text-wrap:balance}
+  .video{margin:clamp(42px,5vw,60px) 0 0}
+  .video-frame{position:relative;border-radius:20px;overflow:hidden;aspect-ratio:16/7.6;background:linear-gradient(135deg,#0c3d64 0%,#0f1829 100%);box-shadow:0 40px 84px -34px rgba(15,24,41,.6)}
+  .video-grid{position:absolute;inset:0;opacity:.5;background-image:linear-gradient(rgba(241,243,230,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(241,243,230,.05) 1px,transparent 1px);background-size:52px 52px;-webkit-mask-image:radial-gradient(ellipse 60% 60% at 50% 50%,#000,transparent);mask-image:radial-gradient(ellipse 60% 60% at 50% 50%,#000,transparent)}
+  .video-in{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px}
+  .play{position:relative;width:78px;height:78px;border-radius:50%;border:2px solid rgba(241,243,230,.45);background:rgba(255,117,31,.16);color:var(--cream);display:flex;align-items:center;justify-content:center;font-size:26px;padding-left:5px;cursor:pointer;transition:transform .3s ease,background .3s ease}
+  .play:hover{transform:scale(1.06);background:rgba(255,117,31,.28)}
+  .play .ring{position:absolute;inset:-2px;border-radius:50%;border:2px solid var(--acc);animation:pulseRing 2.4s infinite}
+  .video-cap{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:2px;color:rgba(241,243,230,.55);text-align:center;padding:0 24px}
+  .dim{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(26px,4vw,52px);align-items:center;margin-top:clamp(52px,6.5vw,74px)}
+  .dim-badge{font-family:var(--mono);font-size:10.5px;color:var(--acc);letter-spacing:2.6px;text-transform:uppercase;font-weight:500}
+  .dim h3{font-size:clamp(23px,2.7vw,30px);letter-spacing:-.7px;margin:12px 0 14px;line-height:1.1}
+  .dim p{font-size:15.5px;color:var(--txt);line-height:1.64}
+  .simframe{border-radius:16px;overflow:hidden;background:var(--panel);border:1px solid rgba(22,73,92,.5);box-shadow:0 28px 62px -28px rgba(15,24,41,.55);transition:transform .5s cubic-bezier(.16,.84,.44,1)}
+  .simframe:hover{transform:translateY(-6px)}
+  .simframe .bbar{padding:11px 15px}
+  .simframe .dot{width:10px;height:10px}
+  .simframe img{width:100%;height:auto;cursor:zoom-in}
+  .cards{display:grid;gap:14px;margin-top:clamp(30px,4vw,40px)}
+  .cards.c6{grid-template-columns:repeat(auto-fit,minmax(238px,1fr))}
+  .cards.c3{grid-template-columns:repeat(auto-fit,minmax(258px,1fr));gap:16px}
+  .tcard{background:#fff;border:1px solid rgba(15,24,41,.09);border-radius:14px;padding:24px;transition:transform .35s ease,box-shadow .35s ease,border-color .35s ease}
+  .tcard:hover{transform:translateY(-4px);box-shadow:0 22px 44px -26px rgba(15,24,41,.4);border-color:rgba(255,117,31,.4)}
+  .tcard .n{font-family:var(--mono);font-weight:500;font-size:11px;color:var(--acc);letter-spacing:1.4px;margin-bottom:14px}
+  .tcard h4{font-family:var(--disp);font-weight:700;font-size:16px;color:var(--blue);margin-bottom:8px;line-height:1.2}
+  .tcard p{font-size:13.5px;color:var(--txt2);line-height:1.52}
+  .icard{background:#fff;border:1px solid rgba(15,24,41,.09);border-radius:15px;overflow:hidden;box-shadow:0 16px 40px -26px rgba(15,24,41,.35);transition:transform .35s ease,box-shadow .35s ease}
+  .icard:hover{transform:translateY(-5px);box-shadow:0 28px 56px -26px rgba(15,24,41,.45)}
+  .icard .top{background:var(--panel);height:162px;overflow:hidden;display:flex;align-items:flex-start;justify-content:center;cursor:zoom-in}
+  .icard .top img{width:100%;height:auto;object-fit:cover;object-position:top}
+  .icard .body{padding:22px 24px}
+  .icard .n{font-family:var(--mono);font-weight:500;font-size:11px;color:var(--acc);letter-spacing:1.4px;margin-bottom:10px}
+  .icard h4{font-family:var(--disp);font-weight:700;font-size:16px;color:var(--blue);margin-bottom:7px;line-height:1.2}
+  .icard p{font-size:13.5px;color:var(--txt2);line-height:1.52}
 
-  .dq-error{display:none;background:#fde6da;color:#b3450a;border-radius:10px;padding:12px 16px;font-size:14px;font-weight:600;text-align:center;margin:16px auto 0;max-width:560px}
-  .dq-error.dq-visible{display:block}
+  .dim3{max-width:1120px;margin:clamp(52px,6.5vw,76px) auto 0;background:var(--ink);border-radius:24px;padding:clamp(36px,5vw,60px);position:relative;overflow:hidden}
+  .dim3 .g{top:-20%;right:-6%;width:420px;height:420px;background:radial-gradient(circle,rgba(53,189,248,.16) 0%,transparent 68%)}
+  .dim3-head{position:relative;max-width:540px}
+  .dim3-head h3{color:var(--cream);font-size:clamp(23px,2.9vw,32px);letter-spacing:-.7px;margin:12px 0 14px;line-height:1.1}
+  .dim3-head p{font-size:15.5px;color:rgba(241,243,230,.78);line-height:1.62}
+  .d3feat{position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:clamp(32px,4vw,42px)}
+  .d3card{background:var(--bluecard);border:1px solid var(--petrol);border-radius:16px;overflow:hidden;transition:transform .35s ease,border-color .35s ease}
+  .d3card:hover{transform:translateY(-5px);border-color:rgba(53,189,248,.55)}
+  .d3card .top{background:var(--panelbar);overflow:hidden;cursor:zoom-in}
+  .d3card .top img{width:100%;height:auto}
+  .d3card .body{padding:22px 24px}
+  .d3card .n{font-family:var(--mono);font-weight:500;font-size:11px;color:var(--acc);letter-spacing:1.4px;margin-bottom:10px}
+  .d3card h4{font-family:var(--disp);font-weight:700;font-size:16px;color:var(--cream);margin-bottom:7px}
+  .d3card p{font-size:13.5px;color:rgba(241,243,230,.7);line-height:1.52}
+  .d3comp{position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));gap:10px;margin-top:12px}
+  .d3chip{background:var(--bluecard);border:1px solid var(--petrol);border-radius:13px;padding:22px 18px;text-align:center;transition:transform .35s ease,border-color .35s ease}
+  .d3chip:hover{transform:translateY(-4px);border-color:rgba(255,117,31,.5)}
+  .d3chip .n{font-family:var(--mono);font-weight:500;font-size:11px;color:var(--acc);letter-spacing:1.3px;margin-bottom:10px}
+  .d3chip h5{font-family:var(--disp);font-weight:700;font-size:14px;color:var(--cream);margin-bottom:5px;line-height:1.2}
+  .d3chip p{font-size:12px;color:rgba(241,243,230,.62);line-height:1.42}
 
-  /* ═══ RESPONSIVE (>=768px) ═══ */
-  @media(min-width:768px){
-    .wrap{padding:0 24px}
-    .hero{padding:96px 0}
-    .hero-logo{width:160px}
-    .hero h1{font-size:48px}
-    .hero-benefits{flex-direction:row;gap:24px;justify-content:center}
-    .hero-sub{font-size:18px}
-    .stats-grid{grid-template-columns:repeat(4,1fr)}
-    .stat .n{font-size:40px}
-    .urgencia h2{font-size:36px}
-    .timeline{flex-direction:row}
-    .dores{grid-template-columns:1fr 1fr}
-    .urg-quote{font-size:20px}
-    .prova .big{font-size:72px}
-    .prova h3{font-size:26px}
-    .etapa-card{padding:40px}
-    .etapa-card h2{font-size:36px}
-    .entregaveis{grid-template-columns:1fr 1fr}
-    .etapa-ponte{font-size:18px}
-    .garantia h2{font-size:30px}
+  /* RESULTADOS */
+  .res h2{font-size:clamp(29px,3.7vw,46px);letter-spacing:-1.5px;margin:16px 0 42px;line-height:1.02;text-wrap:balance}
+  .res-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(224px,1fr));gap:16px;margin-bottom:clamp(42px,5vw,56px)}
+  .res-stat{background:#fff;border:1px solid rgba(15,24,41,.09);border-radius:16px;padding:38px 30px;text-align:center;transition:transform .35s ease,box-shadow .35s ease}
+  .res-stat:hover{transform:translateY(-5px);box-shadow:0 28px 56px -28px rgba(15,24,41,.4)}
+  .res-num{font-family:var(--disp);font-weight:800;font-size:clamp(42px,5.4vw,54px);color:var(--acc);line-height:1;margin-bottom:16px;letter-spacing:-2px}
+  .res-stat p{font-size:14px;color:var(--txt2);line-height:1.5}
+  .testis{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-bottom:clamp(42px,5vw,56px)}
+  .testi{background:#fff;border:1px solid rgba(15,24,41,.09);border-radius:16px;padding:32px;position:relative}
+  .testi .q{font-family:var(--disp);font-weight:800;font-size:60px;line-height:.6;color:rgba(255,117,31,.3);margin-bottom:6px}
+  .testi blockquote{font-family:var(--disp);font-weight:600;font-size:17px;color:var(--blue);margin-bottom:22px;line-height:1.44}
+  .testi-meta{display:flex;align-items:center;gap:13px}
+  .testi-av{width:48px;height:48px;border-radius:50%;flex-shrink:0;background-image:repeating-linear-gradient(45deg,#ecdcc1,#ecdcc1 6px,#e3d0b2 6px,#e3d0b2 12px);border:1px dashed #b9a07d;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:6.5px;color:#8a7050;text-align:center;padding:4px;line-height:1.15}
+  .testi-name{font-weight:700;font-size:13.5px;color:var(--ink)}
+  .testi-role{font-size:11.5px;color:var(--txt3)}
+  .bio{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));align-items:stretch;background:var(--ink);border-radius:22px;overflow:hidden;box-shadow:0 40px 84px -40px rgba(15,24,41,.55)}
+  .bio-img{min-height:340px;position:relative}
+  .bio-img img{width:100%;height:100%;min-height:340px;object-fit:cover;object-position:22% center}
+  .bio-body{padding:clamp(34px,4.5vw,52px);display:flex;flex-direction:column;justify-content:center}
+  .bio-top{display:flex;align-items:center;gap:14px}
+  .bio-bar{width:3px;height:56px;background:var(--acc);border-radius:2px;flex-shrink:0}
+  .bio-body h3{font-size:24px;color:var(--cream);margin-bottom:5px;letter-spacing:-.5px}
+  .bio-role{font-family:var(--mono);font-size:11px;color:var(--acc);text-transform:uppercase;letter-spacing:1.6px}
+  .bio-body p{font-size:15px;color:rgba(241,243,230,.82);line-height:1.68;margin-top:22px}
+
+  /* INVESTIMENTO */
+  .invest{position:relative;overflow:hidden}
+  .invest .g{top:-10%;left:50%;transform:translateX(-50%);width:760px;height:520px;border-radius:50%;background:radial-gradient(ellipse,rgba(255,117,31,.16) 0%,transparent 66%)}
+  .invest-in{position:relative;max-width:960px;margin:0 auto}
+  .invest-head{text-align:center;max-width:620px;margin:0 auto clamp(38px,5vw,52px)}
+  .invest-head h2{color:var(--cream);font-size:clamp(29px,3.8vw,48px);letter-spacing:-1.6px;margin:16px 0 16px;line-height:1.02}
+  .invest-head p{font-size:16px;color:rgba(241,243,230,.78);line-height:1.6}
+  .pricing{background:linear-gradient(155deg,#122236,#0b1420);border:1px solid rgba(241,243,230,.12);border-radius:24px;overflow:hidden;box-shadow:0 50px 100px -44px rgba(0,0,0,.7)}
+  .pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+  .pricing-left{padding:clamp(32px,4vw,48px);border-right:1px solid rgba(241,243,230,.1)}
+  .badge{display:inline-block;font-family:var(--mono);font-size:10px;color:var(--acc);letter-spacing:2.4px;border:1px solid rgba(255,117,31,.45);border-radius:6px;padding:7px 15px;margin-bottom:22px;text-transform:uppercase}
+  .pricing-left h3{font-size:clamp(26px,3vw,32px);color:var(--cream);margin-bottom:6px;letter-spacing:-.8px}
+  .pricing-sub{font-size:13.5px;color:rgba(241,243,230,.6);margin-bottom:28px}
+  .incs{display:flex;flex-direction:column;gap:13px}
+  .inc{display:flex;align-items:flex-start;gap:12px}
+  .inc .ck{flex-shrink:0;width:22px;height:22px;border-radius:6px;background:rgba(255,117,31,.18);color:var(--acc);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;margin-top:1px}
+  .inc span.t{font-size:14.5px;color:rgba(241,243,230,.86);line-height:1.42}
+  .pricing-right{padding:clamp(32px,4vw,48px);display:flex;flex-direction:column;justify-content:center;text-align:center;background:rgba(255,255,255,.015)}
+  .pre{font-size:13.5px;color:rgba(241,243,230,.6);margin-bottom:4px}
+  .price{font-family:var(--disp);font-weight:800;font-size:clamp(40px,5.6vw,56px);color:var(--cream);letter-spacing:-2.5px;line-height:1;margin-bottom:8px}
+  .price .sm{font-size:.62em;font-weight:700}
+  .pix{font-size:13.5px;color:rgba(241,243,230,.6);margin-bottom:30px}
+  .cta-full{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;font-size:15.5px;padding:18px}
+  .bonus{margin-top:20px;background:rgba(255,117,31,.1);border:1px solid rgba(255,117,31,.26);border-radius:9px;padding:14px 18px;font-size:13px;color:#ff9d5c;font-style:italic;line-height:1.4}
+  .guar{margin-top:14px;display:flex;align-items:flex-start;gap:9px;text-align:left}
+  .guar .sh{flex-shrink:0;font-size:15px;margin-top:1px}
+  .guar span.t{font-size:12px;color:rgba(241,243,230,.55);line-height:1.5}
+
+  /* FAQ */
+  .faq-wrap{max-width:840px;margin:0 auto}
+  .faq-wrap h2{font-size:clamp(26px,3.4vw,40px);letter-spacing:-1.4px;margin:16px 0 32px;line-height:1.04}
+  .faq-list{display:flex;flex-direction:column}
+  .faq-item{border-bottom:1px solid rgba(15,24,41,.14)}
+  .faq-q{width:100%;background:none;border:0;padding:23px 0;display:flex;justify-content:space-between;align-items:center;gap:16px;cursor:pointer;font-family:var(--disp);font-weight:700;font-size:clamp(16px,1.5vw,18.5px);color:var(--ink);text-align:left}
+  .faq-icon{color:var(--acc);font-size:28px;font-weight:300;line-height:1;transition:transform .3s ease;flex-shrink:0}
+  .faq-item.open .faq-icon{transform:rotate(45deg)}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .38s ease}
+  .faq-a p{font-size:15px;color:var(--txt2);line-height:1.66;padding-bottom:23px}
+
+  /* CTA FINAL */
+  .ctafinal{position:relative;padding:clamp(90px,12vw,140px) clamp(22px,5vw,56px);text-align:center;overflow:hidden;background:var(--ink)}
+  .ctafinal-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:.4;z-index:0}
+  .ctafinal-scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(to right,rgba(15,24,41,.95) 0%,rgba(15,24,41,.8) 50%,rgba(15,24,41,.92) 100%)}
+  .ctafinal-in{position:relative;z-index:2}
+  .ctafinal h2{color:var(--cream);font-size:clamp(30px,4.2vw,52px);letter-spacing:-1.8px;margin-bottom:16px;line-height:1}
+  .ctafinal p{font-size:17px;color:rgba(241,243,230,.82);max-width:460px;margin:0 auto 34px;line-height:1.55}
+  .ctafinal .fine{margin-top:22px;font-family:var(--mono);font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:rgba(241,243,230,.5)}
+
+  /* FOOTER */
+  .footer{background:#0a1119;border-top:1px solid rgba(241,243,230,.08);padding:44px clamp(22px,5vw,56px);text-align:center}
+  .footer-logo{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:14px}
+  .footer-mark{width:22px;height:22px;border-radius:6px;background:var(--acc);display:inline-flex;align-items:center;justify-content:center}
+  .footer-mark::after{content:"";width:7px;height:7px;background:#fff;border-radius:2px}
+  .footer-word{font-family:var(--disp);font-weight:800;font-size:15px;color:var(--cream);letter-spacing:-.3px}
+  .footer span.c{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:2.4px;color:rgba(241,243,230,.34)}
+
+  /* STICKY BAR */
+  .sticky{position:fixed;left:0;right:0;bottom:0;z-index:110;transform:translateY(130%);transition:transform .45s cubic-bezier(.16,.84,.44,1);padding:0 clamp(12px,3vw,24px) clamp(12px,3vw,20px);pointer-events:none}
+  .sticky.show{transform:translateY(0)}
+  .sticky-in{max-width:900px;margin:0 auto;pointer-events:auto;display:flex;align-items:center;gap:16px;background:rgba(15,24,41,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(241,243,230,.14);border-radius:15px;padding:12px 14px 12px 20px;box-shadow:0 24px 54px -20px rgba(0,0,0,.6)}
+  .sticky-txt{min-width:0;flex:1}
+  .sticky-txt .a{font-family:var(--disp);font-weight:800;font-size:15px;color:var(--cream);line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .sticky-txt .b{font-family:var(--mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:rgba(241,243,230,.55);margin-top:2px}
+  .sticky-cta{flex-shrink:0;display:inline-flex;align-items:center;gap:8px;background:var(--acc);color:#fff;font-family:var(--body);font-weight:700;font-size:14px;padding:13px 22px;border-radius:10px;box-shadow:0 12px 26px -10px rgba(255,117,31,.82);transition:transform .3s ease}
+  .sticky-cta:hover{transform:translateY(-2px)}
+
+  /* LIGHTBOX */
+  .lightbox{position:fixed;inset:0;z-index:1000;display:none;align-items:center;justify-content:center;background:rgba(8,14,20,.93);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);cursor:zoom-out;padding:clamp(16px,4vw,48px)}
+  .lightbox.open{display:flex}
+  .lightbox img{max-width:96vw;max-height:92vh;border-radius:12px;box-shadow:0 40px 100px -20px rgba(0,0,0,.8);object-fit:contain}
+  .lightbox-close{position:absolute;top:clamp(14px,3vw,26px);right:clamp(14px,3vw,26px);width:46px;height:46px;border-radius:50%;border:1px solid rgba(241,243,230,.3);background:rgba(15,24,41,.6);color:var(--cream);font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1}
+  .lightbox-hint{position:absolute;bottom:clamp(14px,3vw,26px);left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:2px;color:rgba(241,243,230,.5)}
+
+  /* REVEAL */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.16,.84,.44,1),transform .8s cubic-bezier(.16,.84,.44,1)}
+  .reveal.vis{opacity:1;transform:none}
+
+  /* RESPONSIVE */
+  @media (min-width:1000px){ .hero-float{display:block} }
+  @media (max-width:768px){
+    .nav{height:60px}
+    .nav-word{display:none}
+    .stats{grid-template-columns:repeat(2,1fr)}
+    .step.rev{flex-direction:row}
+    .dim .simframe{order:-1}
+    .pricing-left{border-right:0;border-bottom:1px solid rgba(241,243,230,.1)}
+    .bio-img img{min-height:280px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation-duration:.001ms!important;animation-iteration-count:1!important}
+    .reveal{opacity:1;transform:none}
   }
 </style>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W5TCMGSW" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-<!-- ═══ 1ª DOBRA — HERO ═══ -->
-<section class="hero">
+<div class="grain" aria-hidden="true"></div>
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <a href="#topo" class="nav-logo"><span class="nav-mark"></span><span class="nav-word">Dossiê IF</span></a>
+  <div class="nav-links" id="navLinks">
+    <a href="#cenario" data-id="cenario">Cenário</a>
+    <a href="#metodo" data-id="metodo">Método</a>
+    <a href="#programa" data-id="programa">Programa</a>
+    <a href="#resultados" data-id="resultados">Resultados</a>
+    <a href="#faq" data-id="faq">FAQ</a>
+  </div>
+  <a href="#investimento" class="nav-cta" data-scroll="investimento">Garantir vaga <span aria-hidden="true">→</span></a>
+</nav>
+
+<!-- HERO -->
+<section id="topo" class="hero">
+  <img class="hero-bg" src="SCREENSHOTS%20DOSSI%C3%8A%20IF/Fachada_campus%20de%20IF%20%2B%20Manoel.png" alt="Campus de Instituto Federal com o Prof. Manoel Machado">
+  <div class="hero-scrim1"></div>
+  <div class="hero-scrim2"></div>
+  <div class="hero-glow" aria-hidden="true"></div>
+  <div class="hero-grid" aria-hidden="true"></div>
   <div class="hero-inner">
-    <img class="hero-logo" src="../../assets/img/dossie/logo.webp" alt="Dissecando Questões">
-    <h1>Você já é Professor.<br><span class="accent">Agora só falta ser do IF.</span></h1>
-    <div class="hero-benefits">
-      <div class="hero-benefit"><span class="ck">✔</span><span>Salário de R$ 9k a R$ 15k.</span></div>
-      <div class="hero-benefit"><span class="ck">✔</span><span>Dedicação exclusiva 40h.</span></div>
-      <div class="hero-benefit"><span class="ck">✔</span><span>Estabilidade.</span></div>
+    <div class="hero-col">
+      <span class="eyebrow line hero-up" style="animation-delay:0s">Dissecando Questões</span>
+      <h1 class="hero-up" style="animation-delay:.08s">O programa de preparação mais completo para os <span class="accent">Institutos Federais</span></h1>
+      <p class="sub hero-up" style="animation-delay:.16s">Plataforma inteligente. Cronograma que se adapta à sua rotina. Materiais completos em texto. Acompanhamento mensal com o Prof. Manoel Machado.</p>
+      <div class="hero-actions hero-up" style="animation-delay:.24s">
+        <a href="#investimento" class="btn-primary" data-scroll="investimento">Quero ser aprovado <span aria-hidden="true">→</span></a>
+        <a href="#metodo" class="btn-ghost" data-scroll="metodo">Conhecer o método</a>
+      </div>
+      <div class="hero-trust hero-up" style="animation-delay:.32s">
+        <div class="avatars">
+          <span class="av1"></span><span class="av2"></span><span class="av3"></span><span class="av4">+</span>
+        </div>
+        <div class="hero-trust-txt"><strong>+200 professores aprovados</strong><br>em Institutos Federais de 18 estados</div>
+      </div>
     </div>
-    <p class="hero-sub">9.587 vagas autorizadas. 111 novos campi. De 6 a 9 meses até as provas.</p>
-    <button type="button" class="btn btn-orange btn-lg" data-scroll-preco>QUERO ENTRAR AGORA! <span class="arrow">→</span></button>
+  </div>
+  <div class="hero-float" aria-hidden="true">
+    <div class="inner">
+      <div class="k">Método DQ</div>
+      <div class="big">85% aprovados</div>
+      <div class="s">passam de primeira</div>
+    </div>
   </div>
 </section>
 
-<!-- ═══ SEÇÃO 2 — BARRA DE NÚMEROS ═══ -->
-<section class="statsbar">
+<!-- STATS -->
+<div class="stats-wrap">
+  <div class="stats reveal">
+    <div class="stats-cell"><div class="stats-val" data-count data-target="9587">9.587</div><div class="stats-label">Vagas EBTT autorizadas</div></div>
+    <div class="stats-cell"><div class="stats-val" data-count data-target="111">111</div><div class="stats-label">Novos campi</div></div>
+    <div class="stats-cell"><div class="stats-val" data-count data-target="724">724</div><div class="stats-label">Unidades na rede</div></div>
+    <div class="stats-cell"><div class="stats-val" data-count data-pre="R$ " data-target="3.9" data-dec="1" data-suf=" bi">R$ 3,9 bi</div><div class="stats-label">Investimento federal</div></div>
+  </div>
+</div>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-track">
+    <div class="marquee-group">
+      <span class="marquee-item">+200 professores aprovados</span><span class="marquee-item">18 estados</span><span class="marquee-item">15+ disciplinas</span><span class="marquee-item">R$ 3,9 bi investidos</span><span class="marquee-item">9.587 vagas EBTT</span><span class="marquee-item">111 novos campi</span><span class="marquee-item">724 unidades na rede</span>
+    </div>
+    <div class="marquee-group" aria-hidden="true">
+      <span class="marquee-item">+200 professores aprovados</span><span class="marquee-item">18 estados</span><span class="marquee-item">15+ disciplinas</span><span class="marquee-item">R$ 3,9 bi investidos</span><span class="marquee-item">9.587 vagas EBTT</span><span class="marquee-item">111 novos campi</span><span class="marquee-item">724 unidades na rede</span>
+    </div>
+  </div>
+</div>
+
+<!-- CENARIO -->
+<section id="cenario" class="sec cream" style="scroll-margin-top:82px;padding-bottom:clamp(60px,7vw,88px)">
   <div class="wrap">
-    <div class="stats-grid">
-      <div class="stat"><div class="n">9.587</div><div class="l">Vagas EBTT autorizadas</div></div>
-      <div class="stat"><div class="n">111</div><div class="l">Novos campi</div></div>
-      <div class="stat"><div class="n">724</div><div class="l">Unidades na Rede Federal</div></div>
-      <div class="stat"><div class="n">R$ 3,9 bi</div><div class="l">Investimento federal</div></div>
+    <div class="cenario-grid">
+      <div class="reveal">
+        <span class="eyebrow">O Cenário</span>
+        <h2>A expansão é real. A oportunidade é agora.</h2>
+        <p>A Rede Federal de Educação Profissional e Tecnológica vive seu maior ciclo de expansão em uma década. Novos campi foram inaugurados, milhares de vagas foram autorizadas, e o investimento federal ultrapassou R$ 3,9 bilhões. Os concursos não são uma possibilidade — são uma questão de tempo.</p>
+        <p>Da comissão organizadora à data da prova, o processo leva de 6 a 9 meses. Quando o edital sair, o tempo de preparação já vai ter passado. A pergunta que importa não é se vai ter concurso. É se você vai estar pronto quando ele sair.</p>
+      </div>
+      <div class="reveal">
+        <div class="imgframe">
+          <img src="SCREENSHOTS%20DOSSI%C3%8A%20IF/PROFESSOR%20EM%20SALA%20DE%20AULA.png" alt="Professora orientando alunos em sala de aula de Instituto Federal">
+          <div class="imgtag">Sala de aula · Rede Federal</div>
+        </div>
+      </div>
+    </div>
+    <div class="stat85 reveal">
+      <div class="num">85%</div>
+      <div>
+        <div class="t">dos aprovados de primeira começaram entre 6 e 10 meses antes da prova. O diferencial não foi intensidade. Foi <span class="accent">antecedência e direção</span>.</div>
+        <div class="src">Dado interno · +200 aprovados pelo método DQ</div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ SEÇÃO 3 — URGÊNCIA + DOR ═══ -->
-<section class="urgencia">
+<!-- TIMELINE A -->
+<section class="sec dark" style="position:relative;overflow:hidden;padding-top:clamp(70px,9vw,112px);padding-bottom:clamp(70px,9vw,112px)">
+  <div class="hero-grid" aria-hidden="true" style="opacity:.6;-webkit-mask-image:radial-gradient(ellipse 80% 70% at 50% 30%,#000,transparent);mask-image:radial-gradient(ellipse 80% 70% at 50% 30%,#000,transparent);background-size:58px 58px"></div>
+  <div class="wrap" style="position:relative;text-align:center">
+    <div class="tl-head reveal">
+      <span class="eyebrow">Antes do edital</span>
+      <h2>O concurso já começou — você só não foi avisado</h2>
+      <p class="lead" style="text-align:center">O processo leva de 6 a 9 meses entre a autorização e a publicação do edital. Quem entende esse ciclo começa antes — e passa primeiro.</p>
+    </div>
+    <div class="tl-frame dark-frame reveal">
+      <div class="tl-bar d"><span class="a">Fase pré-edital</span><span class="m">· 6 a 9 meses</span><span class="z">ampliar ⤢</span></div>
+      <picture>
+        <source media="(max-width:768px)" srcset="SCREENSHOTS%20DOSSI%C3%8A%20IF/Mobile-INFOGR%C3%81FICO%20TIMELINE%20DO%20CONCURSO%20(2).webp">
+        <img data-zoom src="SCREENSHOTS%20DOSSI%C3%8A%20IF/INFOGR%C3%81FICO%20TIMELINE%20DO%20CONCURSO%20(2).png" alt="Como nasce um concurso IF: as fases do processo pré-edital ao longo de 6 a 9 meses">
+      </picture>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE B -->
+<section class="sec cream" style="padding-top:clamp(70px,9vw,116px);padding-bottom:clamp(70px,9vw,116px)">
+  <div class="wrap" style="text-align:center">
+    <div class="tl-head reveal">
+      <span class="eyebrow">As fases do concurso</span>
+      <h2>Da publicação do edital à convocação e posse</h2>
+      <p class="lead" style="text-align:center">Onze fases separam o edital da nomeação. Saber onde você está no caminho muda como você estuda.</p>
+    </div>
+    <div class="tl-frame light-frame reveal">
+      <div class="tl-bar l"><span class="a">11 fases</span><span class="m">· edital → posse</span><span class="z">ampliar ⤢</span></div>
+      <picture>
+        <source media="(max-width:768px)" srcset="SCREENSHOTS%20DOSSI%C3%8A%20IF/Mobile-INFOGR%C3%81FICO%20TIMELINE%20DO%20CONCURSO.webp">
+        <img data-zoom src="SCREENSHOTS%20DOSSI%C3%8A%20IF/INFOGR%C3%81FICO%20TIMELINE%20DO%20CONCURSO.png" alt="As 11 fases do concurso EBTT dos Institutos Federais, da publicação do edital à convocação e posse">
+      </picture>
+    </div>
+  </div>
+</section>
+
+<!-- DESAFIO -->
+<section class="sec dark desafio" style="padding-top:clamp(74px,9vw,120px);padding-bottom:clamp(74px,9vw,120px)">
+  <div class="glowbox g" aria-hidden="true"></div>
+  <div class="wrap-sm desafio-in">
+    <div class="reveal">
+      <span class="eyebrow">O Desafio</span>
+      <h3>Você sabe que precisa se preparar. A dúvida é como.</h3>
+      <p>Você dá aula o dia inteiro. Corrige prova, prepara material, atende aluno, participa de reunião. Quando sobra tempo para estudar, sobra pouco — e a dúvida é sempre a mesma: estou estudando a coisa certa?</p>
+      <p>A maioria dos professores que se preparam para concursos de IF enfrenta os mesmos obstáculos: material genérico que não cobre o específico da área, questões espalhadas sem padrão de recorrência, cronograma que dura uma semana antes de ser abandonado, e a sensação constante de que o tempo está passando sem um plano real.</p>
+    </div>
+    <div class="pains reveal">
+      <div class="pain"><div class="n">01</div><div class="ti">Rotina esgotante</div><div class="tx">8h de aula + casa + família. Chega cansado e precisa decidir sozinho o que estudar.</div></div>
+      <div class="pain"><div class="n">02</div><div class="ti">Material genérico</div><div class="tx">Cursos que cobrem o geral e te deixam descoberto no específico da sua área.</div></div>
+      <div class="pain"><div class="n">03</div><div class="ti">Questões espalhadas</div><div class="tx">Questões de IF difíceis de encontrar, sem comentário, sem análise de recorrência.</div></div>
+      <div class="pain"><div class="n">04</div><div class="ti">Sem direcionamento</div><div class="tx">Sem saber o que a banca cobra, você estuda tudo e perde tempo.</div></div>
+    </div>
+    <div class="desafio-close reveal">A maioria reprova não por falta de capacidade, mas por falta de <span class="accent">direcionamento</span>.</div>
+  </div>
+</section>
+
+<!-- METODO -->
+<section id="metodo" class="sec cream" style="scroll-margin-top:82px;padding-bottom:clamp(30px,4vw,48px)">
+  <div class="wrap metodo-head reveal">
+    <span class="eyebrow">O Método</span>
+    <h2>Um sistema de 6 etapas que funciona na sua rotina</h2>
+    <p class="lead" style="max-width:580px">Não é um curso com videoaulas de 2 horas. É um programa de preparação que se adapta ao seu tempo — não contra ele.</p>
+  </div>
+  <div class="wrap steps">
+    <div class="step reveal">
+      <div class="step-text"><div class="step-num">01</div><h3>Diagnóstico da Banca</h3><p>Antes de abrir qualquer material, você entende como a sua banca cobra. O Mapa das Questões analisa os padrões de recorrência por instituto, disciplina e tema. Você não estuda tudo — estuda o que aparece.</p></div>
+      <div class="step-media"><div class="bframe"><div class="bbar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">app.dissecandoquestoes.com</span><span class="zoomlbl">ampliar ⤢</span></div><img data-zoom src="SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DO%20MAPA%20DAS%20QUEST%C3%95ES.png" alt="Mapa das Questões — recorrência por tema e banca"></div></div>
+    </div>
+    <div class="step rev reveal">
+      <div class="step-text"><div class="step-num">02</div><h3>Conteúdo Direcionado</h3><p>Com o mapa na mão, você estuda os materiais de conhecimentos básicos e específicos da sua área. Tudo em texto, direto ao ponto, sem videoaula de 2 horas. Cada página existe porque a banca cobra.</p></div>
+      <div class="step-media"><div class="bframe"><div class="bbar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">app.dissecandoquestoes.com</span><span class="zoomlbl">ampliar ⤢</span></div><img data-zoom src="SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DO%20MATERIAL%20DID%C3%81TICO%20ENXUTO.png" alt="Material didático enxuto por disciplina específica"></div></div>
+    </div>
+    <div class="step reveal">
+      <div class="step-text"><div class="step-num">03</div><h3>Prática com Inteligência</h3><p>O Banco de Questões Dissecadas traz as provas anteriores com resolução estratégica. Você não só acerta ou erra — entende por que a banca formulou daquele jeito e o que ela quer testar.</p></div>
+      <div class="step-media"><div class="bframe"><div class="bbar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">app.dissecandoquestoes.com</span><span class="zoomlbl">ampliar ⤢</span></div><img data-zoom src="SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DE%20QUEST%C3%83O%20DISSECADA.png" alt="Questão dissecada com resolução estratégica"></div></div>
+    </div>
+    <div class="step rev reveal">
+      <div class="step-text"><div class="step-num">04</div><h3>Revisão Espaçada</h3><p>Flashcards calibrados pelo seu desempenho. O que você erra, volta mais vezes. O que você domina, espaça. A revisão é ativa, não passiva — e acontece dentro da plataforma.</p></div>
+      <div class="step-media"><div class="bframe"><div class="bbar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">app.dissecandoquestoes.com</span><span class="zoomlbl">ampliar ⤢</span></div><img data-zoom src="SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DOS%20FLASHCARDS.png" alt="Flashcards com indicadores de desempenho"></div></div>
+    </div>
+    <div class="step reveal">
+      <div class="step-text"><div class="step-num">05</div><h3>Cronograma que se Adapta</h3><p>A plataforma gera seu cronograma com base no tempo que você realmente tem. Se sua semana muda, o plano muda junto. Você não abandona o cronograma — ele se ajusta a você.</p></div>
+      <div class="step-media"><div class="bframe"><div class="bbar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">app.dissecandoquestoes.com</span><span class="zoomlbl">ampliar ⤢</span></div><img data-zoom src="SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DO%20CRONOGRAMA%20ADAPT%C3%81VEL.png" alt="Cronograma adaptável com metas semanais"></div></div>
+    </div>
+    <div class="step rev reveal">
+      <div class="step-text"><div class="step-num">06</div><h3>Acompanhamento Real</h3><p>Todo mês, encontro ao vivo com o Prof. Manoel Machado. Correção de rota, dúvidas estratégicas, alinhamento de prioridades. Você não está sozinho — tem alguém que já percorreu esse caminho acompanhando o seu.</p></div>
+      <div class="step-media"><div class="photoframe"><img data-zoom src="SCREENSHOTS%20DOSSI%C3%8A%20IF/FOTO%20DO%20PROF.%20MANOEL%20EM%20MENTORIA%20AO%20VIVO.png" alt="Encontro de mentoria coletiva ao vivo com o Prof. Manoel"><div class="imgtag">Mentoria ao vivo · mensal</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMA -->
+<section id="programa" class="sec cream" style="scroll-margin-top:82px;padding-bottom:clamp(56px,7vw,80px)">
   <div class="wrap">
-    <p class="eyebrow">A matemática cruel</p>
-    <h2>Quanto tempo você realmente tem?</h2>
-
-    <div class="timeline">
-      <div class="tl-item"><p class="t">Concurso autorizado</p><p class="p done">✓ Feito</p><p class="i">9.587 vagas em 111 campi</p></div>
-      <div class="tl-item"><p class="t">Comissão Organizadora</p><p class="p">~3 meses</p></div>
-      <div class="tl-item"><p class="t">Contratação da banca</p><p class="p">30–45 dias</p></div>
-      <div class="tl-item"><p class="t">Publicação do edital</p><p class="p">~2 meses</p></div>
-      <div class="tl-item"><p class="t">Data da prova</p><p class="p">45–60 dias</p></div>
+    <div class="prog-head reveal">
+      <span class="eyebrow">O Programa</span>
+      <h2>Tudo que está incluído no Dossiê IF</h2>
+      <p class="lead" style="max-width:620px">16 ferramentas e recursos organizados em três dimensões da preparação. Cada item resolve um problema real — nenhum está aqui para encher lista.</p>
     </div>
 
-    <div class="urg-highlight">
-      <p>Da comissão organizadora à prova: 6 a 9 meses</p>
-    </div>
-
-    <div class="dores">
-      <div class="dor"><h3>Rotina esgotante</h3><p>8h de aula + casa + família. Chega em casa cansado e precisa decidir sozinho o que estudar.</p></div>
-      <div class="dor"><h3>Material genérico</h3><p>Cursos que cobrem o geral e te deixam descoberto no específico.</p></div>
-      <div class="dor"><h3>Questões espalhadas</h3><p>Questões de IF difíceis de encontrar, sem comentário, sem recorrência.</p></div>
-      <div class="dor"><h3>Sem direcionamento</h3><p>Sem saber o que a banca cobra, você estuda tudo e perde tempo.</p></div>
-    </div>
-
-    <p class="urg-quote">A maioria reprova não por falta de capacidade, mas por falta de direcionamento.</p>
-  </div>
-</section>
-
-<!-- ═══ SEÇÃO 4 — PROVA SOCIAL ═══ -->
-<section class="prova">
-  <div class="prova-inner">
-    <div class="big">85%</div>
-    <h3>dos que passaram de primeira começaram 6 a 10 meses antes</h3>
-    <p>Dado interno · +200 aprovados. O segredo foi antecedência, não intensidade.</p>
-  </div>
-</section>
-
-<!-- ═══ SEÇÃO 5 — AS 5 ETAPAS ═══ -->
-<section class="etapas">
-  <div class="etapas-list">
-
-    <!-- ETAPA 01 — Direção -->
-    <div class="e-emerald">
-      <div class="etapa-card">
-        <p class="etapa-eyebrow">Etapa 01 · Direção</p>
-        <h2>Saber o que estudar</h2>
-        <div class="etapa-dor">"São dezenas de IFs, cada um com uma banca diferente. Estudo um pouco de tudo e não avanço em nada."</div>
-        <div class="entregaveis">
-          <div class="entreg plain"><div class="entreg-head"><h3>Mapa das Questões</h3></div><p>Análise de recorrência por banca. Mostra quais temas cada banca cobra com frequência. Você foca no que realmente cai.</p></div>
-          <div class="entreg plain"><div class="entreg-head"><h3>Banco de Questões Ultrasselecionadas</h3></div><p>Todas as questões dos IFs organizadas por tema, banca e nível.</p></div>
-          <div class="entreg plain"><div class="entreg-head"><h3>Editais por instituto</h3></div><p>Biblioteca com requisitos e particularidades de cada IF.</p></div>
+    <div class="video reveal">
+      <div class="video-frame">
+        <div class="video-grid" aria-hidden="true"></div>
+        <div class="video-in">
+          <button type="button" class="play" aria-label="Assistir vídeo"><span class="ring" aria-hidden="true"></span>▶</button>
+          <span class="video-cap">Vídeo · Apresentação do programa Dossiê IF</span>
         </div>
-        <div class="etapa-result"><span class="ck">✔</span><p>Você sabe exatamente o que estudar e quais bancas priorizar.</p></div>
-      </div>
-      <p class="etapa-ponte">"Agora eu sei o que estudar. Mas como transformar isso em um sistema que eu consiga seguir?"</p>
-    </div>
-
-    <!-- ETAPA 02 — Método -->
-    <div class="e-blue">
-      <div class="etapa-card">
-        <p class="etapa-eyebrow">Etapa 02 · Método</p>
-        <h2>Saber como estudar</h2>
-        <div class="etapa-dor">"Tenho materiais, mas estudo sem método. Não sei se estou evoluindo ou girando em círculos."</div>
-        <div class="entregaveis">
-          <div class="entreg hl"><div class="entreg-head"><h3>Metodologia DQ</h3></div><p>O sistema completo que conecta todas as ferramentas. O método que já aprovou mais de 200 professores nos IFs.</p></div>
-          <div class="entreg plain"><div class="entreg-head"><h3>Materiais Básicos Completos</h3></div><p>Pedagógico, legislação e didática. Direto ao ponto. Cada página existe porque a banca cobra.</p></div>
-          <div class="entreg plain"><div class="entreg-head"><h3>Robô Tutor + Flashcards</h3></div><p>IA para prática de questões + flashcards para retenção estratégica. Prática a qualquer hora.</p></div>
-          <div class="entreg plain"><div class="entreg-head"><h3>Material Específico</h3><span class="entreg-badge">Novo</span></div><p>Direcionado pro conhecimento específico da SUA disciplina. Atualizado pós-edital.</p></div>
-        </div>
-        <div class="etapa-result"><span class="ck">✔</span><p>Método provado, materiais enxutos e tutor 24h. O estudo vira sistema.</p></div>
-      </div>
-      <p class="etapa-ponte">"Tenho o método e os materiais. Mas como encaixar tudo na minha rotina?"</p>
-    </div>
-
-    <!-- ETAPA 03 — Plano tático -->
-    <div class="e-orange">
-      <div class="etapa-card">
-        <p class="etapa-eyebrow">Etapa 03 · Plano tático</p>
-        <h2>Ter um plano feito pra você</h2>
-        <div class="etapa-dor">"Cronograma genérico de 8h por dia não funciona. Preciso de algo que caiba na minha realidade."</div>
-        <div class="entregaveis">
-          <div class="entreg hl"><div class="entreg-head"><h3>Cronograma personalizado</h3></div><p>Montado para a sua rotina. Considera tempo disponível, matérias prioritárias e janela de editais.</p></div>
-          <div class="entreg plain"><div class="entreg-head"><h3>Revisões agendadas</h3></div><p>A plataforma programa quando revisar cada conteúdo no momento certo.</p></div>
-          <div class="entreg plain"><div class="entreg-head"><h3>Plataforma inteligente</h3></div><p>Rastreia progresso, identifica lacunas e adapta prioridades.</p></div>
-          <div class="entreg plain"><div class="entreg-head"><h3>Simulados Infinitos</h3><span class="entreg-badge">Novo</span></div><p>Gerados por IA e adaptação humana. Direcionados por banca e área.</p></div>
-        </div>
-        <div class="etapa-result"><span class="ck">✔</span><p>Sua preparação vira sua. Cada dia tem propósito. Cada revisão tem hora.</p></div>
-      </div>
-      <p class="etapa-ponte">"Tenho direção, método e plano. Mas estudar sozinho é difícil."</p>
-    </div>
-
-    <!-- ETAPA 04 — Comunidade -->
-    <div class="e-purple">
-      <div class="etapa-card">
-        <p class="etapa-eyebrow">Etapa 04 · Comunidade</p>
-        <h2>Não estar sozinho na jornada</h2>
-        <div class="etapa-dor">"Estudo sozinho há meses. Não sei se estou evoluindo e ninguém me avisa quando estou perdendo tempo."</div>
-        <div class="entregaveis">
-          <div class="entreg hl"><div class="entreg-head"><h3>Comunidade por Área</h3></div><p>Grupo exclusivo da sua disciplina. Quem estuda acompanhado desiste menos e acerta mais.</p></div>
-          <div class="entreg hl"><div class="entreg-head"><h3>Reunião mensal</h3></div><p>Encontro em grupo ao vivo com o Prof. Manoel Machado. Estratégia, dúvidas e acompanhamento.</p></div>
-          <div class="entreg plain"><div class="entreg-head"><h3>Relatórios individuais</h3></div><p>Acompanhamento do progresso com dados reais. Sem achismo.</p></div>
-        </div>
-        <div class="etapa-result"><span class="ck">✔</span><p>Mentor, comunidade e dados. A preparação vira processo acompanhado.</p></div>
-      </div>
-      <p class="etapa-ponte">"A objetiva eu resolvo. Mas a prova didática? Nunca fiz uma aula de concurso na vida."</p>
-    </div>
-
-    <!-- ETAPA 05 — Didática -->
-    <div class="e-amber">
-      <div class="etapa-card">
-        <p class="etapa-eyebrow">Etapa 05 · Didática</p>
-        <h2>Dominar a prova que mais reprova</h2>
-        <div class="etapa-dor">"A didática é o filtro final. Nunca montei um plano de aula pra concurso."</div>
-        <div class="entregaveis">
-          <div class="entreg hl"><div class="entreg-head"><h3>Curso Dissecando a Didática</h3></div><p>Plano de aula, critérios de avaliação, postura, gestão do tempo. Quem reprova na didática reprova por falta de preparo específico.</p></div>
-        </div>
-        <div class="etapa-result"><span class="ck">✔</span><p>Plano de aula, postura, tempo — tudo preparado.</p></div>
       </div>
     </div>
 
+    <div class="dim reveal">
+      <div>
+        <span class="dim-badge">Dimensão 01</span>
+        <h3>Conteúdo e Inteligência</h3>
+        <p>O conhecimento completo dos Institutos Federais — organizado, direcionado e pronto para estudar. Sem garimpar material, sem improvisar.</p>
+      </div>
+      <div class="simframe"><div class="bbar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div><img data-zoom src="SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DA%20VIS%C3%83O%20GERAL%20DOS%20MATERIAIS.png" alt="Visão geral dos materiais da plataforma"></div>
+    </div>
+
+    <div class="cards c6 reveal">
+      <div class="tcard"><div class="n">01</div><h4>Materiais Básicos</h4><p>Legislação, didática, pedagogia — tudo que é comum a todos os editais. Em texto, direto ao ponto.</p></div>
+      <div class="tcard"><div class="n">02</div><h4>Materiais Específicos</h4><p>Conteúdo completo para todas as áreas. Feito para IFs, não genérico.</p></div>
+      <div class="tcard"><div class="n">03</div><h4>Banco de Questões</h4><p>Provas anteriores com resolução estratégica. Filtros por banca, instituto e tema.</p></div>
+      <div class="tcard"><div class="n">04</div><h4>Mapa das Questões</h4><p>Recorrência dinâmica por banca e tema. Você sabe o peso de cada assunto.</p></div>
+      <div class="tcard"><div class="n">05</div><h4>Biblioteca de Provas</h4><p>Acervo completo organizado por instituto e disciplina.</p></div>
+      <div class="tcard"><div class="n">06</div><h4>Método DQ</h4><p>Vídeos e documentos com a lógica da preparação.</p></div>
+    </div>
+
+    <div class="dim reveal">
+      <div class="simframe"><div class="bbar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div><img data-zoom src="SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DE%20SIMULADO%20EM%20ANDAMENTO.png" alt="Simulado em andamento na plataforma"></div>
+      <div>
+        <span class="dim-badge">Dimensão 02</span>
+        <h3>Prática e Revisão</h3>
+        <p>Treinar como a banca cobra e fixar o que importa. Com ferramentas inteligentes que se adaptam ao seu desempenho.</p>
+      </div>
+    </div>
+
+    <div class="cards c3 reveal">
+      <div class="icard"><div class="top" data-zoom><img src="SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DO%20CHAT%20COM%20ROB%C3%94%20TUTOR.png" alt="Chat com o Robô Tutor"></div><div class="body"><div class="n">01</div><h4>Robô Tutor Dissecador</h4><p>Tira-dúvidas por IA especializado nas suas disciplinas. Resposta clara e direta, na hora.</p></div></div>
+      <div class="icard"><div class="top" data-zoom><img src="SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DE%20RESULTADO%20DE%20SIMULADO.png" alt="Resultado de simulado"></div><div class="body"><div class="n">02</div><h4>Simulados Dissecados</h4><p>Gerados por histórico de questões, direcionados por banca e área. Ajuste fino para a prova.</p></div></div>
+      <div class="icard"><div class="top" data-zoom><img src="SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DA%20TELA%20DE%20FLASHCARDS.png" alt="Tela de flashcards"></div><div class="body"><div class="n">03</div><h4>Flashcards de Revisão</h4><p>Revisão espaçada calibrada pelo desempenho. O que você erra, volta mais vezes.</p></div></div>
+    </div>
+  </div>
+
+  <!-- DIM 3 -->
+  <div class="dim3 reveal">
+    <div class="glowbox g" aria-hidden="true"></div>
+    <div class="dim3-head">
+      <span class="dim-badge">Dimensão 03</span>
+      <h3>Organização e Acompanhamento</h3>
+      <p>A estrutura que transforma estudo disperso em preparação real. Com tecnologia, comunidade e mentoria.</p>
+    </div>
+    <div class="d3feat">
+      <div class="d3card"><div class="top" data-zoom><img src="SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DO%20DASHBOARD%20DA%20PLATAFORMA.png" alt="Dashboard da plataforma"></div><div class="body"><div class="n">01</div><h4>Plataforma Inteligente</h4><p>Organiza seu progresso, identifica lacunas e sugere próximos passos. Seu copiloto de preparação.</p></div></div>
+      <div class="d3card"><div class="top" data-zoom><img src="SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DO%20CRONOGRAMA%20COM%20METAS.png" alt="Cronograma com metas"></div><div class="body"><div class="n">02</div><h4>Cronograma Adaptável</h4><p>Gerado automaticamente com base no seu tempo real. Se a semana muda, o plano muda junto.</p></div></div>
+    </div>
+    <div class="d3comp">
+      <div class="d3chip"><div class="n">03</div><h5>Comunidade por Área</h5><p>Grupo WhatsApp da sua disciplina</p></div>
+      <div class="d3chip"><div class="n">04</div><h5>Mentoria Mensal</h5><p>Ao vivo com Prof. Manoel, gravada</p></div>
+      <div class="d3chip"><div class="n">05</div><h5>Curso da Didática</h5><p>Gravado + 1 encontro ao vivo</p></div>
+      <div class="d3chip"><div class="n">06</div><h5>Prep. Discursiva</h5><p>Técnica e correção com feedback</p></div>
+      <div class="d3chip"><div class="n">07</div><h5>Suporte WhatsApp</h5><p>Chat individual, horário comercial</p></div>
+    </div>
   </div>
 </section>
 
-<!-- ═══ SEÇÃO 7 — OFERTA / PREÇO ═══ -->
-<section class="preco" id="preco">
-  <div class="preco-card">
-    <div class="preco-head">
-      <p class="k">Oferta Exclusiva</p>
-      <h2>2 anos de acesso completo</h2>
+<!-- RESULTADOS -->
+<section id="resultados" class="sec cream res" style="scroll-margin-top:82px">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">Resultados</span>
+      <h2>Números reais de quem seguiu o método</h2>
     </div>
-    <div class="preco-mockup">
-      <img src="../../assets/img/dossie/mockup-dossie.png" alt="Materiais do Dossiê IF — plataforma, apostilas, questões e comunidade">
+    <div class="res-stats reveal">
+      <div class="res-stat"><div class="res-num" data-count data-pre="+" data-target="200">+200</div><p>Professores aprovados em Institutos Federais usando o método DQ</p></div>
+      <div class="res-stat"><div class="res-num" data-count data-target="85" data-suf="%">85%</div><p>Dos aprovados de primeira começaram entre 6 e 10 meses antes da prova</p></div>
+      <div class="res-stat"><div class="res-num" data-count data-target="18" data-suf="+">18+</div><p>Estados com alunos aprovados, em mais de 15 disciplinas diferentes</p></div>
     </div>
-    <div class="preco-body">
-      <div class="preco-price">12x de R$ 99,70</div>
-      <p class="preco-avista">ou R$ 997 à vista</p>
-      <p class="preco-dia">R$ 1,37 por dia · 2 anos de acesso</p>
+    <div class="testis reveal">
+      <div class="testi">
+        <div class="q" aria-hidden="true">“</div>
+        <blockquote>Espaço reservado para depoimento real de aluno aprovado. Nome, área, instituto, e como o Dossiê fez diferença.</blockquote>
+        <div class="testi-meta"><div class="testi-av">FOTO ALUNO 1</div><div><div class="testi-name">Nome do Aluno</div><div class="testi-role">Área · Instituto Federal de [Estado]</div></div></div>
+      </div>
+      <div class="testi">
+        <div class="q" aria-hidden="true">“</div>
+        <blockquote>Espaço reservado para depoimento real de aluno aprovado. Nome, área, instituto, e como o Dossiê fez diferença.</blockquote>
+        <div class="testi-meta"><div class="testi-av">FOTO ALUNO 2</div><div><div class="testi-name">Nome do Aluno</div><div class="testi-role">Área · Instituto Federal de [Estado]</div></div></div>
+      </div>
     </div>
-    <div class="preco-cta">
-      <a class="btn btn-orange btn-full" data-dq-checkout data-comprar="cartao" href="https://checkout.dissecandoquestoes.com.br/checkout/lnc-grupos2-dossie-if-2-anos">Garantir minha vaga agora</a>
-    </div>
-    <div class="preco-trust">
-      <span><span class="ic">🔒</span> Pagamento seguro</span>
-      <span><span class="ic star">★</span> Acesso imediato</span>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ SEÇÃO 8 — GARANTIA ═══ -->
-<section class="garantia">
-  <div class="garantia-inner">
-    <div class="garantia-badge"><span class="shield">🛡</span></div>
-    <h2>Garantia incondicional de 7 dias</h2>
-    <p>Acesse tudo. Explore cada ferramenta. Se não fizer sentido pra você nos primeiros 7 dias, cancela e recebe de volta. Sem pergunta. O risco é zero.</p>
-  </div>
-</section>
-
-<!-- ═══ SEÇÃO 9 — CTA FINAL + DÚVIDAS ═══ -->
-<section class="final">
-  <div class="final-inner">
-    <p class="final-lead">R$ 9k a R$ 15k · 111 campi · bancas sendo contratadas</p>
-    <a class="btn btn-orange btn-fale" id="waBtn" target="_blank" rel="noopener" href="https://wa.me/5511953432311?text=Ol%C3%A1%2C%20quero%20adquirir%20o%20Dossi%C3%AA-IF%20mas%20tenho%20d%C3%BAvidas">Fale conosco ↗</a>
-
-    <div class="final-box">
-      <p>Você já é professor. O IF é o próximo passo. E o Dossiê é o caminho mais curto.</p>
-      <button type="button" class="btn btn-orange" data-scroll-preco>Sim, quero a minha vaga no IF</button>
+    <div class="bio reveal">
+      <div class="bio-img"><img src="SCREENSHOTS%20DOSSI%C3%8A%20IF/FOTO%20PROFISSIONAL%20DO%20PROF.%20MANOEL%20MACHADO.png" alt="Retrato profissional do Prof. Manoel Machado"></div>
+      <div class="bio-body">
+        <div class="bio-top">
+          <div class="bio-bar"></div>
+          <div>
+            <h3>Prof. Manoel Machado</h3>
+            <span class="bio-role">Criador do Método DQ</span>
+          </div>
+        </div>
+        <p>Criador do Método Dissecando Questões. Mais de 200 alunos aprovados em Institutos Federais de 18 estados. Professor, mentor e especialista de preparação para concursos da Rede Federal.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<div class="dq-error" data-dq-error></div>
+<!-- INVESTIMENTO -->
+<section id="investimento" class="sec dark invest" style="scroll-margin-top:82px">
+  <div class="glowbox g" aria-hidden="true"></div>
+  <div class="invest-in">
+    <div class="invest-head reveal">
+      <span class="eyebrow">Investimento</span>
+      <h2>Comece sua preparação</h2>
+      <p>Acesso completo à plataforma, todos os materiais, ferramentas de prática e revisão, cronograma adaptável e acompanhamento mensal.</p>
+    </div>
+    <div class="pricing reveal">
+      <div class="pricing-grid">
+        <div class="pricing-left">
+          <span class="badge">Programa Completo</span>
+          <h3>Dossiê IF</h3>
+          <p class="pricing-sub">Mentoria em grupo + plataforma inteligente de estudos</p>
+          <div class="incs">
+            <div class="inc"><span class="ck">✓</span><span class="t">Acesso completo à plataforma inteligente</span></div>
+            <div class="inc"><span class="ck">✓</span><span class="t">Todos os materiais — básicos e específicos</span></div>
+            <div class="inc"><span class="ck">✓</span><span class="t">Ferramentas de prática e revisão</span></div>
+            <div class="inc"><span class="ck">✓</span><span class="t">Cronograma que se adapta à sua rotina</span></div>
+            <div class="inc"><span class="ck">✓</span><span class="t">Acompanhamento mensal ao vivo com o Prof. Manoel</span></div>
+          </div>
+        </div>
+        <div class="pricing-right">
+          <div class="pre">em até</div>
+          <div class="price">12x <span class="sm">de</span> R$ 99,70</div>
+          <div class="pix">ou R$ 997 à vista no Pix</div>
+          <!-- CHECKOUT Path A: o href é fallback PRONTO (fail-open, ainda leva os
+               UTMs); o checkout-links.js roteia por campanha quando há config de
+               checkout cadastrada no CRM. NÃO trocar por link montado em JS. -->
+          <a href="https://checkout.dissecandoquestoes.com.br/checkout/lnc-grupos2-dossie-if-2-anos" class="btn-primary cta-full" data-dq-checkout data-comprar="cartao">Começar minha preparação <span aria-hidden="true">→</span></a>
+          <div class="bonus">Inscrições realizadas neste mês incluem +1 ano de acesso como bônus.</div>
+          <div class="guar"><span class="sh" aria-hidden="true">🛡️</span><span class="t">Garantia incondicional de 7 dias. Se por qualquer motivo sentir que não é pra você, devolvemos 100% do valor. Sem perguntas.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-<footer>
-  <b>Dissecando Questões</b> · Prof. Manoel Machado &nbsp;·&nbsp; @dissecadordequestoes<br>
-  Você já é Professor. Agora só falta ser do IF.
+<!-- FAQ -->
+<section id="faq" class="sec cream" style="scroll-margin-top:82px">
+  <div class="faq-wrap reveal">
+    <span class="eyebrow">Perguntas Frequentes</span>
+    <h2>Tire suas dúvidas</h2>
+    <div class="faq-list" id="faqList">
+      <div class="faq-item"><button type="button" class="faq-q"><span>Funciona para a minha área?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>Sim. O Dossiê IF cobre todas as áreas de atuação com materiais específicos para cada disciplina. Os cadernos de questões, simulados e flashcards são filtrados pela sua área. As comunidades no WhatsApp também são segmentadas por disciplina.</p></div></div>
+      <div class="faq-item"><button type="button" class="faq-q"><span>Tenho pouco tempo. Vai funcionar?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>O Dossiê foi feito para quem tem pouco tempo. O cronograma se adapta às horas que você realmente tem disponíveis na semana. Sessões de 20-30 minutos por dia já geram progresso consistente. É o oposto de ‘videoaula de 2 horas’ — é material direto, consultável, que vai no ponto.</p></div></div>
+      <div class="faq-item"><button type="button" class="faq-q"><span>O material é em vídeo ou texto?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>Os materiais didáticos (básicos e específicos) são 100% em texto — diretos, consultáveis, feitos para quem não pode assistir videoaulas longas. O Método DQ e o Curso Dissecando a Didática incluem vídeo por serem conteúdos de formação.</p></div></div>
+      <div class="faq-item"><button type="button" class="faq-q"><span>E se sair edital durante o meu acesso?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>Melhor cenário possível. Você já vai estar preparado. A plataforma permite ajustar o cronograma para intensificar os estudos quando o edital sair. E como você já domina o mapa de recorrência da banca, sabe exatamente onde focar.</p></div></div>
+      <div class="faq-item"><button type="button" class="faq-q"><span>Posso parcelar?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>Sim, em até 12 vezes no cartão de crédito. O valor por dia fica abaixo de R$ 3 — menos que um café.</p></div></div>
+      <div class="faq-item"><button type="button" class="faq-q"><span>E se eu não gostar?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>Você tem 7 dias de garantia incondicional. Se sentir que não é pra você, basta solicitar o reembolso e devolvemos 100% do valor. Sem perguntas, sem burocracia.</p></div></div>
+      <div class="faq-item"><button type="button" class="faq-q"><span>Qual a diferença entre o Dossiê IF e outros cursos?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>A maioria dos cursos entrega conteúdo genérico gravado e te deixa sozinho. O Dossiê IF entrega conteúdo direcionado especificamente para IFs, uma plataforma que adapta o cronograma ao seu tempo, ferramentas de prática inteligente, e acompanhamento mensal ao vivo com o Prof. Manoel Machado.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="ctafinal">
+  <img class="ctafinal-bg" src="SCREENSHOTS%20DOSSI%C3%8A%20IF/FOTO%20PROFISSIONAL%20DO%20PROF.%20MANOEL%20MACHADO2.png" alt="" aria-hidden="true">
+  <div class="ctafinal-scrim"></div>
+  <div class="ctafinal-in reveal">
+    <h2>Pronto para começar?</h2>
+    <p>Sua preparação para os Institutos Federais começa aqui.</p>
+    <a href="#investimento" class="btn-primary" data-scroll="investimento">Começar minha preparação <span aria-hidden="true">→</span></a>
+    <div class="fine">Garantia de 7 dias · +200 aprovados · 18 estados</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-logo"><span class="footer-mark"></span><span class="footer-word">Dossiê IF</span></div>
+  <span class="c">Dissecando Questões · Prof. Manoel Machado · 2026</span>
 </footer>
 
-<script src="../../assets/js/checkout-links.js" data-secao="lps" data-slug="dossie"></script>
+<!-- STICKY CTA BAR -->
+<div class="sticky" id="sticky">
+  <div class="sticky-in">
+    <div class="sticky-txt">
+      <div class="a">Dossiê IF · 12x de R$ 99,70</div>
+      <div class="b">Garantia de 7 dias · +1 ano bônus</div>
+    </div>
+    <a href="#investimento" class="sticky-cta" data-scroll="investimento">Garantir vaga <span aria-hidden="true">→</span></a>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <img id="lightboxImg" alt="">
+  <button type="button" class="lightbox-close" id="lightboxClose" aria-label="Fechar">✕</button>
+  <span class="lightbox-hint">Clique para fechar</span>
+</div>
+
 <script>
 (function(){
   "use strict";
+  var $=function(s,c){return (c||document).querySelector(s)};
+  var $$=function(s,c){return Array.prototype.slice.call((c||document).querySelectorAll(s))};
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ---- reveal ----
+  function reveal(el){el.classList.add('vis')}
+  if(reduce || !('IntersectionObserver' in window)){
+    $$('.reveal').forEach(reveal);
+  } else {
+    var ro=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){reveal(e.target);ro.unobserve(e.target)}})},{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+    $$('.reveal').forEach(function(el){ro.observe(el)});
+    setTimeout(function(){$$('.reveal').forEach(function(el){if(!el.classList.contains('vis'))reveal(el)})},2600);
+  }
+
+  // ---- count-up ----
+  function fmt(v,dec,pre,suf){var s=dec>0?v.toFixed(dec).replace('.',','):Math.round(v).toLocaleString('pt-BR');return (pre||'')+s+(suf||'')}
+  function countUp(el){
+    if(el.dataset.done)return; el.dataset.done='1';
+    var pre=el.dataset.pre||'',suf=el.dataset.suf||'',dec=parseInt(el.dataset.dec||'0',10),target=parseFloat(el.dataset.target||'0');
+    if(reduce){el.textContent=fmt(target,dec,pre,suf);return}
+    var dur=1300,t0=performance.now();
+    function step(now){var p=Math.min(1,(now-t0)/dur),e=1-Math.pow(1-p,3);el.textContent=fmt(target*e,dec,pre,suf);if(p<1)requestAnimationFrame(step);else el.textContent=fmt(target,dec,pre,suf)}
+    requestAnimationFrame(step);
+  }
+  if('IntersectionObserver' in window){
+    var co=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){countUp(e.target);co.unobserve(e.target)}})},{threshold:.4});
+    $$('[data-count]').forEach(function(el){co.observe(el)});
+  } else { $$('[data-count]').forEach(countUp) }
+
+  // ---- smooth scroll for internal CTAs + nav ----
+  function scrollToId(id){var el=document.getElementById(id);if(el&&el.scrollIntoView)el.scrollIntoView({behavior:'smooth',block:'start'})}
+  var navLinks=$('#navLinks');
+  if(navLinks){navLinks.addEventListener('click',function(e){var a=e.target.closest?e.target.closest('a[data-id]'):null;if(!a)return;e.preventDefault();scrollToId(a.getAttribute('data-id'))})}
+  $$('[data-scroll]').forEach(function(btn){btn.addEventListener('click',function(e){e.preventDefault();scrollToId(btn.getAttribute('data-scroll'))})});
+
+  // ---- scroll-spy ----
+  if('IntersectionObserver' in window){
+    var spyIds=['cenario','metodo','programa','resultados','faq','investimento'];
+    var spy=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){$$('.nav-links a').forEach(function(a){a.classList.toggle('active',a.getAttribute('data-id')===e.target.id)})}})},{rootMargin:'-45% 0px -50% 0px'});
+    spyIds.forEach(function(id){var s=document.getElementById(id);if(s)spy.observe(s)});
+  }
+
+  // ---- FAQ ----
+  var faqList=$('#faqList');
+  if(faqList){
+    faqList.addEventListener('click',function(e){
+      var btn=e.target.closest?e.target.closest('.faq-q'):null; if(!btn)return;
+      var item=btn.parentNode, open=item.classList.contains('open');
+      $$('.faq-item').forEach(function(it){it.classList.remove('open');var p=$('.faq-a',it);if(p)p.style.maxHeight='0px'});
+      if(!open){item.classList.add('open');var p=$('.faq-a',item);if(p)p.style.maxHeight=p.scrollHeight+'px'}
+    });
+    var first=$('.faq-item',faqList);
+    if(first){setTimeout(function(){first.classList.add('open');var p=$('.faq-a',first);if(p)p.style.maxHeight=p.scrollHeight+'px'},80)}
+  }
+
+  // ---- lightbox ----
+  var lb=$('#lightbox'),lbImg=$('#lightboxImg');
+  if(lb&&lbImg){
+    function openLb(src,alt){lbImg.src=src;lbImg.alt=alt||'';lb.classList.add('open');document.body.style.overflow='hidden'}
+    function closeLb(){lb.classList.remove('open');lbImg.removeAttribute('src');document.body.style.overflow=''}
+    $$('[data-zoom]').forEach(function(z){z.addEventListener('click',function(){var img=z.tagName==='IMG'?z:$('img',z);if(img)openLb(img.currentSrc||img.src,img.alt)})});
+    lb.addEventListener('click',closeLb);
+    window.addEventListener('keydown',function(e){if(e.key==='Escape'&&lb.classList.contains('open'))closeLb()});
+  }
+
+  // ---- nav solidify + progress + sticky ----
+  var nav=$('#nav'),prog=$('#progress'),sticky=$('#sticky');
+  function onScroll(){
+    var y=window.pageYOffset||document.documentElement.scrollTop||0;
+    if(nav)nav.classList.toggle('solid',y>40);
+    if(prog){var h=document.documentElement.scrollHeight-window.innerHeight;prog.style.width=(h>0?Math.min(100,(y/h)*100):0)+'%'}
+    if(sticky){
+      var inv=document.getElementById('investimento');
+      var invTop=inv?inv.getBoundingClientRect().top+y:1e9;
+      var show=y>window.innerHeight*0.9 && (y+window.innerHeight)<(invTop+120);
+      sticky.classList.toggle('show',show);
+    }
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  window.addEventListener('resize',onScroll,{passive:true});
+  onScroll();
+
+  // ═══ TRACKING lps/dossie (portado da versão anterior da página — manter) ═══
   var ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtxdndtbWlndW9xZnVzZWFibXR0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1Mjc2MTAsImV4cCI6MjA4OTEwMzYxMH0.61Qh2PKIHXJDtWHXiG-l5-u3NSKYUu9q25om2ABzG2o';
   var BASE='https://kqvwmmiguoqfuseabmtt.supabase.co';
   var PAGINA='lps/dossie';
@@ -435,29 +871,10 @@
     }catch(e){ return null; }
   }
 
-  // ---- smooth scroll para o preço ----
-  function scrollToPreco(){
-    var el = document.getElementById('preco');
-    if(el) el.scrollIntoView({behavior:'smooth'});
-  }
-  var scrollBtns = document.querySelectorAll('[data-scroll-preco]');
-  for(var s=0;s<scrollBtns.length;s++){
-    scrollBtns[s].addEventListener('click', function(e){ e.preventDefault(); scrollToPreco(); });
-  }
-
-  // ---- preserva search em navegações pós-carga (WhatsApp) ----
-  try{
-    var wa = document.getElementById('waBtn');
-    if(wa && window.location.search){
-      var href = wa.getAttribute('href') || '';
-      wa.setAttribute('href', href + (href.indexOf('?')!==-1 ? '&' : '?') + window.location.search.slice(1));
-    }
-  }catch(e){}
-
-  // ---- CTAs de compra: dataLayer InitiateCheckout no clique ----
-  var comprarBtns = document.querySelectorAll('[data-comprar]');
-  for(var c=0;c<comprarBtns.length;c++){
-    comprarBtns[c].addEventListener('click', function(){
+  // ---- CTAs de compra: InitiateCheckout + rastreio interno no clique ----
+  // O href do botão é resolvido pelo checkout-links.js (Path A) — aqui só eventos.
+  $$('[data-comprar]').forEach(function(btn){
+    btn.addEventListener('click', function(){
       try{
         window.dataLayer.push({event:'InitiateCheckout',event_id:euuid(),content_name:'dossie_if'});
       }catch(e){}
@@ -475,9 +892,8 @@
           }).catch(function(){});
         }
       }catch(e){}
-      // checkout-links.js resolve o href real (data-dq-checkout) — deixa o link seguir
     });
-  }
+  });
 
   // ---- eventos de load: ViewContent + lp_dossie_visualizou ----
   try{
@@ -510,5 +926,7 @@
   }catch(e){}
 })();
 </script>
+<!-- NÃO REMOVER (contrato CRM): roteia o checkout por campanha (Path A) -->
+<script src="../../assets/js/checkout-links.js" data-secao="lps" data-slug="dossie"></script>
 </body>
 </html>
