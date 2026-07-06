@@ -560,7 +560,9 @@
 
   function redirectToBrinde(normalizedWa) {
     // preserva a query da sessão (utms/fbclid) e injeta ?whatsapp=normalizado
-    var base = "../../brinde/padrao/";
+    // (o destino é /brinde/pesquisa/ — a pasta /brinde/padrao/ não existe no site;
+    //  o index de brinde/pesquisa consome o ?whatsapp= pra marcar acessou_brinde)
+    var base = "../../brinde/pesquisa/";
     var search = window.location.search || "";
     var params;
     try { params = new URLSearchParams(search); } catch (e) { params = new URLSearchParams(); }
