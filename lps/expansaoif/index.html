@@ -42,8 +42,8 @@
   .field label{display:block;font-size:11.5px;font-weight:700;color:var(--navy2);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
   .field input,.field select{width:100%;border:1.5px solid var(--line);border-radius:10px;padding:12px 13px;font-family:inherit;font-size:15px;color:var(--ink);background:var(--bege2);transition:border .15s,background .15s}
   .field input:focus,.field select:focus{outline:none;border-color:var(--orange);background:#fff}
-  button.cta{width:100%;border:none;background:#25D366;color:#fff;font-family:inherit;font-weight:800;font-size:16px;letter-spacing:.01em;padding:16px;border-radius:10px;cursor:pointer;margin-top:8px;transition:transform .08s,filter .15s;box-shadow:0 8px 20px rgba(37,211,102,.3)}
-  button.cta:hover{filter:brightness(.95)}
+  button.cta{width:100%;border:none;background:var(--orange);color:#fff;font-family:inherit;font-weight:800;font-size:16px;letter-spacing:.01em;padding:16px;border-radius:10px;cursor:pointer;margin-top:8px;transition:transform .08s,background .15s;box-shadow:0 8px 20px rgba(255,117,31,.35)}
+  button.cta:hover{background:#ff5e00}
   button.cta:active{transform:scale(.99)}
   .formnote{font-size:11.5px;color:#7a8169;text-align:center;margin-top:12px}
   [data-dq-error]{display:none;font-size:14px;font-weight:600;border-radius:10px;padding:12px;margin-top:12px;background:#fde6da;color:#b3450a}
@@ -79,9 +79,9 @@
     </div>
 
     <div class="card">
-      <span class="lock">🟢 Resposta pelo WhatsApp</span>
+      <span class="lock">🔓 Material liberado na hora</span>
       <h2>Receba o panorama do seu instituto</h2>
-      <p class="small">Preencha abaixo e fale agora com um consultor da Dissecando Questões — ele te manda os números do seu IF e o caminho de preparação.</p>
+      <p class="small">Preencha abaixo e destrave o panorama completo do seu IF — vagas, cargos e perspectiva de edital, direto no seu WhatsApp.</p>
 
       <!-- NÃO REMOVER (contrato CRM): dq-lead-form + data-secao + data-slug ligam ao lead-capture.js.
            Final pós-cadastro = "Link externo" no CRM (https://wa.link/vagasif). -->
@@ -118,7 +118,7 @@
           <input type="tel" id="whatsapp" name="whatsapp" placeholder="(00) 00000-0000" required autocomplete="tel" inputmode="numeric">
         </div>
         <!-- NÃO REMOVER: botão de envio (texto é livre) -->
-        <button type="submit" class="cta">FALAR COM UM CONSULTOR →</button>
+        <button type="submit" class="cta">CLIQUE E DESTRAVE SEU MATERIAL →</button>
         <div class="formnote">Não enviamos spam. Seus dados ficam só com a equipe Dissecando Questões.</div>
         <!-- NÃO REMOVER: caixinha de erro do lead-capture.js -->
         <div data-dq-error></div>
