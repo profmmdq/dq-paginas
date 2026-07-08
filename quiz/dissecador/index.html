@@ -1,12 +1,12 @@
 <!DOCTYPE html><html lang="pt-BR"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Teste Dissecador: seu estudo tem direção? · Dissecando Questões</title>
-<meta name="description" content="Descubra em 3 perguntas o seu perfil de estudo para o IF e receba na hora um plano de ação com o método do Prof. Manoel Machado.">
+<meta name="description" content="Descubra em 6 perguntas o seu perfil de estudo para o IF e receba na hora um plano de ação com o método do Prof. Manoel Machado.">
 <link rel="canonical" href="https://site.dissecandoquestoes.com/quiz/dissecador/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://site.dissecandoquestoes.com/quiz/dissecador/">
 <meta property="og:title" content="Teste Dissecador: seu estudo tem direção?">
-<meta property="og:description" content="3 perguntas rápidas revelam seu perfil de estudo e um plano de ação com o método do Prof. Manoel Machado.">
+<meta property="og:description" content="6 perguntas rápidas revelam seu perfil de estudo e um plano de ação com o método do Prof. Manoel Machado.">
 <meta property="og:image" content="https://site.dissecandoquestoes.com/quiz/dissecador/og.jpg">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
@@ -108,10 +108,10 @@ body{font-family:'Montserrat',Arial,sans-serif;background:var(--off);color:var(-
     <div class="qpix"><i></i><i></i><i></i><i class="r"></i><i></i><i></i><i></i><i></i><i></i></div>
     <div style="display:flex;justify-content:center"><span class="qbadge"><span class="dot"></span> Teste Dissecador · leva 1 minuto</span></div>
     <h1 class="qh1">Seu estudo para o IF tem <em>direção</em>?</h1>
-    <p class="qsub" style="margin:0 auto">Responda 3 perguntas rápidas e descubra o seu perfil de estudo. No fim, eu te entrego um plano de ação com o meu método.</p>
+    <p class="qsub" style="margin:0 auto">Responda 6 perguntas rápidas e descubra o seu perfil de estudo. No fim, eu te entrego um plano de ação com o meu método.</p>
     <div class="qstats"><div><div class="n">3.552</div><div class="l">Novos postos</div></div><div><div class="n">24</div><div class="l">Novos campi</div></div><div><div class="n">754</div><div class="l">Unidades no país</div></div></div>
     <button class="startbtn" onclick="begin()">COMEÇAR O TESTE →</button>
-    <div class="cmicro">3 perguntas · sem enrolação · resultado na hora</div>
+    <div class="cmicro">6 perguntas · sem enrolação · resultado na hora</div>
   </div>
 </div></div>
 
@@ -147,6 +147,8 @@ body{font-family:'Montserrat',Arial,sans-serif;background:var(--off);color:var(-
         <div class="qf"><label for="nome">Qual seu nome?</label><input type="text" id="nome" name="nome" placeholder="Seu nome" required autocomplete="name"></div>
         <div class="qf"><label for="email">Qual seu e-mail?</label><input type="email" id="email" name="email" placeholder="seu@email.com" autocomplete="email"></div>
         <div class="qf"><label for="whatsapp">Qual seu WhatsApp (com DDD)?</label><input type="tel" id="whatsapp" name="whatsapp" placeholder="(00) 00000-0000" required inputmode="numeric" autocomplete="tel"></div>
+        <!-- NÃO REMOVER: campo extra "perfil" (cadastrar no CRM ANTES de publicar) -->
+        <input type="hidden" id="perfilField" name="perfil" value="">
         <button type="submit" class="qcta">VER MEU RESULTADO →</button>
         <div class="qnote">Leva menos de 1 minuto. Seus dados ficam só com a equipe Dissecando Questões.</div>
         <div data-dq-error></div>
@@ -182,7 +184,7 @@ body{font-family:'Montserrat',Arial,sans-serif;background:var(--off);color:var(-
 </div></div>
 
 <script>
-var AULA="https://sndflw.com/i/D44WGy8IPL92V6WPPX2b", TIME="https://wa.link/dissecadordequestoes";
+var AULA="https://sndflw.com/i/D44WGy8IPL92V6WPPX2b", TIME="https://wa.link/quizdissecador";
 function pt(x){return /[.!?]$/.test(x)?x:x+'.';}
 var Q=[
  {t:"Como você se sente hoje em relação à sua preparação para o IF?",o:[["A","Tenho plano, mas fico refazendo o cronograma toda semana"],["B","Sigo o ciclo, mas ainda me perco quando erro questões"],["C","Tenho resultado, mas quero subir o nível"],["D","Tô começando agora e tentando encontrar meu ritmo"]]},
@@ -221,7 +223,7 @@ function pick(l,el){
    document.getElementById('rem').textContent=r[0];
    document.getElementById('rtx').textContent=r[1];
    document.getElementById('react').classList.remove('hidden');
-   setTimeout(function(){idx++; if(idx<Q.length){render();}else{window.__pk=computeKey();show('capture');}},900);
+   setTimeout(function(){idx++; if(idx<Q.length){render();}else{window.__pk=computeKey();var pf=document.getElementById('perfilField');if(pf)pf.value=P[window.__pk].n;show('capture');}},900);
  },230);
 }
 function computeKey(){var W=[1,2,1,1,1,2];var c={A:0,B:0,C:0,D:0};for(var i=0;i<ans.length;i++)c[ans[i]]+=(W[i]||1);var order=['D','A','B','C'],best='D',mx=-1;for(var j=0;j<order.length;j++){if(c[order[j]]>mx){mx=c[order[j]];best=order[j];}}return best;}
