@@ -103,18 +103,22 @@ footer{background:var(--navy2);color:#c4d5e1;text-align:center;padding:26px 0;fo
 
 <footer><div class="wrap"><b>Dissecando Questões</b> · Prof. Manoel Machado &nbsp;·&nbsp; @dissecadordequestoes</div></footer>
 
+<style>[data-dq-error]{display:none;font-size:13px;font-weight:600;border-radius:10px;padding:12px;margin-top:12px;background:#fde6da;color:#b3450a}[data-dq-error].dq-visible{display:block}</style>
 <div class="ov" id="ov"><div class="modal">
   <button class="x" onclick="closeModal()">&times;</button>
   <div id="mform">
     <span class="k">🔓 Entrada gratuita</span>
     <h2>Entrar no grupo</h2>
     <p class="s">Preencha pra liberar sua entrada. Você entra na hora e já começa a receber as novidades.</p>
-    <div class="field"><label>Nome completo</label><input id="nome" placeholder="Seu nome"></div>
-    <div class="field"><label>E-mail</label><input id="email" type="email" placeholder="seu@email.com"></div>
-    <div class="field"><label>WhatsApp (com DDD)</label><input id="whats" type="tel" inputmode="numeric" placeholder="(00) 00000-0000"></div>
-    <button class="mcta" onclick="enviar()">QUERO ENTRAR NO GRUPO →</button>
-    <div class="mnote">Seus dados ficam só com a equipe Dissecando Questões.</div>
-    <div class="merr" id="merr">Preencha nome, e-mail e WhatsApp.</div>
+    <!-- NÃO REMOVER (contrato CRM): dq-lead-form liga ao lead-capture.js. Final = GATE (dq:unlock revela o botão do grupo). -->
+    <form class="dq-lead-form" data-secao="captacao" data-slug="grupo">
+      <div class="field"><label>Nome completo</label><input type="text" id="nome" name="nome" placeholder="Seu nome" required autocomplete="name"></div>
+      <div class="field"><label>E-mail</label><input type="email" id="email" name="email" placeholder="seu@email.com" autocomplete="email"></div>
+      <div class="field"><label>WhatsApp (com DDD)</label><input type="tel" id="whats" name="whatsapp" inputmode="numeric" placeholder="(00) 00000-0000" required autocomplete="tel"></div>
+      <button type="submit" class="mcta">QUERO ENTRAR NO GRUPO →</button>
+      <div class="mnote">Seus dados ficam só com a equipe Dissecando Questões.</div>
+      <div data-dq-error></div>
+    </form>
   </div>
   <div class="mdone" id="mdone">
     <div class="ok">✅</div>
@@ -128,8 +132,8 @@ footer{background:var(--navy2);color:#c4d5e1;text-align:center;padding:26px 0;fo
 function openModal(){document.getElementById('ov').classList.add('open')}
 function closeModal(){document.getElementById('ov').classList.remove('open')}
 document.getElementById('ov').addEventListener('click',function(e){if(e.target===this)closeModal()});
-function enviar(){var n=document.getElementById('nome').value.trim(),e=document.getElementById('email').value.trim(),w=document.getElementById('whats').value.trim();
- if(!n||!e||!w||e.indexOf('@')<0){document.getElementById('merr').style.display='block';return;}
- document.getElementById('mform').style.display='none';document.getElementById('mdone').style.display='block';}
+// GATE: quando o lead-capture.js confirma o cadastro no CRM, revela o botão do grupo
+document.addEventListener('dq:unlock',function(){document.getElementById('mform').style.display='none';document.getElementById('mdone').style.display='block';});
 </script>
+<script src="../../assets/js/lead-capture.js"></script>
 </body></html>
