@@ -201,6 +201,7 @@ footer b{color:#fff}
 
 <footer><div class="wrap"><b>Dissecando Questões</b> · Prof. Manoel Machado &nbsp;·&nbsp; @dissecadordequestoes<br>Aula ao vivo · hoje às 20h · Novas Vagas nos IFs: Professor &amp; TAE</div></footer>
 
+<style>[data-dq-error]{display:none;font-size:13px;font-weight:600;border-radius:10px;padding:12px;margin-top:12px;background:#fde6da;color:#b3450a}[data-dq-error].dq-visible{display:block}</style>
 <div class="ov" id="ov">
   <div class="modal">
     <button class="x" onclick="closeModal()">&times;</button>
@@ -208,12 +209,15 @@ footer b{color:#fff}
       <span class="k">🔓 Inscrição gratuita</span>
       <h2>Garanta sua vaga na aula</h2>
       <p class="s">Hoje, 20h, ao vivo. Preencha e, no próximo passo, entre no grupo pra receber o link.</p>
-      <div class="field"><label>Nome completo</label><input id="nome" placeholder="Seu nome"></div>
-      <div class="field"><label>E-mail</label><input id="email" type="email" placeholder="seu@email.com"></div>
-      <div class="field"><label>WhatsApp (com DDD)</label><input id="whats" type="tel" inputmode="numeric" placeholder="(00) 00000-0000"></div>
-      <button class="mcta" onclick="enviar()">GARANTIR MINHA VAGA →</button>
-      <div class="mnote">Seus dados ficam só com a equipe Dissecando Questões.</div>
-      <div class="merr" id="merr">Preencha nome, e-mail e WhatsApp.</div>
+      <!-- NÃO REMOVER (contrato CRM): dq-lead-form liga ao lead-capture.js. Final = GATE (dq:unlock revela o botão do grupo). -->
+      <form class="dq-lead-form" data-secao="captacao" data-slug="ao-vivo">
+        <div class="field"><label>Nome completo</label><input type="text" id="nome" name="nome" placeholder="Seu nome" required autocomplete="name"></div>
+        <div class="field"><label>E-mail</label><input type="email" id="email" name="email" placeholder="seu@email.com" autocomplete="email"></div>
+        <div class="field"><label>WhatsApp (com DDD)</label><input type="tel" id="whats" name="whatsapp" inputmode="numeric" placeholder="(00) 00000-0000" required autocomplete="tel"></div>
+        <button type="submit" class="mcta">GARANTIR MINHA VAGA →</button>
+        <div class="mnote">Seus dados ficam só com a equipe Dissecando Questões.</div>
+        <div data-dq-error></div>
+      </form>
     </div>
     <div class="mdone" id="mdone">
       <div class="ok">✅</div>
@@ -228,14 +232,12 @@ footer b{color:#fff}
 function openModal(){document.getElementById('ov').classList.add('open')}
 function closeModal(){document.getElementById('ov').classList.remove('open')}
 document.getElementById('ov').addEventListener('click',function(e){if(e.target===this)closeModal()});
-function enviar(){
-  var n=document.getElementById('nome').value.trim(),e=document.getElementById('email').value.trim(),w=document.getElementById('whats').value.trim();
-  if(!n||!e||!w||e.indexOf('@')<0){document.getElementById('merr').style.display='block';return;}
-  document.getElementById('mform').style.display='none';document.getElementById('mdone').style.display='block';
-}
+// GATE: quando o lead-capture.js confirma o cadastro no CRM, revela o botão do grupo
+document.addEventListener('dq:unlock',function(){document.getElementById('mform').style.display='none';document.getElementById('mdone').style.display='block';});
 var target=new Date();target.setHours(20,0,0,0);if(target<new Date())target.setDate(target.getDate()+1);
 function tick(){var d=target-new Date();if(d<0)d=0;var H=Math.floor(d/36e5),M=Math.floor(d/6e4)%60,S=Math.floor(d/1e3)%60;
  document.getElementById('cdH').textContent=(H<10?'0':'')+H;document.getElementById('cdM').textContent=(M<10?'0':'')+M;document.getElementById('cdS').textContent=(S<10?'0':'')+S;}
 tick();setInterval(tick,1000);
 </script>
+<script src="../../assets/js/lead-capture.js"></script>
 </body></html>
