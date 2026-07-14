@@ -596,32 +596,16 @@
     </div>
 
     <div class="video reveal">
-      <div class="video-frame" id="apVideoFrame">
-        <div class="video-grid" aria-hidden="true"></div>
-        <div class="video-in" id="apVideoPoster">
-          <button type="button" class="play" id="apPlay" aria-label="Assistir vídeo"><span class="ring" aria-hidden="true"></span>▶</button>
-          <span class="video-cap">Vídeo · Apresentação do Método + plataforma</span>
-        </div>
+      <div class="video-frame" id="apVideoFrame" style="aspect-ratio:16/9">
+        <iframe id="apVideo"
+          src="https://www.youtube.com/embed/plv-D5wQO7I?autoplay=1&mute=1&rel=0&playsinline=1"
+          title="Aula · Apresentação do Método"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen frameborder="0"
+          style="position:absolute;inset:0;width:100%;height:100%;border:0;background:#000"></iframe>
       </div>
+      <p class="video-cap" style="margin-top:14px">Vídeo · Apresentação do Método + plataforma</p>
     </div>
-    <script>
-    (function(){
-      var f=document.getElementById('apVideoFrame'),b=document.getElementById('apPlay');
-      if(!f||!b)return;
-      b.addEventListener('click',function(){
-        f.style.aspectRatio='16/9';
-        var i=document.createElement('iframe');
-        i.src='https://www.youtube.com/embed/plv-D5wQO7I?autoplay=1&rel=0&playsinline=1';
-        i.title='Aula · Apresentação do Método';
-        i.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
-        i.setAttribute('allowfullscreen','');
-        i.setAttribute('frameborder','0');
-        i.style.cssText='position:absolute;inset:0;width:100%;height:100%;border:0;background:#000';
-        var p=document.getElementById('apVideoPoster');if(p)p.remove();
-        f.appendChild(i);
-      });
-    })();
-    </script>
 
     <div class="dim reveal">
       <div style="max-width:640px">
