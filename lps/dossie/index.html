@@ -596,14 +596,32 @@
     </div>
 
     <div class="video reveal">
-      <div class="video-frame">
+      <div class="video-frame" id="apVideoFrame">
         <div class="video-grid" aria-hidden="true"></div>
-        <div class="video-in">
-          <button type="button" class="play" aria-label="Assistir vídeo"><span class="ring" aria-hidden="true"></span>▶</button>
-          <span class="video-cap">Vídeo · Apresentação do programa Dossiê IF</span>
+        <div class="video-in" id="apVideoPoster">
+          <button type="button" class="play" id="apPlay" aria-label="Assistir vídeo"><span class="ring" aria-hidden="true"></span>▶</button>
+          <span class="video-cap">Vídeo · Apresentação do Método + plataforma</span>
         </div>
       </div>
     </div>
+    <script>
+    (function(){
+      var f=document.getElementById('apVideoFrame'),b=document.getElementById('apPlay');
+      if(!f||!b)return;
+      b.addEventListener('click',function(){
+        f.style.aspectRatio='16/9';
+        var i=document.createElement('iframe');
+        i.src='https://www.youtube.com/embed/plv-D5wQO7I?autoplay=1&rel=0&playsinline=1';
+        i.title='Aula · Apresentação do Método';
+        i.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+        i.setAttribute('allowfullscreen','');
+        i.setAttribute('frameborder','0');
+        i.style.cssText='position:absolute;inset:0;width:100%;height:100%;border:0;background:#000';
+        var p=document.getElementById('apVideoPoster');if(p)p.remove();
+        f.appendChild(i);
+      });
+    })();
+    </script>
 
     <div class="dim reveal">
       <div style="max-width:640px">
@@ -783,10 +801,10 @@
 <div class="sticky" id="sticky">
   <div class="sticky-in">
     <div class="sticky-txt">
-      <div class="a">Dossiê IF · 12x de R$ 124,70</div>
-      <div class="b">Garantia de 7 dias</div>
+      <div class="a">Ainda com dúvida sobre o Dossiê IF?</div>
+      <div class="b">Fale com um consultor de carreira</div>
     </div>
-    <a href="#investimento" class="sticky-cta" data-scroll="investimento">Garantir vaga <span aria-hidden="true">→</span></a>
+    <a href="https://wa.link/dq-consultor" class="sticky-cta" target="_blank" rel="noopener">Falar no WhatsApp <span aria-hidden="true">→</span></a>
   </div>
 </div>
 
@@ -873,8 +891,8 @@
     if(prog){var h=document.documentElement.scrollHeight-window.innerHeight;prog.style.width=(h>0?Math.min(100,(y/h)*100):0)+'%'}
     if(sticky){
       var inv=document.getElementById('investimento');
-      var invTop=inv?inv.getBoundingClientRect().top+y:1e9;
-      var show=y>window.innerHeight*0.9 && (y+window.innerHeight)<(invTop+120);
+      var invBottom=inv?(inv.getBoundingClientRect().top+y+inv.offsetHeight):1e9;
+      var show=(y+window.innerHeight*0.5)>invBottom; // botao aparece so depois da secao de preco
       sticky.classList.toggle('show',show);
     }
   }
