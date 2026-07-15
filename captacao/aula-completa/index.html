@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aula completa: como conquistar sua vaga no IF, aula gratuita | Dissecando Questões</title>
+<meta name="description" content="A aula completa do Prof. Manoel Machado: como conquistar sua vaga no Instituto Federal mesmo com pouco tempo. Aula gratuita.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,600&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#f4f1e6;--paper:#fbfaf4;--ink:#0f1829;--navy:#0c4b7a;--acc:#2f95ff;--acc2:#77bbff;--muted:#5a6472;--line:rgba(15,24,41,.10);--ff:'Montserrat',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:var(--ff);background:var(--cream);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:0 clamp(18px,5vw,40px)}
+.eyebrow{font-family:var(--ff);font-weight:700;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--acc);display:inline-flex;align-items:center;gap:9px}
+.eyebrow::before{content:"";width:26px;height:2px;background:var(--acc)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--acc);color:#fff;font-family:var(--ff);font-weight:800;font-size:clamp(16px,2vw,18px);padding:18px 32px;border:0;border-radius:12px;cursor:pointer;text-decoration:none;box-shadow:0 16px 32px -12px rgba(47,149,255,.75);transition:transform .25s,box-shadow .25s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 22px 44px -14px rgba(47,149,255,.85)}
+.btn-wa{background:#25d366;box-shadow:0 16px 32px -12px rgba(37,211,102,.6)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:66px}
+.brand{font-family:var(--ff);font-weight:800;letter-spacing:-.3px;font-size:18px;display:flex;align-items:center;gap:9px}
+.brand i{width:16px;height:16px;background:var(--acc);border-radius:4px;display:inline-block}
+.nav .tag{font-weight:700;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.gate{background:radial-gradient(130% 100% at 82% -10%,#0f3a63 0%,#0f1829 58%);color:var(--cream);padding-bottom:clamp(50px,8vw,90px);position:relative;overflow:hidden}
+.gate::after{content:"";position:absolute;inset:0 0 auto 0;height:6px;background:linear-gradient(90deg,var(--acc),var(--acc2))}
+.gate .nav .brand,.gate .nav .tag{color:var(--cream)}
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,4vw,56px);align-items:center;padding-top:clamp(30px,5vw,58px)}
+@media(max-width:860px){.hero{grid-template-columns:1fr;gap:34px}}
+.hero h1{font-family:var(--ff);font-weight:800;font-size:clamp(31px,5.1vw,54px);line-height:1.05;letter-spacing:-1.3px;margin:18px 0 16px;text-wrap:balance}
+.hero h1 mark{background:linear-gradient(180deg,transparent 55%,rgba(47,149,255,.55) 55%);color:var(--cream);padding:0 2px}
+.hero .sub{font-size:clamp(16px,2vw,19px);color:rgba(244,241,230,.85);max-width:540px}
+.ulist{list-style:none;margin:24px 0 0;display:grid;gap:12px}
+.ulist li{display:flex;gap:13px;align-items:flex-start;font-size:15.5px;font-weight:500;color:rgba(244,241,230,.92)}
+.ulist li::before{content:"";flex:0 0 auto;width:24px;height:24px;margin-top:1px;border-radius:50%;background:rgba(47,149,255,.16);border:1.5px solid var(--acc);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2377bbff' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:center}
+.card{background:var(--paper);color:var(--ink);border-radius:22px;padding:clamp(24px,3vw,34px);box-shadow:0 44px 84px -30px rgba(0,0,0,.6)}
+.card .k{font-weight:800;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--acc)}
+.card h2{font-family:var(--ff);font-weight:800;font-size:23px;letter-spacing:-.5px;margin:8px 0 4px}
+.card p.small{font-size:14px;color:var(--muted);margin-bottom:18px}
+.field{margin-bottom:13px}.field label{display:block;font-size:12.5px;font-weight:700;margin-bottom:6px;color:#33404f}
+.field input{width:100%;font-family:var(--ff);font-size:16px;padding:14px 15px;border:1.6px solid var(--line);border-radius:11px;background:#fff;color:var(--ink);transition:border-color .2s}
+.field input:focus{outline:none;border-color:var(--acc)}
+.consent{display:flex;gap:9px;align-items:flex-start;font-size:12px;color:var(--muted);margin:6px 0 16px}.consent input{margin-top:2px}
+.card .btn{width:100%}.trust{text-align:center;font-size:12px;color:var(--muted);margin-top:12px}
+.err{color:#c0392b;font-size:12.5px;font-weight:600;margin:-4px 0 10px;display:none}
+.release{padding:clamp(38px,6vw,72px) 0}
+.rel-head{text-align:center;max-width:760px;margin:0 auto clamp(26px,4vw,40px)}
+.rel-head .eyebrow{justify-content:center}
+.rel-head h2{font-family:var(--ff);font-weight:800;font-size:clamp(27px,4vw,42px);letter-spacing:-1.1px;line-height:1.05;margin:14px 0}
+.rel-head p{color:var(--muted);font-size:17px}
+.stage{position:relative;max-width:980px;margin:0 auto}
+.player{position:relative;aspect-ratio:16/9;border-radius:20px;overflow:hidden;background:linear-gradient(135deg,#0c4b7a,#0f1829);box-shadow:0 50px 90px -34px rgba(15,24,41,.6);border:1px solid rgba(15,24,41,.08)}
+.player::before,.player::after{content:"";position:absolute;width:34px;height:34px;border:3px solid var(--acc);z-index:2}
+.player::before{top:16px;left:16px;border-right:0;border-bottom:0;border-radius:6px 0 0 0}
+.player::after{bottom:16px;right:16px;border-left:0;border-top:0;border-radius:0 0 6px 0}
+.player .ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;color:rgba(244,241,230,.62);font-weight:700;font-size:13px;letter-spacing:1px;text-align:center;padding:20px}
+.player .ph .play{width:82px;height:82px;border-radius:50%;background:rgba(47,149,255,.16);border:2px solid var(--acc);display:flex;align-items:center;justify-content:center;font-size:26px;color:var(--acc2);padding-left:6px}
+.chips{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:22px}
+.chip{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:100px;padding:9px 16px;font-size:13.5px;font-weight:600;color:#33404f;box-shadow:0 8px 20px -14px rgba(15,24,41,.4)}
+.chip b{color:var(--acc)}
+.why{max-width:840px;margin:clamp(40px,6vw,66px) auto 0}
+.why h3{font-family:var(--ff);font-weight:800;font-size:clamp(23px,3vw,32px);letter-spacing:-.7px;margin-bottom:14px}
+.why p{font-size:17px;color:#2b3542;margin-bottom:16px}
+.callout{background:#fff;border-left:5px solid var(--acc);border-radius:0 14px 14px 0;padding:20px 24px;margin:22px 0;box-shadow:0 20px 44px -30px rgba(15,24,41,.4);font-size:17px;font-weight:600;color:#22303f}
+.callout b{color:var(--acc)}
+.stats{max-width:900px;margin:clamp(34px,5vw,52px) auto 0;display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,2vw,22px)}
+@media(max-width:640px){.stats{grid-template-columns:1fr}}
+.stat{background:radial-gradient(120% 120% at 20% 0%,#0f3a63,#0f1829);color:var(--cream);border-radius:16px;padding:24px 22px;text-align:center}
+.stat .n{font-family:var(--ff);font-weight:900;font-size:clamp(28px,3.6vw,38px);color:var(--acc2);letter-spacing:-1px;line-height:1}
+.stat .l{font-size:13.5px;font-weight:600;color:rgba(244,241,230,.8);margin-top:8px}
+.method{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:clamp(26px,3.4vw,40px);margin:clamp(34px,5vw,56px) auto 0;max-width:900px;box-shadow:0 30px 64px -38px rgba(15,24,41,.4)}
+.method h3{font-family:var(--ff);font-weight:800;font-size:clamp(23px,3vw,32px);letter-spacing:-.7px;margin:8px 0 6px;line-height:1.08}
+.method .lead{color:#2b3542;font-size:16.5px;font-weight:500;margin-bottom:8px}
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:24px 0 4px}
+@media(max-width:680px){.pillars{grid-template-columns:1fr}}
+.pill{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px 18px}
+.pill .n{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:var(--acc);color:#fff;font-weight:800;font-size:15px;margin-bottom:12px}
+.pill h4{font-family:var(--ff);font-weight:800;font-size:16.5px;margin-bottom:5px}
+.pill p{font-size:13.8px;color:var(--muted);line-height:1.5}
+.cta-final{text-align:center;background:radial-gradient(130% 130% at 50% -10%,#0f3a63,#0f1829);color:var(--cream);border-radius:22px;padding:clamp(34px,5vw,58px) clamp(20px,4vw,40px);margin:clamp(34px,5vw,60px) auto 0;max-width:920px;position:relative;overflow:hidden}
+.cta-final::after{content:"";position:absolute;inset:0 0 auto 0;height:5px;background:linear-gradient(90deg,var(--acc),var(--acc2))}
+.cta-final h3{font-family:var(--ff);font-weight:800;font-size:clamp(24px,3.4vw,35px);letter-spacing:-.9px;margin-bottom:12px;line-height:1.1}
+.cta-final p{color:rgba(244,241,230,.85);max-width:580px;margin:0 auto 26px;font-size:16.5px}
+.cta-final .btn{font-size:18px;padding:19px 36px}
+.cta-final .micro{margin-top:16px;font-size:12px;font-weight:600;letter-spacing:.5px;color:rgba(244,241,230,.55)}
+footer{text-align:center;padding:36px 0;color:var(--muted);font-size:13px}
+[hidden]{display:none!important}
+</style>
+<style>.esconder{display:none}</style>
+<!-- VTurb · velocidade (aula completa) -->
+<script>!function(i,n){i._plt=i._plt||(n&&n.timeOrigin?n.timeOrigin+n.now():Date.now())}(window,performance);</script>
+<link rel="preload" href="https://scripts.converteai.net/8fb0c85a-c7c1-400e-a28a-5dc648d0969c/players/6a57e97ba905917464edcf9f/v4/player.js" as="script">
+<link rel="preload" href="https://scripts.converteai.net/lib/js/smartplayer-wc/v4/smartplayer.js" as="script">
+<link rel="preload" href="https://cdn.converteai.net/8fb0c85a-c7c1-400e-a28a-5dc648d0969c/6a57e9064b623668508f09ef/main.m3u8" as="fetch">
+<link rel="dns-prefetch" href="https://cdn.converteai.net">
+<link rel="dns-prefetch" href="https://scripts.converteai.net">
+<link rel="dns-prefetch" href="https://images.converteai.net">
+<link rel="dns-prefetch" href="https://license.vturb.com">
+</head>
+<body>
+<section class="gate" id="gate">
+  <div class="wrap">
+    <div class="nav"><div class="brand"><i></i>Dissecando Questões</div><div class="tag">Aula gratuita</div></div>
+    <div class="hero">
+      <div>
+        <span class="eyebrow">Preparação para o IF</span>
+        <h1>A aula completa: <mark>como conquistar sua vaga no Instituto Federal</mark>, sem largar sua rotina</h1>
+        <p class="sub">Do panorama das vagas ao método de estudo: a aula completa do Prof. Manoel Machado, direto ao ponto, sem enrolação. Feita para professor que tem pouco tempo.</p>
+        <ul class="ulist">
+          <li>O cenário real das vagas e por que o pré-edital decide o jogo</li>
+          <li>A matemática cruel de um edital de IF e como vencê-la</li>
+          <li>O plano de 3 passos que os aprovados usam de verdade</li>
+        </ul>
+      </div>
+      <div class="card">
+        <span class="k">Acesso liberado na hora</span>
+        <h2>Assista a aula agora, de graça</h2>
+        <p class="small">Preencha para liberar o vídeo completo:</p>
+        <form id="leadForm" novalidate>
+          <div class="field"><label for="nome">Seu nome</label><input id="nome" name="nome" type="text" autocomplete="name" placeholder="Como podemos te chamar?"></div>
+          <div class="field"><label for="whats">WhatsApp (com DDD)</label><input id="whats" name="telefone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(00) 00000-0000"></div>
+          <div class="field"><label for="email">Seu melhor e-mail</label><input id="email" name="email" type="email" autocomplete="email" placeholder="voce@email.com"></div>
+          <p class="err" id="err">Preencha nome, WhatsApp e e-mail válidos para liberar a aula.</p>
+          <label class="consent"><input type="checkbox" id="consent"> Autorizo o contato da equipe do Dissecando Questões e concordo em receber materiais sobre a preparação para os IFs.</label>
+          <button class="btn" type="submit">Liberar minha aula agora →</button>
+          <p class="trust">🔒 Seus dados estão seguros. Sem spam.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="release" id="aula" hidden>
+  <div class="wrap">
+    <div class="rel-head">
+      <span class="eyebrow">Acesso liberado</span>
+      <h2>Sua aula está pronta, <span id="nomeOla">tudo certo</span></h2>
+      <p>Assista até o final. É a aula completa, do começo ao fim.</p>
+    </div>
+    <div class="stage">
+      <div class="player">
+        <vturb-smartplayer id="vid-6a57e97ba905917464edcf9f" style="display: block; margin: 0 auto; width: 100%; "><div class="vturb-player-placeholder" style="position: relative; width: 100%; padding: 56.25% 0 0; z-index: 0; background-color: black;"></div></vturb-smartplayer>
+        <script type="text/javascript"> var s=document.createElement("script"); s.src="https://scripts.converteai.net/8fb0c85a-c7c1-400e-a28a-5dc648d0969c/players/6a57e97ba905917464edcf9f/v4/player.js", s.async=!0,document.head.appendChild(s); </script>
+        <!-- libera o conteúdo de baixo (.esconder) só no fim do vídeo -->
+        <script>
+        (function(){
+          var player=document.querySelector('vturb-smartplayer'); if(!player) return;
+          var done=false;
+          function liberar(){ if(done)return; done=true; document.querySelectorAll('.esconder').forEach(function(el){el.style.display='block';}); }
+          player.addEventListener('player:ready',function(){
+            var t=0;(function setDelay(){
+              var dur=player.duration||(player.getDuration&&player.getDuration());
+              if(dur&&!isNaN(dur)&&dur>0&&player.displayHiddenElements){try{player.displayHiddenElements(Math.max(dur-1,1),['.esconder'],{persist:true});}catch(e){}}
+              else if(t++<40){setTimeout(setDelay,500);}
+            })();
+            ['player:ended','ended','player:complete','video:ended'].forEach(function(ev){try{player.addEventListener(ev,liberar);}catch(e){}});
+          });
+        })();
+        </script>
+      </div>
+      <div class="chips">
+        <span class="chip">✓ Aula <b>100% gratuita</b></span>
+        <span class="chip">⏱ Direto ao ponto</span>
+        <span class="chip">👨‍🏫 Com o <b>Prof. Manoel Machado</b></span>
+      </div>
+    </div>
+    <div class="esconder">
+    <div class="why">
+      <span class="eyebrow">Por que essa aula importa</span>
+      <h3 style="margin-top:12px">A prova de IF elimina quem não se preparou do jeito certo</h3>
+      <p>Prova de IF não é prova com recorte de conhecimento e data marcada. É concorrida, com ponto de corte alto. A maior parte da concorrência estuda assistindo 100 horas de videoaula pra disputar 10 pontos, enquanto o conhecimento específico, que vale muito mais, fica de lado.</p>
+      <div class="callout">Esta aula te mostra o caminho inteiro: onde estão as vagas, o que a carreira oferece, a conta real de um edital e o <b>plano de 3 passos</b> que separa quem passa de quem fica de fora por duas ou três questões.</div>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="n">3 passos</div><div class="l">o plano que os aprovados seguem</div></div>
+      <div class="stat"><div class="n">+300</div><div class="l">professores já aprovados pelo método</div></div>
+      <div class="stat"><div class="n">1h/dia</div><div class="l">é o que o método pede da sua rotina</div></div>
+    </div>
+
+    <div class="method">
+      <span class="eyebrow">O próximo passo</span>
+      <h3>Você viu o caminho. Agora é trilhar com método.</h3>
+      <p class="lead">O <b>Dossiê IF</b> é o programa de preparação do Manoel para virar servidor do Instituto Federal estudando de forma direcionada, mesmo com pouco tempo. Ele resolve os 3 gargalos que travam a maioria:</p>
+      <div class="pillars">
+        <div class="pill"><span class="n">01</span><h4>Questões ultra selecionadas</h4><p>Só o que cai pra sua área e cargo. Nada de estudar tudo.</p></div>
+        <div class="pill"><span class="n">02</span><h4>Planejamento inteligente</h4><p>Um cronograma que cabe na sua rotina real, de 30min a 1h por dia.</p></div>
+        <div class="pill"><span class="n">03</span><h4>Acompanhamento</h4><p>Comunidade por área e encontros com o Manoel. Você não estuda sozinho.</p></div>
+      </div>
+    </div>
+
+    <div class="cta-final">
+      <h3>Quer saber se o Dossiê IF é pra você?</h3>
+      <p>Fale agora com um consultor de carreira do Dissecando Questões. Ele te ajuda a entender sua situação, as vagas da sua área e o melhor caminho, sem compromisso.</p>
+      <a class="btn btn-wa" href="https://wa.link/dq-consultor" target="_blank" rel="noopener">Falar com um consultor no WhatsApp →</a>
+      <div class="micro">Atendimento humano · horário comercial</div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<footer>© Dissecando Questões · Prof. Manoel Machado · Preparação estratégica para os Institutos Federais</footer>
+
+<script>
+(function(){
+  var form=document.getElementById('leadForm'),err=document.getElementById('err');
+  var reEmail=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;function digits(s){return (s||'').replace(/\D/g,'');}
+  var w=document.getElementById('whats');
+  if(w){w.addEventListener('input',function(){var d=digits(w.value).slice(0,11),o=d;if(d.length>2)o='('+d.slice(0,2)+') '+d.slice(2);if(d.length>7)o='('+d.slice(0,2)+') '+d.slice(2,7)+'-'+d.slice(7);w.value=o;});}
+  if(form){form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var nome=document.getElementById('nome').value.trim(),tel=digits(w.value),email=document.getElementById('email').value.trim(),consent=document.getElementById('consent').checked;
+    if(nome.length<2||tel.length<10||!reEmail.test(email)||!consent){err.style.display='block';return;}
+    err.style.display='none';
+    var lead={nome:nome,telefone:tel,email:email,aula:'aula-completa',data:new Date().toISOString()};
+    /* ===== DESTINO DOS LEADS: descomente e troque a URL pelo seu endpoint (CRM/webhook) =====
+    fetch('https://SEU-ENDPOINT',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(lead)}).catch(function(){});
+    ===== */
+    document.getElementById('gate').hidden=true;
+    document.getElementById('nomeOla').textContent=nome.split(' ')[0];
+    document.getElementById('aula').hidden=false;
+    window.scrollTo({top:0,behavior:'smooth'});
+  });}
+})();
+</script>
+</body>
+</html>

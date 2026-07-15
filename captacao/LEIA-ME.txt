@@ -1,0 +1,61 @@
+========================================================
+  PÁGINAS DE CAPTAÇÃO + AULA — Dissecando Questões
+  (captura nome/telefone/email  ->  libera a aula)
+========================================================
+
+O QUE TEM AQUI
+--------------
+4 pastas, uma por aula. Cada uma tem:
+  - index.html          -> a página (captura + liberação da aula)
+  - criativo-feed.png    -> criativo 1080x1080 (feed)
+  - criativo-stories.png -> criativo 1080x1920 (stories)
+
+Aulas:
+  1) panorama-vagas     -> "Panorama geral de vagas IF"
+  2) carreira-if        -> "Estabilidade / carga horária / perfil de alunos IF"
+  3) aula-completa      -> "Resumo de aula (sem pitch)"
+  4) metodo-plataforma  -> "Apresentação Método + plataforma"
+
+COMO A PÁGINA FUNCIONA
+----------------------
+- O visitante cai na tela de captação (nome, WhatsApp, e-mail + consentimento).
+- Ao enviar, a tela some e a AULA é liberada na mesma página, com:
+    * o vídeo,
+    * o texto de por que a aula importa,
+    * a conexão com o Método Dossiê IF,
+    * o botão "Falar com um consultor no WhatsApp".
+
+FALTAM 2 COISAS (fáceis) PARA IR AO AR
+--------------------------------------
+1) VÍDEO (VTurb) — em cada index.html, procure por:
+       COLE AQUI O EMBED DO VTURB
+   Apague o bloco "placeholder" e cole o código de embed do VTurb daquela aula.
+   (Cada aula tem seu próprio vídeo, então cole o embed certo em cada pasta.)
+
+2) DESTINO DOS LEADS — em cada index.html, no final, procure por:
+       DESTINO DOS LEADS
+   Lá tem uma linha "fetch(...)" comentada. Descomente e troque
+   'https://SEU-ENDPOINT' pelo destino real (o mesmo das outras captações
+   do site, um webhook, planilha, ou CRM). Assim os dados capturados são salvos.
+   * Enquanto isso não é feito, a página JÁ funciona e libera a aula — ela só
+     ainda não está "enviando" o lead pra lugar nenhum.
+
+BOTÃO DO COMERCIAL
+------------------
+Já está apontando para: https://wa.link/dq-consultor
+(igual ao botão do dossiê). Se o link mudar, é só trocar em cada página.
+
+ONDE PUBLICAR
+-------------
+As páginas são autossuficientes (não dependem de nenhum outro arquivo).
+Você pode:
+  - jogar cada pasta dentro do repositório do site (ex.: em captacao/), ou
+  - subir cada pasta como uma página avulsa no seu hosting.
+
+CRIATIVOS
+---------
+- Feed: 1080x1080 | Stories: 1080x1920 — prontos pra postar.
+- A chamada nos criativos direciona para "link na bio" (feed) e
+  "arrasta pra cima" (stories). Aponte esses links para a página da aula.
+
+Qualquer ajuste de copy, cor ou estrutura, é só pedir.
