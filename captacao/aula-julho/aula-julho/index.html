@@ -441,6 +441,8 @@
 <script>
 (function(){
   function liberar(){document.querySelectorAll('.esconder').forEach(function(el){el.style.display='block';});}
+  var navCta=document.querySelector('.nav-cta');
+  if(navCta){navCta.addEventListener('click',function(e){e.preventDefault();liberar();setTimeout(function(){var el=document.getElementById('investimento');if(el&&el.scrollIntoView)el.scrollIntoView({behavior:'smooth',block:'start'});},90);});}
   var player=document.querySelector('vturb-smartplayer');
   if(!player){liberar();return;} /* sem embed ainda: mostra tudo (preview). Com o embed, trava até o fim */
   var done=false;function fim(){if(done)return;done=true;liberar();}
@@ -931,8 +933,10 @@
     if(prog){var h=document.documentElement.scrollHeight-window.innerHeight;prog.style.width=(h>0?Math.min(100,(y/h)*100):0)+'%'}
     if(sticky){
       var inv=document.getElementById('investimento');
-      var invTop=inv?(inv.getBoundingClientRect().top+y):1e9;
-      var show=(y+window.innerHeight*0.9)>invTop; // botao aparece quando a pessoa chega na secao de preco
+      // só mostra quando a seção de preço está liberada (não escondida) E entrou na tela
+      var vis=inv&&inv.offsetParent!==null&&inv.offsetHeight>0;
+      var show=false;
+      if(vis){var r=inv.getBoundingClientRect();show=r.top<window.innerHeight*0.85;}
       sticky.classList.toggle('show',show);
     }
   }
