@@ -404,6 +404,16 @@
 <link rel="dns-prefetch" href="https://scripts.converteai.net">
 <link rel="dns-prefetch" href="https://images.converteai.net">
 <link rel="dns-prefetch" href="https://license.vturb.com">
+<style>
+.cupom-timer{margin:2px 0 12px;padding:12px 14px;border:1px solid rgba(255,117,31,.35);border-radius:14px;background:rgba(255,117,31,.07);text-align:center}
+.cupom-timer .ct-label{display:block;font-size:12.5px;font-weight:800;letter-spacing:.02em;text-transform:uppercase;color:var(--acc);margin-bottom:8px}
+.cupom-timer .ct-clock{display:flex;gap:8px;justify-content:center}
+.cupom-timer .ct-cell{flex:1;max-width:74px;background:var(--ink,#0f1829);border-radius:10px;padding:8px 4px;color:#fff}
+.cupom-timer .ct-cell b{display:block;font-size:26px;line-height:1;font-variant-numeric:tabular-nums;font-weight:800}
+.cupom-timer .ct-cell small{display:block;font-size:10px;margin-top:4px;color:#c8cdd6;text-transform:uppercase;letter-spacing:.04em}
+.cupom-timer.expired{border-color:rgba(120,128,140,.4);background:rgba(120,128,140,.08)}
+.cupom-timer.expired .ct-label{color:#8a929e}
+</style>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W5TCMGSW" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -435,7 +445,7 @@
       <vturb-smartplayer id="vid-6a57ec1bc997f08de3b1d5bf" style="display: block; margin: 0 auto; width: 100%; "><div class="vturb-player-placeholder" style="position: relative; width: 100%; padding: 56.25% 0 0; z-index: 0; background-color: black;"></div></vturb-smartplayer>
       <script type="text/javascript"> var s=document.createElement("script"); s.src="https://scripts.converteai.net/8fb0c85a-c7c1-400e-a28a-5dc648d0969c/players/6a57ec1bc997f08de3b1d5bf/v4/player.js", s.async=!0,document.head.appendChild(s); </script>
     </div>
-    <p class="vsl-note">Fique at&eacute; o final: no encerramento eu libero o <b>Dossi&ecirc; IF</b> com o cupom <b>PLANO250</b>.</p>
+    <p class="vsl-note">Em menos de <b>20 minutos</b>, eu te explico o caminho pra conquistar sua vaga no Instituto Federal, mesmo com pouco tempo pra estudar.</p>
   </div>
 </section>
 <script>
@@ -747,6 +757,15 @@
           <!-- CHECKOUT Path A: o href é fallback PRONTO (fail-open, ainda leva os
                UTMs); o checkout-links.js roteia por campanha quando há config de
                checkout cadastrada no CRM. NÃO trocar por link montado em JS. -->
+          <div id="cupomTimer" class="cupom-timer" role="timer" aria-live="polite">
+            <span class="ct-label">O cupom PLANO250 expira em</span>
+            <div class="ct-clock">
+              <div class="ct-cell"><b id="ctD">00</b><small>dias</small></div>
+              <div class="ct-cell"><b id="ctH">00</b><small>horas</small></div>
+              <div class="ct-cell"><b id="ctM">00</b><small>min</small></div>
+              <div class="ct-cell"><b id="ctS">00</b><small>seg</small></div>
+            </div>
+          </div>
           <a href="https://checkout.dissecandoquestoes.com.br/pay/dossie-if" class="btn-primary cta-full" data-dq-checkout data-comprar="cartao">Garantir com o cupom PLANO250 <span aria-hidden="true">→</span></a>
           <div class="guar"><span class="sh" aria-hidden="true">🛡️</span><span class="t">Garantia incondicional de 7 dias. Se por qualquer motivo sentir que não é pra você, devolvemos 100% do valor. Sem perguntas.</span></div>
         </div>
@@ -1036,5 +1055,31 @@
 </script>
 <!-- NÃO REMOVER (contrato CRM): roteia o checkout por campanha (Path A) -->
 <script src="../../assets/js/checkout-links.js" data-secao="lps" data-slug="dossie"></script>
+<script>
+(function(){
+  // sexta 17/07/2026 23:59:59 horario de Brasilia (UTC-3) => 18/07 02:59:59Z
+  var end=Date.UTC(2026,6,18,2,59,59);
+  var el=document.getElementById('cupomTimer');
+  if(!el) return;
+  var d=document.getElementById('ctD'),h=document.getElementById('ctH'),m=document.getElementById('ctM'),sc=document.getElementById('ctS');
+  function pad(n){return (n<10?'0':'')+n;}
+  function tick(){
+    var diff=end-Date.now();
+    if(diff<=0){
+      el.classList.add('expired');
+      el.querySelector('.ct-label').textContent='Cupom encerrado';
+      d.textContent=h.textContent=m.textContent=sc.textContent='00';
+      clearInterval(iv);return;
+    }
+    var s=Math.floor(diff/1000);
+    d.textContent=pad(Math.floor(s/86400));
+    h.textContent=pad(Math.floor(s%86400/3600));
+    m.textContent=pad(Math.floor(s%3600/60));
+    sc.textContent=pad(s%60);
+  }
+  tick();var iv=setInterval(tick,1000);
+})();
+</script>
 </body>
 </html>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
