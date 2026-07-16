@@ -47,6 +47,7 @@
   /* NAV */
   .nav{position:fixed;top:0;left:0;right:0;z-index:120;display:flex;align-items:center;gap:16px;height:66px;padding:0 clamp(16px,4vw,44px);background:rgba(241,243,230,.76);backdrop-filter:blur(16px) saturate(1.25);-webkit-backdrop-filter:blur(16px) saturate(1.25);border-bottom:1px solid rgba(15,24,41,.08);transition:background .35s ease,box-shadow .35s ease,height .35s ease}
   .nav.solid{background:rgba(241,243,230,.94);box-shadow:0 6px 24px -14px rgba(15,24,41,.4);height:58px}
+  .nav.is-hidden{display:none!important}
   .nav-logo{display:flex;align-items:center;gap:11px;margin-right:auto}
   .nav-mark{position:relative;width:28px;height:28px;border-radius:8px;background:var(--acc);display:inline-flex;align-items:center;justify-content:center;box-shadow:0 6px 14px -4px rgba(255,117,31,.75)}
   .nav-mark::after{content:"";width:9px;height:9px;background:#fff;border-radius:2px}
@@ -422,7 +423,7 @@
 <div class="progress" id="progress" aria-hidden="true"></div>
 
 <!-- NAV -->
-<nav class="nav" id="nav">
+<nav class="nav is-hidden" id="nav">
   <a href="#topo" class="nav-logo"><img src="assets/simbolo-dq-dark.png" alt="Dissecando Questões" style="height:28px;width:auto"><span class="nav-word">Dossiê IF</span></a>
   <div class="nav-links" id="navLinks">
     <a href="#cenario" data-id="cenario">Cenário</a>
@@ -450,7 +451,7 @@
 </section>
 <script>
 (function(){
-  function liberar(){document.querySelectorAll('.esconder').forEach(function(el){el.style.display='block';});}
+  function liberar(){document.querySelectorAll('.esconder').forEach(function(el){el.style.display='block';});var nav=document.getElementById('nav');if(nav){nav.classList.remove('is-hidden');}}
   var navCta=document.querySelector('.nav-cta');
   if(navCta){navCta.addEventListener('click',function(e){e.preventDefault();liberar();setTimeout(function(){var el=document.getElementById('topo');if(el&&el.scrollIntoView)el.scrollIntoView({behavior:'smooth',block:'start'});},90);});}
   var player=document.querySelector('vturb-smartplayer');
