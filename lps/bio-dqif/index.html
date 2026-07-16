@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dissecando Questões | Instituto Federal | Links</title>
+<meta name="description" content="Grupo de novidades IF, aula ao vivo, Dossiê IF e atendimento. Professores que viram servidores do Instituto Federal, com método.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
+<!--
+  ===========================================================
+  LINKS: troque os href abaixo pelos definitivos quando quiser:
+    Grupo         -> data-link="grupo"
+    Aula ao vivo  -> data-link="aula"
+    Dossiê IF     -> data-link="dossie"
+    Falar c/ time -> data-link="time"
+  ===========================================================
+-->
+<style>
+:root{
+  --ink:#0f1829; --blue:#0c3d64; --blue2:#0a2f4e; --acc:#ff751f;
+  --cream:#f1f3e6; --cream2:#fbfcf6; --green:#1f8a53;
+  --txt:#38424f; --txt2:#5a6572; --line:rgba(15,24,41,.10);
+  --disp:'Bricolage Grotesque',system-ui,sans-serif;
+  --body:'Hanken Grotesk',system-ui,-apple-system,Segoe UI,sans-serif;
+  --mono:'Geist Mono',ui-monospace,Menlo,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);background:var(--cream);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(120% 60% at 50% -8%,rgba(12,61,100,.10),transparent 60%);min-height:100vh}
+img{display:block;max-width:100%}
+a{text-decoration:none;color:inherit}
+.wrap{max-width:496px;margin:0 auto;padding:34px 20px 46px}
+
+/* header */
+.head{text-align:center;margin-bottom:26px}
+.logo{width:66px;height:66px;margin:0 auto 14px;border-radius:20px;background:var(--blue);
+  display:flex;align-items:center;justify-content:center;box-shadow:0 18px 34px -16px rgba(12,61,100,.7)}
+.logo img{width:40px;height:auto;filter:brightness(0) invert(1)}
+.at{font-family:var(--disp);font-weight:800;font-size:20px;letter-spacing:-.4px}
+.role{font-family:var(--mono);text-transform:uppercase;letter-spacing:2.4px;font-size:10.5px;color:var(--acc);margin-top:5px}
+.tagline{font-size:14.5px;color:var(--txt2);max-width:340px;margin:11px auto 0}
+.tagline b{color:var(--ink);font-weight:700}
+
+/* card */
+.card{display:flex;align-items:stretch;gap:0;background:var(--cream2);border:1px solid var(--line);
+  border-radius:22px;overflow:hidden;margin-bottom:15px;box-shadow:0 12px 26px -20px rgba(15,24,41,.55);
+  transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease}
+.card:hover{transform:translateY(-3px);box-shadow:0 22px 42px -22px rgba(15,24,41,.6);border-color:rgba(12,61,100,.28)}
+.card:active{transform:translateY(-1px)}
+.card .body{flex:1;padding:17px 6px 17px 19px;display:flex;flex-direction:column;justify-content:center;min-width:0}
+.tag{font-family:var(--mono);text-transform:uppercase;letter-spacing:1.6px;font-size:9.5px;font-weight:500;
+  color:var(--acc);margin-bottom:6px;display:inline-block}
+.card h2{font-family:var(--disp);font-weight:800;font-size:19px;letter-spacing:-.5px;line-height:1.12;color:var(--ink)}
+.card p{font-size:12.8px;color:var(--txt2);margin-top:5px;line-height:1.35}
+.thumb{flex:0 0 108px;position:relative;overflow:hidden}
+.thumb img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.arrow{position:absolute;right:9px;bottom:9px;width:27px;height:27px;border-radius:50%;
+  background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 10px -3px rgba(0,0,0,.4);z-index:2}
+.arrow svg{width:13px;height:13px;stroke:var(--blue);stroke-width:2.6;fill:none}
+
+/* featured (grupo) */
+.card.feat{background:linear-gradient(135deg,#0c3d64,#0a2338);border-color:transparent}
+.card.feat .tag{color:#ffd9bf}
+.card.feat h2{color:#fff}
+.card.feat p{color:rgba(241,243,230,.78)}
+.card.feat .arrow{background:var(--acc)}
+.card.feat .arrow svg{stroke:#fff}
+.card.feat .pulse{position:absolute;left:15px;top:15px;z-index:2;width:9px;height:9px;border-radius:50%;background:#2ecc71}
+.card.feat .pulse::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:2px solid #2ecc71;animation:pr 2s ease-out infinite}
+@keyframes pr{0%{transform:scale(.6);opacity:.7}80%{transform:scale(1.8);opacity:0}100%{opacity:0}}
+
+/* footer */
+.foot{text-align:center;margin-top:28px}
+.foot .bar{font-family:var(--mono);text-transform:uppercase;letter-spacing:2px;font-size:10px;color:var(--txt2)}
+.foot .note{font-size:11.5px;color:var(--txt2);opacity:.7;margin-top:8px}
+
+@media(max-width:380px){
+  .thumb{flex-basis:96px}
+  .card h2{font-size:17.5px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="head">
+    <div class="logo"><img src="assets/logo-dq.png" alt="Dissecando Questões"></div>
+    <div class="at">@dissecadordequestoes</div>
+    <div class="role">Prof. Manoel Machado · Instituto Federal</div>
+    <p class="tagline">Professor, sua vaga no IF não é de quem estuda <b>mais</b>. É de quem tem <b>método</b>. Comece por aqui.</p>
+  </header>
+
+  <!-- 1 · GRUPO (destaque) -->
+  <a class="card feat" data-link="grupo" href="https://site.dissecandoquestoes.com/captacao/grupo/?utm_source=instagram&utm_medium=bio&utm_campaign=julho-2026">
+    <div class="body">
+      <span class="tag">Grupo no WhatsApp</span>
+      <h2>Grupo de Novidades IF</h2>
+      <p>Vagas, editais e movimentações da Rede Federal em primeira mão.</p>
+    </div>
+    <div class="thumb">
+      <span class="pulse"></span>
+      <img src="assets/thumb-grupo.jpg" alt="Grupo de Novidades IF">
+      <span class="arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </div>
+  </a>
+
+  <!-- 2 · AULAS TODA QUINTA -->
+  <a class="card" data-link="aula" href="https://site.dissecandoquestoes.com/captacao/aula-quinta/?utm_source=instagram&utm_medium=bio&utm_campaign=julho-2026">
+    <div class="body">
+      <span class="tag">Toda quinta, às 20h</span>
+      <h2>Aula ao vivo do IF</h2>
+      <p>Cadastre-se e a nossa equipe te envia o link da próxima aula.</p>
+    </div>
+    <div class="thumb">
+      <img src="assets/thumb-aula.jpg" alt="Aula ao vivo com Prof. Manoel">
+      <span class="arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </div>
+  </a>
+
+  <!-- 3 · DOSSIÊ IF -->
+  <a class="card" data-link="dossie" href="https://site.dissecandoquestoes.com/lps/dossie/?utm_source=instagram&utm_medium=bio&utm_campaign=julho-2026">
+    <div class="body">
+      <span class="tag">A preparação mais completa</span>
+      <h2>Conheça o Dossiê IF</h2>
+      <p>Plataforma, cronograma que se adapta à sua rotina e acompanhamento do Prof. Manoel.</p>
+    </div>
+    <div class="thumb">
+      <img src="assets/thumb-dossie.jpg" alt="Dossiê IF">
+      <span class="arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </div>
+  </a>
+
+  <!-- 4 · FALAR COM O TIME -->
+  <a class="card" data-link="time" href="https://wa.link/dq-consultor">
+    <div class="body">
+      <span class="tag">Atendimento no WhatsApp</span>
+      <h2>Fale com o nosso time</h2>
+      <p>Tire suas dúvidas e descubra o melhor caminho pra sua jornada no IF.</p>
+    </div>
+    <div class="thumb">
+      <img src="assets/thumb-time.jpg" alt="Fale com o time">
+      <span class="arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </div>
+  </a>
+
+  <footer class="foot">
+    <div class="bar">Dissecando Questões · Prof. Manoel Machado</div>
+    <div class="note">O problema nunca foi conteúdo. É método.</div>
+  </footer>
+
+</div>
+</body>
+</html>
