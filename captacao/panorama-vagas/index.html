@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Panorama de Vagas nos IFs 2026, aula gratuita | Dissecando Questões</title>
-<meta name="description" content="Descubra onde vão sair as vagas de professor nos Institutos Federais em 2026 e como chegar preparado. Aula gratuita com o Prof. Manoel Machado.">
+<title>Panorama de Vagas nos IFs 2026 | Dissecando Questões</title>
+<meta name="description" content="Descubra onde vão sair as vagas de professor nos Institutos Federais em 2026 e como chegar preparado. Aula aberta com o Prof. Manoel Machado.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,600&display=swap" rel="stylesheet">
@@ -106,12 +106,12 @@ footer{text-align:center;padding:36px 0;color:var(--muted);font-size:13px}
 <!-- ===== GATE ===== -->
 <section class="gate" id="gate">
   <div class="wrap">
-    <div class="nav"><div class="brand"><i></i>Dissecando Questões</div><div class="tag">Aula gratuita</div></div>
+    <div class="nav"><div class="brand"><i></i>Dissecando Questões</div><div class="tag">Aula aberta</div></div>
     <div class="hero">
       <div>
         <span class="eyebrow">Institutos Federais 2026</span>
         <h1>As vagas do IF que vão sair em 2026, e <mark>onde vai ser o seu próximo concurso</mark></h1>
-        <p class="sub">Nesta aula gratuita, o Prof. Manoel Machado mostra o panorama real das vagas de professor nos Institutos Federais: onde estão, quantas são e por região, pra você saber exatamente onde mirar antes de todo mundo.</p>
+        <p class="sub">Nesta aula, o Prof. Manoel Machado mostra o panorama real das vagas de professor nos Institutos Federais: onde estão, quantas são e por região, para você saber exatamente onde mirar antes de todo mundo.</p>
         <ul class="ulist">
           <li>Onde as novas vagas estão se abrindo, região por região</li>
           <li>Quais IFs estão com concurso iminente e quantas vagas esperar</li>
@@ -120,7 +120,7 @@ footer{text-align:center;padding:36px 0;color:var(--muted);font-size:13px}
       </div>
       <div class="card">
         <span class="k">Acesso liberado na hora</span>
-        <h2>Assista a aula agora, de graça</h2>
+        <h2>Assista à aula completa agora</h2>
         <p class="small">Preencha para liberar o vídeo completo:</p>
         <form id="leadForm" novalidate>
           <div class="field"><label for="nome">Seu nome</label><input id="nome" name="nome" type="text" autocomplete="name" placeholder="Como podemos te chamar?"></div>
@@ -142,7 +142,7 @@ footer{text-align:center;padding:36px 0;color:var(--muted);font-size:13px}
     <div class="rel-head">
       <span class="eyebrow">Acesso liberado</span>
       <h2>Sua aula está pronta, <span id="nomeOla">tudo certo</span></h2>
-      <p>Assista até o final. No fim, eu te mostro o caminho pra transformar essa oportunidade em uma vaga de verdade.</p>
+      <p>Assista até o final. No fim, eu te mostro o caminho para transformar essa oportunidade em uma vaga de verdade.</p>
     </div>
 
     <div class="stage">
@@ -152,10 +152,15 @@ footer{text-align:center;padding:36px 0;color:var(--muted);font-size:13px}
         <!-- libera o conteúdo de baixo (.esconder) só no fim do vídeo -->
         <script>
         (function(){
-          var player=document.querySelector('vturb-smartplayer'); if(!player) return;
-          var done=false;
-          function liberar(){ if(done)return; done=true; document.querySelectorAll('.esconder').forEach(function(el){el.style.display='block';}); }
+          var revealed=false;
+          function liberar(){ if(revealed)return; revealed=true; document.querySelectorAll('.esconder').forEach(function(el){el.style.display='block';}); }
+          var player=document.querySelector('vturb-smartplayer');
+          if(!player){ liberar(); return; }
+          var ready=false;
+          /* Rede de seguranca: se o video nao carregar em 8s, mostra o conteudo para a pagina nunca ficar vazia */
+          var fb=setTimeout(function(){ if(!ready) liberar(); },8000);
           player.addEventListener('player:ready',function(){
+            ready=true; clearTimeout(fb);
             var t=0;(function setDelay(){
               var dur=player.duration||(player.getDuration&&player.getDuration());
               if(dur&&!isNaN(dur)&&dur>0&&player.displayHiddenElements){try{player.displayHiddenElements(Math.max(dur-1,1),['.esconder'],{persist:true});}catch(e){}}
@@ -167,7 +172,7 @@ footer{text-align:center;padding:36px 0;color:var(--muted);font-size:13px}
         </script>
       </div>
       <div class="chips">
-        <span class="chip">✓ Aula <b>100% gratuita</b></span>
+        <span class="chip">✓ <b>Acesso imediato</b></span>
         <span class="chip">⏱ Direto ao ponto</span>
         <span class="chip">👨‍🏫 Com o <b>Prof. Manoel Machado</b></span>
       </div>
@@ -178,7 +183,7 @@ footer{text-align:center;padding:36px 0;color:var(--muted);font-size:13px}
       <span class="eyebrow">Por que essa aula importa</span>
       <h3 style="margin-top:12px">O jogo é ganho antes do edital</h3>
       <p>A maior parte dos professores descobre a vaga quando o edital já saiu, e aí só restam 60 a 90 dias até a prova. É desespero. Quem enxerga o mapa das vagas antes começa a se preparar com folga e chega na prova com uma vantagem enorme sobre quem começou na correria.</p>
-      <div class="callout">Este é o <b>maior reforço de pessoal da história dos Institutos Federais</b>. Saber onde as vagas estão é o passo zero. O passo seguinte é ter um método pra chegar lá.</div>
+      <div class="callout">Este é o <b>maior reforço de pessoal da história dos Institutos Federais</b>. Saber onde as vagas estão é o passo zero. O passo seguinte é ter um método para chegar lá.</div>
     </div>
 
     <div class="stats">
@@ -192,14 +197,14 @@ footer{text-align:center;padding:36px 0;color:var(--muted);font-size:13px}
       <h3>Ver a vaga é fácil. Conquistar é questão de método.</h3>
       <p class="lead">O <b>Dossiê IF</b> é o programa de preparação do Manoel para virar servidor do Instituto Federal estudando de forma direcionada, mesmo com pouco tempo. Ele resolve os 3 gargalos que travam a maioria:</p>
       <div class="pillars">
-        <div class="pill"><span class="n">01</span><h4>Questões ultra selecionadas</h4><p>Só o que cai pra sua área e cargo. Nada de estudar tudo.</p></div>
+        <div class="pill"><span class="n">01</span><h4>Questões ultra selecionadas</h4><p>Só o que cai para a sua área e cargo. Nada de ver tudo por ver.</p></div>
         <div class="pill"><span class="n">02</span><h4>Planejamento inteligente</h4><p>Um cronograma que cabe na sua rotina real, de 30min a 1h por dia.</p></div>
         <div class="pill"><span class="n">03</span><h4>Acompanhamento</h4><p>Comunidade por área e encontros com o Manoel. Você não estuda sozinho.</p></div>
       </div>
     </div>
 
     <div class="cta-final">
-      <h3>Quer saber se o Dossiê IF é pra você?</h3>
+      <h3>Quer saber se o Dossiê IF é para você?</h3>
       <p>Fale agora com um consultor de carreira do Dissecando Questões. Ele te ajuda a entender sua situação, as vagas da sua área e o melhor caminho, sem compromisso.</p>
       <a class="btn btn-wa" href="https://wa.link/dq-consultor" target="_blank" rel="noopener">Falar com um consultor no WhatsApp →</a>
       <div class="micro">Atendimento humano · horário comercial</div>
