@@ -421,7 +421,7 @@
     <span class="vsl-eyebrow">Aula liberada · Vagas IF</span>
     <h1 class="vsl-h1">O mapa das <mark>próximas oportunidades</mark></h1>
     <div class="vsl-player" style="aspect-ratio:16/9">
-      <iframe src="https://www.youtube.com/embed/ags9CCdGkO8?si=uKKjKhUtzzqR5rDk&controls=0&rel=0" title="YouTube video player" style="position:absolute;inset:0;width:100%;height:100%;border:0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <iframe id="ytPlayer" src="https://www.youtube.com/embed/ags9CCdGkO8?si=uKKjKhUtzzqR5rDk&controls=0&rel=0&enablejsapi=1" title="YouTube video player" style="position:absolute;inset:0;width:100%;height:100%;border:0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
     <p class="vsl-note">Em menos de <b>20 minutos</b>, eu te explico o caminho pra conquistar sua vaga no Instituto Federal, mesmo com pouco tempo pra estudar.</p>
   </div>
@@ -429,19 +429,32 @@
 <script>
 (function(){
   function liberar(){document.querySelectorAll('.esconder').forEach(function(el){el.style.display='block';});var nav=document.getElementById('nav');if(nav){nav.classList.remove('is-hidden');}}
-  var navCta=document.querySelector('.nav-cta');
-  if(navCta){navCta.addEventListener('click',function(e){e.preventDefault();liberar();setTimeout(function(){var el=document.getElementById('topo');if(el&&el.scrollIntoView)el.scrollIntoView({behavior:'smooth',block:'start'});},90);});}
-  var player=document.querySelector('vturb-smartplayer');
-  if(!player){liberar();return;} /* sem embed vturb (YouTube): libera o conteudo de imediato */
   var done=false;function fim(){if(done)return;done=true;liberar();}
-  player.addEventListener('player:ready',function(){
-    var t=0;(function d(){
-      var dur=player.duration||(player.getDuration&&player.getDuration());
-      if(dur&&!isNaN(dur)&&dur>0&&player.displayHiddenElements){try{player.displayHiddenElements(Math.max(dur-3,1),['.esconder'],{persist:true});}catch(e){}}
-      else if(t++<40){setTimeout(d,500);}
-    })();
-    ['player:ended','ended','player:complete','video:ended'].forEach(function(ev){try{player.addEventListener(ev,fim);}catch(e){}});
-  });
+  /* Libera o conteudo de baixo quando a aula (video do YouTube) termina */
+  var tag=document.createElement('script');tag.src='https://www.youtube.com/iframe_api';
+  var s0=document.getElementsByTagName('script')[0];s0.parentNode.insertBefore(tag,s0);
+  var ANTES=90; /* libera faltando 90s (1min30) para o fim da aula. Troque para 60 = 1min ou 120 = 2min */
+  window.onYouTubeIframeAPIReady=function(){
+    try{
+      var timer=null;
+      new YT.Player('ytPlayer',{events:{
+        'onStateChange':function(e){
+          if(e.data===YT.PlayerState.PLAYING && !timer){
+            timer=setInterval(function(){
+              try{
+                var dur=e.target.getDuration(), cur=e.target.getCurrentTime();
+                if(dur>0 && (dur-cur)<=ANTES){ clearInterval(timer); timer=null; fim(); }
+              }catch(err){}
+            },1000);
+          }
+          if(e.data===YT.PlayerState.ENDED){ fim(); }
+        },
+        'onError':function(){ fim(); }
+      }});
+    }catch(e){ fim(); }
+  };
+  /* Rede de seguranca: se a API do YouTube nao carregar, nao deixa a pagina travada para sempre */
+  setTimeout(function(){ if(!window.YT || !window.YT.Player){ fim(); } },12000);
 })();
 </script>
 <div class="esconder">
