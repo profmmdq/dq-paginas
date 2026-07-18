@@ -41,7 +41,7 @@
   .eyebrow.line::before{content:"";display:inline-block;width:26px;height:1px;background:var(--acc);vertical-align:middle;margin-right:11px}
   h1,h2,h3,h4,h5{font-family:var(--disp);font-weight:800;color:var(--blue);line-height:1.05;letter-spacing:-1px}
 
-  .grain{position:fixed;inset:0;z-index:70;pointer-events:none;opacity:.06;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22140%22 height=%22140%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22 numOctaves=%222%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/%3E%3C/svg%3E");background-size:140px 140px}
+  .grain{position:fixed;inset:0;z-index:70;pointer-events:none;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22140%22 height=%22140%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22 numOctaves=%222%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/%3E%3C/svg%3E");background-size:140px 140px}
   .progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--acc);z-index:130;transition:width .12s linear;box-shadow:0 0 12px rgba(255,117,31,.7)}
 
   /* NAV */
@@ -468,7 +468,7 @@
 })();
 </script>
 <div class="esconder">
-<div class="cupom-bar">CUPOM PLANO250 &middot; 12x de R$ 99,70 ou R$ 997 no Pix &middot; v&aacute;lido at&eacute; sexta, 17/07, 23:59</div>
+<div class="cupom-bar" id="cupomBar">CUPOM PLANO250 &middot; 12x de R$ 99,70 ou R$ 997 no Pix &middot; v&aacute;lido at&eacute; sexta, 17/07, 23:59</div>
 <section id="topo" class="hero">
   <picture>
     <source type="image/webp" srcset="SCREENSHOTS%20DOSSI%C3%8A%20IF/Fachada_campus%20de%20IF%20%2B%20Manoel.webp">
@@ -749,7 +749,7 @@
             <div class="inc"><span class="ck">✓</span><span class="t">Acompanhamento mensal ao vivo com o Prof. Manoel</span></div>
           </div>
         </div>
-        <div class="pricing-right">
+        <div class="pricing-right" id="precoBox">
           <div class="pre">com o cupom <b style="color:var(--acc)">PLANO250</b></div>
           <div class="price">12x <span class="sm">de</span> R$ 99,70</div>
           <div class="pix">ou R$ 997 à vista no Pix</div>
@@ -1060,18 +1060,22 @@
 (function(){
   // sexta 17/07/2026 23:59:59 horario de Brasilia (UTC-3) => 18/07 02:59:59Z
   var end=Date.UTC(2026,6,18,2,59,59);
+  var expirado=false;
+  function expirar(){
+    if(expirado) return; expirado=true;
+    var bar=document.getElementById('cupomBar');
+    if(bar){ bar.textContent='Cupom PLANO250 encerrado · fale com um consultor para ver as condições atuais'; }
+    var box=document.getElementById('precoBox');
+    if(box){ box.innerHTML='<div class="pre">Investimento</div><div class="price">R$ 1.247</div><div class="pix">ou 12x no cartão</div><div style="font-size:13.5px;color:var(--txt2);margin:14px 0 16px;line-height:1.5">O cupom <b>PLANO250</b> encerrou. Não conseguiu aproveitar? Fale com um consultor e veja as condições disponíveis agora.</div><a href="https://wa.link/dq-consultor" target="_blank" rel="noopener" class="btn-primary cta-full">Falar com um consultor <span aria-hidden="true">&rarr;</span></a><div class="guar"><span class="sh" aria-hidden="true">🛡️</span><span class="t">Garantia incondicional de 7 dias.</span></div>'; }
+  }
+  if(Date.now()>=end){ expirar(); return; }
   var el=document.getElementById('cupomTimer');
   if(!el) return;
   var d=document.getElementById('ctD'),h=document.getElementById('ctH'),m=document.getElementById('ctM'),sc=document.getElementById('ctS');
   function pad(n){return (n<10?'0':'')+n;}
   function tick(){
     var diff=end-Date.now();
-    if(diff<=0){
-      el.classList.add('expired');
-      el.querySelector('.ct-label').textContent='Cupom encerrado';
-      d.textContent=h.textContent=m.textContent=sc.textContent='00';
-      clearInterval(iv);return;
-    }
+    if(diff<=0){ expirar(); clearInterval(iv); return; }
     var s=Math.floor(diff/1000);
     d.textContent=pad(Math.floor(s/86400));
     h.textContent=pad(Math.floor(s%86400/3600));
