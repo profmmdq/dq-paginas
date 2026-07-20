@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aula Interativa | Dissecando Questões</title>
+<meta name="description" content="Aula interativa: o conteúdo se adapta ao seu momento no IF.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
+<!-- Vturb / ConverteAI: prefetch dos domínios (performance dos players) -->
+<script>!function(i,n){i._plt=i._plt||(n&&n.timeOrigin?n.timeOrigin+n.now():Date.now())}(window,performance);</script>
+<link rel="dns-prefetch" href="https://cdn.converteai.net">
+<link rel="dns-prefetch" href="https://scripts.converteai.net">
+<link rel="dns-prefetch" href="https://images.converteai.net">
+<link rel="dns-prefetch" href="https://license.vturb.com">
+<style>
+  :root{--ink:#0f1829;--ink2:#0b1220;--blue:#0c3d64;--green:#104438;--acc:#ff751f;--acc2:#ff9a54;--cream:#f1f3e6;--sand:#ecdcc1;--line:rgba(241,243,230,.12);--muted:#9aa6b2;
+    --disp:'Bricolage Grotesque',sans-serif;--body:'Hanken Grotesk',system-ui,sans-serif;--mono:'Geist Mono',monospace;}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:var(--body);color:var(--cream);background:var(--ink2);min-height:100vh;-webkit-font-smoothing:antialiased;line-height:1.5}
+  .bg{position:fixed;inset:0;z-index:-1;background:radial-gradient(75% 55% at 50% 0%,rgba(12,61,100,.5),transparent 60%),linear-gradient(180deg,#0f1c2e,#0b1220 72%)}
+  .wrap{max-width:920px;margin:0 auto;padding:22px 18px 44px}
+  header{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+  .brand{display:inline-flex;background:var(--cream);border-radius:11px;padding:6px 12px}
+  .brand img{height:30px;display:block}
+  .tag{margin-left:auto;font-family:var(--mono);font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:var(--muted)}
+  .kicker{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--acc);margin-bottom:10px}
+  .kicker::before{content:"";width:20px;height:1.5px;background:var(--acc)}
+  h1{font-family:var(--disp);font-weight:800;font-size:clamp(24px,4.6vw,36px);line-height:1.05;letter-spacing:-.6px;margin-bottom:20px;text-wrap:balance}
+
+  .stage{position:relative;border-radius:18px;overflow:hidden;background:#000;box-shadow:0 40px 88px -40px rgba(0,0,0,.8);aspect-ratio:16/9;border:1px solid var(--line)}
+  .stage video{width:100%;height:100%;display:block;object-fit:cover;background:#000}
+  .phost{position:absolute;inset:0;display:none;background:#000}
+  .phost.on{display:block}
+  .phost vturb-smartplayer{width:100%;display:block}
+  .cont{position:absolute;right:14px;bottom:14px;z-index:4;display:none;background:var(--acc);color:var(--ink2);border:0;border-radius:11px;font-weight:800;font-family:var(--body);font-size:14px;padding:11px 18px;cursor:pointer;box-shadow:0 12px 26px -12px rgba(255,117,31,.85)}
+  .cont.on{display:inline-block}
+  .over{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;align-items:center;padding:clamp(18px,4vw,42px);text-align:center;animation:fade .4s ease}
+  .over.on{display:flex}
+  .over::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,24,41,.4),rgba(11,18,32,.93))}
+  .over>*{position:relative;z-index:2}
+  @keyframes fade{from{opacity:0}to{opacity:1}}
+  .over .q{font-family:var(--disp);font-weight:800;font-size:clamp(20px,3.6vw,30px);line-height:1.15;margin-bottom:22px;max-width:640px;text-wrap:balance}
+  .opts{display:grid;gap:11px;width:100%;max-width:520px}
+  .opt{background:rgba(241,243,230,.06);border:1.5px solid var(--line);color:var(--cream);font-family:var(--body);font-weight:600;font-size:16px;padding:16px 20px;border-radius:13px;cursor:pointer;transition:all .18s ease;display:flex;align-items:center;gap:12px}
+  .opt:hover{border-color:var(--acc);background:rgba(255,117,31,.12);transform:translateY(-2px)}
+  .opt .n{font-family:var(--mono);color:var(--acc);font-size:14px}
+  .lower{position:absolute;left:16px;bottom:16px;z-index:3;display:none;align-items:center;gap:9px;background:rgba(11,18,32,.72);backdrop-filter:blur(6px);border:1px solid var(--line);border-radius:12px;padding:8px 14px 8px 10px}
+  .lower.on{display:flex}
+  .lower .dot{width:30px;height:30px;border-radius:50%;background:var(--green);color:var(--cream);font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center}
+  .lower .nm{font-family:var(--disp);font-weight:800;font-size:14px;line-height:1.1}
+  .lower .in{font-size:11.5px;color:var(--sand)}
+  /* cartão de conexão (frase animada antes de cada vídeo) */
+  .inter{position:absolute;inset:0;display:none;align-items:center;justify-content:center;text-align:center;padding:clamp(20px,5vw,52px);z-index:5;background:linear-gradient(180deg,rgba(12,61,100,.55),rgba(11,18,32,.93))}
+  .inter.on{display:flex}
+  .inter .itxt{font-family:var(--disp);font-weight:800;font-size:clamp(22px,4.4vw,42px);line-height:1.12;max-width:720px;color:var(--cream);opacity:0;transform:translateY(18px);text-wrap:balance;letter-spacing:-.5px}
+  .inter .itxt em{font-style:normal;color:var(--acc2)}
+  .inter.on .itxt{animation:interin .7s cubic-bezier(.16,.84,.44,1) forwards}
+  @keyframes interin{to{opacity:1;transform:none}}
+  /* portão de captação (antes do play) */
+  .gate{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:clamp(18px,4vw,42px);z-index:4}
+  .gate.on{display:flex}
+  .gate::before{content:"";position:absolute;inset:0;background:url('assets/manoel-hero.jpg') center 22%/cover}
+  .gate::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,24,41,.5),rgba(11,18,32,.93))}
+  .gate>*{position:relative;z-index:2}
+  .gate .gk{font-family:var(--mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--acc);margin-bottom:10px}
+  .gate .gq{font-family:var(--disp);font-weight:800;font-size:clamp(18px,3vw,26px);line-height:1.15;max-width:460px;margin-bottom:20px;text-wrap:balance}
+  .gate form{display:grid;gap:10px;width:100%;max-width:360px}
+  .gate input{width:100%;background:rgba(11,18,32,.62);border:1px solid var(--line);border-radius:12px;color:var(--cream);font-family:var(--body);font-size:16px;padding:14px;outline:none}
+  .gate input::placeholder{color:var(--muted)}
+  .gate input:focus{border-color:var(--acc)}
+  .gate .lerr{color:#ff9a9a;font-size:13px;min-height:0}
+  .gate .btn{width:100%;justify-content:center;margin-top:2px}
+
+  .barnote{margin-top:14px;font-size:13px;color:var(--muted);text-align:center}
+  .path{display:flex;gap:6px;flex-wrap:wrap;margin-top:16px;justify-content:center}
+  .chip{font-family:var(--mono);font-size:10.5px;letter-spacing:1px;text-transform:uppercase;color:var(--acc);border:1px solid rgba(255,117,31,.35);border-radius:999px;padding:5px 11px}
+
+  .end{display:none;text-align:center;padding:36px 6px}
+  .end.on{display:block}
+  .end .ph{width:74px;height:74px;border-radius:50%;object-fit:cover;object-position:50% 25%;border:2px solid rgba(255,117,31,.5);margin:0 auto 16px}
+  .end h2{font-family:var(--disp);font-weight:800;font-size:clamp(22px,4vw,32px);margin-bottom:10px}
+  .end p{color:rgba(241,243,230,.82);max-width:520px;margin:0 auto 22px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;background:var(--acc);color:var(--ink2);font-weight:800;font-size:16px;text-decoration:none;padding:16px 30px;border:0;border-radius:14px;cursor:pointer;font-family:var(--body);box-shadow:0 18px 36px -16px rgba(255,117,31,.85);transition:transform .15s ease}
+  .btn:hover{transform:translateY(-2px)}
+  .btn2{display:inline-block;margin-top:12px;color:var(--sand);font-size:14px;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(236,220,193,.35);padding-bottom:2px}
+  .btn2:hover{color:var(--cream)}
+
+  /* tela "agora não": agradecimento + grupo */
+  .endgrupo{display:none}
+  .endgrupo.on{display:block}
+  .endgrupo .btn{margin-top:6px}
+  /* seção de vendas revelada inline (página do Dossiê IF embutida) */
+  .vendas{display:none;text-align:left;max-width:820px;margin:8px auto 0;animation:fade .5s ease}
+  .vendas.on{display:block}
+  .dossie-frame{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 30px 70px -34px rgba(0,0,0,.6)}
+  .dossie-frame iframe{width:100%;height:82vh;border:0;display:block}
+  .vk{font-family:var(--mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--acc)}
+  .vh{font-family:var(--disp);font-weight:800;font-size:clamp(22px,3.4vw,30px);line-height:1.1;letter-spacing:-.5px;margin:10px 0 10px;text-align:left}
+  .vsub{color:rgba(241,243,230,.82);margin-bottom:22px}
+  .vstats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:22px}
+  .vstats div{background:rgba(12,61,100,.28);border:1px solid var(--line);border-radius:14px;padding:16px;text-align:center}
+  .vstats b{display:block;font-family:var(--disp);font-weight:800;font-size:26px;color:var(--acc2);letter-spacing:-1px}
+  .vstats span{font-size:12px;color:var(--muted)}
+  .vfeat{display:grid;gap:11px;margin-bottom:14px}
+  .vf{background:rgba(241,243,230,.04);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+  .vf .vfn{font-family:var(--mono);color:var(--acc);font-size:12px}
+  .vf h4{font-family:var(--disp);font-weight:800;font-size:16px;margin:4px 0 3px}
+  .vf p{font-size:13.5px;color:rgba(241,243,230,.78)}
+  .vextra{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:18px}
+  @media(max-width:560px){.vextra,.vstats{grid-template-columns:1fr}}
+  .ve{background:linear-gradient(150deg,rgba(16,68,56,.4),rgba(11,20,32,.3));border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+  .ve h4{font-family:var(--disp);font-weight:800;font-size:15px;margin-bottom:3px}
+  .ve p{font-size:13px;color:rgba(241,243,230,.78)}
+  .vnames{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+  .vnames .chip{background:rgba(241,243,230,.04);border:1px solid var(--line);border-radius:999px;padding:7px 13px;font-size:12.5px;color:var(--muted)}
+  .vnames .chip b{color:var(--cream);font-weight:700}
+  .vprice{background:linear-gradient(155deg,#122236,#0b1420);border:1px solid rgba(255,117,31,.28);border-radius:18px;padding:24px;text-align:center}
+  .vg{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:1.4px;text-transform:uppercase;color:var(--sand);border:1px solid var(--line);border-radius:999px;padding:6px 12px;margin-bottom:14px}
+  .vval{font-family:var(--disp);font-weight:800;font-size:38px;color:var(--acc2);letter-spacing:-1.5px;line-height:1}
+  .vava{color:var(--muted);font-size:13px;margin:4px 0 18px}
+  .vprice .btn{width:100%}
+  footer{font-family:var(--mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);text-align:center;margin-top:28px}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="wrap">
+  <header>
+    <span class="brand"><img src="assets/logo-dq.png" alt="Dissecando Questões"></span>
+    <span class="tag">Aula interativa</span>
+  </header>
+  <span class="kicker">Aula que se adapta a você</span>
+  <h1 id="titulo">A sua aula do IF começa agora</h1>
+
+  <div class="stage" id="stage">
+    <div id="phost" class="phost"></div>
+    <video id="vid" playsinline controls preload="auto" poster="assets/manoel-hero.jpg" style="display:none"></video>
+    <button class="cont" id="contBtn">Continuar →</button>
+    <div class="lower" id="lower"></div>
+    <div class="over" id="over">
+      <div class="q" id="qtext"></div>
+      <div class="opts" id="opts"></div>
+    </div>
+    <div class="inter" id="inter"><div class="itxt" id="itxt"></div></div>
+    <div class="gate on" id="gate">
+      <div class="gk">Antes de começar</div>
+      <div class="gq">Pra quem é essa aula? Deixa seu nome e WhatsApp que eu já libero.</div>
+      <form id="leadForm" novalidate>
+        <input id="lnome" type="text" placeholder="Seu nome" autocomplete="name" required>
+        <input id="lwhats" type="tel" placeholder="Seu WhatsApp com DDD" autocomplete="tel" inputmode="numeric" required>
+        <input id="lemail" type="email" placeholder="Seu melhor e-mail" autocomplete="email" required>
+        <div class="lerr" id="lerr"></div>
+        <button class="btn" type="submit">Começar a aula →</button>
+      </form>
+    </div>
+  </div>
+  <div class="path" id="path"></div>
+  <p class="barnote">O vídeo se ajusta às suas escolhas. Assista até o fim para liberar o próximo passo.</p>
+
+  <div class="end" id="end">
+    <!-- "Agora não" -> agradece e convida pro grupo do WhatsApp -->
+    <div class="endgrupo" id="endgrupo">
+      <img class="ph" src="assets/manoel-hero.jpg" alt="Prof. Manoel Machado">
+      <h2>Sem problema, Prof!</h2>
+      <p>Então fica de olho no nosso grupo do WhatsApp. É lá que a gente solta, em primeira mão, as notícias e as movimentações do mundo IF.</p>
+      <a class="btn" id="grupoBtn" href="#" target="_blank" rel="noopener">Entrar no grupo do IF →</a>
+    </div>
+
+    <!-- "Sim" -> a própria página do Dossiê IF, embutida (cópia real, sem cupom) -->
+    <section class="vendas" id="vendas">
+      <div class="dossie-frame"><iframe src="dossie/index.html" title="Dossiê IF" loading="lazy"></iframe></div>
+      <div style="text-align:center;margin-top:12px">
+        <a class="btn2" id="teamB" href="#" target="_blank" rel="noopener">Prefiro falar com a equipe</a>
+      </div>
+    </section>
+  </div>
+
+  <footer>Dissecando Questões · Prof. Manoel Machado</footer>
+</div>
+
+<script>
+/* ============================================================
+   CONFIGURAÇÃO DA AULA INTERATIVA
+   Troque os "video" pelos seus arquivos .mp4 (ou URL de vídeo).
+   Cada nó pode ser:
+   - trecho comum: {video, next:"idDoProximo"}
+   - decisão:      {video, question:"...", options:[{label, tag, next}]}
+   - fim:          {video, end:true}
+   As escolhas viram tags de segmentação (guardadas em ANSWERS).
+   ============================================================ */
+// depoimentos REAIS de alunos aprovados (mesmos vídeos da página do Dossiê IF)
+var DEPO = "https://kqvwmmiguoqfuseabmtt.supabase.co/storage/v1/object/public/depoimentos";
+
+var FLOW = {
+  "intro": {
+    intro: "Antes de te mostrar o caminho, deixa eu <em>me apresentar</em>.",
+    vturb: "vid-6a5d55ec35816a3453811348",
+    question: "Pra eu te mostrar o caminho certo, me conta: qual é a sua formação hoje?",
+    options: [
+      { label: "Graduação", tag: "graduacao", next: "ramo_graduacao" },
+      { label: "Especialização", tag: "especializacao", next: "ramo_pos" },
+      { label: "Mestrado", tag: "mestrado", next: "ramo_pos" },
+      { label: "Doutorado", tag: "doutorado", next: "ramo_pos" }
+    ]
+  },
+  "ramo_graduacao": { intro:"Você está <em>mais perto</em> do que imagina. Deixa eu te mostrar essa carreira por dentro.", vturb: "vid-6a5d55f3b4c6fc11584af765", next: "depo_graduacao" },
+  "ramo_pos":       { intro:"Título <em>não</em> é o problema. Deixa eu te mostrar o que realmente reprova.", vturb: "vid-6a5d55e735816a3453811322", next: "depo_pos" },
+  // depoimentos reais já hospedados — trocar entre video-1/2/3 se quiser outro aluno
+  "depo_graduacao": { intro:"Não sou só eu quem diz. Olha <em>quem já conseguiu</em>.", video: DEPO+"/depoimento-video-1.mp4", caption:{nome:"Fábio", inst:"aprovado no IFAC"}, next: "tempo" },
+  "depo_pos":       { intro:"Não sou só eu quem diz. Olha <em>quem já conseguiu</em>.", video: DEPO+"/depoimento-video-3.mp4", caption:{nome:"Jocielle", inst:"aprovada no IFS"}, next: "tempo" },
+  "tempo": {
+    intro: "Falta de tempo <em>não</em> é desculpa. É estratégia. Vamos falar disso.",
+    vturb: "vid-6a5d55e0e468b20156260404",
+    question: "E quanto tempo por dia você consegue estudar?",
+    options: [
+      { label: "Menos de 1 hora", tag: "t1", next: "fecho" },
+      { label: "1 a 2 horas", tag: "t2", next: "fecho" },
+      { label: "Mais de 2 horas", tag: "t3", next: "fecho" }
+    ]
+  },
+  // FECHO: cartão -> vídeo do método -> e SÓ DEPOIS a pergunta do método
+  "fecho": {
+    intro: "Com o tempo que você tem, você precisa de um <em>sistema simples</em>, com 2 únicos eixos.",
+    vturb: "vid-6a5d55d8f289d49cf592408d",
+    question: "Quer conhecer o método e a plataforma que fazem tudo isso por você?",
+    options: [
+      { label: "Sim, quero ver por dentro", tag: "quer_metodo", next: "dossie" },
+      { label: "Agora não", tag: "sem_metodo", next: "grupo" }
+    ]
+  },
+  "dossie": { end: true, unlock: true },  // Sim -> abre o Dossiê IF direto na página
+  "grupo":  { end: true, grupo: true }    // Agora não -> agradece e convida pro grupo do WhatsApp
+};
+var START = "intro";
+
+// destinos reais (mesmos da página do Dossiê IF)
+var DOSSIE_CHECKOUT = "https://checkout.dissecandoquestoes.com.br/checkout/lnc-grupos2-dossie-if-2-anos";
+var EQUIPE_WHATS    = "https://wa.link/dq-consultor";
+var GRUPO_IF        = "https://sndflw.com/i/D44WGy8IPL92V6WPPX2b";  // grupo do WhatsApp do IF
+var LEAD_ENDPOINT   = "";  // (opcional) webhook pra receber o lead via POST JSON. Vazio = salva local + dataLayer.
+/* ============================================================ */
+
+var vid=document.getElementById('vid'), over=document.getElementById('over');
+var phost=document.getElementById('phost'), contBtn=document.getElementById('contBtn');
+var VTURB_BASE="https://scripts.converteai.net/8fb0c85a-c7c1-400e-a28a-5dc648d0969c/players/";
+var ANSWERS={}, curId=null, advanced=false;
+function tagsRender(){var p=document.getElementById('path');p.innerHTML='';Object.keys(ANSWERS).forEach(function(k){var c=document.createElement('span');c.className='chip';c.textContent=ANSWERS[k];p.appendChild(c);});}
+var lower=document.getElementById('lower');
+function setLower(c){
+  if(c){ lower.innerHTML='<span class="dot">'+(c.nome||'?').charAt(0)+'</span><span><span class="nm">'+c.nome+'</span><br><span class="in">'+c.inst+'</span></span>'; lower.classList.add('on'); }
+  else { lower.classList.remove('on'); }
+}
+var inter=document.getElementById('inter'), itxt=document.getElementById('itxt');
+var INTER_MS = 4200;  // tempo que cada cartão de conexão fica na tela (ms)
+function showInter(html, cb){
+  itxt.innerHTML=html; inter.classList.add('on');
+  itxt.style.animation='none'; void itxt.offsetWidth; itxt.style.animation='';
+  setTimeout(function(){ inter.classList.remove('on'); if(cb) cb(); }, INTER_MS);
+}
+function go(id){
+  curId=id; over.classList.remove('on');
+  var node=FLOW[id];
+  if(node.intro){ showInter(node.intro, function(){ enter(node); }); }
+  else { enter(node); }
+}
+function enter(node){
+  advanced=false; hideCont();
+  if(node.vturb){ setLower(node.caption); showPlayer('vturb'); mountVturb(node.vturb, advanceCurrent); }
+  else if(node.video){ setLower(node.caption); showPlayer('video'); vid.src=node.video; vid.load(); var p=vid.play(); if(p&&p.catch){p.catch(function(){});} }
+  else if(node.question){ setLower(null); showDecision(node); }
+  else if(node.end){ setLower(null); finish(node); }
+}
+function showPlayer(kind){
+  if(kind==='vturb'){ phost.classList.add('on'); vid.style.display='none'; }
+  else { phost.classList.remove('on'); phost.innerHTML=''; vid.style.display='block'; }
+}
+// avança pro próximo passo (chamado pelo fim do <video> OU pelo fim do player Vturb)
+function advanceCurrent(){
+  if(advanced) return; advanced=true; hideCont();
+  var node=FLOW[curId];
+  if(node.question){ showDecision(node); return; }
+  if(node.outro){ showInter(node.outro, function(){ proceed(node); }); return; }
+  proceed(node);
+}
+var onEnd=advanceCurrent;
+function proceed(node){ if(node.end){finish(node);} else if(node.next){go(node.next);} }
+
+// ---- Vturb: monta o player e tenta capturar o fim do vídeo ----
+function mountVturb(id, onEnded){
+  phost.innerHTML='';
+  var pid=id.replace('vid-','');
+  var el=document.createElement('vturb-smartplayer');
+  el.id=id; el.style.cssText='display:block;margin:0 auto;width:100%';
+  var ph=document.createElement('div'); ph.className='vturb-player-placeholder';
+  ph.style.cssText='position:relative;width:100%;padding:56.25% 0 0;z-index:0;background-color:black';
+  el.appendChild(ph); phost.appendChild(el);
+  var s=document.createElement('script'); s.type='text/javascript';
+  s.src=VTURB_BASE+pid+'/v4/player.js'; s.async=true; phost.appendChild(s);
+  hookVturbEnded(id, onEnded);
+}
+function hookVturbEnded(id, cb){
+  var pid=id.replace('vid-',''), done=false, ok=false;
+  function fire(){ if(!done){ done=true; cb(); } }
+  var el=document.getElementById(id);
+  if(el){ ['ended','video:ended','smartplayer:ended','player:ended'].forEach(function(ev){ el.addEventListener(ev, fire); }); }
+  var tries=0, poll=setInterval(function(){
+    tries++;
+    try{
+      var sp=window.smartplayer;
+      var list=sp&&sp.instances?sp.instances:(Array.isArray(sp)?sp:null);
+      if(list&&list.length){
+        var inst=list.filter(function(p){return p&&(p.id===id||p.id===pid||p.playerId===pid||p.playerId===id);})[0] || (list.length===1?list[0]:null);
+        if(inst&&typeof inst.on==='function'){ inst.on('ended', fire); ok=true; clearInterval(poll); return; }
+      }
+    }catch(e){}
+    if(tries>=20){ clearInterval(poll); if(!ok){ showCont(cb); } } // ~5s sem API -> botão Continuar
+  },250);
+}
+function showCont(cb){ contBtn.classList.add('on'); contBtn.onclick=function(){ contBtn.classList.remove('on'); cb(); }; }
+function hideCont(){ contBtn.classList.remove('on'); }
+function showDecision(node){
+  document.getElementById('qtext').textContent=node.question;
+  var box=document.getElementById('opts');box.innerHTML='';
+  node.options.forEach(function(op,i){var b=document.createElement('button');b.className='opt';b.innerHTML='<span class="n">'+(i+1)+'</span><span>'+op.label+'</span>';b.onclick=function(){ANSWERS[node.question.slice(0,16)]=op.tag;tagsRender();go(op.next);};box.appendChild(b);});
+  over.classList.add('on');
+}
+function finish(node){
+  document.getElementById('stage').style.display='none';
+  document.querySelector('.barnote').style.display='none';
+  var tb=document.getElementById('teamB'); if(tb) tb.href=EQUIPE_WHATS;
+  document.getElementById('end').classList.add('on');
+  try{(window.dataLayer=window.dataLayer||[]).push({event:'aula_interativa_fim',perfil:ANSWERS});}catch(e){}
+  if(node && node.unlock){ unlock(); }                    // Sim -> Dossiê IF
+  else if(node && node.grupo){                            // Agora não -> agradece + grupo
+    var gb=document.getElementById('grupoBtn'); if(gb) gb.href=GRUPO_IF;
+    document.getElementById('endgrupo').classList.add('on');
+    try{(window.dataLayer=window.dataLayer||[]).push({event:'aula_interativa_grupo',perfil:ANSWERS});}catch(e){}
+  }
+}
+function unlock(){
+  var v=document.getElementById('vendas');v.classList.add('on');
+  v.scrollIntoView({behavior:'smooth',block:'start'});
+  try{(window.dataLayer=window.dataLayer||[]).push({event:'aula_interativa_vendas',perfil:ANSWERS});}catch(e){}
+}
+vid.addEventListener('ended', onEnd);
+
+// captura de lead antes de liberar a aula
+document.getElementById('leadForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  var nome=document.getElementById('lnome').value.trim();
+  var whats=(document.getElementById('lwhats').value||'').replace(/\D/g,'');
+  var email=document.getElementById('lemail').value.trim();
+  var err=document.getElementById('lerr');
+  if(nome.length<2){ err.textContent='Escreve seu nome, por favor.'; return; }
+  if(whats.length<10){ err.textContent='Coloca seu WhatsApp com DDD.'; return; }
+  if(!/^\S+@\S+\.\S+$/.test(email)){ err.textContent='Coloca um e-mail válido.'; return; }
+  err.textContent='';
+  var lead={nome:nome, whats:whats, email:email, origem:'aula_interativa', ts:Date.now()};
+  try{ localStorage.setItem('web_lead', JSON.stringify(lead)); }catch(e2){}
+  try{ (window.dataLayer=window.dataLayer||[]).push({event:'lead_aula_interativa', nome:nome, whats:whats, email:email}); }catch(e2){}
+  if(LEAD_ENDPOINT){ try{ fetch(LEAD_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(lead)}); }catch(e2){} }
+  document.getElementById('gate').classList.remove('on');
+  // "abençoa" o <video> (usado nos depoimentos) dentro do clique, pra tocar com som depois
+  try{
+    vid.muted=true; vid.src=DEPO+"/depoimento-video-1.mp4";
+    var pp=vid.play();
+    if(pp&&pp.then){ pp.then(function(){ vid.pause(); vid.currentTime=0; vid.muted=false; go(START); }).catch(function(){ vid.muted=false; go(START); }); }
+    else { vid.muted=false; go(START); }
+  }catch(e2){ go(START); }
+});
+</script>
+</body>
+</html>
