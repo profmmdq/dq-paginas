@@ -52,13 +52,13 @@
   .lower .nm{font-family:var(--disp);font-weight:800;font-size:14px;line-height:1.1}
   .lower .in{font-size:11.5px;color:var(--sand)}
   /* cartão de conexão (frase animada antes de cada vídeo) */
-  .inter{position:absolute;inset:0;display:none;align-items:center;justify-content:center;text-align:center;padding:clamp(20px,5vw,52px);z-index:5;background:linear-gradient(180deg,rgba(11,18,32,.88),rgba(11,18,32,.95));backdrop-filter:blur(22px) saturate(.9);-webkit-backdrop-filter:blur(22px) saturate(.9)}
+  .inter{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:clamp(20px,5vw,52px);z-index:5;background:linear-gradient(180deg,rgba(11,18,32,.88),rgba(11,18,32,.95));backdrop-filter:blur(22px) saturate(.9);-webkit-backdrop-filter:blur(22px) saturate(.9);cursor:pointer;user-select:none}
   .inter.on{display:flex}
   .inter .itxt{font-family:var(--disp);font-weight:800;font-size:clamp(22px,4.4vw,42px);line-height:1.12;max-width:720px;color:var(--cream);opacity:0;transform:translateY(18px);text-wrap:balance;letter-spacing:-.5px;text-shadow:0 2px 18px rgba(0,0,0,.6)}
   .inter .itxt em{font-style:normal;color:var(--acc2)}
-  .ihint{position:absolute;left:0;right:0;bottom:18px;text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);opacity:0;pointer-events:none}
-  .inter.on .ihint{animation:hintin .6s ease .9s forwards}
-  @keyframes hintin{to{opacity:.7}}
+  .ihint{margin-top:26px;display:inline-flex;align-items:center;gap:8px;font-family:var(--body);font-weight:700;font-size:15px;color:var(--ink2);background:var(--acc);border-radius:12px;padding:12px 22px;opacity:0;pointer-events:none;box-shadow:0 14px 30px -14px rgba(255,117,31,.8)}
+  .inter.on .ihint{animation:hintin .5s ease .8s forwards}
+  @keyframes hintin{to{opacity:1}}
   .inter.on .itxt{animation:interin .7s cubic-bezier(.16,.84,.44,1) forwards}
   @keyframes interin{to{opacity:1;transform:none}}
   /* portão de captação (antes do play) */
@@ -152,7 +152,7 @@
     <span class="tag">Aula interativa</span>
   </header>
   <span class="kicker">Aula que se adapta a você</span>
-  <h1 id="titulo">Sua aula do IF, feita pra você</h1>
+  <h1 id="titulo">Entenda agora como a Carreira IF funciona para você e sua realidade</h1>
 
   <div class="stage" id="stage">
     <div id="phost" class="phost"></div>
@@ -164,7 +164,7 @@
         <div class="opts" id="opts"></div>
       </div>
     </div>
-    <div class="inter" id="inter"><div class="itxt" id="itxt"></div><div class="ihint">toque para continuar</div></div>
+    <div class="inter" id="inter"><div class="itxt" id="itxt"></div><div class="ihint">Toque para continuar →</div></div>
     <div class="gate on" id="gate">
       <div class="gatebox">
         <div class="gk">Antes de começar</div>
@@ -277,16 +277,17 @@ function setLower(c){
 var inter=document.getElementById('inter'), itxt=document.getElementById('itxt');
 // tempo de leitura: proporcional ao tamanho do texto (nunca some antes de dar pra ler).
 // Além do tempo, dá pra TOCAR no cartão pra avançar.
-var INTER_MIN = 5200, INTER_MAX = 11000, INTER_PER_CHAR = 80, INTER_BASE = 1800;
+var INTER_MIN = 8000, INTER_MAX = 18000, INTER_PER_CHAR = 100, INTER_BASE = 2500;
 function plainLen(html){ var d=document.createElement('div'); d.innerHTML=html; return (d.textContent||'').length; }
 function showInter(html, cb){
   itxt.innerHTML=html; inter.classList.add('on');
   itxt.style.animation='none'; void itxt.offsetWidth; itxt.style.animation='';
   var ms=Math.min(INTER_MAX, Math.max(INTER_MIN, plainLen(html)*INTER_PER_CHAR + INTER_BASE));
   var done=false, t;
-  function adv(){ if(done) return; done=true; clearTimeout(t); inter.onclick=null; inter.classList.remove('on'); if(cb) cb(); }
-  t=setTimeout(adv, ms);
-  inter.onclick=adv;   // toque avança antes do tempo
+  function adv(){ if(done) return; done=true; clearTimeout(t);
+    inter.removeEventListener('click', adv); inter.classList.remove('on'); if(cb) cb(); }
+  t=setTimeout(adv, ms);           // segurança: avança sozinho depois de MUITO tempo (dá pra ler com folga)
+  inter.addEventListener('click', adv);   // toca em qualquer lugar do cartão pra avançar
 }
 function go(id, skipIntro){
   curId=id; over.classList.remove('on');
