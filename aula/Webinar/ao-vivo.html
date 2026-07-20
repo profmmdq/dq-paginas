@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aula ao vivo | Dissecando Questões</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
+<!-- Vturb / ConverteAI: prefetch dos domínios (performance do player) -->
+<script>!function(i,n){i._plt=i._plt||(n&&n.timeOrigin?n.timeOrigin+n.now():Date.now())}(window,performance);</script>
+<link rel="preload" href="https://scripts.converteai.net/8fb0c85a-c7c1-400e-a28a-5dc648d0969c/players/6a5dc0ca98b6e5f7c5ed4853/v4/player.js" as="script">
+<link rel="preload" href="https://scripts.converteai.net/lib/js/smartplayer-wc/v4/smartplayer.js" as="script">
+<link rel="dns-prefetch" href="https://cdn.converteai.net">
+<link rel="dns-prefetch" href="https://scripts.converteai.net">
+<link rel="dns-prefetch" href="https://images.converteai.net">
+<link rel="dns-prefetch" href="https://license.vturb.com">
+<style>
+  :root{--ink:#0f1829;--ink2:#0b1220;--panel:#0a1119;--blue:#0c3d64;--green:#104438;
+    --acc:#ff751f;--acc2:#ff9a54;--cream:#f1f3e6;--sand:#ecdcc1;--line:rgba(241,243,230,.1);--muted:#9aa6b2;--red:#ff3d3d;
+    --disp:'Bricolage Grotesque',sans-serif;--body:'Hanken Grotesk',system-ui,sans-serif;--mono:'Geist Mono',monospace;}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:var(--body);background:var(--ink2);color:var(--cream);min-height:100vh;-webkit-font-smoothing:antialiased;line-height:1.5}
+  .bar{display:flex;align-items:center;gap:12px;padding:11px 18px;background:rgba(10,17,25,.9);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+  .brand{display:inline-flex;background:var(--cream);border-radius:10px;padding:5px 10px}
+  .brand img{height:26px;display:block}
+  .badge{display:inline-flex;align-items:center;gap:6px;background:var(--red);color:#fff;font-family:var(--mono);font-size:10px;letter-spacing:1.2px;text-transform:uppercase;padding:5px 10px;border-radius:7px;font-weight:700}
+  .badge .d{width:7px;height:7px;border-radius:50%;background:#fff;animation:bl 1.2s infinite}@keyframes bl{50%{opacity:.35}}
+  .viewers{margin-left:auto;display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:11px;color:var(--muted)}
+  .viewers svg{width:13px;height:13px;opacity:.7}
+
+  .grid{max-width:1260px;margin:0 auto;display:grid;grid-template-columns:1fr 358px;gap:16px;padding:16px}
+  @media(max-width:920px){.grid{grid-template-columns:1fr}}
+
+  .stage{position:relative;border-radius:16px;overflow:hidden;background:#000;aspect-ratio:16/9;box-shadow:0 34px 74px -36px rgba(0,0,0,.8);border:1px solid var(--line)}
+  .stage video{width:100%;height:100%;display:block;object-fit:cover;background:#000}
+  .vhost{position:absolute;inset:0;background:#000}
+  .vhost vturb-smartplayer{width:100%;display:block}
+  .stage .player{position:absolute;inset:0}
+  .pre{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;z-index:8}
+  .pre::before{content:"";position:absolute;inset:0;background:url('assets/manoel-hero.jpg') center 22%/cover;filter:saturate(.9)}
+  .pre::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,18,32,.62),rgba(11,18,32,.9))}
+  .pre>*{position:relative;z-index:2}
+  .pre .k{font-family:var(--mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--acc);margin-bottom:14px}
+  .pre .cd{font-family:var(--disp);font-weight:800;font-size:clamp(52px,12vw,96px);color:var(--cream);line-height:1;font-variant-numeric:tabular-nums;text-shadow:0 8px 30px rgba(0,0,0,.5)}
+  .pre .start{margin-top:22px;background:var(--acc);color:var(--ink2);font-weight:800;font-size:16px;font-family:var(--body);border:0;border-radius:13px;padding:16px 32px;cursor:pointer;display:none;box-shadow:0 18px 34px -14px rgba(255,117,31,.85)}
+
+  /* máscara sobre o slide (responsiva, escala com o vídeo) */
+  .mask{position:absolute;display:none;z-index:6;overflow:hidden;border-radius:10px;border:2px solid var(--acc);background:linear-gradient(155deg,#0c3d64,#0b1420);box-shadow:0 20px 50px -18px rgba(0,0,0,.7)}
+  .mask.on{display:flex;align-items:center;justify-content:center}
+  .mcard{text-align:center;padding:6% 6%;width:100%}
+  .mcard .mk{font-family:var(--mono);font-size:clamp(9px,1.5vw,12px);letter-spacing:2px;text-transform:uppercase;color:var(--acc)}
+  .mcard .mt{font-family:var(--disp);font-weight:800;font-size:clamp(15px,2.6vw,30px);line-height:1.12;margin:2% 0 4%;color:var(--cream)}
+  .mcard .mt b{color:var(--acc2)}
+  .mcard .mcode{display:inline-block;border:1px dashed rgba(255,117,31,.6);border-radius:12px;padding:3% 6%}
+  .mcard .mcode span{display:block;font-family:var(--mono);font-size:clamp(8px,1.4vw,11px);letter-spacing:1.5px;text-transform:uppercase;color:var(--sand);margin-bottom:3px}
+  .mcard .mcode b{font-family:var(--disp);font-weight:800;font-size:clamp(18px,3.4vw,40px);letter-spacing:1px;color:var(--acc2)}
+
+  .endlive{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;z-index:8}
+  .endlive.on{display:flex}
+  .endlive::before{content:"";position:absolute;inset:0;background:url('assets/manoel-hero.jpg') center 22%/cover}
+  .endlive::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,18,32,.72),rgba(11,18,32,.93))}
+  .endlive>*{position:relative;z-index:2}
+  .endlive .k{font-family:var(--mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--acc);margin-bottom:10px}
+  .endlive h3{font-family:var(--disp);font-weight:800;font-size:clamp(18px,3vw,26px);line-height:1.15;max-width:460px;margin-bottom:20px;text-wrap:balance}
+  .endlive .start{display:inline-block;text-decoration:none;background:var(--acc);color:var(--ink2);font-weight:800;font-size:16px;border-radius:13px;padding:15px 30px;box-shadow:0 18px 34px -14px rgba(255,117,31,.85)}
+
+  .bonus{margin-top:14px;background:linear-gradient(135deg,var(--blue),#0a1a2b);border:1px solid rgba(255,117,31,.45);border-radius:16px;padding:18px 20px;display:none;align-items:center;gap:16px;animation:pop .5s cubic-bezier(.16,.84,.44,1)}
+  .bonus.on{display:flex}
+  @keyframes pop{from{opacity:0;transform:translateY(12px) scale(.98)}to{opacity:1;transform:none}}
+  .bonus .ic{flex:none;width:46px;height:46px;border-radius:12px;background:rgba(255,117,31,.16);color:var(--acc);display:flex;align-items:center;justify-content:center}
+  .bonus .ic svg{width:24px;height:24px}
+  .bonus h3{font-family:var(--disp);font-weight:800;font-size:17px;margin-bottom:2px}
+  .bonus p{font-size:13px;color:rgba(241,243,230,.72)}
+  .bonus a{margin-left:auto;background:var(--acc);color:var(--ink2);font-weight:800;font-size:14px;text-decoration:none;padding:12px 20px;border-radius:11px;white-space:nowrap}
+
+  .vendas{margin-top:14px;background:linear-gradient(155deg,#122236,#0b1420);border:1px solid var(--line);border-radius:18px;padding:26px;display:none;animation:pop .5s ease}
+  .vendas.on{display:block}
+  .vk{font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--acc)}
+  .vh{font-family:var(--disp);font-weight:800;font-size:clamp(21px,2.8vw,28px);line-height:1.1;letter-spacing:-.5px;margin:10px 0 10px}
+  .vsub{color:rgba(241,243,230,.82);font-size:15px;margin-bottom:20px}
+  .vstats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
+  .vstats>div{background:rgba(12,61,100,.28);border:1px solid var(--line);border-radius:13px;padding:14px;text-align:center}
+  .vstats b{display:block;font-family:var(--disp);font-weight:800;font-size:24px;color:var(--acc2);letter-spacing:-1px}
+  .vstats span{font-size:11.5px;color:var(--muted)}
+  .vfeat{display:grid;gap:10px;margin-bottom:12px}
+  .vf{background:rgba(241,243,230,.04);border:1px solid var(--line);border-radius:13px;padding:15px 17px}
+  .vf .vfn{font-family:var(--mono);color:var(--acc);font-size:12px}
+  .vf h4{font-family:var(--disp);font-weight:800;font-size:15.5px;margin:4px 0 3px}
+  .vf p{font-size:13px;color:rgba(241,243,230,.78)}
+  .vextra{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+  @media(max-width:560px){.vextra,.vstats{grid-template-columns:1fr}}
+  .ve{background:linear-gradient(150deg,rgba(16,68,56,.4),rgba(11,20,32,.3));border:1px solid var(--line);border-radius:13px;padding:15px 17px}
+  .ve h4{font-family:var(--disp);font-weight:800;font-size:14.5px;margin-bottom:3px}
+  .ve p{font-size:12.5px;color:rgba(241,243,230,.78)}
+  .vnames{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+  .vnames .chip{background:rgba(241,243,230,.04);border:1px solid var(--line);border-radius:999px;padding:7px 12px;font-size:12px;color:var(--muted)}
+  .vnames .chip b{color:var(--cream);font-weight:700}
+  .vprice{background:rgba(255,117,31,.06);border:1px solid rgba(255,117,31,.3);border-radius:16px;padding:22px;text-align:center}
+  .vg{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:1.4px;text-transform:uppercase;color:var(--sand);border:1px solid var(--line);border-radius:999px;padding:6px 12px;margin-bottom:12px}
+  .vde{color:var(--muted);font-size:14px;text-decoration:line-through;opacity:.8}
+  .vval{font-family:var(--disp);font-weight:800;font-size:36px;color:var(--acc2);letter-spacing:-1.5px;line-height:1}
+  .vava{color:var(--muted);font-size:12.5px;margin:5px 0 12px}
+  .vtimer{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:12px;letter-spacing:.5px;color:var(--acc2);background:rgba(255,117,31,.1);border:1px solid rgba(255,117,31,.3);border-radius:999px;padding:7px 13px;margin-bottom:16px}
+  .vbtn{display:flex;align-items:center;justify-content:center;gap:8px;background:var(--acc);color:var(--ink2);font-weight:800;font-size:16px;text-decoration:none;padding:16px;border-radius:13px;box-shadow:0 16px 30px -14px rgba(255,117,31,.8)}
+  .vbtn2{display:inline-block;margin-top:12px;color:var(--sand);font-size:13.5px;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(236,220,193,.35);padding-bottom:2px}
+  .cupombar{display:flex;flex-wrap:wrap;align-items:center;gap:10px;background:rgba(255,117,31,.1);border:1px solid rgba(255,117,31,.35);border-radius:14px;padding:12px 16px;margin-bottom:12px}
+  .cupombar .cbk{font-family:var(--disp);font-weight:800;color:var(--acc2);font-size:14px}
+  .cupombar .cbp{color:var(--cream);font-size:13.5px}
+  .cupombar .ctimer{margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--acc2);background:rgba(255,117,31,.12);border:1px solid rgba(255,117,31,.3);border-radius:999px;padding:5px 11px;white-space:nowrap}
+  .dossie-frame{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 30px 70px -34px rgba(0,0,0,.7)}
+  .dossie-frame iframe{width:100%;height:82vh;border:0;display:block}
+
+  .chat{background:var(--panel);border:1px solid var(--line);border-radius:16px;display:flex;flex-direction:column;height:540px;overflow:hidden}
+  @media(max-width:920px){.chat{height:380px}}
+  .chat .h{padding:13px 16px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;letter-spacing:1.3px;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:8px}
+  .chat .h .d{width:7px;height:7px;border-radius:50%;background:var(--red);animation:bl 1.2s infinite}
+  .msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:12px}
+  .msg{display:flex;gap:9px;align-items:flex-start}
+  .msg .av{flex:none;width:28px;height:28px;border-radius:50%;background:var(--blue);color:var(--cream);font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center}
+  .msg.host .av{background:var(--acc);color:var(--ink2)}
+  .msg.eu .av{background:var(--green)}
+  .msg .bd{min-width:0}
+  .msg .bd .nome{font-weight:700;font-size:12.5px;color:var(--sand)}
+  .msg.host .bd .nome{color:var(--acc2)}
+  .msg .bd .txt{font-size:14px;color:rgba(241,243,230,.9);line-height:1.35;word-wrap:break-word}
+  .msg .bd .clink{display:inline-block;margin-top:6px;background:rgba(255,117,31,.14);color:var(--acc2);border:1px solid rgba(255,117,31,.4);border-radius:9px;padding:6px 11px;font-size:12.5px;font-weight:700;text-decoration:none}
+  .cbox{display:flex;gap:8px;padding:11px;border-top:1px solid var(--line)}
+  .cbox input{flex:1;background:rgba(241,243,230,.05);border:1px solid var(--line);border-radius:11px;color:var(--cream);font-family:var(--body);font-size:14px;padding:11px 13px;outline:none}
+  .cbox input:focus{border-color:var(--acc)}
+  .cbox button{background:var(--acc);color:var(--ink2);border:0;border-radius:11px;font-weight:800;padding:0 17px;cursor:pointer}
+  footer{font-family:var(--mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);text-align:center;padding:18px}
+</style>
+</head>
+<body>
+<div class="bar">
+  <span class="brand"><img src="assets/logo-dq.png" alt="Dissecando Questões"></span>
+  <span class="badge"><span class="d"></span><span id="liveTxt">Ao vivo</span></span>
+  <span class="viewers"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span id="viewers">72 assistindo</span></span>
+</div>
+
+<div class="grid">
+  <div>
+    <div class="stage">
+      <!-- PLAYER: embed do Vturb (aula ao vivo). O relógio de sincronia dispara no clique de "Entrar na aula ao vivo". -->
+      <div id="vhost" class="vhost"></div>
+
+      <!-- máscara sobre o slide (aparece 1:12:57 e sai 1:14:00) -->
+      <div class="mask" id="mask">
+        <div class="mcard">
+          <span class="mk">Oferta especial desta aula</span>
+          <div class="mt">Disponível até <b>sexta, 23:59</b></div>
+          <div class="mcode"><span>Código de acesso</span><b>PLANO250</b></div>
+        </div>
+      </div>
+
+      <div class="pre" id="pre">
+        <div class="k">Sua aula ao vivo começa em</div>
+        <div class="cd" id="cd">30</div>
+        <button class="start" id="startBtn">Entrar na aula ao vivo →</button>
+      </div>
+      <div class="endlive" id="endlive">
+        <div class="k">A aula ao vivo foi encerrada</div>
+        <h3>Mas a condição de quem ficou até o fim segue liberada</h3>
+        <a class="start" id="endCta" href="#" target="_blank" rel="noopener">Ver a condição do Dossiê IF →</a>
+      </div>
+    </div>
+
+    <div class="bonus" id="bonus">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg></span>
+      <div>
+        <h3 id="bonusTitle">Brinde liberado</h3>
+        <p id="bonusText">Pega aqui. No fim da aula eu falo a palavra-chave pra você resgatar.</p>
+      </div>
+      <a id="bonusBtn" href="#" target="_blank" rel="noopener">Pegar o brinde</a>
+    </div>
+
+    <!-- a própria página do Dossiê IF, embutida (cópia real) com a barra do cupom PLANO250 -->
+    <section class="vendas" id="vendas">
+      <div class="cupombar">
+        <span class="cbk">Cupom PLANO250</span>
+        <span class="cbp">12x R$ 99,70 · R$ 997 à vista no pix</span>
+        <span class="ctimer" id="cupomTimer">zera em 00:00:00</span>
+      </div>
+      <div class="dossie-frame"><iframe src="dossie/index.html" title="Dossiê IF" loading="lazy"></iframe></div>
+      <div style="text-align:center;margin-top:12px">
+        <a class="vbtn2" id="teamB" href="#" target="_blank" rel="noopener">Ainda com dúvida? Falar com a equipe</a>
+      </div>
+    </section>
+  </div>
+
+  <div class="chat">
+    <div class="h"><span class="d"></span>Chat ao vivo</div>
+    <div class="msgs" id="msgs"></div>
+    <div class="cbox">
+      <input id="cin" type="text" placeholder="Escreva no chat..." maxlength="140">
+      <button onclick="enviar()">Enviar</button>
+    </div>
+  </div>
+</div>
+<footer>Dissecando Questões · Prof. Manoel Machado</footer>
+
+<script>
+/* ==================== CONFIG DO WEBINAR ====================
+   Tudo é sincronizado por um RELÓGIO DE TEMPO DECORRIDO (segundos desde o
+   início da aula), então funciona igual com o player Vturb (que é um iframe
+   e não deixa ler o tempo do vídeo pela página).
+   Tempos em SEGUNDOS. Referência: 1:12:57 = 4377s (min*60 + seg).
+   ============================================================= */
+var VIDEO      = "aula.mp4";   // hoje o mp4 local. No Vturb, veja LEIA-ME (chame startWebinar() no play).
+var PRE_SECONDS= 30;
+
+// destinos / textos
+var DOSSIE_CHECKOUT = "https://checkout.dissecandoquestoes.com.br/checkout/lnc-grupos2-dossie-if-2-anos";
+var EQUIPE_WHATS    = "https://wa.link/dq-consultor";
+var BRINDE          = "https://wa.link/brinde-dq";
+var EXPANSAO_LP     = "https://site.dissecandoquestoes.com/lps/expansaoif/";
+var CUPOM           = "PLANO250";
+var PALAVRA_CHAVE   = "IF2026";
+
+// eventos por tempo (segundos)
+var BONUS_AT = 250;    // 4:10  — brinde liberado (fala que a palavra-chave vem no fim)
+var MASK_IN  = 4377;   // 1:12:57 — máscara entra sobre o slide
+var MASK_OUT = 4440;   // 1:14:00 — máscara sai
+var OFFER_AT = 4495;   // 1:14:55 — abre o restante da página (Dossiê IF) + cronômetro
+var END_AT   = 5826;   // 1:37:06 — fim da aula (card de encerramento)
+
+// caixa da máscara em % do vídeo (cobre só a região do slide). Ajuste fino se precisar.
+var MASK_BOX = { left:33, top:6, width:64, height:82 };
+
+var VIEWERS_MIN = 50;  // piso de telespectadores
+var VIEWERS_MAX = 100; // teto de telespectadores
+
+var BONUS = { titulo:"Brinde liberado", texto:"Pega aqui. No fim da aula eu falo a palavra-chave pra você resgatar.", link:BRINDE, btn:"Pegar o brinde" };
+
+/* CHAT — cada item: {t(seg), nome, msg, host?, link?, linkTxt?} */
+var CHAT = [
+  { t: 3,    nome:"Prof. Manoel", host:true, msg:"Boa noite, pessoal! Já tô vendo gente chegando. Comenta de onde vocês tão falando 👇" },
+  { t: 9,    nome:"Fernanda R.",  msg:"Boa noite! De Fortaleza-CE" },
+  { t: 14,   nome:"Diego M.",     msg:"Salvador aqui, professor!" },
+  { t: 21,   nome:"Cláudia S.",   msg:"Curitiba, presente 🙌" },
+  { t: 30,   nome:"Rafael A.",    msg:"vim entender essa expansão do IF" },
+  { t: 55,   nome:"Prof. Manoel", host:true, msg:"Chegou todo mundo? Então bora, que hoje é aula de mapa." },
+
+  { t: 250,  nome:"Prof. Manoel", host:true, msg:"Liberei o brinde de quem tá ao vivo, tá aqui em cima 👆 no fim da aula eu falo a palavra-chave pra você resgatar 🔑", link:BRINDE, linkTxt:"Pegar o brinde" },
+
+  { t: 480,  nome:"Marcos V.",    msg:"professor, TAE também tá incluso?" },
+  { t: 510,  nome:"Prof. Manoel", host:true, msg:"Tá sim, Marcos. Professor EBTT e TAE, os dois. Já já detalho." },
+  { t: 540,  nome:"Tatiane L.",   msg:"não sabia que tinha tanta vaga nova assim 😳" },
+  { t: 575,  nome:"Vânia C.",     msg:"essa expansão tá surreal" },
+
+  { t: 1185, nome:"Sandra M.",    msg:"vi vários aprovados de vocês: Fábio no IFAC, Jocielle no IFS, Ligiane no IFPB 👏" },
+  { t: 1230, nome:"Aline P.",     msg:"pré-edital é onde o jogo é ganho... anotado" },
+  { t: 1500, nome:"Josué B.",     msg:"tô anotando tudo aqui 📝" },
+  { t: 2545, nome:"Carla M.",     msg:"esse plano de 3 passos ficou claro demais" },
+
+  { t: 2760, nome:"Prof. Manoel", host:true, msg:"Quem tá ao vivo comigo agora? Deixa um 🔥 no chat." },
+  { t: 2820, nome:"Diandra S.",   msg:"🔥🔥🔥" },
+  { t: 2826, nome:"Bruno C.",     msg:"🔥🔥" },
+  { t: 2831, nome:"Tatiane L.",   msg:"🔥🔥🔥🔥" },
+  { t: 2837, nome:"Rafael A.",    msg:"🔥" },
+  { t: 2844, nome:"Aline P.",     msg:"🔥🔥🔥" },
+  { t: 2851, nome:"Sandra M.",    msg:"🔥🔥" },
+
+  { t: 3334, nome:"Emily R.",     msg:"os depoimentos são reais demais" },
+  { t: 3344, nome:"Nádia (IFRN)", msg:"passei com o método, confirmo tudo 🙌" },
+
+  { t: 4180, nome:"Paulo H.",     msg:"como faço pra entrar no Dossiê?" },
+  { t: 4360, nome:"Prof. Manoel", host:true, msg:"Deixei o link aqui embaixo: garante e aplica o cupom "+CUPOM+" pra manter o desconto ✅", link:DOSSIE_CHECKOUT, linkTxt:"Garantir com cupom "+CUPOM },
+
+  { t: 4495, nome:"Prof. Manoel", host:true, msg:"A palavra-chave do brinde é "+PALAVRA_CHAVE+" 🔑 resgata aqui 👇", link:BRINDE, linkTxt:"Resgatar meu brinde" },
+  { t: 4560, nome:"Prof. Manoel", host:true, msg:"Aviso importante: só tenho 5 vagas pra encontro individual, a agenda já tá bem apertada." },
+  { t: 4615, nome:"Prof. Manoel", host:true, msg:"Bora pras dúvidas! Manda no chat que eu vou respondendo 👇" },
+
+  { t: 4648, nome:"Jorge P.",     msg:"fiquei por duas questões" },
+  { t: 4659, nome:"Jorge P.",     msg:"não sou aluno DQ" },
+  { t: 4666, nome:"Susana M.",    msg:"a titulação é avaliada? quem tem mestrado sai muito atrás?" },
+  { t: 4776, nome:"Ricardo T.",   msg:"quem tem doutorado tem a maior titulação" },
+  { t: 4792, nome:"Eduardo L.",   msg:"sou formada em matemática e pedagogia, aparece muitas vagas pra essas áreas?" },
+  { t: 4800, nome:"Leandro Z.",   msg:"você foca em dizer quais IFs terão concurso esse ano; falou rápido dos novos campi, peço pra focar em quais IFs terão concurso ainda esse ano" },
+  { t: 4933, nome:"Prof. Manoel", host:true, msg:"Esse é o nosso mapeamento das movimentações dos IFs no Brasil todo. É só se cadastrar e abrir 👇", link:EXPANSAO_LP, linkTxt:"Abrir o mapeamento IF" },
+  { t: 4956, nome:"Leandro Z.",   msg:"passa a aula toda dizendo que a pessoa precisa se preparar antes do edital, prof; peço pra focar em quais IFs vão abrir concurso esse ano" },
+  { t: 5025, nome:"Tassiana C.",  msg:"a banca IDECAN fez a última prova num nível aquém do nível dos professores dos IFs. muito difícil" },
+  { t: 5105, nome:"Laura D.",     msg:"tem questões ultra selecionadas de téc em agropecuária?" },
+  { t: 5115, nome:"Camila F.",    msg:"Prof, se você tivesse hoje só licenciatura, o que faria? vale a pena fazer o mestrado antes do concurso?" },
+  { t: 5215, nome:"Rogério A.",   msg:"previsão de edital EBTT 2026?" },
+  { t: 5220, nome:"Mayara L.",    msg:"Oi Prof. Manoel, carioca aqui, focada no IFRJ" },
+  { t: 5244, nome:"Felipe N.",    msg:"pode sair autorização; o IMGI autorizou um monte de aplicação de concurso essa semana, mas os IFs não entraram" },
+  { t: 5279, nome:"Iara S.",      msg:"sou de Pernambuco" },
+
+  { t: 5338, nome:"Prof. Manoel", host:true, msg:"Bem-vindos, Geraldo e Marília! 🙌" },
+  { t: 5342, nome:"Geraldo A.",   msg:"oba, consegui entrar!" },
+  { t: 5346, nome:"Marília F.",   msg:"entrei agora, ansiosa 🎉" },
+
+  { t: 5355, nome:"Eduardo L.",   msg:"tem provas dos anos anteriores?" },
+  { t: 5356, nome:"Valéria P.",   msg:"quais bancas têm por vir?" },
+  { t: 5390, nome:"Mayara L.",    msg:"consegui entrar!!" },
+  { t: 5411, nome:"Marcos R.",    msg:"no seu site não tem educação exclusiva AE" },
+  { t: 5425, nome:"Rose R.",      msg:"eu quero o cupom" },
+  { t: 5440, nome:"Pedro H.",     msg:"o material é vitalício?" },
+  { t: 5455, nome:"Neto B.",      msg:"no Pará, o edital era pro interior e no fim foi direcionado pra capital" },
+  { t: 5485, nome:"Jorge P.",     msg:"quanto tempo de acesso?" },
+  { t: 5488, nome:"Guto H.",      msg:"IFBA Itabuna" },
+  { t: 5492, nome:"Guto H.",      msg:"qual o cupom mesmo?" },
+  { t: 5496, nome:"Prof. Manoel", host:true, msg:"Bem-vindo, Edinaldo! 🙌" },
+  { t: 5500, nome:"Edinaldo P.",  msg:"cheguei!" },
+  { t: 5509, nome:"Laura R.",     msg:"comecei a prestar concurso pra técnico em setembro" },
+  { t: 5565, nome:"Prof. Manoel", host:true, msg:"Link aqui, gente: aplica o cupom "+CUPOM+" e garante 👇", link:DOSSIE_CHECKOUT, linkTxt:"Garantir com cupom "+CUPOM },
+  { t: 5620, nome:"Paulo R.",     msg:"esse ano de eleição não deve sair mais edital" },
+  { t: 5660, nome:"Cláudia S.",   msg:"mesma dúvida da Susana aqui" },
+  { t: 5685, nome:"Bruno C.",     msg:"obrigado, prof! aula top 🙏" },
+  { t: 5705, nome:"Tatiane L.",   msg:"anotei tudo, valeu demais" },
+  { t: 5725, nome:"Prof. Manoel", host:true, msg:"Bem-vindo, Cleber! 🙌" },
+  { t: 5728, nome:"Guto H.",      msg:"o IDECAN deveria chamar IDECÃO kkk" },
+  { t: 5730, nome:"Rose R.",      msg:"sempre sai edital de IF?" },
+  { t: 5770, nome:"Prof. Manoel", host:true, msg:"Fechei por aqui, pessoal! Dúvida ou pra garantir sua vaga, chama a gente no WhatsApp. O cupom "+CUPOM+" vale até sexta, 23:59 ⏳", link:EQUIPE_WHATS, linkTxt:"Falar no WhatsApp" }
+];
+/* ============================================================= */
+
+// ---------- util ----------
+function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function ini(n){return (n||'?').trim().charAt(0).toUpperCase();}
+var msgs=document.getElementById('msgs');
+function addMsg(nome,txt,kind,link,linkTxt){
+  var d=document.createElement('div'); d.className='msg'+(kind?(' '+kind):'');
+  var h='<div class="av">'+esc(ini(nome))+'</div><div class="bd"><div class="nome">'+esc(nome)+'</div><div class="txt">'+esc(txt)+'</div>';
+  if(link){ h+='<a class="clink" href="'+link+'" target="_blank" rel="noopener">'+esc(linkTxt||'Abrir link')+' ↗</a>'; }
+  h+='</div>';
+  d.innerHTML=h; msgs.appendChild(d); msgs.scrollTop=msgs.scrollHeight;
+}
+
+// ---------- máscara: posição em % do vídeo ----------
+(function(){var m=document.getElementById('mask');
+  m.style.left=MASK_BOX.left+'%'; m.style.top=MASK_BOX.top+'%';
+  m.style.width=MASK_BOX.width+'%'; m.style.height=MASK_BOX.height+'%';})();
+
+// ---------- player Vturb + contagem de 30s ----------
+var VTURB_ID  = "vid-6a5dc0ca98b6e5f7c5ed4853";
+var VTURB_SRC = "https://scripts.converteai.net/8fb0c85a-c7c1-400e-a28a-5dc648d0969c/players/6a5dc0ca98b6e5f7c5ed4853/v4/player.js";
+var pre=document.getElementById('pre'), vhost=document.getElementById('vhost'), vmounted=false;
+var left=PRE_SECONDS; document.getElementById('cd').textContent=left;
+var pc=setInterval(function(){left--;document.getElementById('cd').textContent=left>0?left:0;if(left<=0){clearInterval(pc);showStart();}},1000);
+function showStart(){
+  document.getElementById('cd').style.display='none';
+  document.querySelector('.pre .k').textContent='Sua aula está começando';
+  var b=document.getElementById('startBtn'); b.style.display='inline-block'; b.onclick=iniciar;
+}
+function mountVturb(){
+  if(vmounted) return; vmounted=true;
+  var el=document.createElement('vturb-smartplayer'); el.id=VTURB_ID;
+  el.style.cssText='display:block;margin:0 auto;width:100%';
+  var ph=document.createElement('div'); ph.className='vturb-player-placeholder';
+  ph.style.cssText='position:relative;width:100%;padding:56.25% 0 0;z-index:0;background-color:black';
+  el.appendChild(ph); vhost.appendChild(el);
+  var s=document.createElement('script'); s.type='text/javascript'; s.async=true; s.src=VTURB_SRC; vhost.appendChild(s);
+}
+// clique em "Entrar na aula ao vivo": monta o player e dispara o relógio de sincronia
+function iniciar(){ pre.style.display='none'; mountVturb(); startWebinar(); }
+
+// ---------- RELÓGIO DE TEMPO DECORRIDO (fonte da verdade) ----------
+var clockStart=0, running=false;
+function getT(){ return running ? (Date.now()-clockStart)/1000 : 0; }
+// chame startWebinar() no momento em que a aula começa a tocar.
+// No Vturb: dispare no evento de play do player (ex.: smartplayer ... .on('play', startWebinar)).
+window.startWebinar=function(){
+  if(running) return; running=true; clockStart=Date.now();
+  pre.style.display='none'; saudar(); tickLine();
+};
+
+var saudado=false;
+function saudar(){ if(saudado) return; saudado=true;
+  var nome=''; try{ nome=(JSON.parse(localStorage.getItem('web_lead')||'{}').nome)||''; }catch(e){}
+  if(nome){ addMsg('Prof. Manoel','Bem-vindo(a), '+nome+'! Que bom te ver aqui 🙌','host'); }
+}
+
+// ---------- linha do tempo ----------
+var shown=0, bonusDone=false, offerDone=false, maskShown=false, ended=false;
+function tickLine(){
+  var t=getT();
+  while(shown<CHAT.length && CHAT[shown].t<=t){ var c=CHAT[shown]; addMsg(c.nome,c.msg,c.host?'host':'',c.link,c.linkTxt); shown++; }
+
+  if(!bonusDone && t>=BONUS_AT){ bonusDone=true;
+    document.getElementById('bonusTitle').textContent=BONUS.titulo;
+    document.getElementById('bonusText').textContent=BONUS.texto;
+    var bb=document.getElementById('bonusBtn'); bb.href=BONUS.link; bb.textContent=BONUS.btn;
+    document.getElementById('bonus').classList.add('on');
+  }
+
+  // máscara entra e sai
+  var mask=document.getElementById('mask');
+  if(t>=MASK_IN && t<MASK_OUT){ if(!mask.classList.contains('on')) mask.classList.add('on'); maskShown=true; }
+  else if(maskShown && t>=MASK_OUT){ mask.classList.remove('on'); }
+
+  if(!offerDone && t>=OFFER_AT){ offerDone=true; revealOffer(true); }
+
+  if(!ended && t>=END_AT){ endLive(); }
+
+  if(running) requestAnimationFrame(function(){ setTimeout(tickLine,400); });
+}
+
+function revealOffer(scroll){
+  var tb=document.getElementById('teamB'); if(tb) tb.href=EQUIPE_WHATS;
+  var v=document.getElementById('vendas'); v.classList.add('on');
+  if(scroll) v.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// ---------- cronômetro do cupom: zera toda sexta 23:59 ----------
+function nextFriday2359(){
+  var now=new Date(), d=new Date(now), day=now.getDay(), add=(5-day+7)%7;
+  d.setDate(now.getDate()+add); d.setHours(23,59,59,0);
+  if(d.getTime()<=now.getTime()) d.setDate(d.getDate()+7);
+  return d;
+}
+function pad(n){return (n<10?'0':'')+n;}
+function fmtLeft(ms){ if(ms<0)ms=0; var s=Math.floor(ms/1000),dd=Math.floor(s/86400);s%=86400;var hh=Math.floor(s/3600);s%=3600;var mm=Math.floor(s/60),ss=s%60; return (dd>0?dd+'d ':'')+pad(hh)+':'+pad(mm)+':'+pad(ss); }
+var cupomTarget=nextFriday2359();
+setInterval(function(){ var el=document.getElementById('cupomTimer'); if(!el)return; var lft=cupomTarget-Date.now(); if(lft<=0){cupomTarget=nextFriday2359();lft=cupomTarget-Date.now();} el.textContent='zera em '+fmtLeft(lft); },1000);
+
+// ---------- chat do espectador ----------
+function enviar(){var i=document.getElementById('cin'),v=i.value.trim();if(!v)return;addMsg('Você',v,'eu');i.value='';}
+document.getElementById('cin').addEventListener('keydown',function(e){if(e.key==='Enter')enviar();});
+
+// ---------- telespectadores 50–100 (caminhada suave) ----------
+var vw=document.getElementById('viewers');
+var cur=Math.round((VIEWERS_MIN+VIEWERS_MAX)/2)+Math.floor(Math.random()*8-4);
+function renderVw(){ vw.textContent=cur+' assistindo'; }
+renderVw();
+var vwTimer=setInterval(function(){
+  cur+=Math.floor(Math.random()*7)-3;
+  if(cur<VIEWERS_MIN) cur=VIEWERS_MIN+Math.floor(Math.random()*3);
+  if(cur>VIEWERS_MAX) cur=VIEWERS_MAX-Math.floor(Math.random()*3);
+  renderVw();
+}, 3500);
+
+// ---------- encerramento ----------
+function endLive(){ if(ended) return; ended=true;
+  clearInterval(vwTimer);
+  document.getElementById('liveTxt').textContent='Encerrada';
+  var b=document.querySelector('.badge'); b.style.background='#5a6470'; b.querySelector('.d').style.animation='none';
+  document.getElementById('mask').classList.remove('on');
+  if(!offerDone){ offerDone=true; revealOffer(false); }
+  document.getElementById('endCta').href=DOSSIE_CHECKOUT;
+  document.getElementById('endlive').classList.add('on');
+}
+// o fim da aula é tratado pelo relógio (END_AT no tickLine), já que o Vturb não expõe o 'ended' aqui
+</script>
+</body>
+</html>

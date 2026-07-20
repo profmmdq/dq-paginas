@@ -1,0 +1,141 @@
+========================================================
+WEBINAR "AO VIVO" (AUTOMATIZADO) — DQ IF
+Sistema 100% em HTML, sem plataforma de webinar.
+========================================================
+
+>>> COMO A SINCRONIA FUNCIONA (IMPORTANTE) <<<
+Tudo (chat, brinde, máscara, oferta, encerramento) é sincronizado por um
+RELÓGIO DE TEMPO DECORRIDO: conta os segundos desde que a aula começa a
+tocar. Isso funciona igual com o player Vturb (que é um iframe e NÃO deixa
+a página ler o tempo do vídeo). Como os controles ficam ocultos e não tem
+pause/seek, o tempo decorrido casa com o vídeo.
+
+>>> QUANDO SUBIR A AULA NO VTURB <<<
+1) No ao-vivo.html, troque o bloco do player. Onde está:
+     <video id="vid" playsinline preload="auto" poster="assets/manoel-hero.jpg"></video>
+   coloque o EMBED do Vturb (o <div>/<script> que o Vturb te dá).
+2) Faça o relógio começar quando o vídeo dá play. O código já expõe a
+   função global startWebinar(). No Vturb, chame ela no evento de play, ex.:
+     window.addEventListener('message', ...)  ou
+     smartplayer.instances[0].on('play', () => window.startWebinar());
+   (o Vturb tem esse hook de evento; se preferir, dá pra chamar startWebinar()
+    logo após o embed carregar). Enquanto tiver o <video> local, ele já
+    dispara startWebinar() sozinho ao começar.
+
+>>> JÁ CRONOMETRADO (tempos que você passou) <<<
+- 4:10  brinde liberado (link wa.link/brinde-dq) + aviso da palavra-chave
+- 9:00  reação da expansão (removida a msg antiga do "163 mil")
+- 19:45 nomes de aprovados no chat
+- 20:30 msg da Aline (pré-edital)
+- 42:25 plano de 3 passos
+- 47:00 chuva de 🔥 no chat
+- 55:34 Emily / logo após, Nádia
+- 1:09:40 dúvida do Paulo H
+- 1:12:40 link do checkout + cupom PLANO250
+- 1:12:57→1:14:00 MÁSCARA sobre o slide (até sexta 23:59 · código PLANO250)
+- 1:14:55 abre o Dossiê IF completo + cronômetro do cupom + palavra-chave IF2026
+- 1:16:00 aviso das 5 vagas de encontro individual
+- 1:16:55 em diante: sessão de dúvidas (todas as perguntas que você listou)
+- 1:32:45 checkout + cupom de novo
+- boas-vindas (Geraldo, Marília, Edinaldo, Cleber, Mayara...) nos tempos certos
+- 1:37:06 fim → card de encerramento, oferta segue liberada
+
+--------------------------------------------------------
+
+O QUE É
+-------
+Uma aula gravada que roda como se fosse ao vivo. O lead escolhe o
+horário, passa por uma sala de espera com contagem regressiva, entra
+na "sala ao vivo" (vídeo + chat simulado sincronizado + bônus liberado
+na hora certa) e, depois do pitch, a página revela a oferta sozinha.
+
+AS 4 PÁGINAS (na ordem do fluxo)
+--------------------------------
+1) index.html            → landing: narrativa + escolha
+                           "entrar na sessão que começa agora" (contagem)
+                           OU agendar em 1 dos 3 horários do dia.
+2) sala-de-espera.html   → contagem regressiva + dicas (água, café,
+                           bloco de notas). Quando zera, joga sozinho
+                           pra sala ao vivo.
+3) ao-vivo.html          → 30s de contagem → vídeo tocando como "ao vivo"
+                           + chat que aparece sincronizado com o vídeo
+                           + caixa de comentário real do espectador
+                           + bônus que aparece no minuto configurado
+                           + oferta que surge depois do pitch.
+4) obrigado.html         → pra quem AGENDOU: confirma o horário e manda
+                           entrar no grupo pra receber o link.
+
+--------------------------------------------------------
+O QUE VOCÊ PRECISA TROCAR (bem simples)
+--------------------------------------------------------
+
+>> index.html  (bloco CONFIG no fim do arquivo)
+   JIT_MIN = 10          quantos minutos até a "próxima sessão"
+   SLOTS = ["10:00","15:00","20:00"]   os 3 horários do dia
+   LEAD_ENDPOINT = ""   (opcional) URL de webhook pra receber o lead.
+                        A landing começa com um FORMULÁRIO (nome + WhatsApp);
+                        só depois de preencher é que aparece a escolha de
+                        horário. O lead fica salvo no navegador, dispara
+                        evento 'lead_webinar' no dataLayer e, se você
+                        preencher LEAD_ENDPOINT, é enviado via POST JSON
+                        {nome, whats, origem, ts}. O nome é reaproveitado
+                        no chat da aula e na mensagem do comercial.
+
+>> ao-vivo.html  (bloco "CONFIG DO WEBINAR" no início do <script>)
+   VIDEO       = "aula.mp4"     player local (troque pelo Vturb, veja acima)
+   PRE_SECONDS = 30             contagem antes de começar
+   CHAT        = [...]          mensagens em segundos {t, nome, msg,
+                               host?, link?, linkTxt?}. host:true = fala do
+                               Manoel (laranja). link = botão clicável no chat.
+   BONUS_AT = 250 (4:10)        brinde liberado (link wa.link/brinde-dq)
+   MASK_IN = 4377 / MASK_OUT = 4440   máscara entra 1:12:57 e sai 1:14:00
+   MASK_BOX = {left,top,width,height}  posição da máscara em % do vídeo.
+                               Cobre só a região do slide e escala sozinha
+                               em qualquer tela (mobile, desktop, girando).
+                               Se não cobrir certinho, ajuste esses 4 números.
+   OFFER_AT = 4495 (1:14:55)    abre a PÁGINA REAL do Dossiê IF embutida
+                               (pasta dossie/, cópia da página) com a barra
+                               do cupom PLANO250 + cronômetro. Preço já com
+                               cupom (12x R$ 99,70 / R$ 997).
+   END_AT = 5826 (1:37:06)      fim → card de encerramento
+   DOSSIE_CHECKOUT / EQUIPE_WHATS / BRINDE / EXPANSAO_LP  (já preenchidos)
+   CUPOM = "PLANO250" · PALAVRA_CHAVE = "IF2026"
+   VIEWERS_MIN = 50 / VIEWERS_MAX = 100   telespectadores (sobe e desce
+                               de pouco em pouco, com picos e quedas)
+   PREÇO: 12x R$ 99,70 / R$ 997 à vista, com o cupom PLANO250 (de R$ 1.247).
+   O cronômetro do cupom zera sozinho toda SEXTA às 23:59 e recomeça.
+
+>> obrigado.html  (bloco CONFIG no fim)
+   COMERCIAL = "5599999999999"   WhatsApp do comercial (só dígitos, com 55).
+                        Ao agendar, a pessoa cai aqui e o botão abre o
+                        WhatsApp do comercial com a mensagem já pronta:
+                        "Oi! Sou [nome]. Agendei minha aula para o horário
+                        [dia · hora], quero receber o link." — é o gatilho
+                        pra sua automação. Título da página: "Agendado, Prof!".
+
+--------------------------------------------------------
+COMO CALCULAR OS SEGUNDOS (t / BONUS_AT / PITCH_AT)
+--------------------------------------------------------
+É o tempo corrido do vídeo. Ex.: 10 min = 600, 25 min = 1500, 42 min = 2520.
+Assiste o vídeo com um cronômetro e anota em que segundo cada coisa acontece
+(cada frase do chat, o momento do bônus, o começo do pitch).
+
+--------------------------------------------------------
+DETALHES IMPORTANTES
+--------------------------------------------------------
+- Autoplay com SOM: navegador só libera após um clique. Por isso a sala ao
+  vivo mostra o botão "Entrar na aula ao vivo →" depois dos 30s. É o gesto
+  que destrava o áudio. Mantém assim.
+- Precisa estar HOSPEDADO (não abrir por file://) pra tocar direito e pro
+  vídeo carregar. Sobe as 4 páginas + o mp4 no mesmo lugar do resto do site.
+- O bônus e a oferta reaparecem sozinhos com base no tempo do vídeo. Não
+  precisa mexer em nada durante a aula. É tudo automático.
+- Quer 2 aulas por semana? É só duplicar a pasta e trocar VIDEO + horários.
+
+--------------------------------------------------------
+FLUXO RESUMIDO
+--------------------------------------------------------
+index → (entrar agora) → sala-de-espera → ao-vivo
+index → (agendar)       → obrigado (grupo manda o link no horário)
+
+Dissecando Questões · Prof. Manoel Machado

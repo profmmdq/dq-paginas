@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sua aula começa em instantes | Dissecando Questões</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#0f1829;--ink2:#0b1220;--blue:#0c3d64;--green:#104438;--acc:#ff751f;--acc2:#ff9a54;--cream:#f1f3e6;--sand:#ecdcc1;--line:rgba(241,243,230,.12);--muted:#9aa6b2;
+    --disp:'Bricolage Grotesque',sans-serif;--body:'Hanken Grotesk',system-ui,sans-serif;--mono:'Geist Mono',monospace;}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:var(--body);color:var(--cream);background:var(--ink2);-webkit-font-smoothing:antialiased;line-height:1.5;min-height:100vh}
+  .bg{position:fixed;inset:0;z-index:-1;background:radial-gradient(75% 55% at 50% 0%,rgba(12,61,100,.5),transparent 60%),linear-gradient(180deg,#0f1c2e,#0b1220 72%)}
+  .wrap{max-width:680px;margin:0 auto;padding:22px 22px 48px;min-height:100vh;display:flex;flex-direction:column}
+  header{display:flex;justify-content:center;margin-bottom:30px}
+  .brand{display:inline-flex;background:var(--cream);border-radius:12px;padding:7px 13px}
+  .brand img{height:32px;display:block}
+  .mid{flex:1;display:flex;flex-direction:column;justify-content:center;text-align:center}
+  .kicker{font-family:var(--mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--acc);margin-bottom:12px}
+  h1{font-family:var(--disp);font-weight:800;font-size:clamp(26px,5.5vw,38px);line-height:1.05;letter-spacing:-.6px;margin-bottom:8px}
+  .sub{color:rgba(241,243,230,.78);margin-bottom:30px}
+  .ring{position:relative;width:210px;height:210px;margin:0 auto 34px}
+  .ring svg{transform:rotate(-90deg)}
+  .ring .val{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .ring .t{font-family:var(--disp);font-weight:800;font-size:46px;letter-spacing:-1.5px;color:var(--acc2);line-height:1;font-variant-numeric:tabular-nums}
+  .ring .l{font-family:var(--mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-top:6px}
+  .tips{background:linear-gradient(160deg,rgba(241,243,230,.06),rgba(241,243,230,.02));border:1px solid var(--line);border-radius:18px;padding:24px;text-align:left;max-width:460px;margin:0 auto}
+  .tips h3{font-family:var(--disp);font-weight:800;font-size:16px;margin-bottom:16px}
+  .tips .row{display:flex;gap:13px;align-items:center;padding:11px 0;border-top:1px solid var(--line)}
+  .tips .row:first-of-type{border-top:0;padding-top:0}
+  .tips .ic{flex:none;width:34px;height:34px;border-radius:10px;background:rgba(255,117,31,.14);color:var(--acc);display:flex;align-items:center;justify-content:center}
+  .tips .ic svg{width:18px;height:18px}
+  .tips .tx{font-size:14.5px;color:rgba(241,243,230,.9)}
+  .note{color:var(--muted);font-size:13px;margin-top:22px;text-align:center}
+  footer{text-align:center;margin-top:26px;font-family:var(--mono);font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="wrap">
+  <header><span class="brand"><img src="assets/logo-dq.png" alt="Dissecando Questões"></span></header>
+  <div class="mid">
+    <div class="kicker">Sala de espera · você está dentro</div>
+    <h1>Sua aula está prestes a começar</h1>
+    <p class="sub">Quando o contador zerar, a aula abre sozinha aqui. Não feche esta página.</p>
+
+    <div class="ring">
+      <svg width="210" height="210" viewBox="0 0 210 210">
+        <circle cx="105" cy="105" r="96" fill="none" stroke="rgba(241,243,230,.1)" stroke-width="10"/>
+        <circle id="arc" cx="105" cy="105" r="96" fill="none" stroke="#ff751f" stroke-width="10" stroke-linecap="round" stroke-dasharray="603" stroke-dashoffset="0"/>
+      </svg>
+      <div class="val"><div class="t" id="timer">00:00</div><div class="l">para o início</div></div>
+    </div>
+
+    <div class="tips">
+      <h3>Aproveita esses minutos para se preparar</h3>
+      <div class="row"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 010 8h-1M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="tx">Pega uma água ou um café. A aula é direta, mas você vai querer estar confortável.</span></div>
+      <div class="row"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4 12.5-12.5z"/></svg></span><span class="tx">Separa um bloco de notas e caneta. Vai ter coisa pra anotar.</span></div>
+      <div class="row"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18.6 5.4a9 9 0 010 13.2M15.5 8.5a4.5 4.5 0 010 7M2 9v6h4l5 4V5L6 9H2z"/><line x1="2" y1="2" x2="22" y2="22"/></svg></span><span class="tx">Silencia as notificações. Uma hora de foco vale meses de estudo perdido.</span></div>
+      <div class="row"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-6a9 9 0 0118 0v6"/><path d="M21 19a2 2 0 01-2 2h-1a2 2 0 01-2-2v-3a2 2 0 012-2h3zM3 19a2 2 0 002 2h1a2 2 0 002-2v-3a2 2 0 00-2-2H3z"/></svg></span><span class="tx">Se puder, coloca um fone. A qualidade do áudio muda tudo.</span></div>
+    </div>
+    <p class="note">Você será levado para a aula automaticamente.</p>
+  </div>
+  <footer>Dissecando Questões · Prof. Manoel Machado</footer>
+</div>
+
+<script>
+var start=parseInt(localStorage.getItem('web_start')||'0',10);
+var total=start?Math.max(1,(start-Date.now())):600000;
+if(!start){ start=Date.now()+600000; total=600000; }
+var C=603, arc=document.getElementById('arc');
+function pad(n){return (n<10?'0':'')+n;}
+function tick(){
+  var d=start-Date.now();
+  if(d<=0){ location.href='ao-vivo.html'; return; }
+  var m=Math.floor(d/60000),s=Math.floor(d%60000/1000);
+  document.getElementById('timer').textContent=pad(m)+':'+pad(s);
+  arc.setAttribute('stroke-dashoffset', (C*(1-d/total)).toFixed(1));
+}
+tick(); setInterval(tick,1000);
+</script>
+</body>
+</html>

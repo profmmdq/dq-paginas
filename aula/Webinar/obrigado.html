@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vaga reservada | Dissecando Questões</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#0f1829;--ink2:#0b1220;--blue:#0c3d64;--green:#104438;--acc:#ff751f;--acc2:#ff9a54;--cream:#f1f3e6;--sand:#ecdcc1;--line:rgba(241,243,230,.12);--muted:#9aa6b2;--gr:#5e9558;
+    --disp:'Bricolage Grotesque',sans-serif;--body:'Hanken Grotesk',system-ui,sans-serif;--mono:'Geist Mono',monospace;}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:var(--body);color:var(--cream);background:var(--ink2);min-height:100vh;-webkit-font-smoothing:antialiased;line-height:1.5}
+  .bg{position:fixed;inset:0;z-index:-1;background:radial-gradient(70% 55% at 50% 0%,rgba(16,68,56,.5),transparent 60%),linear-gradient(180deg,#0f1c2e,#0b1220 72%)}
+  .wrap{max-width:600px;margin:0 auto;padding:22px 22px 46px;min-height:100vh;display:flex;flex-direction:column}
+  header{display:flex;justify-content:center;margin-bottom:30px}
+  .brand{display:inline-flex;background:var(--cream);border-radius:12px;padding:7px 13px}
+  .brand img{height:32px;display:block}
+  .mid{flex:1;display:flex;flex-direction:column;justify-content:center;text-align:center}
+  .check{width:76px;height:76px;border-radius:50%;background:rgba(94,149,88,.16);border:1.5px solid rgba(94,149,88,.55);display:flex;align-items:center;justify-content:center;margin:0 auto 20px}
+  .check svg{width:36px;height:36px;color:var(--gr)}
+  .kicker{font-family:var(--mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--acc);margin-bottom:10px}
+  h1{font-family:var(--disp);font-weight:800;font-size:clamp(26px,5.5vw,38px);line-height:1.05;letter-spacing:-.6px;margin-bottom:8px}
+  .sub{color:rgba(241,243,230,.8);margin-bottom:24px}
+  .when{background:linear-gradient(160deg,rgba(241,243,230,.06),rgba(241,243,230,.02));border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:20px}
+  .when .k{font-family:var(--mono);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+  .when .big{font-family:var(--disp);font-weight:800;font-size:30px;color:var(--acc2)}
+  .steps{text-align:left;max-width:460px;margin:0 auto 24px}
+  .step{display:flex;gap:13px;align-items:flex-start;padding:12px 0;border-top:1px solid var(--line)}
+  .step:first-child{border-top:0}
+  .step .n{flex:none;width:28px;height:28px;border-radius:50%;background:var(--acc);color:var(--ink2);font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center}
+  .step .t{font-size:14.5px;color:rgba(241,243,230,.9)}
+  .btn{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;max-width:460px;margin:0 auto;background:var(--acc);color:var(--ink2);font-weight:800;font-size:16px;text-decoration:none;padding:16px 24px;border-radius:14px;box-shadow:0 18px 36px -16px rgba(255,117,31,.85)}
+  footer{text-align:center;margin-top:26px;font-family:var(--mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="wrap">
+  <header><span class="brand"><img src="assets/logo-dq.png" alt="Dissecando Questões"></span></header>
+  <div class="mid">
+    <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <div class="kicker">Agendamento confirmado</div>
+    <h1>Agendado, Prof!</h1>
+    <p class="sub">Sua aula ao vivo está reservada. Agora falta só um passo pra receber o link.</p>
+
+    <div class="when">
+      <div class="k">Seu horário</div>
+      <div class="big" id="quando">--:--</div>
+    </div>
+
+    <div class="steps">
+      <div class="step"><span class="n">1</span><span class="t">Toca no botão abaixo pra falar com a nossa equipe no WhatsApp. A mensagem já vai pronta.</span></div>
+      <div class="step"><span class="n">2</span><span class="t">A gente te envia o link da aula e te lembra quando estiver perto de começar.</span></div>
+      <div class="step"><span class="n">3</span><span class="t">No horário marcado, é só abrir o link. Chega uns minutos antes, com bloco de notas.</span></div>
+    </div>
+
+    <a class="btn" id="comercialBtn" href="#" target="_blank" rel="noopener">Falar com a equipe e receber o link →</a>
+  </div>
+  <footer>Dissecando Questões · Prof. Manoel Machado</footer>
+</div>
+
+<script>
+/* ================= CONFIG ================= */
+var COMERCIAL = "5599999999999"; // WhatsApp do comercial: só dígitos, com DDI 55. Ex: 5511999999999
+/* ========================================== */
+var p=new URLSearchParams(location.search), h=p.get('h'), d=p.get('d');
+var quando=((d||'')+' '+(h||'')).trim();
+document.getElementById('quando').textContent=(d?d+' · ':'')+(h||'a combinar');
+var nome=''; try{ nome=(JSON.parse(localStorage.getItem('web_lead')||'{}').nome)||''; }catch(e){}
+var msg=(nome?("Oi! Sou "+nome+". "):"Oi! ")+"Agendei minha aula para o horário "+(quando||'combinado')+", quero receber o link.";
+document.getElementById('comercialBtn').href="https://wa.me/"+COMERCIAL+"?text="+encodeURIComponent(msg);
+</script>
+</body>
+</html>

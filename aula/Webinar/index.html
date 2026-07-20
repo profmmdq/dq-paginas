@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aula ao vivo: o que está acontecendo no IF agora | Dissecando Questões</title>
+<meta name="description" content="Aula ao vivo com o Prof. Manoel Machado sobre a maior expansão da Rede Federal. Entre na sessão que começa agora ou escolha outro horário.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0f1829;--ink2:#0b1220;--blue:#0c3d64;--green:#104438;
+    --acc:#ff751f;--acc2:#ff9a54;--cream:#f1f3e6;--sand:#ecdcc1;
+    --line:rgba(241,243,230,.12);--muted:#9aa6b2;
+    --disp:'Bricolage Grotesque',sans-serif;--body:'Hanken Grotesk',system-ui,sans-serif;--mono:'Geist Mono',monospace;}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:var(--body);color:var(--cream);background:var(--ink2);-webkit-font-smoothing:antialiased;line-height:1.5}
+  .bg{position:fixed;inset:0;z-index:-1;background:
+      radial-gradient(80% 60% at 85% 0%,rgba(12,61,100,.55),transparent 60%),
+      radial-gradient(70% 50% at 0% 100%,rgba(16,68,56,.45),transparent 55%),
+      linear-gradient(180deg,#0f1c2e,#0b1220 70%);}
+  .wrap{max-width:1080px;margin:0 auto;padding:22px 22px 56px}
+
+  header{display:flex;align-items:center;gap:12px;margin-bottom:34px}
+  .brand{display:inline-flex;background:var(--cream);border-radius:12px;padding:7px 13px;box-shadow:0 8px 24px -12px rgba(0,0,0,.6)}
+  .brand img{height:34px;display:block}
+  .livepill{margin-left:auto;display:inline-flex;align-items:center;gap:8px;background:rgba(255,45,45,.12);border:1px solid rgba(255,90,90,.4);color:#ff9a9a;font-family:var(--mono);font-size:11px;letter-spacing:1.4px;text-transform:uppercase;padding:7px 13px;border-radius:999px}
+  .livepill .d{width:8px;height:8px;border-radius:50%;background:#ff3d3d;animation:pr 1.6s infinite}
+  @keyframes pr{0%{box-shadow:0 0 0 0 rgba(255,61,61,.5)}70%{box-shadow:0 0 0 8px rgba(255,61,61,0)}100%{box-shadow:0 0 0 0 rgba(255,61,61,0)}}
+
+  .hero{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center;margin-bottom:30px}
+  @media(max-width:820px){.hero{grid-template-columns:1fr;gap:26px}}
+  .kicker{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--acc);font-weight:500;margin-bottom:16px}
+  .kicker::before{content:"";width:22px;height:1.5px;background:var(--acc)}
+  h1{font-family:var(--disp);font-weight:800;font-size:clamp(30px,5.4vw,52px);line-height:1.02;letter-spacing:-1px;margin-bottom:18px;text-wrap:balance}
+  h1 em{font-style:normal;color:var(--acc2)}
+  .sub{color:rgba(241,243,230,.8);font-size:17px;max-width:30em;margin-bottom:20px}
+  .with{display:flex;align-items:center;gap:11px;font-size:14px;color:var(--muted)}
+  .with img{width:40px;height:40px;border-radius:50%;object-fit:cover;object-position:50% 30%;border:2px solid rgba(255,117,31,.5)}
+  .with b{color:var(--cream);font-weight:700}
+
+  .figure{position:relative;border-radius:20px;overflow:hidden;aspect-ratio:4/5;box-shadow:0 40px 80px -36px rgba(0,0,0,.75);border:1px solid var(--line)}
+  .figure img{width:100%;height:100%;object-fit:cover;object-position:50% 25%}
+  .figure::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(11,18,32,.78))}
+  .figcap{position:absolute;left:16px;right:16px;bottom:16px;z-index:2}
+  .figcap .n{font-family:var(--disp);font-weight:800;font-size:18px}
+  .figcap .r{font-size:13px;color:var(--sand)}
+
+  .panel{background:linear-gradient(160deg,rgba(241,243,230,.06),rgba(241,243,230,.02));border:1px solid var(--line);border-radius:20px;padding:26px;margin-bottom:14px}
+  .panel .lab{font-family:var(--mono);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+  .timer{font-family:var(--disp);font-weight:800;font-size:52px;letter-spacing:-1.5px;color:var(--acc2);line-height:1;font-variant-numeric:tabular-nums;margin-bottom:18px}
+  .btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;background:var(--acc);color:var(--ink2);font-weight:800;font-size:17px;font-family:var(--body);padding:18px;border:0;border-radius:14px;cursor:pointer;box-shadow:0 18px 38px -16px rgba(255,117,31,.85);transition:transform .15s ease}
+  .btn:hover{transform:translateY(-2px)}
+  #leadForm{display:grid;gap:10px}
+  #leadForm input{width:100%;background:rgba(241,243,230,.05);border:1px solid var(--line);border-radius:12px;color:var(--cream);font-family:var(--body);font-size:16px;padding:15px 15px;outline:none;transition:border-color .16s ease}
+  #leadForm input::placeholder{color:var(--muted)}
+  #leadForm input:focus{border-color:var(--acc)}
+  #leadForm .btn{margin-top:4px}
+  .lerr{color:#ff9a9a;font-size:13px;min-height:0}
+  .lerr.on{min-height:18px;margin-top:-2px}
+  .lprivacy{color:var(--muted);font-size:12px;margin-top:12px;text-align:center}
+  .or{display:flex;align-items:center;gap:14px;color:var(--muted);font-family:var(--mono);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;margin:22px 4px 16px}
+  .or::before,.or::after{content:"";flex:1;height:1px;background:var(--line)}
+  .slots{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}
+  @media(max-width:560px){.slots{grid-template-columns:1fr}}
+  .slot{background:rgba(241,243,230,.03);border:1px solid var(--line);color:var(--cream);font-family:var(--body);padding:16px;border-radius:14px;cursor:pointer;transition:all .16s ease;text-align:center}
+  .slot:hover{border-color:var(--acc);background:rgba(255,117,31,.08);transform:translateY(-2px)}
+  .slot .h{font-family:var(--disp);font-weight:800;color:var(--acc2);font-size:22px;letter-spacing:-.5px}
+  .slot .d{color:var(--muted);font-size:12px;margin-top:2px}
+
+  .proof{display:flex;align-items:center;gap:14px;margin-top:30px;padding:16px 18px;background:rgba(12,61,100,.22);border:1px solid var(--line);border-radius:16px}
+  .proof img{width:96px;height:60px;object-fit:cover;border-radius:9px;flex:none}
+  .proof p{font-size:14px;color:rgba(241,243,230,.82)}
+  .proof b{font-family:var(--disp);color:var(--cream)}
+  .names{margin-top:14px;overflow:hidden}
+  .names .nk{font-family:var(--mono);font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:var(--muted);display:block;margin:0 2px 10px}
+  .ntrack{display:flex;gap:8px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+  .ntrack .chip{flex:none;background:rgba(241,243,230,.04);border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-size:13px;color:var(--muted);white-space:nowrap}
+  .ntrack .chip b{color:var(--cream);font-weight:700}
+  @media(min-width:640px){.ntrack{flex-wrap:wrap}}
+  footer{text-align:center;margin-top:34px;font-family:var(--mono);font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="wrap">
+  <header>
+    <span class="brand"><img src="assets/logo-dq.png" alt="Dissecando Questões"></span>
+    <span class="livepill"><span class="d"></span>Aula ao vivo</span>
+  </header>
+
+  <div class="hero">
+    <div>
+      <span class="kicker">Rede Federal · maior expansão em 15 anos</span>
+      <h1>O que está acontecendo no IF <em>agora</em> muda o seu jogo</h1>
+      <p class="sub">Uma aula ao vivo sobre as novas vagas de Professor e TAE nos Institutos Federais, e como se posicionar antes de todo mundo. Escolha como quer participar:</p>
+      <div class="with">
+        <img src="assets/manoel-hero.jpg" alt="Prof. Manoel Machado">
+        <span>com <b>Prof. Manoel Machado</b><br>Dissecando Questões</span>
+      </div>
+    </div>
+    <div class="figure">
+      <img src="assets/manoel-hero.jpg" alt="Prof. Manoel Machado">
+      <div class="figcap">
+        <div class="n">Prof. Manoel Machado</div>
+        <div class="r">Método estratégico para a estabilidade no IF</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel capture" id="capture">
+    <div class="lab">Antes de entrar, garanta sua vaga</div>
+    <form id="leadForm" novalidate>
+      <input id="lnome" type="text" placeholder="Seu nome" autocomplete="name" required>
+      <input id="lwhats" type="tel" placeholder="Seu WhatsApp com DDD" autocomplete="tel" inputmode="numeric" required>
+      <input id="lemail" type="email" placeholder="Seu melhor e-mail" autocomplete="email" required>
+      <div class="lerr" id="lerr"></div>
+      <button class="btn" type="submit">Continuar →</button>
+    </form>
+    <p class="lprivacy">Usamos seu contato só pra te enviar o link e os lembretes da aula.</p>
+  </div>
+
+  <div id="choose" hidden>
+    <div class="panel">
+      <div class="lab">Próxima sessão começa em</div>
+      <div class="timer" id="timer">10:00</div>
+      <button class="btn" onclick="entrarAgora()">Entrar na aula que começa agora →</button>
+    </div>
+    <div class="or">ou agende para outro horário</div>
+    <div class="slots" id="slots"></div>
+  </div>
+
+  <div class="proof">
+    <img src="assets/manoel-live.jpg" alt="Mentoria ao vivo Dissecando Questões">
+    <p><b>+300 professores aprovados</b> em Institutos Federais de 18 estados. Chega cedo: quem assiste ao vivo pega os bônus que não ficam gravados.</p>
+  </div>
+
+  <div class="names">
+    <span class="nk">Aprovados recentes</span>
+    <div class="ntrack">
+      <span class="chip"><b>Fábio</b> · IFAC</span>
+      <span class="chip"><b>Jocielle</b> · IFS</span>
+      <span class="chip"><b>Fabrício</b> · IFAP</span>
+      <span class="chip"><b>Nádia</b> · IFRN</span>
+      <span class="chip"><b>Olena</b> · IFMT</span>
+      <span class="chip"><b>Daniele</b> · IFPA</span>
+      <span class="chip"><b>Ligiane</b> · IFPB</span>
+      <span class="chip"><b>Emily</b> · IFPE</span>
+      <span class="chip"><b>Diandra</b> · IFSertão</span>
+      <span class="chip"><b>Caio</b> · IFSul</span>
+    </div>
+  </div>
+
+  <footer>Dissecando Questões · Prof. Manoel Machado</footer>
+</div>
+
+<script>
+/* ================= CONFIG ================= */
+var JIT_MIN = 10;                         // a "próxima sessão" começa daqui a X minutos
+var SLOTS   = ["10:00","15:00","20:00"];  // 3 horários por dia para agendar
+var LEAD_ENDPOINT = "";                    // (opcional) URL de webhook pra receber o lead via POST JSON.
+                                           // Vazio = só salva no navegador + dispara evento no dataLayer.
+/* ========================================== */
+
+// ---- captura de lead ----
+function soDigitos(s){return (s||'').replace(/\D/g,'');}
+document.getElementById('leadForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  var nome=document.getElementById('lnome').value.trim();
+  var whats=soDigitos(document.getElementById('lwhats').value);
+  var email=document.getElementById('lemail').value.trim();
+  var err=document.getElementById('lerr');
+  if(nome.length<2){ err.textContent='Escreve seu nome, por favor.'; err.classList.add('on'); return; }
+  if(whats.length<10){ err.textContent='Coloca seu WhatsApp com DDD.'; err.classList.add('on'); return; }
+  if(!/^\S+@\S+\.\S+$/.test(email)){ err.textContent='Coloca um e-mail válido.'; err.classList.add('on'); return; }
+  err.textContent=''; err.classList.remove('on');
+  var lead={nome:nome, whats:whats, email:email, origem:'webinar', ts:Date.now()};
+  try{ localStorage.setItem('web_lead', JSON.stringify(lead)); }catch(e2){}
+  try{ (window.dataLayer=window.dataLayer||[]).push({event:'lead_webinar', nome:nome, whats:whats, email:email}); }catch(e2){}
+  if(LEAD_ENDPOINT){ try{ fetch(LEAD_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(lead)}); }catch(e2){} }
+  document.getElementById('capture').style.display='none';
+  var ch=document.getElementById('choose'); ch.hidden=false;
+});
+
+var start = Date.now() + JIT_MIN*60*1000;
+try{ localStorage.setItem('web_start', start); }catch(e){}
+function pad(n){return (n<10?'0':'')+n;}
+function tick(){var el=document.getElementById('timer');if(!el)return;var d=start-Date.now();if(d<0)d=0;var m=Math.floor(d/60000),s=Math.floor(d%60000/1000);el.textContent=pad(m)+':'+pad(s);}
+tick(); setInterval(tick,1000);
+function entrarAgora(){ location.href='sala-de-espera.html'; }
+var box=document.getElementById('slots'), now=new Date();
+SLOTS.forEach(function(hm){
+  var p=hm.split(':'),dt=new Date();dt.setHours(+p[0],+p[1],0,0);
+  var dia=dt.getTime()>now.getTime()?'Hoje':'Amanhã';
+  var b=document.createElement('button');b.className='slot';
+  b.innerHTML='<div class="h">'+hm+'</div><div class="d">'+dia+' · reservar</div>';
+  b.onclick=function(){location.href='obrigado.html?h='+encodeURIComponent(hm)+'&d='+encodeURIComponent(dia);};
+  box.appendChild(b);
+});
+</script>
+</body>
+</html>
