@@ -59,14 +59,15 @@
   .inter.on .itxt{animation:interin .7s cubic-bezier(.16,.84,.44,1) forwards}
   @keyframes interin{to{opacity:1;transform:none}}
   /* portão de captação (antes do play) */
-  .gate{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:clamp(18px,4vw,42px);z-index:4}
+  .gate{position:fixed;inset:0;display:none;z-index:60;overflow-y:auto;-webkit-overflow-scrolling:touch}
   .gate.on{display:flex}
-  .gate::before{content:"";position:absolute;inset:0;background:url('assets/manoel-hero.jpg') center 22%/cover}
-  .gate::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,24,41,.5),rgba(11,18,32,.93))}
-  .gate>*{position:relative;z-index:2}
+  .gate::before{content:"";position:fixed;inset:0;background:url('assets/manoel-hero.jpg') center 22%/cover}
+  .gate::after{content:"";position:fixed;inset:0;background:linear-gradient(180deg,rgba(15,24,41,.55),rgba(11,18,32,.94))}
+  .gatebox{margin:auto;position:relative;z-index:2;text-align:center;width:100%;max-width:420px;padding:38px 22px}
   .gate .gk{font-family:var(--mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--acc);margin-bottom:10px}
   .gate .gq{font-family:var(--disp);font-weight:800;font-size:clamp(18px,3vw,26px);line-height:1.15;max-width:460px;margin-bottom:20px;text-wrap:balance}
-  .gate form{display:grid;gap:10px;width:100%;max-width:360px}
+  .gate form{display:grid;gap:10px;width:100%;max-width:360px;margin:0 auto}
+  .gate .gq{margin-left:auto;margin-right:auto}
   .gate input{width:100%;background:rgba(11,18,32,.62);border:1px solid var(--line);border-radius:12px;color:var(--cream);font-family:var(--body);font-size:16px;padding:14px;outline:none}
   .gate input::placeholder{color:var(--muted)}
   .gate input:focus{border-color:var(--acc)}
@@ -145,15 +146,17 @@
     </div>
     <div class="inter" id="inter"><div class="itxt" id="itxt"></div></div>
     <div class="gate on" id="gate">
-      <div class="gk">Antes de começar</div>
-      <div class="gq">Pra quem é essa aula? Deixa seu nome e WhatsApp que eu já libero.</div>
-      <form id="leadForm" novalidate>
-        <input id="lnome" type="text" placeholder="Seu nome" autocomplete="name" required>
-        <input id="lwhats" type="tel" placeholder="Seu WhatsApp com DDD" autocomplete="tel" inputmode="numeric" required>
-        <input id="lemail" type="email" placeholder="Seu melhor e-mail" autocomplete="email" required>
-        <div class="lerr" id="lerr"></div>
-        <button class="btn" type="submit">Começar a aula →</button>
-      </form>
+      <div class="gatebox">
+        <div class="gk">Antes de começar</div>
+        <div class="gq">Pra quem é essa aula? Deixa seu nome e WhatsApp que eu já libero.</div>
+        <form id="leadForm" novalidate>
+          <input id="lnome" type="text" placeholder="Seu nome" autocomplete="name" required>
+          <input id="lwhats" type="tel" placeholder="Seu WhatsApp com DDD" autocomplete="tel" inputmode="numeric" required>
+          <input id="lemail" type="email" placeholder="Seu melhor e-mail" autocomplete="email" required>
+          <div class="lerr" id="lerr"></div>
+          <button class="btn" type="submit">Começar a aula →</button>
+        </form>
+      </div>
     </div>
   </div>
   <div class="path" id="path"></div>
