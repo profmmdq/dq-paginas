@@ -263,7 +263,7 @@ var START = "intro";
 var DOSSIE_CHECKOUT = "https://checkout.dissecandoquestoes.com.br/checkout/lnc-grupos2-dossie-if-2-anos";
 var EQUIPE_WHATS    = "https://wa.link/dq-consultor";
 var GRUPO_IF        = "https://sndflw.com/i/D44WGy8IPL92V6WPPX2b";  // grupo do WhatsApp do IF
-var LEAD_ENDPOINT   = "";  // (opcional) webhook pra receber o lead via POST JSON. Vazio = salva local + dataLayer.
+var LEAD_ENDPOINT   = "https://unnichat.com.br/a/start/SCla2neGT8NWZFfxCJrs";  // webhook Unnichat
 /* ============================================================ */
 
 var vid=document.getElementById('vid'), over=document.getElementById('over');
@@ -308,7 +308,7 @@ function go(id, skipIntro){
 function enter(node){
   advanced=false; hideCont();
   if(node.vturb){ setLower(node.caption); showPlayer('vturb'); mountVturb(node.vturb, advanceCurrent); }
-  else if(node.video){ setLower(node.caption); showPlayer('video'); vid.src=node.video; vid.load(); var p=vid.play(); if(p&&p.catch){p.catch(function(){});} }
+  else if(node.video){ setLower(node.caption); showPlayer('video'); vid.muted=false; vid.src=node.video; vid.load(); vid.currentTime=0; var p=vid.play(); if(p&&p.catch){p.catch(function(){});} }
   else if(node.question){ setLower(null); showDecision(node); }
   else if(node.end){ setLower(null); finish(node); }
 }
@@ -384,7 +384,8 @@ function unlock(){
   v.scrollIntoView({behavior:'smooth',block:'start'});
   try{(window.dataLayer=window.dataLayer||[]).push({event:'aula_interativa_vendas',perfil:ANSWERS});}catch(e){}
 }
-vid.addEventListener('ended', onEnd);
+// só avança pelo <video> quando o nó ATUAL é um depoimento (evita que o priming em 2º plano dispare)
+vid.addEventListener('ended', function(){ var n=FLOW[curId]; if(n && n.video){ onEnd(); } });
 
 // captura de lead antes de liberar a aula
 document.getElementById('leadForm').addEventListener('submit', function(e){
@@ -400,14 +401,18 @@ document.getElementById('leadForm').addEventListener('submit', function(e){
   var lead={nome:nome, whats:whats, email:email, origem:'aula_interativa', ts:Date.now()};
   try{ localStorage.setItem('web_lead', JSON.stringify(lead)); }catch(e2){}
   try{ (window.dataLayer=window.dataLayer||[]).push({event:'lead_aula_interativa', nome:nome, whats:whats, email:email}); }catch(e2){}
-  if(LEAD_ENDPOINT){ try{ fetch(LEAD_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(lead)}); }catch(e2){} }
+  if(LEAD_ENDPOINT){ try{
+    var p=new URLSearchParams();
+    p.set('nome',nome); p.set('email',email); p.set('telefone',whats);
+    fetch(LEAD_ENDPOINT,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:p.toString()});
+  }catch(e2){} }
   document.getElementById('gate').classList.remove('on');
-  // "abençoa" o <video> (usado nos depoimentos) dentro do clique, pra tocar com som depois
+  // "abençoa" o <video> dos depoimentos dentro do clique (fica MUDO e PARADO; só toca com som no nó do depoimento)
   try{
     vid.muted=true; vid.src=DEPO+"/depoimento-video-1.mp4";
     var pp=vid.play();
-    if(pp&&pp.then){ pp.then(function(){ vid.pause(); vid.currentTime=0; vid.muted=false; go(START); }).catch(function(){ vid.muted=false; go(START); }); }
-    else { vid.muted=false; go(START); }
+    if(pp&&pp.then){ pp.then(function(){ vid.pause(); vid.currentTime=0; go(START); }).catch(function(){ go(START); }); }
+    else { go(START); }
   }catch(e2){ go(START); }
 });
 </script>
