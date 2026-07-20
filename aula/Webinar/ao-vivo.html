@@ -6,7 +6,7 @@
 <title>Aula ao vivo | Dissecando Questões</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
 <!-- Vturb / ConverteAI: prefetch dos domínios (performance do player) -->
 <script>!function(i,n){i._plt=i._plt||(n&&n.timeOrigin?n.timeOrigin+n.now():Date.now())}(window,performance);</script>
 <link rel="preload" href="https://scripts.converteai.net/8fb0c85a-c7c1-400e-a28a-5dc648d0969c/players/6a5dc0ca98b6e5f7c5ed4853/v4/player.js" as="script">
@@ -18,7 +18,7 @@
 <style>
   :root{--ink:#0f1829;--ink2:#0b1220;--panel:#0a1119;--blue:#0c3d64;--green:#104438;
     --acc:#ff751f;--acc2:#ff9a54;--cream:#f1f3e6;--sand:#ecdcc1;--line:rgba(241,243,230,.1);--muted:#9aa6b2;--red:#ff3d3d;
-    --disp:'Bricolage Grotesque',sans-serif;--body:'Hanken Grotesk',system-ui,sans-serif;--mono:'Geist Mono',monospace;}
+    --disp:'Montserrat',sans-serif;--body:'Montserrat',system-ui,sans-serif;--mono:'Geist Mono',monospace;}
   *{margin:0;padding:0;box-sizing:border-box}
   body{font-family:var(--body);background:var(--ink2);color:var(--cream);min-height:100vh;-webkit-font-smoothing:antialiased;line-height:1.5}
   .bar{display:flex;align-items:center;gap:12px;padding:11px 18px;background:rgba(10,17,25,.9);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
@@ -65,7 +65,8 @@
   .endlive h3{font-family:var(--disp);font-weight:800;font-size:clamp(18px,3vw,26px);line-height:1.15;max-width:460px;margin-bottom:20px;text-wrap:balance}
   .endlive .start{display:inline-block;text-decoration:none;background:var(--acc);color:var(--ink2);font-weight:800;font-size:16px;border-radius:13px;padding:15px 30px;box-shadow:0 18px 34px -14px rgba(255,117,31,.85)}
 
-  .bonus{margin-top:14px;background:linear-gradient(135deg,var(--blue),#0a1a2b);border:1px solid rgba(255,117,31,.45);border-radius:16px;padding:18px 20px;display:none;align-items:center;gap:16px;animation:pop .5s cubic-bezier(.16,.84,.44,1)}
+  .bonus{margin-top:14px;background:linear-gradient(135deg,var(--blue),#0a1a2b);border:1px solid rgba(255,117,31,.45);border-radius:16px;padding:18px 20px;display:none;align-items:center;gap:16px;animation:pop .5s cubic-bezier(.16,.84,.44,1);transition:opacity .45s ease,transform .45s ease}
+  .bonus.out{opacity:0;transform:translateY(-10px)}
   .bonus.on{display:flex}
   @keyframes pop{from{opacity:0;transform:translateY(12px) scale(.98)}to{opacity:1;transform:none}}
   .bonus .ic{flex:none;width:46px;height:46px;border-radius:12px;background:rgba(255,117,31,.16);color:var(--acc);display:flex;align-items:center;justify-content:center}
@@ -232,6 +233,7 @@ var VIEWERS_MIN = 50;  // piso de telespectadores
 var VIEWERS_MAX = 100; // teto de telespectadores
 
 var BONUS = { titulo:"Brinde liberado", texto:"Pega aqui. No fim da aula eu falo a palavra-chave pra você resgatar.", link:BRINDE, btn:"Pegar o brinde" };
+var BONUS_SHOW_MS = 10000;  // quanto tempo o card do brinde fica na tela antes de sumir sozinho (ms)
 
 /* CHAT — cada item: {t(seg), nome, msg, host?, link?, linkTxt?} */
 var CHAT = [
@@ -249,9 +251,62 @@ var CHAT = [
   { t: 540,  nome:"Tatiane L.",   msg:"não sabia que tinha tanta vaga nova assim 😳" },
   { t: 575,  nome:"Vânia C.",     msg:"essa expansão tá surreal" },
 
+  // 14:30 em diante: Manoel pede pra comentarem área + de onde falam (ele lê no vídeo a partir de 15:04)
+  { t: 870,  nome:"Prof. Manoel", host:true, msg:"Comenta aqui no chat 👇 sua área e de onde você tá falando. Bora ver esse mapa do Brasil!" },
+  { t: 879,  nome:"Renata A.",    msg:"biologia, falando de Goiânia" },
+  { t: 886,  nome:"Cléber M.",    msg:"geografia aqui, do RS" },
+  { t: 892,  nome:"Simone T.",    msg:"química, Recife-PE" },
+  { t: 896,  nome:"Larissa F.",   msg:"matemática 🙌 professora do interior" },
+  { t: 900,  nome:"André P.",     msg:"pedagogia, e o Manoel arrasando" },
+  { t: 904,  nome:"Marcos V.",    msg:"falando do Espírito Santo!" },
+  { t: 908,  nome:"Juliana S.",   msg:"Minas presente ⛰️" },
+  { t: 912,  nome:"Elton R.",     msg:"Maranhão na área 👋" },
+  { t: 916,  nome:"Patrícia L.",  msg:"sou de adm" },
+  { t: 920,  nome:"Rafael G.",    msg:"Minas também!" },
+  { t: 924,  nome:"Bruna C.",     msg:"Floripa 🌊" },
+  { t: 928,  nome:"Diego N.",     msg:"história aqui" },
+  { t: 932,  nome:"Camila R.",    msg:"São Paulo, capital" },
+  { t: 936,  nome:"Wesley A.",    msg:"Minas Gerais 🙌" },
+  { t: 940,  nome:"Tainá M.",     msg:"Bahia, axé 💛" },
+  { t: 944,  nome:"Iara B.",      msg:"Pará, Belém!" },
+  { t: 951,  nome:"Fernando D.",  msg:"letras, do Ceará" },
+  { t: 957,  nome:"Priscila O.",  msg:"educação física, Paraná" },
+  { t: 963,  nome:"Gustavo H.",   msg:"física, Distrito Federal" },
+  { t: 970,  nome:"Prof. Manoel", host:true, msg:"Que mapa lindo esse chat! Tem gente de canto a canto do Brasil 🇧🇷 bora seguir!" },
+
   { t: 1185, nome:"Sandra M.",    msg:"vi vários aprovados de vocês: Fábio no IFAC, Jocielle no IFS, Ligiane no IFPB 👏" },
   { t: 1230, nome:"Aline P.",     msg:"pré-edital é onde o jogo é ganho... anotado" },
   { t: 1500, nome:"Josué B.",     msg:"tô anotando tudo aqui 📝" },
+
+  // 32:55: Manoel fala como a carreira no IF é boa -> reações no chat
+  { t: 1968, nome:"Bruno C.",     msg:"que carreira dos sonhos 😍" },
+  { t: 1974, nome:"Aline P.",     msg:"estabilidade + qualidade de vida, é isso que eu quero" },
+  { t: 1980, nome:"Tatiane L.",   msg:"a carga horária é bem mais humana mesmo" },
+  { t: 1986, nome:"Rafael G.",    msg:"salário + estabilidade não tem preço" },
+  { t: 1992, nome:"Juliana S.",   msg:"quero MUITO essa vida 🙏" },
+  { t: 1998, nome:"Diego N.",     msg:"trocar pro IF é a melhor decisão 🙌" },
+  { t: 2004, nome:"Sandra M.",    msg:"isso me deu ainda mais certeza" },
+  { t: 2010, nome:"Camila R.",    msg:"tô até arrepiada 🥹" },
+  { t: 2016, nome:"Prof. Manoel", host:true, msg:"É isso, gente. Vale cada minuto de preparação 🔥 comenta um 🙌 quem quer essa carreira!" },
+  { t: 2024, nome:"Elton R.",     msg:"🙌🙌🙌" },
+  { t: 2030, nome:"Priscila O.",  msg:"🙌 é o meu sonho" },
+
+  // 36:30: os +250 subtópicos -> "nunca tinha pensado assim"
+  { t: 2190, nome:"Aline P.",     msg:"250 subtópicos?? nunca tinha parado pra pensar nisso 😳" },
+  { t: 2196, nome:"Diego N.",     msg:"caramba, nunca tinha pensado assim" },
+  { t: 2202, nome:"Sandra M.",    msg:"isso muda toda a minha visão" },
+  { t: 2208, nome:"Rafael G.",    msg:"eu estudava no chute mesmo... agora entendi" },
+  // 37:18: a objeção -> é impossível, a conta não bate, não tem tempo
+  { t: 2238, nome:"Tatiane L.",   msg:"mas assim é impossível né, não tem tempo pra tudo isso" },
+  { t: 2244, nome:"Juliana S.",   msg:"a conta não bate, trabalho o dia todo 😔" },
+  { t: 2250, nome:"Bruno C.",     msg:"sozinho não dá pra dar conta de 250 subtópicos" },
+  { t: 2256, nome:"Camila R.",    msg:"é muita coisa, desanima só de pensar" },
+  // 38:39: fazendo a conta REAL das horas necessárias -> choque
+  { t: 2319, nome:"Rafael G.",    msg:"fiz a conta aqui... são MUITAS horas 😱" },
+  { t: 2325, nome:"Aline P.",     msg:"tô chocada com a quantidade de horas que daria" },
+  { t: 2331, nome:"Diego N.",     msg:"desse jeito daria anos pra ficar pronto" },
+  { t: 2337, nome:"Sandra M.",    msg:"sozinha eu jamais teria tempo pra tudo isso" },
+  { t: 2343, nome:"Juliana S.",   msg:"com a minha rotina? impossível 😵" },
   { t: 2545, nome:"Carla M.",     msg:"esse plano de 3 passos ficou claro demais" },
 
   { t: 2760, nome:"Prof. Manoel", host:true, msg:"Quem tá ao vivo comigo agora? Deixa um 🔥 no chat." },
@@ -264,6 +319,20 @@ var CHAT = [
 
   { t: 3334, nome:"Emily R.",     msg:"os depoimentos são reais demais" },
   { t: 3344, nome:"Nádia (IFRN)", msg:"passei com o método, confirmo tudo 🙌" },
+
+  // 01:03:59: Manoel mostra a plataforma (cronograma interativo + escolha de áreas)
+  { t: 3839, nome:"Aline P.",     msg:"que plataforma linda 😍 o cronograma se monta sozinho" },
+  { t: 3846, nome:"Diego N.",     msg:"amei poder escolher as minhas áreas" },
+  { t: 3852, nome:"Sandra M.",    msg:"muito intuitiva, dá pra usar sem enrolação" },
+  { t: 3858, nome:"Rafael G.",    msg:"e é plataforma própria de vocês? top demais" },
+  { t: 3864, nome:"Juliana S.",   msg:"o cronograma interativo é tudo que eu precisava 🙌" },
+  { t: 3870, nome:"Camila R.",    msg:"isso facilita MUITO a minha rotina" },
+  // 01:05:12: materiais enxutos da plataforma
+  { t: 3912, nome:"Bruno C.",     msg:"materiais enxutos assim é o sonho, direto ao ponto" },
+  { t: 3918, nome:"Tatiane L.",   msg:"nada de PDF de 500 páginas, amei 🙌" },
+  { t: 3924, nome:"Diego N.",     msg:"só o que cai, do jeito que tem que ser" },
+  { t: 3930, nome:"Aline P.",     msg:"isso economiza MUITO tempo de estudo" },
+  { t: 3936, nome:"Sandra M.",    msg:"material curto e certeiro, perfeito pra minha rotina" },
 
   { t: 4180, nome:"Paulo H.",     msg:"como faço pra entrar no Dossiê?" },
   { t: 4360, nome:"Prof. Manoel", host:true, msg:"Deixei o link aqui embaixo: garante e aplica o cupom "+CUPOM+" pra manter o desconto ✅", link:DOSSIE_CHECKOUT, linkTxt:"Garantir com cupom "+CUPOM },
@@ -383,7 +452,9 @@ function tickLine(){
     document.getElementById('bonusTitle').textContent=BONUS.titulo;
     document.getElementById('bonusText').textContent=BONUS.texto;
     var bb=document.getElementById('bonusBtn'); bb.href=BONUS.link; bb.textContent=BONUS.btn;
-    document.getElementById('bonus').classList.add('on');
+    var bx=document.getElementById('bonus'); bx.classList.remove('out'); bx.classList.add('on');
+    // some sozinho depois de BONUS_SHOW_MS (não atrapalha o chat nem o clima de ao vivo); o link segue no chat
+    setTimeout(function(){ bx.classList.add('out'); setTimeout(function(){ bx.classList.remove('on'); bx.classList.remove('out'); }, 500); }, BONUS_SHOW_MS);
   }
 
   // máscara entra e sai
@@ -417,7 +488,28 @@ var cupomTarget=nextFriday2359();
 setInterval(function(){ var el=document.getElementById('cupomTimer'); if(!el)return; var lft=cupomTarget-Date.now(); if(lft<=0){cupomTarget=nextFriday2359();lft=cupomTarget-Date.now();} el.textContent='zera em '+fmtLeft(lft); },1000);
 
 // ---------- chat do espectador ----------
-function enviar(){var i=document.getElementById('cin'),v=i.value.trim();if(!v)return;addMsg('Você',v,'eu');i.value='';}
+// ---------- moderação do chat ----------
+// MASCARAR: palavrões comuns (aparecem como c****). BLOQUEAR: conteúdo sensível grave (mensagem não é postada).
+var MOD_MASK=["merd","bost","cacet","caralh","porra","porr","buceta","boceta","foder","fode","fodid","fudid","puta","putaria","puto","viado","viadinho","corno","arromb","desgrac","desgraç","escroto","otari","otári","babac","vagabund","piranha","cuzao","cuzão","xoxota","xereca","boquete","punhet","siririca","pqp","fdp","vsf","vtnc","tnc","krl","idiot","imbecil","otario"];
+var MOD_BLOCK=["estupr","pedofil","pornô","porno","suicid","matar voce","matar você","te matar","nazis","hitler","macaco preto","viadagem"];
+function moderar(t){
+  var low=t.toLowerCase();
+  for(var k=0;k<MOD_BLOCK.length;k++){ if(low.indexOf(MOD_BLOCK[k])>=0) return {block:true}; }
+  var out=t;
+  MOD_MASK.forEach(function(w){
+    try{ var re=new RegExp('(?<![\\p{L}])'+w+'\\p{L}*','giu');
+      out=out.replace(re,function(m){ return m.charAt(0)+Array(Math.max(2,m.length)).join('*'); });
+    }catch(e){ var re2=new RegExp(w+'[a-zà-ú]*','gi');
+      out=out.replace(re2,function(m){ return m.charAt(0)+Array(Math.max(2,m.length)).join('*'); }); }
+  });
+  return {block:false, texto:out};
+}
+function enviar(){
+  var i=document.getElementById('cin'), v=i.value.trim(); if(!v) return;
+  var r=moderar(v);
+  if(r.block){ i.value=''; i.style.borderColor='#ff4d4d'; setTimeout(function(){ i.style.borderColor=''; },700); return; }
+  addMsg('Você', r.texto, 'eu'); i.value='';
+}
 document.getElementById('cin').addEventListener('keydown',function(e){if(e.key==='Enter')enviar();});
 
 // ---------- telespectadores 50–100 (caminhada suave) ----------

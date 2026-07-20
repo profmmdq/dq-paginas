@@ -7,13 +7,13 @@
 <meta name="description" content="Aula ao vivo com o Prof. Manoel Machado sobre a maior expansão da Rede Federal. Entre na sessão que começa agora ou escolha outro horário.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
   :root{
     --ink:#0f1829;--ink2:#0b1220;--blue:#0c3d64;--green:#104438;
     --acc:#ff751f;--acc2:#ff9a54;--cream:#f1f3e6;--sand:#ecdcc1;
     --line:rgba(241,243,230,.12);--muted:#9aa6b2;
-    --disp:'Bricolage Grotesque',sans-serif;--body:'Hanken Grotesk',system-ui,sans-serif;--mono:'Geist Mono',monospace;}
+    --disp:'Montserrat',sans-serif;--body:'Montserrat',system-ui,sans-serif;--mono:'Geist Mono',monospace;}
   *{margin:0;padding:0;box-sizing:border-box}
   body{font-family:var(--body);color:var(--cream);background:var(--ink2);-webkit-font-smoothing:antialiased;line-height:1.5}
   .bg{position:fixed;inset:0;z-index:-1;background:
@@ -60,6 +60,14 @@
   .lerr{color:#ff9a9a;font-size:13px;min-height:0}
   .lerr.on{min-height:18px;margin-top:-2px}
   .lprivacy{color:var(--muted);font-size:12px;margin-top:12px;text-align:center}
+  .hlabel{font-family:var(--mono);font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted);margin:8px 2px 2px}
+  .hopts{display:grid;gap:8px}
+  .hopt{display:flex;align-items:center;gap:12px;background:rgba(241,243,230,.04);border:1.5px solid var(--line);border-radius:12px;padding:13px 15px;cursor:pointer;transition:border-color .15s ease,background .15s ease}
+  .hopt:hover{border-color:rgba(255,117,31,.5)}
+  .hopt.sel{border-color:var(--acc);background:rgba(255,117,31,.09)}
+  .hopt input{accent-color:var(--acc);width:18px;height:18px;flex:none}
+  .hopt .ht{font-family:var(--disp);font-weight:800;color:var(--cream);font-size:15px}
+  .hopt .hd{margin-left:auto;color:var(--acc2);font-family:var(--mono);font-size:12.5px;white-space:nowrap}
   .or{display:flex;align-items:center;gap:14px;color:var(--muted);font-family:var(--mono);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;margin:22px 4px 16px}
   .or::before,.or::after{content:"";flex:1;height:1px;background:var(--line)}
   .slots{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}
@@ -110,25 +118,17 @@
   </div>
 
   <div class="panel capture" id="capture">
-    <div class="lab">Antes de entrar, garanta sua vaga</div>
+    <div class="lab">Garanta sua vaga e escolha o horário</div>
     <form id="leadForm" novalidate>
       <input id="lnome" type="text" placeholder="Seu nome" autocomplete="name" required>
       <input id="lwhats" type="tel" placeholder="Seu WhatsApp com DDD" autocomplete="tel" inputmode="numeric" required>
       <input id="lemail" type="email" placeholder="Seu melhor e-mail" autocomplete="email" required>
+      <div class="hlabel">Qual horário fica melhor pra você?</div>
+      <div class="hopts" id="hopts"></div>
       <div class="lerr" id="lerr"></div>
-      <button class="btn" type="submit">Continuar →</button>
+      <button class="btn" type="submit">Confirmar minha vaga →</button>
     </form>
     <p class="lprivacy">Usamos seu contato só pra te enviar o link e os lembretes da aula.</p>
-  </div>
-
-  <div id="choose" hidden>
-    <div class="panel">
-      <div class="lab">Próxima sessão começa em</div>
-      <div class="timer" id="timer">10:00</div>
-      <button class="btn" onclick="entrarAgora()">Entrar na aula que começa agora →</button>
-    </div>
-    <div class="or">ou agende para outro horário</div>
-    <div class="slots" id="slots"></div>
   </div>
 
   <div class="proof">
@@ -171,16 +171,19 @@ document.getElementById('leadForm').addEventListener('submit', function(e){
   var nome=document.getElementById('lnome').value.trim();
   var whats=soDigitos(document.getElementById('lwhats').value);
   var email=document.getElementById('lemail').value.trim();
+  var sel=document.querySelector('input[name="horario"]:checked');
   var err=document.getElementById('lerr');
   if(nome.length<2){ err.textContent='Escreve seu nome, por favor.'; err.classList.add('on'); return; }
   if(whats.length<10){ err.textContent='Coloca seu WhatsApp com DDD.'; err.classList.add('on'); return; }
   if(!/^\S+@\S+\.\S+$/.test(email)){ err.textContent='Coloca um e-mail válido.'; err.classList.add('on'); return; }
+  if(!sel){ err.textContent='Escolhe um horário pra continuar.'; err.classList.add('on'); return; }
   err.textContent=''; err.classList.remove('on');
   LEAD={nome:nome, whats:whats, email:email};
   try{ localStorage.setItem('web_lead', JSON.stringify({nome:nome,whats:whats,email:email,origem:'webinar',ts:Date.now()})); }catch(e2){}
   try{ (window.dataLayer=window.dataLayer||[]).push({event:'lead_webinar', nome:nome, whats:whats, email:email}); }catch(e2){}
-  document.getElementById('capture').style.display='none';
-  document.getElementById('choose').hidden=false;
+  enviarLead(sel.value);   // manda nome/email/telefone + HORARIO pro Unnichat de uma vez
+  if(sel.dataset.nav==='sala'){ location.href='sala-de-espera.html'; }
+  else { location.href='obrigado.html?h='+encodeURIComponent(sel.dataset.h||'')+'&d='+encodeURIComponent(sel.dataset.d||''); }
 });
 // envia nome/email/telefone + HORÁRIO escolhido pro CRM/Unnichat (sendBeacon aguenta a troca de página)
 function enviarLead(horario){
@@ -199,18 +202,25 @@ function enviarLead(horario){
 var start = Date.now() + JIT_MIN*60*1000;
 try{ localStorage.setItem('web_start', start); }catch(e){}
 function pad(n){return (n<10?'0':'')+n;}
-function tick(){var el=document.getElementById('timer');if(!el)return;var d=start-Date.now();if(d<0)d=0;var m=Math.floor(d/60000),s=Math.floor(d%60000/1000);el.textContent=pad(m)+':'+pad(s);}
-tick(); setInterval(tick,1000);
-function entrarAgora(){ enviarLead('Sessão imediata'); location.href='sala-de-espera.html'; }
-var box=document.getElementById('slots'), now=new Date();
+
+// monta as opções de horário DENTRO do formulário
+var hopts=document.getElementById('hopts'), now=new Date();
+var lAgora=document.createElement('label'); lAgora.className='hopt';
+lAgora.innerHTML='<input type="radio" name="horario" value="Sessão imediata" data-nav="sala"><span class="ht">Entrar agora</span><span class="hd" id="agoraCd">começa em 10:00</span>';
+hopts.appendChild(lAgora);
 SLOTS.forEach(function(hm){
   var p=hm.split(':'),dt=new Date();dt.setHours(+p[0],+p[1],0,0);
   var dia=dt.getTime()>now.getTime()?'Hoje':'Amanhã';
-  var b=document.createElement('button');b.className='slot';
-  b.innerHTML='<div class="h">'+hm+'</div><div class="d">'+dia+' · reservar</div>';
-  b.onclick=function(){ enviarLead(dia+' '+hm); location.href='obrigado.html?h='+encodeURIComponent(hm)+'&d='+encodeURIComponent(dia); };
-  box.appendChild(b);
+  var l=document.createElement('label'); l.className='hopt';
+  l.innerHTML='<input type="radio" name="horario" value="'+dia+' '+hm+'" data-h="'+hm+'" data-d="'+dia+'" data-nav="obrigado"><span class="ht">'+dia+'</span><span class="hd">'+hm+'</span>';
+  hopts.appendChild(l);
 });
+hopts.addEventListener('change', function(){
+  Array.prototype.forEach.call(hopts.querySelectorAll('.hopt'), function(l){ l.classList.toggle('sel', l.querySelector('input').checked); });
+});
+// contagem ao vivo na opção "Entrar agora"
+function tick(){ var el=document.getElementById('agoraCd'); if(!el)return; var d=start-Date.now(); if(d<0)d=0; var m=Math.floor(d/60000),s=Math.floor(d%60000/1000); el.textContent='começa em '+pad(m)+':'+pad(s); }
+tick(); setInterval(tick,1000);
 </script>
 </body>
 </html>
