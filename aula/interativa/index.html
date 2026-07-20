@@ -36,14 +36,14 @@
   .phost vturb-smartplayer{width:100%;display:block}
   .cont{position:absolute;right:14px;bottom:14px;z-index:4;display:none;background:var(--acc);color:var(--ink2);border:0;border-radius:11px;font-weight:800;font-family:var(--body);font-size:14px;padding:11px 18px;cursor:pointer;box-shadow:0 12px 26px -12px rgba(255,117,31,.85)}
   .cont.on{display:inline-block}
-  .over{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;align-items:center;padding:clamp(18px,4vw,42px);text-align:center;animation:fade .4s ease}
+  .over{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;align-items:center;padding:clamp(18px,4vw,42px);text-align:center;animation:fade .4s ease;backdrop-filter:blur(22px) saturate(.9);-webkit-backdrop-filter:blur(22px) saturate(.9)}
   .over.on{display:flex}
-  .over::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,24,41,.4),rgba(11,18,32,.93))}
+  .over::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,18,32,.86),rgba(11,18,32,.95))}
   .over>*{position:relative;z-index:2}
   @keyframes fade{from{opacity:0}to{opacity:1}}
-  .over .q{font-family:var(--disp);font-weight:800;font-size:clamp(20px,3.6vw,30px);line-height:1.15;margin-bottom:22px;max-width:640px;text-wrap:balance}
+  .over .q{font-family:var(--disp);font-weight:800;font-size:clamp(20px,3.6vw,30px);line-height:1.15;margin-bottom:22px;max-width:640px;text-wrap:balance;color:var(--cream);text-shadow:0 2px 16px rgba(0,0,0,.7)}
   .opts{display:grid;gap:11px;width:100%;max-width:520px}
-  .opt{background:rgba(241,243,230,.06);border:1.5px solid var(--line);color:var(--cream);font-family:var(--body);font-weight:600;font-size:16px;padding:16px 20px;border-radius:13px;cursor:pointer;transition:all .18s ease;display:flex;align-items:center;gap:12px}
+  .opt{background:rgba(9,15,26,.62);border:1.5px solid rgba(241,243,230,.28);color:var(--cream);font-family:var(--body);font-weight:600;font-size:16px;padding:16px 20px;border-radius:13px;cursor:pointer;transition:all .18s ease;display:flex;align-items:center;gap:12px;text-shadow:0 1px 6px rgba(0,0,0,.5)}
   .opt:hover{border-color:var(--acc);background:rgba(255,117,31,.12);transform:translateY(-2px)}
   .opt .n{font-family:var(--mono);color:var(--acc);font-size:14px}
   .lower{position:absolute;left:16px;bottom:16px;z-index:3;display:none;align-items:center;gap:9px;background:rgba(11,18,32,.72);backdrop-filter:blur(6px);border:1px solid var(--line);border-radius:12px;padding:8px 14px 8px 10px}
@@ -52,10 +52,13 @@
   .lower .nm{font-family:var(--disp);font-weight:800;font-size:14px;line-height:1.1}
   .lower .in{font-size:11.5px;color:var(--sand)}
   /* cartão de conexão (frase animada antes de cada vídeo) */
-  .inter{position:absolute;inset:0;display:none;align-items:center;justify-content:center;text-align:center;padding:clamp(20px,5vw,52px);z-index:5;background:linear-gradient(180deg,rgba(12,61,100,.55),rgba(11,18,32,.93))}
+  .inter{position:absolute;inset:0;display:none;align-items:center;justify-content:center;text-align:center;padding:clamp(20px,5vw,52px);z-index:5;background:linear-gradient(180deg,rgba(11,18,32,.88),rgba(11,18,32,.95));backdrop-filter:blur(22px) saturate(.9);-webkit-backdrop-filter:blur(22px) saturate(.9)}
   .inter.on{display:flex}
-  .inter .itxt{font-family:var(--disp);font-weight:800;font-size:clamp(22px,4.4vw,42px);line-height:1.12;max-width:720px;color:var(--cream);opacity:0;transform:translateY(18px);text-wrap:balance;letter-spacing:-.5px}
+  .inter .itxt{font-family:var(--disp);font-weight:800;font-size:clamp(22px,4.4vw,42px);line-height:1.12;max-width:720px;color:var(--cream);opacity:0;transform:translateY(18px);text-wrap:balance;letter-spacing:-.5px;text-shadow:0 2px 18px rgba(0,0,0,.6)}
   .inter .itxt em{font-style:normal;color:var(--acc2)}
+  .ihint{position:absolute;left:0;right:0;bottom:18px;text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);opacity:0;pointer-events:none}
+  .inter.on .ihint{animation:hintin .6s ease .9s forwards}
+  @keyframes hintin{to{opacity:.7}}
   .inter.on .itxt{animation:interin .7s cubic-bezier(.16,.84,.44,1) forwards}
   @keyframes interin{to{opacity:1;transform:none}}
   /* portão de captação (antes do play) */
@@ -107,6 +110,11 @@
     .inter .itxt{margin:auto;padding:26px 18px}
     .opt{font-size:15px;padding:14px 16px}
     .over .q{font-size:clamp(19px,5.4vw,26px)}
+    /* tag de nome do depoimento menor no mobile (não cobrir o rosto) */
+    .lower{left:9px;bottom:9px;padding:5px 10px 5px 7px;gap:7px;border-radius:10px}
+    .lower .dot{width:22px;height:22px;font-size:11px}
+    .lower .nm{font-size:11.5px}
+    .lower .in{font-size:9.5px}
   }
   .vk{font-family:var(--mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--acc)}
   .vh{font-family:var(--disp);font-weight:800;font-size:clamp(22px,3.4vw,30px);line-height:1.1;letter-spacing:-.5px;margin:10px 0 10px;text-align:left}
@@ -144,12 +152,11 @@
     <span class="tag">Aula interativa</span>
   </header>
   <span class="kicker">Aula que se adapta a você</span>
-  <h1 id="titulo">A sua aula do IF começa agora</h1>
+  <h1 id="titulo">Sua aula do IF, feita pra você</h1>
 
   <div class="stage" id="stage">
     <div id="phost" class="phost"></div>
     <video id="vid" playsinline controls preload="auto" poster="assets/manoel-hero.jpg" style="display:none"></video>
-    <button class="cont" id="contBtn">Continuar →</button>
     <div class="lower" id="lower"></div>
     <div class="over" id="over">
       <div class="overbox">
@@ -157,7 +164,7 @@
         <div class="opts" id="opts"></div>
       </div>
     </div>
-    <div class="inter" id="inter"><div class="itxt" id="itxt"></div></div>
+    <div class="inter" id="inter"><div class="itxt" id="itxt"></div><div class="ihint">toque para continuar</div></div>
     <div class="gate on" id="gate">
       <div class="gatebox">
         <div class="gk">Antes de começar</div>
@@ -215,30 +222,29 @@ var FLOW = {
     vturb: "vid-6a5d6fccf99f53d640a0d916",
     question: "Pra eu te mostrar o caminho certo, me conta: qual é a sua formação hoje?",
     options: [
-      { label: "Graduação", tag: "graduacao", next: "ramo_graduacao" },
-      { label: "Especialização", tag: "especializacao", next: "ramo_pos" },
-      { label: "Mestrado", tag: "mestrado", next: "ramo_pos" },
-      { label: "Doutorado", tag: "doutorado", next: "ramo_pos" }
+      { label: "Graduação", tag: "graduacao", bridge:"Tá só no comecinho? Perfeito. Deixa eu te mostrar <em>aonde</em> essa jornada pode te levar.", next: "ramo_graduacao" },
+      { label: "Especialização", tag: "especializacao", bridge:"Com a especialização você já tem base. Agora é sobre <em>estratégia</em>, e é disso que eu vou falar.", next: "ramo_pos" },
+      { label: "Mestrado", tag: "mestrado", bridge:"Mestrado pesa no currículo, mas <em>não</em> é o que decide na hora da prova. Olha o que realmente conta.", next: "ramo_pos" },
+      { label: "Doutorado", tag: "doutorado", bridge:"Doutor e mesmo assim travando? O próximo trecho mostra <em>exatamente</em> por quê.", next: "ramo_pos" }
     ]
   },
-  "ramo_graduacao": { intro:"Você está <em>mais perto</em> do que imagina. Deixa eu te mostrar essa carreira por dentro.", vturb: "vid-6a5d55f3b4c6fc11584af765", next: "depo_graduacao" },
-  "ramo_pos":       { intro:"Título <em>não</em> é o problema. Deixa eu te mostrar o que realmente reprova.", vturb: "vid-6a5d55e735816a3453811322", next: "depo_pos" },
+  "ramo_graduacao": { vturb: "vid-6a5d55f3b4c6fc11584af765", next: "depo_graduacao" },
+  "ramo_pos":       { vturb: "vid-6a5d55e735816a3453811322", next: "depo_pos" },
   // depoimentos reais já hospedados — trocar entre video-1/2/3 se quiser outro aluno
   "depo_graduacao": { intro:"Não sou só eu quem diz. Olha <em>quem já conseguiu</em>.", video: DEPO+"/depoimento-video-1.mp4", caption:{nome:"Fábio", inst:"aprovado no IFAC"}, next: "tempo" },
   "depo_pos":       { intro:"Não sou só eu quem diz. Olha <em>quem já conseguiu</em>.", video: DEPO+"/depoimento-video-3.mp4", caption:{nome:"Jocielle", inst:"aprovada no IFS"}, next: "tempo" },
   "tempo": {
-    intro: "Falta de tempo <em>não</em> é desculpa. É estratégia. Vamos falar disso.",
+    intro: "Achou que precisava de <em>mil</em> videoaulas e PDFs pra chegar lá? No método DQ é o contrário: material focado só no IF e uma plataforma inteligente, pro mesmo resultado que você acabou de ver, sem se afogar em conteúdo.",
     vturb: "vid-6a5d55e0e468b20156260404",
     question: "E quanto tempo por dia você consegue estudar?",
     options: [
-      { label: "Menos de 1 hora", tag: "t1", next: "fecho" },
-      { label: "1 a 2 horas", tag: "t2", next: "fecho" },
-      { label: "Mais de 2 horas", tag: "t3", next: "fecho" }
+      { label: "Menos de 1 hora", tag: "t1", bridge:"Menos de 1 hora por dia? Então <em>simplicidade</em> é tudo: um sistema com 2 únicos eixos. É o que vem agora.", next: "fecho" },
+      { label: "1 a 2 horas", tag: "t2", bridge:"1 a 2 horas por dia rende, se for <em>direcionado</em>: um sistema simples, com 2 únicos eixos. Olha só.", next: "fecho" },
+      { label: "Mais de 2 horas", tag: "t3", bridge:"Mais de 2 horas é ótimo, se não for <em>desperdiçado</em>. O segredo é um sistema com 2 únicos eixos.", next: "fecho" }
     ]
   },
-  // FECHO: cartão -> vídeo do método -> e SÓ DEPOIS a pergunta do método
+  // FECHO: (bridge da resposta do tempo) -> vídeo do método -> e SÓ DEPOIS a pergunta do método
   "fecho": {
-    intro: "Com o tempo que você tem, você precisa de um <em>sistema simples</em>, com 2 únicos eixos.",
     vturb: "vid-6a5d55d8f289d49cf592408d",
     question: "Quer conhecer o método e a plataforma que fazem tudo isso por você?",
     options: [
@@ -269,16 +275,23 @@ function setLower(c){
   else { lower.classList.remove('on'); }
 }
 var inter=document.getElementById('inter'), itxt=document.getElementById('itxt');
-var INTER_MS = 4200;  // tempo que cada cartão de conexão fica na tela (ms)
+// tempo de leitura: proporcional ao tamanho do texto (nunca some antes de dar pra ler).
+// Além do tempo, dá pra TOCAR no cartão pra avançar.
+var INTER_MIN = 5200, INTER_MAX = 11000, INTER_PER_CHAR = 80, INTER_BASE = 1800;
+function plainLen(html){ var d=document.createElement('div'); d.innerHTML=html; return (d.textContent||'').length; }
 function showInter(html, cb){
   itxt.innerHTML=html; inter.classList.add('on');
   itxt.style.animation='none'; void itxt.offsetWidth; itxt.style.animation='';
-  setTimeout(function(){ inter.classList.remove('on'); if(cb) cb(); }, INTER_MS);
+  var ms=Math.min(INTER_MAX, Math.max(INTER_MIN, plainLen(html)*INTER_PER_CHAR + INTER_BASE));
+  var done=false, t;
+  function adv(){ if(done) return; done=true; clearTimeout(t); inter.onclick=null; inter.classList.remove('on'); if(cb) cb(); }
+  t=setTimeout(adv, ms);
+  inter.onclick=adv;   // toque avança antes do tempo
 }
-function go(id){
+function go(id, skipIntro){
   curId=id; over.classList.remove('on');
   var node=FLOW[id];
-  if(node.intro){ showInter(node.intro, function(){ enter(node); }); }
+  if(node.intro && !skipIntro){ showInter(node.intro, function(){ enter(node); }); }
   else { enter(node); }
 }
 function enter(node){
@@ -331,15 +344,15 @@ function hookVturbEnded(id, cb){
         if(inst&&typeof inst.on==='function'){ inst.on('ended', fire); ok=true; clearInterval(poll); return; }
       }
     }catch(e){}
-    if(tries>=20){ clearInterval(poll); if(!ok){ showCont(cb); } } // ~5s sem API -> botão Continuar
+    if(tries>=20){ clearInterval(poll); } // sem botão de fallback (removido a pedido)
   },250);
 }
-function showCont(cb){ contBtn.classList.add('on'); contBtn.onclick=function(){ contBtn.classList.remove('on'); cb(); }; }
-function hideCont(){ contBtn.classList.remove('on'); }
+function showCont(cb){ /* botão Continuar removido a pedido */ }
+function hideCont(){ if(contBtn) contBtn.classList.remove('on'); }
 function showDecision(node){
   document.getElementById('qtext').textContent=node.question;
   var box=document.getElementById('opts');box.innerHTML='';
-  node.options.forEach(function(op,i){var b=document.createElement('button');b.className='opt';b.innerHTML='<span class="n">'+(i+1)+'</span><span>'+op.label+'</span>';b.onclick=function(){ANSWERS[node.question.slice(0,16)]=op.tag;tagsRender();go(op.next);};box.appendChild(b);});
+  node.options.forEach(function(op,i){var b=document.createElement('button');b.className='opt';b.innerHTML='<span class="n">'+(i+1)+'</span><span>'+op.label+'</span>';b.onclick=function(){ANSWERS[node.question.slice(0,16)]=op.tag;tagsRender();over.classList.remove('on');if(op.bridge){showInter(op.bridge,function(){go(op.next,true);});}else{go(op.next);}};box.appendChild(b);});
   over.classList.add('on');
 }
 function finish(node){
