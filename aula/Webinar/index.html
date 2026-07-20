@@ -62,12 +62,12 @@
   .lprivacy{color:var(--muted);font-size:12px;margin-top:12px;text-align:center}
   .hlabel{font-family:var(--mono);font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted);margin:8px 2px 2px}
   .hopts{display:grid;gap:8px}
-  .hopt{display:flex;align-items:center;gap:12px;background:rgba(241,243,230,.04);border:1.5px solid var(--line);border-radius:12px;padding:13px 15px;cursor:pointer;transition:border-color .15s ease,background .15s ease}
+  .hopt{display:flex;align-items:center;gap:12px;width:100%;background:rgba(241,243,230,.04);border:1.5px solid var(--line);border-radius:12px;padding:14px 16px;cursor:pointer;transition:border-color .15s ease,background .15s ease}
   .hopt:hover{border-color:rgba(255,117,31,.5)}
   .hopt.sel{border-color:var(--acc);background:rgba(255,117,31,.09)}
-  .hopt input{accent-color:var(--acc);width:18px;height:18px;flex:none}
-  .hopt .ht{font-family:var(--disp);font-weight:800;color:var(--cream);font-size:15px}
-  .hopt .hd{margin-left:auto;color:var(--acc2);font-family:var(--mono);font-size:12.5px;white-space:nowrap}
+  .hopt input{accent-color:var(--acc);width:18px;height:18px;flex:0 0 auto;margin:0}
+  .hopt .ht{flex:1 1 auto;min-width:0;font-family:var(--disp);font-weight:700;color:var(--cream);font-size:15px;line-height:1.2}
+  .hopt .hd{flex:0 0 auto;color:var(--acc2);font-family:var(--mono);font-size:12.5px;white-space:nowrap}
   .or{display:flex;align-items:center;gap:14px;color:var(--muted);font-family:var(--mono);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;margin:22px 4px 16px}
   .or::before,.or::after{content:"";flex:1;height:1px;background:var(--line)}
   .slots{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}
@@ -193,9 +193,13 @@ function enviarLead(horario){
   var p=new URLSearchParams();
   p.set('nome',LEAD.nome); p.set('email',LEAD.email); p.set('telefone',LEAD.whats);
   p.set('horario',horario); p.set('origem','webinar');
+  var urlComQuery = LEAD_ENDPOINT + (LEAD_ENDPOINT.indexOf('?')>-1?'&':'?') + p.toString();
   try{
+    // 1) manda os dados na URL (GET) — jeito que o "start" do Unnichat lê melhor
+    new Image().src = urlComQuery;
+    // 2) reforça no corpo (POST), pra quem lê o body
     if(navigator.sendBeacon){ navigator.sendBeacon(LEAD_ENDPOINT, p); }
-    else { fetch(LEAD_ENDPOINT,{method:'POST',mode:'no-cors',keepalive:true,headers:{'Content-Type':'application/x-www-form-urlencoded'},body:p.toString()}); }
+    else { fetch(urlComQuery,{method:'POST',mode:'no-cors',keepalive:true,headers:{'Content-Type':'application/x-www-form-urlencoded'},body:p.toString()}); }
   }catch(e){}
 }
 
