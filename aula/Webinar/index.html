@@ -159,12 +159,13 @@
 /* ================= CONFIG ================= */
 var JIT_MIN = 10;                         // a "próxima sessão" começa daqui a X minutos
 var SLOTS   = ["10:00","15:00","20:00"];  // 3 horários por dia para agendar
-var LEAD_ENDPOINT = "";                    // (opcional) URL de webhook pra receber o lead via POST JSON.
-                                           // Vazio = só salva no navegador + dispara evento no dataLayer.
+var LEAD_ENDPOINT = "https://unnichat.com.br/a/start/dYp8pWleoxd0Gt1oCIv0";  // webhook Unnichat do WEBINAR
+                                           // Envia nome, email, telefone e HORARIO no momento em que a pessoa escolhe.
 /* ========================================== */
 
 // ---- captura de lead ----
 function soDigitos(s){return (s||'').replace(/\D/g,'');}
+var LEAD=null; // guardado no submit; enviado ao CRM junto do horário quando a pessoa escolhe
 document.getElementById('leadForm').addEventListener('submit', function(e){
   e.preventDefault();
   var nome=document.getElementById('lnome').value.trim();
@@ -175,27 +176,39 @@ document.getElementById('leadForm').addEventListener('submit', function(e){
   if(whats.length<10){ err.textContent='Coloca seu WhatsApp com DDD.'; err.classList.add('on'); return; }
   if(!/^\S+@\S+\.\S+$/.test(email)){ err.textContent='Coloca um e-mail válido.'; err.classList.add('on'); return; }
   err.textContent=''; err.classList.remove('on');
-  var lead={nome:nome, whats:whats, email:email, origem:'webinar', ts:Date.now()};
-  try{ localStorage.setItem('web_lead', JSON.stringify(lead)); }catch(e2){}
+  LEAD={nome:nome, whats:whats, email:email};
+  try{ localStorage.setItem('web_lead', JSON.stringify({nome:nome,whats:whats,email:email,origem:'webinar',ts:Date.now()})); }catch(e2){}
   try{ (window.dataLayer=window.dataLayer||[]).push({event:'lead_webinar', nome:nome, whats:whats, email:email}); }catch(e2){}
-  if(LEAD_ENDPOINT){ try{ fetch(LEAD_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(lead)}); }catch(e2){} }
   document.getElementById('capture').style.display='none';
-  var ch=document.getElementById('choose'); ch.hidden=false;
+  document.getElementById('choose').hidden=false;
 });
+// envia nome/email/telefone + HORÁRIO escolhido pro CRM/Unnichat (sendBeacon aguenta a troca de página)
+function enviarLead(horario){
+  try{ localStorage.setItem('web_horario', horario); }catch(e){}
+  try{ (window.dataLayer=window.dataLayer||[]).push({event:'agendou_webinar', horario:horario}); }catch(e){}
+  if(!LEAD || !LEAD_ENDPOINT) return;
+  var p=new URLSearchParams();
+  p.set('nome',LEAD.nome); p.set('email',LEAD.email); p.set('telefone',LEAD.whats);
+  p.set('horario',horario); p.set('origem','webinar');
+  try{
+    if(navigator.sendBeacon){ navigator.sendBeacon(LEAD_ENDPOINT, p); }
+    else { fetch(LEAD_ENDPOINT,{method:'POST',mode:'no-cors',keepalive:true,headers:{'Content-Type':'application/x-www-form-urlencoded'},body:p.toString()}); }
+  }catch(e){}
+}
 
 var start = Date.now() + JIT_MIN*60*1000;
 try{ localStorage.setItem('web_start', start); }catch(e){}
 function pad(n){return (n<10?'0':'')+n;}
 function tick(){var el=document.getElementById('timer');if(!el)return;var d=start-Date.now();if(d<0)d=0;var m=Math.floor(d/60000),s=Math.floor(d%60000/1000);el.textContent=pad(m)+':'+pad(s);}
 tick(); setInterval(tick,1000);
-function entrarAgora(){ location.href='sala-de-espera.html'; }
+function entrarAgora(){ enviarLead('Sessão imediata'); location.href='sala-de-espera.html'; }
 var box=document.getElementById('slots'), now=new Date();
 SLOTS.forEach(function(hm){
   var p=hm.split(':'),dt=new Date();dt.setHours(+p[0],+p[1],0,0);
   var dia=dt.getTime()>now.getTime()?'Hoje':'Amanhã';
   var b=document.createElement('button');b.className='slot';
   b.innerHTML='<div class="h">'+hm+'</div><div class="d">'+dia+' · reservar</div>';
-  b.onclick=function(){location.href='obrigado.html?h='+encodeURIComponent(hm)+'&d='+encodeURIComponent(dia);};
+  b.onclick=function(){ enviarLead(dia+' '+hm); location.href='obrigado.html?h='+encodeURIComponent(hm)+'&d='+encodeURIComponent(dia); };
   box.appendChild(b);
 });
 </script>
