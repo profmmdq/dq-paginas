@@ -97,6 +97,17 @@
   .vendas.on{display:block}
   .dossie-frame{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 30px 70px -34px rgba(0,0,0,.6)}
   .dossie-frame iframe{width:100%;height:82vh;border:0;display:block}
+
+  /* MOBILE: overlays não podem ficar presos no quadro 16:9 (senão cortam) */
+  @media(max-width:640px){
+    .over{position:fixed;inset:0;z-index:60;overflow-y:auto;justify-content:flex-start;padding:0}
+    .over::before{position:fixed}
+    .overbox{margin:auto;width:100%;max-width:520px;padding:26px 18px}
+    .inter{position:fixed;inset:0;z-index:55;overflow-y:auto;justify-content:flex-start}
+    .inter .itxt{margin:auto;padding:26px 18px}
+    .opt{font-size:15px;padding:14px 16px}
+    .over .q{font-size:clamp(19px,5.4vw,26px)}
+  }
   .vk{font-family:var(--mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--acc)}
   .vh{font-family:var(--disp);font-weight:800;font-size:clamp(22px,3.4vw,30px);line-height:1.1;letter-spacing:-.5px;margin:10px 0 10px;text-align:left}
   .vsub{color:rgba(241,243,230,.82);margin-bottom:22px}
@@ -141,8 +152,10 @@
     <button class="cont" id="contBtn">Continuar →</button>
     <div class="lower" id="lower"></div>
     <div class="over" id="over">
-      <div class="q" id="qtext"></div>
-      <div class="opts" id="opts"></div>
+      <div class="overbox">
+        <div class="q" id="qtext"></div>
+        <div class="opts" id="opts"></div>
+      </div>
     </div>
     <div class="inter" id="inter"><div class="itxt" id="itxt"></div></div>
     <div class="gate on" id="gate">
