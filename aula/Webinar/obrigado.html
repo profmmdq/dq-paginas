@@ -63,13 +63,13 @@
 
 <script>
 /* ================= CONFIG ================= */
-var COMERCIAL = "5599999999999"; // WhatsApp do comercial: só dígitos, com DDI 55. Ex: 5511999999999
+var COMERCIAL = "5511953432311"; // WhatsApp do comercial (Prof. Manoel / DQ IF): só dígitos, com DDI 55
 /* ========================================== */
 var p=new URLSearchParams(location.search), h=p.get('h'), d=p.get('d');
 var quando=((d||'')+' '+(h||'')).trim();
 document.getElementById('quando').textContent=(d?d+' · ':'')+(h||'a combinar');
 var nome=''; try{ nome=(JSON.parse(localStorage.getItem('web_lead')||'{}').nome)||''; }catch(e){}
-var msg=(nome?("Oi! Sou "+nome+". "):"Oi! ")+"Agendei minha aula para o horário "+(quando||'combinado')+", quero receber o link.";
+var msg=(nome?("Oi! Sou "+nome+". "):"Oi! ")+"Acabei de agendar a aula ao vivo do Prof. Manoel para "+(quando||'o horário combinado')+" e quero receber o link de acesso. Pode confirmar pra mim?";
 document.getElementById('comercialBtn').href="https://wa.me/"+COMERCIAL+"?text="+encodeURIComponent(msg);
 </script>
 </body>

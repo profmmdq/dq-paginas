@@ -213,7 +213,10 @@ var PRE_SECONDS= 30;
 
 // destinos / textos
 var DOSSIE_CHECKOUT = "https://checkout.dissecandoquestoes.com.br/checkout/lnc-grupos2-dossie-if-2-anos";
-var EQUIPE_WHATS    = "https://wa.link/dq-consultor";
+// nome do lead (se já preencheu na landing) pra personalizar a mensagem pro comercial
+var _wln=''; try{ _wln=(JSON.parse(localStorage.getItem('web_lead')||'{}').nome)||''; }catch(e){}
+var COMERCIAL       = "5511953432311"; // WhatsApp do comercial (Prof. Manoel / DQ IF)
+var EQUIPE_WHATS    = "https://wa.me/"+COMERCIAL+"?text="+encodeURIComponent((_wln?("Oi! Sou "+_wln+". "):"Oi! ")+"Tô na aula ao vivo do Prof. Manoel e quero garantir minha vaga no Dossiê IF com o cupom PLANO250. Pode me ajudar?");
 var BRINDE          = "https://wa.link/brinde-dq";
 var EXPANSAO_LP     = "https://site.dissecandoquestoes.com/lps/expansaoif/";
 var CUPOM           = "PLANO250";
