@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Qual concurso de Perícia combina com você? | Dissecando Questões</title>
+<meta name="description" content="Descubra em 1 minuto qual concurso de Perícia Criminal combina com a sua formação e receba no WhatsApp um diagnóstico com as oportunidades da sua área e do seu estado.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Qual concurso de Perícia combina com a sua formação?">
+<meta property="og:description" content="5 perguntas rápidas. Diagnóstico completo no seu WhatsApp: sua área na Perícia, os concursos chegando e um plano de 2h por dia.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=Work+Sans:wght@400;500;600;700;800&family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#101014; --ink2:#0b0b0e; --blue:#0c3d64; --acc:#f5e000; --acc2:#ffe870;
+    --cream:#f1f3e6; --line:rgba(241,243,230,.14); --muted:#9aa6b2;
+    --disp:'Big Shoulders Display',system-ui,sans-serif;
+    --body:'Work Sans',system-ui,-apple-system,Segoe UI,sans-serif;
+    --mono:'Geist Mono',ui-monospace,monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--body);background:radial-gradient(120% 60% at 50% -8%,#1e1e24 0%,var(--ink) 60%);color:var(--cream);min-height:100vh;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{width:100%;max-width:560px;margin:0 auto;padding:0 22px;min-height:100vh;display:flex;flex-direction:column}
+  a{text-decoration:none}
+
+  /* progress */
+  .prog{position:fixed;top:0;left:0;height:4px;width:0;background:linear-gradient(90deg,var(--acc),var(--acc2));z-index:50;transition:width .4s cubic-bezier(.16,.84,.44,1)}
+
+  .top{padding:26px 0 6px;display:flex;align-items:center;gap:9px}
+  .top .mark{width:26px;height:26px;border-radius:7px;background:var(--acc);display:inline-flex;align-items:center;justify-content:center;box-shadow:0 6px 14px -4px rgba(245,224,0,.7)}
+  .top .mark::after{content:"";width:9px;height:9px;background:#fff;border-radius:2px}
+  .top b{font-family:var(--disp);font-weight:800;font-size:15px;letter-spacing:-.3px}
+  .top span{font-family:var(--mono);font-size:10.5px;letter-spacing:1.6px;text-transform:uppercase;color:var(--muted);margin-left:auto}
+
+  .stage{flex:1;display:flex;flex-direction:column;justify-content:center;padding:14px 0 34px}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:2.6px;text-transform:uppercase;color:var(--acc);font-weight:500;margin-bottom:16px;display:block}
+  h1{font-family:var(--disp);font-weight:800;font-size:clamp(28px,7.5vw,40px);line-height:1.05;letter-spacing:-.8px;margin-bottom:16px;text-wrap:balance}
+  h1 mark{background:linear-gradient(180deg,transparent 58%,rgba(245,224,0,.5) 58%);color:var(--cream);padding:0 2px}
+  .sub{color:rgba(241,243,230,.8);font-size:16px;margin-bottom:26px;max-width:460px}
+  .meta{font-family:var(--mono);font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted);margin-top:20px}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;width:100%;background:var(--acc);color:#0b1220;font-family:var(--body);font-weight:800;font-size:16px;padding:17px 24px;border:0;border-radius:14px;cursor:pointer;box-shadow:0 16px 34px -14px rgba(245,224,0,.8);transition:transform .2s ease}
+  .btn:active{transform:scale(.98)}
+  .btn.ghost{background:transparent;color:var(--cream);border:1px solid var(--line);box-shadow:none;font-weight:600}
+
+  /* question */
+  .qnum{font-family:var(--mono);font-size:12px;letter-spacing:1.6px;color:var(--acc);font-weight:500;margin-bottom:12px}
+  .qh{font-family:var(--disp);font-weight:700;font-size:clamp(21px,5.4vw,27px);line-height:1.18;letter-spacing:-.4px;margin-bottom:22px;text-wrap:balance}
+  .opts{display:flex;flex-direction:column;gap:11px}
+  .opt{display:flex;align-items:center;gap:13px;width:100%;text-align:left;background:rgba(241,243,230,.05);border:1px solid var(--line);color:var(--cream);font-family:var(--body);font-size:15.5px;font-weight:500;padding:16px 18px;border-radius:13px;cursor:pointer;transition:border-color .18s ease,background .18s ease,transform .12s ease}
+  .opt:hover{border-color:rgba(245,224,0,.55);background:rgba(245,224,0,.07)}
+  .opt:active{transform:scale(.99)}
+  .opt .dot{flex:none;width:22px;height:22px;border-radius:50%;border:2px solid rgba(241,243,230,.3);transition:all .18s ease}
+  .opt.sel{border-color:var(--acc);background:rgba(245,224,0,.12)}
+  .opt.sel .dot{border-color:var(--acc);background:var(--acc);box-shadow:inset 0 0 0 3px var(--ink)}
+
+  .back{background:none;border:0;color:var(--muted);font-family:var(--mono);font-size:11px;letter-spacing:1.2px;text-transform:uppercase;cursor:pointer;padding:16px 0 0;align-self:flex-start}
+
+  /* toast reaction */
+  .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:var(--ink2);border:1px solid var(--line);border-radius:999px;padding:11px 20px;font-size:14px;font-weight:600;color:var(--cream);box-shadow:0 20px 40px -18px rgba(0,0,0,.7);opacity:0;pointer-events:none;transition:opacity .3s ease,transform .3s ease;z-index:60;white-space:nowrap;max-width:92vw}
+  .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  /* capture + result */
+  .field{margin-bottom:14px}
+  .field label{display:block;font-size:13.5px;color:var(--muted);margin-bottom:7px;font-weight:600}
+  .field input{width:100%;font-family:var(--body);font-size:16px;padding:15px 16px;border-radius:12px;border:1.5px solid var(--line);background:rgba(241,243,230,.05);color:var(--cream);outline:none;transition:border-color .18s ease}
+  .field input:focus{border-color:var(--acc)}
+  .field input::placeholder{color:rgba(154,166,178,.7)}
+
+  .rcard{background:rgba(241,243,230,.05);border:1px solid var(--line);border-radius:16px;padding:20px;margin:18px 0 22px}
+  .rcard .k{font-family:var(--mono);font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+  .rcard .v{font-family:var(--disp);font-weight:800;font-size:19px;color:var(--acc2);line-height:1.15}
+  .rlist{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-direction:column;gap:10px}
+  .rlist li{display:flex;gap:11px;font-size:14.5px;color:rgba(241,243,230,.85)}
+  .rlist li b{color:var(--cream)}
+  .rlist .ic{flex:none;width:22px;height:22px;border-radius:7px;background:rgba(245,224,0,.16);color:var(--acc);display:flex;align-items:center;justify-content:center;font-size:12px}
+  .foot{font-family:var(--mono);font-size:10px;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted);text-align:center;padding:22px 0 30px}
+  .hidden{display:none}
+  .wa-note{font-size:13px;color:var(--muted);text-align:center;margin-top:14px;line-height:1.5}
+</style>
+</head>
+<body>
+<div class="prog" id="prog"></div>
+<div class="wrap">
+  <div class="top"><span class="mark"></span><b>Dissecando Questões</b><span>Perícia</span></div>
+
+  <!-- COVER -->
+  <div id="cover" class="stage">
+    <span class="eyebrow">Quiz · Perícia Criminal</span>
+    <h1>Qual concurso de Perícia combina com a <mark>sua formação</mark>?</h1>
+    <p class="sub">Em 1 minuto você descobre a sua área dentro da Perícia e recebe no WhatsApp um diagnóstico com as oportunidades da sua formação e do seu estado.</p>
+    <button class="btn" onclick="start()">Começar o diagnóstico →</button>
+    <div class="meta">5 perguntas · sem enrolação · resultado no WhatsApp</div>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="quiz" class="stage hidden">
+    <div class="qnum" id="qnum">01 / 05</div>
+    <div class="qh" id="qh"></div>
+    <div class="opts" id="opts"></div>
+    <button class="back hidden" id="back" onclick="prev()">‹ Voltar</button>
+  </div>
+
+  <!-- CAPTURE (depois das perguntas, antes do diagnóstico) -->
+  <div id="capture" class="stage hidden">
+    <span class="eyebrow">Quase lá</span>
+    <h1 style="font-size:clamp(24px,6vw,32px)">Seu diagnóstico está <mark>pronto</mark>. Pra onde eu envio?</h1>
+    <p class="sub">Preencha pra desbloquear: sua área na Perícia, as áreas de atuação e os editais do seu estado.</p>
+    <div class="field"><label for="nome">Seu primeiro nome</label><input type="text" id="nome" placeholder="Ex: Ana" autocomplete="given-name"></div>
+    <div class="field"><label for="email">Seu melhor e-mail</label><input type="email" id="email" placeholder="voce@email.com" autocomplete="email" inputmode="email"></div>
+    <div class="field"><label for="tel">WhatsApp (com DDD)</label><input type="tel" id="tel" placeholder="(00) 00000-0000" autocomplete="tel" inputmode="tel"></div>
+    <p class="err" id="cerr" style="display:none;color:#ff8a8a;font-size:13px;margin:2px 0 10px">Preencha nome, e-mail e WhatsApp válidos pra ver o diagnóstico.</p>
+    <button class="btn" onclick="submitLead()">Ver meu diagnóstico →</button>
+    <p class="wa-note">Usamos seu contato só pra te enviar o diagnóstico e os avisos de edital da Perícia.</p>
+  </div>
+
+  <!-- RESULT -->
+  <div id="result" class="stage hidden">
+    <span class="eyebrow">Diagnóstico pronto</span>
+    <h1 id="rtitle" style="font-size:clamp(24px,6vw,32px)">Perfil montado!</h1>
+
+    <div class="rcard">
+      <div class="k">Sua porta de entrada na Perícia</div>
+      <div class="v" id="rarea">...</div>
+      <div class="k" style="margin-top:16px">Onde a sua formação atua</div>
+      <ul class="rlist" id="ratua"></ul>
+    </div>
+
+    <div class="rcard" id="reditalCard">
+      <div class="k">Editais no seu radar <span id="rufLabel"></span></div>
+      <div class="v" id="reditalHead" style="font-size:17px">...</div>
+      <div id="reditalBody" style="font-size:14.5px;color:var(--muted);line-height:1.55;margin-top:8px"></div>
+    </div>
+
+    <a class="btn" id="waBtn" href="#" target="_blank" rel="noopener">📲 Falar com a equipe e receber o diagnóstico</a>
+    <p class="wa-note">Você cai direto na conversa da equipe da Dissecando Questões. É lá que o diagnóstico completo chega e você entra no grupo fechado da Perícia.</p>
+  </div>
+
+  <div class="foot">Dissecando Questões · Perícia Criminal · @pericia.dissecadordequestoes</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ====== CONFIG (troque pelo WhatsApp oficial da Perícia) ====== */
+var WHATS = "5511953432311"; // número que dispara a automação do diagnóstico (só dígitos, com DDI 55)
+
+/* ====== PERGUNTAS (o code de cada opção segmenta o lead) ====== */
+var Q = [
+  { n:"01", t:"Vamos começar pelo que mais importa: qual é a sua formação? É ela que abre as portas da Perícia.",
+    tag:"formacao", o:[
+    ["Química / Farmácia / Biomedicina","quimica"],
+    ["Biologia","biologia"],
+    ["Engenharias","engenharia"],
+    ["Computação / TI","ti"],
+    ["Ciências Contábeis / Economia","contabeis"],
+    ["Medicina","medicina"],
+    ["Outra formação","outra"]
+  ]},
+  { n:"02", t:"E como você está agora em relação à Perícia?",
+    tag:"momento", o:[
+    ["Só pesquisando, quero ver se é pra mim","pesquisando"],
+    ["Quero, mas ainda não comecei","quero"],
+    ["Já estudo, mas sem direção","estudando"],
+    ["Já passei em outro concurso","aprovado"]
+  ]},
+  { n:"03", t:"Sendo sincero: quanto tempo por dia você realmente tem pra se dedicar?",
+    tag:"tempo", o:[
+    ["Menos de 1h, rotina corrida","t1"],
+    ["1 a 2 horas","t2"],
+    ["2 a 4 horas","t3"],
+    ["Mais de 4 horas","t4"]
+  ]},
+  { n:"04", t:"Em quanto tempo você quer estar pronto pra prova?",
+    tag:"prazo", o:[
+    ["O quanto antes, quero pegar a onda","agora"],
+    ["Nos próximos 6 meses","6m"],
+    ["Dentro de 1 ano","12m"],
+    ["Sem pressa, com calma","calma"]
+  ]},
+  { n:"05", t:"Por último: onde você quer ser perito?",
+    tag:"estado", o:[
+    ["Maranhão","MA"],["Espírito Santo","ES"],["São Paulo","SP"],
+    ["Rio de Janeiro","RJ"],["Rio Grande do Sul","RS"],["Distrito Federal","DF"],
+    ["Qualquer estado que abrir","QUALQUER"]
+  ]}
+];
+
+/* micro-reações entre as perguntas */
+var REACT = [
+  "🔬 Boa. Já tô cruzando a sua formação com as áreas...",
+  "🧭 Entendi o seu momento.",
+  "⏱ Isso muda o plano. Anotado.",
+  "🎯 Penúltima, segue!",
+  "✅ Fechou! Seu diagnóstico já tá pronto."
+];
+
+/* formação -> área de entrada na Perícia (mostrado no resultado) */
+var AREA = {
+  quimica:"Perícia Química e Toxicologia Forense",
+  biologia:"Perícia Biológica e Genética Forense",
+  engenharia:"Perícia de Engenharia Legal e Crimes contra o Patrimônio",
+  ti:"Perícia em Informática e Crimes Cibernéticos",
+  contabeis:"Perícia Contábil e Financeira",
+  medicina:"Perícia Médico-Legal (Legista)",
+  outra:"Perícia Criminal (várias áreas abrem pra sua formação)"
+};
+
+/* formação -> áreas de atuação (mostradas no diagnóstico) */
+var ATUACAO = {
+  quimica:["Toxicologia forense: drogas, venenos e dosagem alcoólica","Química forense e identificação de substâncias","Resíduos de disparo de arma de fogo","Perícia de incêndios e explosões"],
+  biologia:["Genética forense (análise de DNA)","Biologia forense: sangue, fluidos e vestígios","Entomologia forense (estimativa do tempo de morte)","Coleta e análise de vestígios no local"],
+  engenharia:["Engenharia legal e perícia de estruturas","Perícia de acidentes, incêndios e explosões","Documentoscopia e crimes contra o patrimônio","Balística e perícia de local de crime"],
+  ti:["Informática forense e análise de dispositivos","Investigação de crimes cibernéticos","Recuperação e perícia de dados","Análise de redes e evidências digitais"],
+  contabeis:["Perícia contábil e financeira","Crimes financeiros e lavagem de dinheiro","Rastreamento de fraudes e desvios","Perícia econômica e patrimonial"],
+  medicina:["Perícia médico-legal e necropsia","Traumatologia e antropologia forense","Sexologia forense","Determinação de causa e hora da morte"],
+  outra:["Criminalística e local de crime","Documentoscopia","Áreas de apoio à perícia","Vários editais aceitam formações diversas"]
+};
+
+/* estado -> editais no radar (dados do Radar da Perícia, jul/2026) */
+var EDITAIS = {
+  SP:{h:"São Paulo · 447 vagas",b:"Perito Criminal · banca VUNESP. Concurso em andamento, um dos maiores do país agora."},
+  DF:{h:"Distrito Federal · 315 vagas",b:"Perito Criminal, Médico-Legista e Papiloscopista (PCDF). Edital em preparação, salário de R$ 13,8 mil a R$ 26,7 mil."},
+  MA:{h:"Maranhão · 76 vagas",b:"Perito Criminal, Médico-legista, Odontolegista e Agentes (Cebraspe). Edital autorizado."},
+  RJ:{h:"Rio de Janeiro · 414 vagas",b:"Perito Criminal e Perito Legista, entre outros. Seleção já anunciada."},
+  ES:{h:"Espírito Santo · no radar 2026",b:"Perito Criminal pela Polícia Científica. Previsto e em monitoramento."},
+  RS:{h:"Rio Grande do Sul · em monitoramento",b:"Ainda sem edital aberto no RS. Enquanto isso, as maiores oportunidades do momento são SP (447), RJ (414) e DF (315)."},
+  QUALQUER:{h:"Brasil · vários estados se movendo",b:"As frentes mais quentes agora: SP (447 vagas), RJ (414), DF (315) e MA (76). Novos estados entram no radar a cada mês."}
+};
+
+var idx=0, ans={}, LEAD={};
+function show(id){["cover","capture","quiz","result"].forEach(function(x){document.getElementById(x).classList.toggle('hidden',x!==id);});window.scrollTo(0,0);}
+function setProg(p){document.getElementById('prog').style.width=p+'%';}
+function digits(s){return (s||'').replace(/\D/g,'');}
+var reEmail=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+/* cover -> começa direto pelas perguntas */
+function start(){ idx=0; show('quiz'); render(); }
+
+/* máscara do telefone */
+(function(){ var t=document.getElementById('tel'); if(!t)return;
+  t.addEventListener('input',function(){var d=digits(t.value).slice(0,11),o=d;if(d.length>2)o='('+d.slice(0,2)+') '+d.slice(2);if(d.length>7)o='('+d.slice(0,2)+') '+d.slice(2,7)+'-'+d.slice(7);t.value=o;});
+})();
+
+/* valida a captura (depois das perguntas) e mostra o diagnóstico */
+function submitLead(){
+  var nome=(document.getElementById('nome').value||'').trim();
+  var email=(document.getElementById('email').value||'').trim();
+  var tel=digits(document.getElementById('tel').value);
+  var err=document.getElementById('cerr');
+  if(nome.length<2||!reEmail.test(email)||tel.length<10){ err.style.display='block'; return; }
+  err.style.display='none';
+  LEAD={nome:nome,email:email,telefone:tel};
+  ans.nome=nome;
+  try{ (window.dataLayer=window.dataLayer||[]).push({event:'quiz_pericia_lead',email:email}); }catch(e){}
+  finish();
+}
+
+function render(){
+  var q=Q[idx];
+  document.getElementById('qnum').textContent=q.n+" / 05";
+  document.getElementById('qh').textContent=q.t;
+  setProg(6 + (idx/Q.length)*80);
+  var box=document.getElementById('opts'); box.innerHTML='';
+  q.o.forEach(function(op){
+    var b=document.createElement('button');
+    b.className='opt'+(ans[q.tag]===op[1]?' sel':'');
+    b.innerHTML='<span class="dot"></span><span>'+op[0]+'</span>';
+    b.onclick=function(){ pick(q.tag, op[1]); };
+    box.appendChild(b);
+  });
+  document.getElementById('back').classList.toggle('hidden', idx===0);
+}
+
+function pick(tag, code){
+  ans[tag]=code;
+  toast(REACT[idx]);
+  setTimeout(function(){
+    if(idx < Q.length-1){ idx++; render(); }
+    else { show('capture'); setProg(94); }
+  }, 620);
+}
+function prev(){ if(idx>0){ idx--; render(); } }
+
+var tt;
+function toast(msg){
+  var el=document.getElementById('toast');
+  el.textContent=msg; el.classList.add('on');
+  clearTimeout(tt); tt=setTimeout(function(){ el.classList.remove('on'); }, 1600);
+}
+
+function finish(){
+  var nome=LEAD.nome||ans.nome||'';
+  setProg(100);
+  document.getElementById('rtitle').textContent = nome ? ('Diagnóstico pronto, '+nome+'!') : 'Seu diagnóstico está pronto!';
+  // 1) porta de entrada
+  document.getElementById('rarea').textContent = AREA[ans.formacao]||AREA.outra;
+  // 2) áreas de atuação da formação
+  var atu=ATUACAO[ans.formacao]||ATUACAO.outra;
+  var ul=document.getElementById('ratua'); ul.innerHTML='';
+  atu.forEach(function(a,i){
+    var li=document.createElement('li');
+    li.innerHTML='<span class="ic">'+(i+1)+'</span><span>'+a+'</span>';
+    ul.appendChild(li);
+  });
+  // 3) editais no estado escolhido (radar) ou proximidades
+  var ed=EDITAIS[ans.estado]||EDITAIS.QUALQUER;
+  document.getElementById('rufLabel').textContent = ans.estado && ans.estado!=='QUALQUER' ? ('· '+ans.estado) : '';
+  document.getElementById('reditalHead').textContent = ed.h;
+  document.getElementById('reditalBody').textContent = ed.b;
+  // mensagem pro comercial (com dados do lead + código de segmentação)
+  var linha = "Oi! Fiz o quiz da Perícia e quero meu diagnóstico completo. 🔎";
+  var dados = "Nome: "+nome+" · E-mail: "+(LEAD.email||'-')+" · WhatsApp: "+(LEAD.telefone||'-');
+  var perfil = "Formação: "+rot('formacao')+" · Momento: "+rot('momento')+" · Tempo: "+rot('tempo')+" · Prazo: "+rot('prazo')+" · Estado: "+(ans.estado||'-');
+  var code = "[QZ|"+(ans.formacao||'')+"|"+(ans.momento||'')+"|"+(ans.tempo||'')+"|"+(ans.prazo||'')+"|"+(ans.estado||'')+"|"+encodeURIComponent(nome)+"]";
+  var txt = linha+"%0A%0A"+encodeURIComponent(dados)+"%0A"+encodeURIComponent(perfil)+"%0A"+encodeURIComponent(code);
+  document.getElementById('waBtn').href = "https://wa.me/"+WHATS+"?text="+txt;
+  show('result');
+  try{ (window.dataLayer=window.dataLayer||[]).push({event:'quiz_pericia_concluido',formacao:ans.formacao,estado:ans.estado}); }catch(e){}
+}
+
+/* rótulos legíveis para a mensagem */
+var ROT={ quimica:"Química/Farmácia/Biomed", biologia:"Biologia", engenharia:"Engenharias", ti:"Computação/TI", contabeis:"Contábeis/Economia", medicina:"Medicina", outra:"Outra",
+  pesquisando:"Só pesquisando", quero:"Quero mas não comecei", estudando:"Já estudo sem direção", aprovado:"Já passei em outro concurso",
+  t1:"menos de 1h/dia", t2:"1 a 2h/dia", t3:"2 a 4h/dia", t4:"mais de 4h/dia",
+  agora:"o quanto antes", "6m":"em 6 meses", "12m":"em 1 ano", calma:"sem pressa" };
+function rot(tag){ return ROT[ans[tag]] || ans[tag] || "-"; }
+</script>
+</body>
+</html>
