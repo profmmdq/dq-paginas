@@ -147,6 +147,31 @@
 /* ====== CONFIG (troque pelo WhatsApp oficial da Perícia) ====== */
 var WHATS = "5511953432311"; // número que dispara a automação do diagnóstico (só dígitos, com DDI 55)
 
+/* ====== PLANILHA (Google Sheets via Apps Script Web App) ======
+   Cole aqui a URL do seu Web App (termina em /exec). Enquanto estiver vazio,
+   o quiz funciona normal e só não grava na planilha. Passo a passo no guia. */
+var SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbw_DvfNABbrGuiGaUd5vKekQovkC7YNcQDnVtdgreBttaCkH3FWC06BlOOo_jUJFKnV/exec";
+
+function enviarPlanilha(){
+  if(!SHEET_ENDPOINT) return;
+  try{
+    var payload = {
+      data: new Date().toISOString(),
+      nome: LEAD.nome||'', email: LEAD.email||'', telefone: LEAD.telefone||'',
+      formacao: rot('formacao'), area: (AREA[ans.formacao]||AREA.outra),
+      momento: rot('momento'), tempo: rot('tempo'), prazo: rot('prazo'),
+      estado: (ans.estado||''),
+      code: "QZ|"+(ans.formacao||'')+"|"+(ans.momento||'')+"|"+(ans.tempo||'')+"|"+(ans.prazo||'')+"|"+(ans.estado||'')
+    };
+    var body = JSON.stringify(payload);
+    if(navigator.sendBeacon){
+      navigator.sendBeacon(SHEET_ENDPOINT, new Blob([body], {type:'text/plain;charset=UTF-8'}));
+    } else {
+      fetch(SHEET_ENDPOINT, {method:'POST', mode:'no-cors', keepalive:true, headers:{'Content-Type':'text/plain;charset=UTF-8'}, body:body});
+    }
+  }catch(e){}
+}
+
 /* ====== PERGUNTAS (o code de cada opção segmenta o lead) ====== */
 var Q = [
   { n:"01", t:"Vamos começar pelo que mais importa: qual é a sua formação? É ela que abre as portas da Perícia.",
@@ -255,6 +280,7 @@ function submitLead(){
   LEAD={nome:nome,email:email,telefone:tel};
   ans.nome=nome;
   try{ (window.dataLayer=window.dataLayer||[]).push({event:'quiz_pericia_lead',email:email}); }catch(e){}
+  enviarPlanilha();
   finish();
 }
 
