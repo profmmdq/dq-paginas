@@ -2,1005 +2,358 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-W5TCMGSW');</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dossiê Perícia Criminal · O método de quem já foi aprovado como perito</title>
-<meta name="description" content="Plataforma inteligente, cronograma que se adapta à sua rotina, materiais completos em texto e acompanhamento mensal com o Prof. Manoel Machado. O programa de preparação mais completo para a Perícia Criminal.">
-<link rel="canonical" href="https://site.dissecandoquestoes.com/lps/dossie-pericia/">
+<title>Qual concurso de Perícia combina com você? | Dissecando Questões</title>
+<meta name="description" content="Descubra em 1 minuto qual concurso de Perícia Criminal combina com a sua formação e receba no WhatsApp um diagnóstico com as oportunidades da sua área e do seu estado.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://site.dissecandoquestoes.com/lps/dossie-pericia/">
-<meta property="og:title" content="Dossiê Perícia · O programa de preparação mais completo para a Perícia Criminal">
-<meta property="og:description" content="Plataforma inteligente. Cronograma que se adapta à sua rotina. Materiais completos em texto. Acompanhamento mensal com o Prof. Manoel Machado.">
-<meta property="og:image" content="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/Fachada_campus%20de%20IF%20%2B%20Manoel-og.jpg">
-<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Qual concurso de Perícia combina com a sua formação?">
+<meta property="og:description" content="5 perguntas rápidas. Diagnóstico completo no seu WhatsApp: sua área na Perícia, os concursos chegando e um plano de 2h por dia.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=Work+Sans:wght@400;500;600;700;800&family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink:#0a0a0c; --blue:#f4f2ea; --acc:#f5e000; --cream:#0a0a0c; --cream2:#16161a; --off:#f4f2ea;
-    --tan:#16161a; --green:#5e9558; --sky:#f5e000; --panel:#16161a; --panelbar:#0a0a0c;
-    --petrol:#2b2b31; --bluecard:#16161a; --txt:#d3d7dc; --txt2:#a8aeb4; --txt3:#8c9298;
-    --disp:'Montserrat',system-ui,sans-serif;
-    --body:'Montserrat',system-ui,-apple-system,Segoe UI,sans-serif;
-    --mono:'Montserrat',system-ui,sans-serif;
+    --ink:#101014; --ink2:#0b0b0e; --blue:#0c3d64; --acc:#f5e000; --acc2:#ffe870;
+    --cream:#f1f3e6; --line:rgba(241,243,230,.14); --muted:#9aa6b2;
+    --disp:'Big Shoulders Display',system-ui,sans-serif;
+    --body:'Work Sans',system-ui,-apple-system,Segoe UI,sans-serif;
+    --mono:'Geist Mono',ui-monospace,monospace;
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
-  body{font-family:var(--body);color:#f4f2ea;background:var(--cream);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-  img{display:block}
+  body{font-family:var(--body);background:radial-gradient(120% 60% at 50% -8%,#1e1e24 0%,var(--ink) 60%);color:var(--cream);min-height:100vh;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{width:100%;max-width:560px;margin:0 auto;padding:0 22px;min-height:100vh;display:flex;flex-direction:column}
   a{text-decoration:none}
-  ::selection{background:var(--acc);color:#101014}
 
-  @keyframes heroUp{from{opacity:0;transform:translateY(34px)}to{opacity:1;transform:none}}
-  @keyframes pulseRing{0%{transform:scale(1);opacity:.55}70%{transform:scale(1.75);opacity:0}100%{opacity:0}}
-  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-11px)}}
-  @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  /* progress */
+  .prog{position:fixed;top:0;left:0;height:4px;width:0;background:linear-gradient(90deg,var(--acc),var(--acc2));z-index:50;transition:width .4s cubic-bezier(.16,.84,.44,1)}
 
-  .eyebrow{font-family:var(--mono);text-transform:uppercase;letter-spacing:2.6px;color:var(--acc);font-size:11.5px;font-weight:500;display:inline-block}
-  .eyebrow.line::before{content:"";display:inline-block;width:26px;height:1px;background:var(--acc);vertical-align:middle;margin-right:11px}
-  h1,h2,h3,h4,h5{font-family:var(--disp);font-weight:800;color:var(--blue);line-height:1.05;letter-spacing:-1px}
+  .top{padding:26px 0 6px;display:flex;align-items:center;gap:9px}
+  .top .mark{width:26px;height:26px;border-radius:7px;background:var(--acc);display:inline-flex;align-items:center;justify-content:center;box-shadow:0 6px 14px -4px rgba(245,224,0,.7)}
+  .top .mark::after{content:"";width:9px;height:9px;background:#fff;border-radius:2px}
+  .top b{font-family:var(--disp);font-weight:800;font-size:15px;letter-spacing:-.3px}
+  .top span{font-family:var(--mono);font-size:10.5px;letter-spacing:1.6px;text-transform:uppercase;color:var(--muted);margin-left:auto}
 
-  .grain{position:fixed;inset:0;z-index:70;pointer-events:none;opacity:.06;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22140%22 height=%22140%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22 numOctaves=%222%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/%3E%3C/svg%3E");background-size:140px 140px}
-  .progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--acc);z-index:130;transition:width .12s linear;box-shadow:0 0 12px rgba(245,224,0,.7)}
+  .stage{flex:1;display:flex;flex-direction:column;justify-content:center;padding:14px 0 34px}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:2.6px;text-transform:uppercase;color:var(--acc);font-weight:500;margin-bottom:16px;display:block}
+  h1{font-family:var(--disp);font-weight:800;font-size:clamp(28px,7.5vw,40px);line-height:1.05;letter-spacing:-.8px;margin-bottom:16px;text-wrap:balance}
+  h1 mark{background:linear-gradient(180deg,transparent 58%,rgba(245,224,0,.5) 58%);color:var(--cream);padding:0 2px}
+  .sub{color:rgba(241,243,230,.8);font-size:16px;margin-bottom:26px;max-width:460px}
+  .meta{font-family:var(--mono);font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted);margin-top:20px}
 
-  /* NAV */
-  .nav{position:fixed;top:0;left:0;right:0;z-index:120;display:flex;align-items:center;gap:16px;height:66px;padding:0 clamp(16px,4vw,44px);background:rgba(13,13,16,.82);backdrop-filter:blur(16px) saturate(1.25);-webkit-backdrop-filter:blur(16px) saturate(1.25);border-bottom:1px solid rgba(241,243,230,.08);transition:background .35s ease,box-shadow .35s ease,height .35s ease}
-  .nav.solid{background:rgba(10,10,12,.94);box-shadow:0 6px 24px -14px rgba(10,10,12,.4);height:58px}
-  .nav-logo{display:flex;align-items:center;gap:11px;margin-right:auto}
-  .nav-mark{position:relative;width:28px;height:28px;border-radius:8px;background:var(--acc);display:inline-flex;align-items:center;justify-content:center;box-shadow:0 6px 14px -4px rgba(245,224,0,.75)}
-  .nav-mark::after{content:"";width:9px;height:9px;background:#101014;border-radius:2px}
-  .nav-word{font-family:var(--disp);font-weight:800;font-size:17px;letter-spacing:-.4px;color:#f4f2ea}
-  .nav-links{display:flex;gap:1px;overflow-x:auto;scrollbar-width:none}
-  .nav-links::-webkit-scrollbar{display:none}
-  .nav-links a{font-family:var(--mono);font-weight:500;font-size:11px;text-transform:uppercase;letter-spacing:1.4px;color:rgba(244,242,234,.5);padding:8px 13px;border-radius:7px;white-space:nowrap;transition:color .2s ease,background .2s ease}
-  .nav-links a:hover{color:#f4f2ea;background:rgba(241,243,230,.06)}
-  .nav-links a.active{color:var(--acc)}
-  .nav-cta{flex-shrink:0;display:inline-flex;align-items:center;gap:7px;background:var(--acc);color:#101014;font-family:var(--body);font-weight:700;font-size:13px;padding:10px 18px;border-radius:9px;box-shadow:0 10px 22px -10px rgba(245,224,0,.8);transition:transform .3s ease,box-shadow .3s ease}
-  .nav-cta:hover{transform:translateY(-2px);box-shadow:0 16px 30px -10px rgba(245,224,0,.85)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;width:100%;background:var(--acc);color:#0b1220;font-family:var(--body);font-weight:800;font-size:16px;padding:17px 24px;border:0;border-radius:14px;cursor:pointer;box-shadow:0 16px 34px -14px rgba(245,224,0,.8);transition:transform .2s ease}
+  .btn:active{transform:scale(.98)}
+  .btn.ghost{background:transparent;color:var(--cream);border:1px solid var(--line);box-shadow:none;font-weight:600}
 
-  .btn-primary{display:inline-flex;align-items:center;gap:10px;background:var(--acc);color:#101014;font-family:var(--body);font-weight:700;font-size:16px;letter-spacing:.2px;padding:17px 32px;border-radius:11px;box-shadow:0 18px 40px -14px rgba(245,224,0,.85);transition:transform .3s ease,box-shadow .3s ease;border:0;cursor:pointer}
-  .btn-primary:hover{transform:translateY(-3px);box-shadow:0 26px 50px -14px rgba(245,224,0,.9)}
-  .btn-ghost{display:inline-flex;align-items:center;gap:9px;background:rgba(241,243,230,.06);color:var(--off);font-family:var(--body);font-weight:600;font-size:15px;padding:16px 26px;border-radius:11px;border:1px solid rgba(241,243,230,.2);transition:background .3s ease,border-color .3s ease}
-  .btn-ghost:hover{background:rgba(241,243,230,.12);border-color:rgba(241,243,230,.4)}
+  /* question */
+  .qnum{font-family:var(--mono);font-size:12px;letter-spacing:1.6px;color:var(--acc);font-weight:500;margin-bottom:12px}
+  .qh{font-family:var(--disp);font-weight:700;font-size:clamp(21px,5.4vw,27px);line-height:1.18;letter-spacing:-.4px;margin-bottom:22px;text-wrap:balance}
+  .opts{display:flex;flex-direction:column;gap:11px}
+  .opt{display:flex;align-items:center;gap:13px;width:100%;text-align:left;background:rgba(241,243,230,.05);border:1px solid var(--line);color:var(--cream);font-family:var(--body);font-size:15.5px;font-weight:500;padding:16px 18px;border-radius:13px;cursor:pointer;transition:border-color .18s ease,background .18s ease,transform .12s ease}
+  .opt:hover{border-color:rgba(245,224,0,.55);background:rgba(245,224,0,.07)}
+  .opt:active{transform:scale(.99)}
+  .opt .dot{flex:none;width:22px;height:22px;border-radius:50%;border:2px solid rgba(241,243,230,.3);transition:all .18s ease}
+  .opt.sel{border-color:var(--acc);background:rgba(245,224,0,.12)}
+  .opt.sel .dot{border-color:var(--acc);background:var(--acc);box-shadow:inset 0 0 0 3px var(--ink)}
 
-  /* HERO */
-  .hero{position:relative;min-height:clamp(620px,96vh,940px);display:flex;align-items:center;background:var(--ink);overflow:hidden;padding-top:66px}
-  .hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:78% center;z-index:0}
-  .hero-scrim1{position:absolute;inset:0;z-index:1;background:linear-gradient(102deg,#0a0a0c 0%,rgba(10,10,12,.96) 34%,rgba(10,10,12,.62) 62%,rgba(241,243,230,.12) 100%)}
-  .hero-scrim2{position:absolute;inset:0;z-index:1;background:linear-gradient(to top,#0a0a0c 2%,rgba(10,10,12,0) 46%)}
-  .hero-glow{position:absolute;top:-16%;left:-6%;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(245,224,0,.26) 0%,transparent 66%);z-index:1;filter:blur(8px)}
-  .hero-grid{position:absolute;inset:0;z-index:1;opacity:.5;background-image:linear-gradient(rgba(241,243,230,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(241,243,230,.05) 1px,transparent 1px);background-size:64px 64px;-webkit-mask-image:radial-gradient(ellipse 70% 60% at 30% 50%,#000,transparent);mask-image:radial-gradient(ellipse 70% 60% at 30% 50%,#000,transparent)}
-  .hero-inner{position:relative;z-index:3;width:100%;max-width:1200px;margin:0 auto;padding:clamp(40px,8vh,90px) clamp(22px,5vw,56px)}
-  .hero-col{max-width:660px}
-  .hero .eyebrow{margin-bottom:24px;letter-spacing:3px;font-size:12px}
-  .hero h1{color:#fff;font-size:clamp(38px,6vw,74px);line-height:1;letter-spacing:-1.8px;margin-bottom:24px;text-wrap:balance}
-  .hero h1 .accent{color:var(--acc)}
-  .hero .sub{color:rgba(241,243,230,.82);font-size:clamp(16px,1.55vw,19px);line-height:1.6;max-width:530px;margin-bottom:36px}
-  .hero-actions{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-bottom:38px}
-  .hero-trust{display:flex;align-items:center;gap:14px}
-  .avatars{display:flex}
-  .avatars .av{width:34px;height:34px;border-radius:50%;border:2px solid var(--ink);flex:none;display:block}
-  .avatars .av+.av{margin-left:-11px}
-  .avatars img.av{object-fit:cover}
-  .av4{background:#16161a;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;color:var(--off)}
-  .hero-trust-txt{font-size:13.5px;color:rgba(241,243,230,.7);line-height:1.35}
-  .hero-trust-txt strong{color:var(--off);font-weight:700}
-  .hero-up{animation:heroUp .8s cubic-bezier(.16,.84,.44,1) both}
-  .hero-float{position:absolute;z-index:3;right:clamp(20px,5vw,64px);bottom:clamp(96px,14vh,150px);background:rgba(10,10,12,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(241,243,230,.16);border-radius:14px;padding:16px 20px;box-shadow:0 24px 50px -18px rgba(0,0,0,.6);display:none}
-  .hero-float .inner{animation:floaty 5s ease-in-out infinite}
-  .hero-float .k{font-family:var(--mono);font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:var(--acc);margin-bottom:8px}
-  .hero-float .big{font-family:var(--disp);font-weight:800;font-size:26px;color:var(--off);line-height:1}
-  .hero-float .s{font-size:12px;color:rgba(241,243,230,.68);margin-top:3px}
+  .back{background:none;border:0;color:var(--muted);font-family:var(--mono);font-size:11px;letter-spacing:1.2px;text-transform:uppercase;cursor:pointer;padding:16px 0 0;align-self:flex-start}
 
-  /* STATS */
-  .stats-wrap{padding:0 clamp(16px,4vw,44px);margin-top:clamp(-58px,-5vw,-48px);position:relative;z-index:40}
-  .stats{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(241,243,230,.1);border-radius:18px;overflow:hidden;border:1px solid rgba(241,243,230,.08);box-shadow:0 44px 90px -46px rgba(10,10,12,.5)}
-  .stats-cell{background:var(--cream2);padding:clamp(26px,3vw,38px) 18px;text-align:center}
-  .stats-val{font-family:var(--disp);font-weight:800;font-size:clamp(30px,3.4vw,40px);color:var(--blue);margin-bottom:9px;letter-spacing:-1px;line-height:1}
-  .stats-label{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:1.3px;color:rgba(244,242,234,.5)}
+  /* toast reaction */
+  .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:var(--ink2);border:1px solid var(--line);border-radius:999px;padding:11px 20px;font-size:14px;font-weight:600;color:var(--cream);box-shadow:0 20px 40px -18px rgba(0,0,0,.7);opacity:0;pointer-events:none;transition:opacity .3s ease,transform .3s ease;z-index:60;white-space:nowrap;max-width:92vw}
+  .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 
-  /* MARQUEE */
-  .marquee{margin-top:clamp(56px,7vw,84px);overflow:hidden;background:var(--ink);border-top:1px solid rgba(241,243,230,.08);border-bottom:1px solid rgba(241,243,230,.08)}
-  .marquee-track{display:flex;width:max-content;animation:ticker 34s linear infinite;padding:15px 0}
-  .marquee:hover .marquee-track{animation-play-state:paused}
-  .marquee-group{display:flex;align-items:center}
-  .marquee-item{display:inline-flex;align-items:center;gap:22px;padding:0 22px;font-family:var(--mono);font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:rgba(241,243,230,.66);white-space:nowrap}
-  .marquee-item::after{content:"";width:5px;height:5px;border-radius:50%;background:var(--acc)}
+  /* capture + result */
+  .field{margin-bottom:14px}
+  .field label{display:block;font-size:13.5px;color:var(--muted);margin-bottom:7px;font-weight:600}
+  .field input{width:100%;font-family:var(--body);font-size:16px;padding:15px 16px;border-radius:12px;border:1.5px solid var(--line);background:rgba(241,243,230,.05);color:var(--cream);outline:none;transition:border-color .18s ease}
+  .field input:focus{border-color:var(--acc)}
+  .field input::placeholder{color:rgba(154,166,178,.7)}
 
-  /* SECTION BASICS */
-  .sec{padding:clamp(78px,10vw,124px) clamp(22px,5vw,56px)}
-  .sec.dark{background:var(--ink)}
-  .sec.cream{background:var(--cream)}
-  .wrap{max-width:1120px;margin:0 auto}
-  .wrap-sm{max-width:900px;margin:0 auto}
-  .sec-head h2{font-size:clamp(29px,3.8vw,48px);letter-spacing:-1.6px;margin:16px 0 18px;text-wrap:balance}
-  .lead{font-size:16.5px;color:var(--txt);line-height:1.62}
-  .dark .lead{color:rgba(241,243,230,.78)}
-
-  /* CENARIO */
-  .cenario-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:clamp(38px,5vw,72px);align-items:center}
-  .cenario-grid h2{font-size:clamp(29px,3.7vw,46px);line-height:1.04;letter-spacing:-1.4px;margin:16px 0 24px;max-width:460px;text-wrap:balance}
-  .cenario-grid p{font-size:16px;color:var(--txt);line-height:1.68;margin-bottom:18px}
-  .cenario-grid p:last-child{margin-bottom:0}
-  .imgframe{position:relative;border-radius:20px;overflow:hidden;box-shadow:0 40px 80px -36px rgba(10,10,12,.5);transition:transform .5s cubic-bezier(.16,.84,.44,1)}
-  .imgframe:hover{transform:translateY(-6px)}
-  .imgframe img{width:100%;height:clamp(320px,44vw,480px);object-fit:cover}
-  .imgtag{position:absolute;left:16px;bottom:16px;background:rgba(10,10,12,.6);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(241,243,230,.16);border-radius:9px;padding:8px 14px;font-family:var(--mono);font-size:10.5px;letter-spacing:1.3px;text-transform:uppercase;color:var(--off)}
-  .stat85{margin-top:clamp(48px,6vw,68px);background:var(--tan);border-radius:22px;padding:clamp(32px,4.5vw,52px);display:grid;grid-template-columns:auto 1fr;gap:clamp(24px,4vw,48px);align-items:center}
-  .stat85 .num{font-family:var(--disp);font-weight:800;font-size:clamp(64px,10vw,128px);line-height:.82;color:var(--acc);letter-spacing:-3px}
-  .stat85 .t{font-family:var(--disp);font-weight:700;font-size:clamp(19px,2.3vw,27px);color:#f4f2ea;line-height:1.32;margin-bottom:14px;text-wrap:pretty}
-  .stat85 .t .accent{color:var(--acc)}
-  .stat85 .src{font-family:var(--mono);font-size:11px;color:rgba(244,242,234,.5);text-transform:uppercase;letter-spacing:1.2px}
-
-  /* TIMELINE */
-  .tl-head{max-width:680px;margin:0 auto clamp(38px,5vw,56px);text-align:center}
-  .tl-head h2{font-size:clamp(26px,3.4vw,42px);line-height:1.06;letter-spacing:-1.2px;margin:16px 0 16px;text-wrap:balance}
-  .dark .tl-head h2{color:var(--off)}
-  .tl-frame{max-width:1080px;margin:0 auto;border-radius:18px;overflow:hidden;box-shadow:0 44px 100px -40px rgba(0,0,0,.7);transition:transform .5s cubic-bezier(.16,.84,.44,1)}
-  .tl-frame:hover{transform:translateY(-5px)}
-  .tl-frame.dark-frame{border:1px solid rgba(241,243,230,.1)}
-  .tl-frame.light-frame{background:#17171c;border:1px solid rgba(241,243,230,.1);box-shadow:0 46px 96px -42px rgba(10,10,12,.42)}
-  .tl-bar{display:flex;align-items:center;gap:10px;padding:12px 18px;font-family:var(--mono);font-size:10px;letter-spacing:1.4px;text-transform:uppercase}
-  .tl-bar.d{background:#0a1119;border-bottom:1px solid rgba(241,243,230,.08)}
-  .tl-bar.l{background:var(--cream2);border-bottom:1px solid rgba(241,243,230,.08)}
-  .tl-bar .a{color:var(--acc)}
-  .tl-bar .m{color:rgba(241,243,230,.4)}
-  .tl-bar.l .m{color:rgba(244,242,234,.4)}
-  .tl-bar .z{margin-left:auto;color:rgba(241,243,230,.4)}
-  .tl-bar.l .z{color:rgba(244,242,234,.4)}
-  .tl-frame picture,.tl-frame img{display:block;width:100%;height:auto;cursor:zoom-in}
-  .glowbox{position:absolute;border-radius:50%;z-index:0;pointer-events:none}
-
-  /* DESAFIO */
-  .desafio{position:relative;overflow:hidden}
-  .desafio .g{top:10%;right:-8%;width:480px;height:480px;background:radial-gradient(circle,rgba(245,224,0,.14) 0%,transparent 68%)}
-  .desafio-in{position:relative;z-index:1}
-  .desafio h3{font-size:clamp(27px,3.5vw,42px);line-height:1.06;letter-spacing:-1.2px;margin:16px 0 24px;color:var(--off);text-wrap:balance}
-  .desafio p{font-size:16px;color:rgba(241,243,230,.78);line-height:1.68;margin-bottom:18px}
-  .pains{display:grid;grid-template-columns:repeat(auto-fit,minmax(212px,1fr));gap:14px;margin-top:40px}
-  .pain{background:#151f2e;border:1px solid rgba(241,243,230,.09);border-radius:15px;padding:26px 24px;transition:transform .35s ease,border-color .35s ease,background .35s ease}
-  .pain:hover{transform:translateY(-4px);border-color:rgba(245,224,0,.45);background:#18232f}
-  .pain .n{font-family:var(--mono);font-size:11px;color:rgba(241,243,230,.35);letter-spacing:1.5px;margin-bottom:14px}
-  .pain .ti{font-family:var(--disp);font-weight:700;font-size:16px;color:var(--acc);margin-bottom:9px}
-  .pain .tx{font-size:14px;color:rgba(241,243,230,.66);line-height:1.55}
-  .desafio-close{margin:clamp(46px,6vw,64px) auto 0;text-align:center;max-width:740px;font-family:var(--disp);font-weight:700;font-size:clamp(21px,2.8vw,32px);color:var(--off);line-height:1.28;text-wrap:balance}
-  .desafio-close .accent{color:var(--acc)}
-
-  /* METODO */
-  .metodo-head h2{font-size:clamp(29px,3.8vw,48px);line-height:1.02;letter-spacing:-1.6px;margin:16px 0 20px;max-width:600px;text-wrap:balance}
-  .steps{display:flex;flex-direction:column;gap:clamp(52px,7vw,92px);padding-top:clamp(48px,6vw,76px)}
-  .step{display:flex;flex-wrap:wrap;gap:clamp(30px,4vw,60px);align-items:center}
-  .step.rev{flex-direction:row-reverse}
-  .step-text{flex:1 1 300px;min-width:262px}
-  .step-num{font-family:var(--disp);font-weight:800;font-size:clamp(58px,7vw,92px);line-height:.8;letter-spacing:-3px;color:transparent;-webkit-text-stroke:1.6px rgba(245,224,0,.5);margin-bottom:14px}
-  .step-text h3{font-size:clamp(23px,2.8vw,31px);line-height:1.1;letter-spacing:-.6px;margin-bottom:14px}
-  .step-text p{font-size:16px;color:var(--txt);line-height:1.66}
-  .step-media{flex:1.28 1 400px;min-width:308px}
-
-  /* BROWSER FRAME */
-  .bframe{border-radius:16px;overflow:hidden;background:var(--panel);border:1px solid rgba(244,242,234,.14);box-shadow:0 36px 76px -30px rgba(10,10,12,.6);transition:transform .5s cubic-bezier(.16,.84,.44,1),box-shadow .5s ease}
-  .bframe:hover{transform:translateY(-7px);box-shadow:0 46px 90px -30px rgba(10,10,12,.7)}
-  .bbar{display:flex;align-items:center;gap:7px;padding:12px 15px;background:var(--panelbar);border-bottom:1px solid rgba(255,255,255,.06)}
-  .dot{width:11px;height:11px;border-radius:50%}
-  .dot.r{background:#FF6057}.dot.y{background:#FEBC2E}.dot.g{background:#28C840}
-  .url{margin-left:12px;display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.06);border-radius:6px;padding:4px 12px;font-family:var(--mono);font-size:10.5px;color:rgba(241,243,230,.5)}
-  .url::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--green)}
-  .zoomlbl{margin-left:auto;font-family:var(--mono);font-size:9.5px;color:rgba(241,243,230,.34)}
-  .bframe img{width:100%;height:auto;cursor:zoom-in}
-  .photoframe{position:relative;border-radius:18px;overflow:hidden;box-shadow:0 34px 70px -30px rgba(10,10,12,.5);transition:transform .5s cubic-bezier(.16,.84,.44,1)}
-  .photoframe:hover{transform:translateY(-6px)}
-  .photoframe img{width:100%;height:clamp(270px,32vw,400px);object-fit:cover;cursor:zoom-in}
-
-  /* PROGRAMA */
-  .prog-head h2{font-size:clamp(29px,3.8vw,48px);line-height:1.02;letter-spacing:-1.6px;margin:16px 0 18px;max-width:640px;text-wrap:balance}
-  .video{margin:clamp(42px,5vw,60px) 0 0}
-  .video-frame{position:relative;border-radius:20px;overflow:hidden;aspect-ratio:16/7.6;background:#16161a;box-shadow:0 40px 84px -34px rgba(10,10,12,.6)}
-  .video-grid{position:absolute;inset:0;opacity:.5;background-image:linear-gradient(rgba(241,243,230,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(241,243,230,.05) 1px,transparent 1px);background-size:52px 52px;-webkit-mask-image:radial-gradient(ellipse 60% 60% at 50% 50%,#000,transparent);mask-image:radial-gradient(ellipse 60% 60% at 50% 50%,#000,transparent)}
-  .video-in{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px}
-  .play{position:relative;width:78px;height:78px;border-radius:50%;border:2px solid rgba(241,243,230,.45);background:rgba(245,224,0,.16);color:var(--off);display:flex;align-items:center;justify-content:center;font-size:26px;padding-left:5px;cursor:pointer;transition:transform .3s ease,background .3s ease}
-  .play:hover{transform:scale(1.06);background:rgba(245,224,0,.28)}
-  .play .ring{position:absolute;inset:-2px;border-radius:50%;border:2px solid var(--acc);animation:pulseRing 2.4s infinite}
-  .video-cap{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:2px;color:rgba(241,243,230,.55);text-align:center;padding:0 24px}
-  .dim{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(26px,4vw,52px);align-items:center;margin-top:clamp(52px,6.5vw,74px)}
-  .dim-badge{font-family:var(--mono);font-size:10.5px;color:var(--acc);letter-spacing:2.6px;text-transform:uppercase;font-weight:500}
-  .dim h3{font-size:clamp(23px,2.7vw,30px);letter-spacing:-.7px;margin:12px 0 14px;line-height:1.1}
-  .dim p{font-size:15.5px;color:var(--txt);line-height:1.64}
-  .simframe{border-radius:16px;overflow:hidden;background:var(--panel);border:1px solid rgba(244,242,234,.14);box-shadow:0 28px 62px -28px rgba(10,10,12,.55);transition:transform .5s cubic-bezier(.16,.84,.44,1)}
-  .simframe:hover{transform:translateY(-6px)}
-  .simframe .bbar{padding:11px 15px}
-  .simframe .dot{width:10px;height:10px}
-  .simframe img{width:100%;height:auto;cursor:zoom-in}
-  .cards{display:grid;gap:14px;margin-top:clamp(30px,4vw,40px)}
-  .cards.c6{grid-template-columns:repeat(auto-fit,minmax(238px,1fr))}
-  .cards.c3{grid-template-columns:repeat(auto-fit,minmax(258px,1fr));gap:16px}
-  .tcard{background:#17171c;border:1px solid rgba(241,243,230,.09);border-radius:14px;padding:24px;transition:transform .35s ease,box-shadow .35s ease,border-color .35s ease}
-  .tcard:hover{transform:translateY(-4px);box-shadow:0 22px 44px -26px rgba(10,10,12,.4);border-color:rgba(245,224,0,.4)}
-  .tcard .n{font-family:var(--mono);font-weight:500;font-size:11px;color:var(--acc);letter-spacing:1.4px;margin-bottom:14px}
-  .tcard h4{font-family:var(--disp);font-weight:700;font-size:16px;color:var(--blue);margin-bottom:8px;line-height:1.2}
-  .tcard p{font-size:13.5px;color:var(--txt2);line-height:1.52}
-  .icard{background:#17171c;border:1px solid rgba(241,243,230,.09);border-radius:15px;overflow:hidden;box-shadow:0 16px 40px -26px rgba(10,10,12,.35);transition:transform .35s ease,box-shadow .35s ease}
-  .icard:hover{transform:translateY(-5px);box-shadow:0 28px 56px -26px rgba(10,10,12,.45)}
-  .icard .top{background:var(--panel);overflow:hidden;display:flex;align-items:flex-start;justify-content:center;cursor:zoom-in}
-  .icard .top img{width:100%;height:auto;display:block}
-  .icard .body{padding:22px 24px}
-  .icard .n{font-family:var(--mono);font-weight:500;font-size:11px;color:var(--acc);letter-spacing:1.4px;margin-bottom:10px}
-  .icard h4{font-family:var(--disp);font-weight:700;font-size:16px;color:var(--blue);margin-bottom:7px;line-height:1.2}
-  .icard p{font-size:13.5px;color:var(--txt2);line-height:1.52}
-
-  .dim3{max-width:1120px;margin:clamp(52px,6.5vw,76px) auto 0;background:var(--ink);border-radius:24px;padding:clamp(36px,5vw,60px);position:relative;overflow:hidden}
-  .dim3 .g{top:-20%;right:-6%;width:420px;height:420px;background:radial-gradient(circle,rgba(245,224,0,.16) 0%,transparent 68%)}
-  .dim3-head{position:relative;max-width:540px}
-  .dim3-head h3{color:var(--off);font-size:clamp(23px,2.9vw,32px);letter-spacing:-.7px;margin:12px 0 14px;line-height:1.1}
-  .dim3-head p{font-size:15.5px;color:rgba(241,243,230,.78);line-height:1.62}
-  .d3feat{position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:clamp(32px,4vw,42px)}
-  .d3card{background:var(--bluecard);border:1px solid var(--petrol);border-radius:16px;overflow:hidden;transition:transform .35s ease,border-color .35s ease}
-  .d3card:hover{transform:translateY(-5px);border-color:rgba(245,224,0,.55)}
-  .d3card .top{background:var(--panelbar);overflow:hidden;cursor:zoom-in}
-  .d3card .top img{width:100%;height:auto}
-  .d3card .body{padding:22px 24px}
-  .d3card .n{font-family:var(--mono);font-weight:500;font-size:11px;color:var(--acc);letter-spacing:1.4px;margin-bottom:10px}
-  .d3card h4{font-family:var(--disp);font-weight:700;font-size:16px;color:var(--off);margin-bottom:7px}
-  .d3card p{font-size:13.5px;color:rgba(241,243,230,.7);line-height:1.52}
-  .d3comp{position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));gap:10px;margin-top:12px}
-  .d3chip{background:var(--bluecard);border:1px solid var(--petrol);border-radius:13px;padding:22px 18px;text-align:center;transition:transform .35s ease,border-color .35s ease}
-  .d3chip:hover{transform:translateY(-4px);border-color:rgba(245,224,0,.5)}
-  .d3chip .n{font-family:var(--mono);font-weight:500;font-size:11px;color:var(--acc);letter-spacing:1.3px;margin-bottom:10px}
-  .d3chip h5{font-family:var(--disp);font-weight:700;font-size:14px;color:var(--off);margin-bottom:5px;line-height:1.2}
-  .d3chip p{font-size:12px;color:rgba(241,243,230,.62);line-height:1.42}
-
-  /* RESULTADOS */
-  .res h2{font-size:clamp(29px,3.7vw,46px);letter-spacing:-1.5px;margin:16px 0 42px;line-height:1.02;text-wrap:balance}
-  .res-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(224px,1fr));gap:16px;margin-bottom:clamp(42px,5vw,56px)}
-  .res-stat{background:#17171c;border:1px solid rgba(241,243,230,.09);border-radius:16px;padding:38px 30px;text-align:center;transition:transform .35s ease,box-shadow .35s ease}
-  .res-stat:hover{transform:translateY(-5px);box-shadow:0 28px 56px -28px rgba(10,10,12,.4)}
-  .res-num{font-family:var(--disp);font-weight:800;font-size:clamp(42px,5.4vw,54px);color:var(--acc);line-height:1;margin-bottom:16px;letter-spacing:-2px}
-  .res-stat p{font-size:14px;color:var(--txt2);line-height:1.5}
-  /* DEPOIMENTOS (portado de lps/banco, carrossel de vídeos + marquee de prints).
-     Classes com prefixo depo- de propósito: o .marquee-* desta página já é o
-     ticker de stats do hero, NÃO reaproveitar. */
-  .depo-sub{margin-bottom:clamp(42px,5vw,56px)}
-  .depo-sub h3{font-size:clamp(22px,2.8vw,30px);letter-spacing:-.8px;text-align:center;margin-bottom:28px}
-  .depo-video-wrap{position:relative;max-width:520px;margin:0 auto}
-  .depo-video-wrap video{width:100%;border-radius:16px;display:block;background:#000;box-shadow:0 30px 60px -28px rgba(10,10,12,.45)}
-  .depo-caption{text-align:center;margin-top:10px;font-size:14px;font-weight:700;color:#f4f2ea}
-  .depo-caption .inst{color:var(--acc)}
-  .depo-nav{position:absolute;top:40%;transform:translateY(-50%);width:38px;height:38px;border-radius:50%;border:none;background:var(--ink);color:var(--off);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(10,10,12,.3);z-index:2}
-  .depo-nav.prev{left:-14px}
-  .depo-nav.next{right:-14px}
-  .depo-dots{display:flex;justify-content:center;gap:8px;margin-top:12px}
-  .depo-dot{height:8px;width:8px;border-radius:4px;border:none;background:rgba(10,10,12,.2);cursor:pointer;transition:all .3s ease;padding:0}
-  .depo-dot.on{width:24px;background:var(--acc)}
-  .depo-marquee-outer{overflow:hidden;width:100%;margin-top:36px}
-  .depo-marquee-track{display:flex;gap:16px;width:max-content;animation:dqDepoMarquee 60s linear infinite}
-  .depo-marquee-track:hover{animation-play-state:paused}
-  @keyframes dqDepoMarquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-  .depo-marquee-item{flex:0 0 auto;width:220px}
-  .depo-marquee-item img{width:100%;border-radius:10px;display:block}
-  .depo-marquee-item .cap{font-size:12.5px;font-weight:600;color:var(--txt2);text-align:center;margin-top:8px}
-  .bio{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));align-items:stretch;background:var(--ink);border-radius:22px;overflow:hidden;box-shadow:0 40px 84px -40px rgba(10,10,12,.55)}
-  .bio-img{min-height:340px;position:relative}
-  .bio-img img{width:100%;height:100%;min-height:340px;object-fit:cover;object-position:50% center}
-  .bio-body{padding:clamp(34px,4.5vw,52px);display:flex;flex-direction:column;justify-content:center}
-  .bio-top{display:flex;align-items:center;gap:14px}
-  .bio-bar{width:3px;height:56px;background:var(--acc);border-radius:2px;flex-shrink:0}
-  .bio-body h3{font-size:24px;color:var(--off);margin-bottom:5px;letter-spacing:-.5px}
-  .bio-role{font-family:var(--mono);font-size:11px;color:var(--acc);text-transform:uppercase;letter-spacing:1.6px}
-  .bio-body p{font-size:15px;color:rgba(241,243,230,.82);line-height:1.68;margin-top:22px}
-
-  /* INVESTIMENTO */
-  .invest{position:relative;overflow:hidden}
-  .invest .g{top:-10%;left:50%;transform:translateX(-50%);width:760px;height:520px;border-radius:50%;background:radial-gradient(ellipse,rgba(245,224,0,.16) 0%,transparent 66%)}
-  .invest-in{position:relative;max-width:960px;margin:0 auto}
-  .invest-head{text-align:center;max-width:620px;margin:0 auto clamp(38px,5vw,52px)}
-  .invest-head h2{color:var(--off);font-size:clamp(29px,3.8vw,48px);letter-spacing:-1.6px;margin:16px 0 16px;line-height:1.02}
-  .invest-head p{font-size:16px;color:rgba(241,243,230,.78);line-height:1.6}
-  .pricing{background:linear-gradient(155deg,#122236,#0b1420);border:1px solid rgba(241,243,230,.12);border-radius:24px;overflow:hidden;box-shadow:0 50px 100px -44px rgba(0,0,0,.7)}
-  .pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
-  .pricing-left{padding:clamp(32px,4vw,48px);border-right:1px solid rgba(241,243,230,.1)}
-  .badge{display:inline-block;font-family:var(--mono);font-size:10px;color:var(--acc);letter-spacing:2.4px;border:1px solid rgba(245,224,0,.45);border-radius:6px;padding:7px 15px;margin-bottom:22px;text-transform:uppercase}
-  .pricing-left h3{font-size:clamp(26px,3vw,32px);color:var(--off);margin-bottom:6px;letter-spacing:-.8px}
-  .pricing-sub{font-size:13.5px;color:rgba(241,243,230,.6);margin-bottom:28px}
-  .incs{display:flex;flex-direction:column;gap:13px}
-  .inc{display:flex;align-items:flex-start;gap:12px}
-  .inc .ck{flex-shrink:0;width:22px;height:22px;border-radius:6px;background:rgba(245,224,0,.18);color:var(--acc);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;margin-top:1px}
-  .inc span.t{font-size:14.5px;color:rgba(241,243,230,.86);line-height:1.42}
-  .pricing-right{padding:clamp(32px,4vw,48px);display:flex;flex-direction:column;justify-content:center;text-align:center;background:rgba(255,255,255,.015)}
-  .pre{font-size:13.5px;color:rgba(241,243,230,.6);margin-bottom:4px}
-  .price{font-family:var(--disp);font-weight:800;font-size:clamp(40px,5.6vw,56px);color:var(--off);letter-spacing:-2.5px;line-height:1;margin-bottom:8px}
-  .price .sm{font-size:.62em;font-weight:700}
-  .pix{font-size:13.5px;color:rgba(241,243,230,.6);margin-bottom:30px}
-  .cta-full{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;font-size:15.5px;padding:18px}
-  .bonus{margin-top:20px;background:rgba(245,224,0,.1);border:1px solid rgba(245,224,0,.26);border-radius:9px;padding:14px 18px;font-size:13px;color:#ffe870;font-style:italic;line-height:1.4}
-  .guar{margin-top:14px;display:flex;align-items:flex-start;gap:9px;text-align:left}
-  .guar .sh{flex-shrink:0;font-size:15px;margin-top:1px}
-  .guar span.t{font-size:12px;color:rgba(241,243,230,.55);line-height:1.5}
-
-  /* FAQ */
-  .faq-wrap{max-width:840px;margin:0 auto}
-  .faq-wrap h2{font-size:clamp(26px,3.4vw,40px);letter-spacing:-1.4px;margin:16px 0 32px;line-height:1.04}
-  .faq-list{display:flex;flex-direction:column}
-  .faq-item{border-bottom:1px solid rgba(241,243,230,.14)}
-  .faq-q{width:100%;background:none;border:0;padding:23px 0;display:flex;justify-content:space-between;align-items:center;gap:16px;cursor:pointer;font-family:var(--disp);font-weight:700;font-size:clamp(16px,1.5vw,18.5px);color:#f4f2ea;text-align:left}
-  .faq-icon{color:var(--acc);font-size:28px;font-weight:300;line-height:1;transition:transform .3s ease;flex-shrink:0}
-  .faq-item.open .faq-icon{transform:rotate(45deg)}
-  .faq-a{max-height:0;overflow:hidden;transition:max-height .38s ease}
-  .faq-a p{font-size:15px;color:var(--txt2);line-height:1.66;padding-bottom:23px}
-
-  /* CTA FINAL */
-  .ctafinal{position:relative;padding:clamp(90px,12vw,140px) clamp(22px,5vw,56px);text-align:center;overflow:hidden;background:var(--ink)}
-  .ctafinal-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:.4;z-index:0}
-  .ctafinal-scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(to right,rgba(10,10,12,.95) 0%,rgba(10,10,12,.8) 50%,rgba(10,10,12,.92) 100%)}
-  .ctafinal-in{position:relative;z-index:2}
-  .ctafinal h2{color:var(--off);font-size:clamp(30px,4.2vw,52px);letter-spacing:-1.8px;margin-bottom:16px;line-height:1}
-  .ctafinal p{font-size:17px;color:rgba(241,243,230,.82);max-width:460px;margin:0 auto 34px;line-height:1.55}
-  .ctafinal .fine{margin-top:22px;font-family:var(--mono);font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:rgba(241,243,230,.5)}
-
-  /* FOOTER */
-  .footer{background:#0a1119;border-top:1px solid rgba(241,243,230,.08);padding:44px clamp(22px,5vw,56px);text-align:center}
-  .footer-logo{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:14px}
-  .footer-mark{width:22px;height:22px;border-radius:6px;background:var(--acc);display:inline-flex;align-items:center;justify-content:center}
-  .footer-mark::after{content:"";width:7px;height:7px;background:#17171c;border-radius:2px}
-  .footer-word{font-family:var(--disp);font-weight:800;font-size:15px;color:var(--off);letter-spacing:-.3px}
-  .footer span.c{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:2.4px;color:rgba(241,243,230,.34)}
-
-  /* STICKY BAR */
-  .sticky{position:fixed;left:0;right:0;bottom:0;z-index:110;transform:translateY(130%);transition:transform .45s cubic-bezier(.16,.84,.44,1);padding:0 clamp(12px,3vw,24px) clamp(12px,3vw,20px);pointer-events:none}
-  .sticky.show{transform:translateY(0)}
-  .sticky-in{max-width:900px;margin:0 auto;pointer-events:auto;display:flex;align-items:center;gap:16px;background:rgba(10,10,12,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(241,243,230,.14);border-radius:15px;padding:12px 14px 12px 20px;box-shadow:0 24px 54px -20px rgba(0,0,0,.6)}
-  .sticky-txt{min-width:0;flex:1}
-  .sticky-txt .a{font-family:var(--disp);font-weight:800;font-size:15px;color:var(--off);line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .sticky-txt .b{font-family:var(--mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:rgba(241,243,230,.55);margin-top:2px}
-  .sticky-cta{flex-shrink:0;display:inline-flex;align-items:center;gap:8px;background:var(--acc);color:#101014;font-family:var(--body);font-weight:700;font-size:14px;padding:13px 22px;border-radius:10px;box-shadow:0 12px 26px -10px rgba(245,224,0,.82);transition:transform .3s ease}
-  .sticky-cta:hover{transform:translateY(-2px)}
-
-  /* LIGHTBOX */
-  .lightbox{position:fixed;inset:0;z-index:1000;display:none;align-items:center;justify-content:center;background:rgba(8,14,20,.93);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);cursor:zoom-out;padding:clamp(16px,4vw,48px)}
-  .lightbox.open{display:flex}
-  .lightbox img{max-width:96vw;max-height:92vh;border-radius:12px;box-shadow:0 40px 100px -20px rgba(0,0,0,.8);object-fit:contain}
-  .lightbox-close{position:absolute;top:clamp(14px,3vw,26px);right:clamp(14px,3vw,26px);width:46px;height:46px;border-radius:50%;border:1px solid rgba(241,243,230,.3);background:rgba(10,10,12,.6);color:var(--off);font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1}
-  .lightbox-hint{position:absolute;bottom:clamp(14px,3vw,26px);left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:2px;color:rgba(241,243,230,.5)}
-
-  /* REVEAL */
-  .reveal{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.16,.84,.44,1),transform .8s cubic-bezier(.16,.84,.44,1)}
-  .reveal.vis{opacity:1;transform:none}
-
-  /* RESPONSIVE */
-  @media (min-width:1000px){ .hero-float{display:block} }
-  @media (max-width:768px){
-    .nav{height:60px}
-    .nav-word{display:none}
-    .stats{grid-template-columns:repeat(2,1fr)}
-    .step.rev{flex-direction:row}
-    .dim .simframe{order:-1}
-    .pricing-left{border-right:0;border-bottom:1px solid rgba(241,243,230,.1)}
-    .bio-img img{min-height:280px}
-  }
-  @media (prefers-reduced-motion:reduce){
-    *{animation-duration:.001ms!important;animation-iteration-count:1!important}
-    .reveal{opacity:1;transform:none}
-  }
+  .rcard{background:rgba(241,243,230,.05);border:1px solid var(--line);border-radius:16px;padding:20px;margin:18px 0 22px}
+  .rcard .k{font-family:var(--mono);font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+  .rcard .v{font-family:var(--disp);font-weight:800;font-size:19px;color:var(--acc2);line-height:1.15}
+  .rlist{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-direction:column;gap:10px}
+  .rlist li{display:flex;gap:11px;font-size:14.5px;color:rgba(241,243,230,.85)}
+  .rlist li b{color:var(--cream)}
+  .rlist .ic{flex:none;width:22px;height:22px;border-radius:7px;background:rgba(245,224,0,.16);color:var(--acc);display:flex;align-items:center;justify-content:center;font-size:12px}
+  .foot{font-family:var(--mono);font-size:10px;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted);text-align:center;padding:22px 0 30px}
+  .hidden{display:none}
+  .wa-note{font-size:13px;color:var(--muted);text-align:center;margin-top:14px;line-height:1.5}
 </style>
 </head>
 <body>
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W5TCMGSW" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<div class="prog" id="prog"></div>
+<div class="wrap">
+  <div class="top"><img src="logo-dq-icon.png" alt="Dissecando Questões" style="height:30px;width:auto;display:block"><b>Dissecando Questões</b><span>Perícia</span></div>
 
-<div class="grain" aria-hidden="true"></div>
-<div class="progress" id="progress" aria-hidden="true"></div>
-
-<!-- NAV -->
-<nav class="nav" id="nav">
-  <a href="#topo" class="nav-logo"><span class="nav-mark"></span><span class="nav-word">Dossiê Perícia</span></a>
-  <div class="nav-links" id="navLinks">
-    <a href="#cenario" data-id="cenario">Cenário</a>
-    <a href="#metodo" data-id="metodo">Método</a>
-    <a href="#programa" data-id="programa">Programa</a>
-    <a href="#resultados" data-id="resultados">Resultados</a>
-    <a href="#faq" data-id="faq">FAQ</a>
+  <!-- COVER -->
+  <div id="cover" class="stage">
+    <img src="logo-dq-white.png" alt="Dissecando Questões" style="height:58px;width:auto;margin-bottom:22px">
+    <span class="eyebrow">Quiz · Perícia Criminal</span>
+    <h1>Qual concurso de Perícia combina com a <mark>sua formação</mark>?</h1>
+    <p class="sub">Em 1 minuto você descobre a sua área dentro da Perícia e recebe no WhatsApp um diagnóstico com as oportunidades da sua formação e do seu estado.</p>
+    <button class="btn" onclick="start()">Começar o diagnóstico →</button>
+    <div class="meta">5 perguntas · sem enrolação · resultado no WhatsApp</div>
   </div>
-  <a href="#investimento" class="nav-cta" data-scroll="investimento">Garantir vaga <span aria-hidden="true">→</span></a>
-</nav>
 
-<!-- HERO -->
-<section id="topo" class="hero">
-  <picture>
-    <img class="hero-bg" src="img/hero-forense.jpg" alt="Cena de investigação de perícia criminal">
-  </picture>
-  <div class="hero-scrim1"></div>
-  <div class="hero-scrim2"></div>
-  <div class="hero-glow" aria-hidden="true"></div>
-  <div class="hero-inner">
-    <div class="hero-col">
-      <span class="eyebrow line hero-up" style="animation-delay:0s">Dissecando Questões</span>
-      <h1 class="hero-up" style="animation-delay:.08s">O programa de preparação mais completo para os <span class="accent">Perícia Criminal</span></h1>
-      <p class="sub hero-up" style="animation-delay:.16s">Plataforma inteligente. Cronograma que se adapta à sua rotina. Materiais completos em texto. Acompanhamento mensal com o Prof. Manoel Machado.</p>
-      <div class="hero-actions hero-up" style="animation-delay:.24s">
-        <a href="#investimento" class="btn-primary" data-scroll="investimento">Quero ser aprovado <span aria-hidden="true">→</span></a>
-        <a href="#metodo" class="btn-ghost" data-scroll="metodo">Conhecer o método</a>
-      </div>
-      <div class="hero-trust hero-up" style="animation-delay:.32s">
-        <div class="avatars">
-          <img class="av" src="img/av1.png" alt="" width="34" height="34">
-          <img class="av" src="img/av2.png" alt="" width="34" height="34">
-          <img class="av" src="img/av3.png" alt="" width="34" height="34">
-          <span class="av av4">+</span>
-        </div>
-        <div class="hero-trust-txt"><strong>+300 aprovados pelo método</strong><br>em concursos públicos de 18 estados</div>
-      </div>
+  <!-- QUIZ -->
+  <div id="quiz" class="stage hidden">
+    <div class="qnum" id="qnum">01 / 05</div>
+    <div class="qh" id="qh"></div>
+    <div class="opts" id="opts"></div>
+    <button class="back hidden" id="back" onclick="prev()">‹ Voltar</button>
+  </div>
+
+  <!-- CAPTURE (depois das perguntas, antes do diagnóstico) -->
+  <div id="capture" class="stage hidden">
+    <span class="eyebrow">Quase lá</span>
+    <h1 style="font-size:clamp(24px,6vw,32px)">Seu diagnóstico está <mark>pronto</mark>. Pra onde eu envio?</h1>
+    <p class="sub">Preencha pra desbloquear: sua área na Perícia, as áreas de atuação e os editais do seu estado.</p>
+    <div class="field"><label for="nome">Seu primeiro nome</label><input type="text" id="nome" placeholder="Ex: Ana" autocomplete="given-name"></div>
+    <div class="field"><label for="email">Seu melhor e-mail</label><input type="email" id="email" placeholder="voce@email.com" autocomplete="email" inputmode="email"></div>
+    <div class="field"><label for="tel">WhatsApp (com DDD)</label><input type="tel" id="tel" placeholder="(00) 00000-0000" autocomplete="tel" inputmode="tel"></div>
+    <p class="err" id="cerr" style="display:none;color:#ff8a8a;font-size:13px;margin:2px 0 10px">Preencha nome, e-mail e WhatsApp válidos pra ver o diagnóstico.</p>
+    <button class="btn" onclick="submitLead()">Ver meu diagnóstico →</button>
+    <p class="wa-note">Usamos seu contato só pra te enviar o diagnóstico e os avisos de edital da Perícia.</p>
+  </div>
+
+  <!-- RESULT -->
+  <div id="result" class="stage hidden">
+    <span class="eyebrow">Diagnóstico pronto</span>
+    <h1 id="rtitle" style="font-size:clamp(24px,6vw,32px)">Perfil montado!</h1>
+
+    <div class="rcard">
+      <div class="k">Sua porta de entrada na Perícia</div>
+      <div class="v" id="rarea">...</div>
+      <div class="k" style="margin-top:16px">Onde a sua formação atua</div>
+      <ul class="rlist" id="ratua"></ul>
     </div>
-  </div>
-  <div class="hero-float" aria-hidden="true">
-    <div class="inner">
-      <div class="k">Método DQ</div>
-      <div class="big">85% aprovados</div>
-      <div class="s">passam de primeira</div>
-    </div>
-  </div>
-</section>
 
-<!-- STATS -->
-<div class="stats-wrap">
-  <div class="stats reveal">
-    <div class="stats-cell"><div class="stats-val" data-count data-target="8">8</div><div class="stats-label">Estados com movimentação</div></div>
-    <div class="stats-cell"><div class="stats-val" data-count data-pre="R$ " data-target="20" data-suf=" mil+">R$ 20 mil+</div><div class="stats-label">Teto salarial de perito</div></div>
-    <div class="stats-cell"><div class="stats-val" data-count data-target="45" data-suf=" dias">45 dias</div><div class="stats-label">Do edital à prova</div></div>
-    <div class="stats-cell"><div class="stats-val" data-count data-pre="+" data-target="300">+300</div><div class="stats-label">Aprovados pelo método DQ</div></div>
+    <div class="rcard" id="reditalCard">
+      <div class="k">Editais no seu radar <span id="rufLabel"></span></div>
+      <div class="v" id="reditalHead" style="font-size:17px">...</div>
+      <div id="reditalBody" style="font-size:14.5px;color:var(--muted);line-height:1.55;margin-top:8px"></div>
+    </div>
+
+    <a class="btn" id="waBtn" href="#" target="_blank" rel="noopener">📲 Falar com um consultor no WhatsApp</a>
+    <p class="wa-note">Fale com a equipe da Dissecando Questões, tire suas dúvidas e entre no grupo fechado da Perícia pra receber as movimentações de edital em primeira mão.</p>
   </div>
+
+  <div class="foot">Dissecando Questões · Perícia Criminal · @pericia.dissecadordequestoes</div>
 </div>
 
-<!-- MARQUEE -->
-<div class="marquee">
-  <div class="marquee-track">
-    <div class="marquee-group">
-      <span class="marquee-item">+300 aprovados pelo método DQ</span><span class="marquee-item">Carreira de Estado</span><span class="marquee-item">R$ 20 mil+ de teto</span><span class="marquee-item">8 estados em movimento</span><span class="marquee-item">Estabilidade</span><span class="marquee-item">O pré-edital decide</span><span class="marquee-item">Método &gt; volume</span>
-    </div>
-    <div class="marquee-group" aria-hidden="true">
-      <span class="marquee-item">+300 aprovados pelo método DQ</span><span class="marquee-item">Carreira de Estado</span><span class="marquee-item">R$ 20 mil+ de teto</span><span class="marquee-item">8 estados em movimento</span><span class="marquee-item">Estabilidade</span><span class="marquee-item">O pré-edital decide</span><span class="marquee-item">Método &gt; volume</span>
-    </div>
-  </div>
-</div>
-
-<!-- CENARIO -->
-<section id="cenario" class="sec cream" style="scroll-margin-top:82px;padding-bottom:clamp(60px,7vw,88px)">
-  <div class="wrap">
-    <div class="cenario-grid">
-      <div class="reveal">
-        <span class="eyebrow">O Cenário</span>
-        <h2>A expansão é real. A oportunidade é agora.</h2>
-        <p>A perícia criminal está em movimento no país inteiro. Estados como MA, TO, SP, DF, PA, ES, AC e CE já mexem em autorização, banca e orçamento. A perícia não abre concurso o tempo todo, quando abre, some rápido. Quem acompanha o cenário larga na frente.</p>
-        <p>Antes do edital existem sinais públicos: autorização, banca, orçamento. E entre o edital e a prova são poucas semanas, tempo curto demais para construir base. A pergunta que importa não é se vai ter concurso. É se você vai estar pronto quando ele sair.</p>
-      </div>
-      <div class="reveal">
-        <div class="imgframe">
-          <picture>
-            <img src="img/cenario-forense.jpg" alt="Perito criminal analisando evidências">
-          </picture>
-          <div class="imgtag">Trabalho forense · Perícia Criminal</div>
-        </div>
-      </div>
-    </div>
-    <div class="stat85 reveal">
-      <div class="num">85%</div>
-      <div>
-        <div class="t">dos aprovados de primeira começaram entre 6 e 10 meses antes da prova. O diferencial não foi intensidade. Foi <span class="accent">antecedência e direção</span>.</div>
-        <div class="src">Dado interno · +300 aprovados pelo método DQ</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- TIMELINE A -->
-<section class="sec dark" style="position:relative;overflow:hidden;padding-top:clamp(70px,9vw,112px);padding-bottom:clamp(70px,9vw,112px);background:linear-gradient(rgba(10,10,12,.9),rgba(10,10,12,.94)),url('img/bg-forense-1.jpg') center/cover fixed">
-  <div class="wrap" style="position:relative;text-align:center">
-    <div class="tl-head reveal">
-      <span class="eyebrow">Antes do edital</span>
-      <h2>O concurso já começou, você só não foi avisado</h2>
-      <p class="lead" style="text-align:center">O processo leva de 6 a 9 meses entre a autorização e a publicação do edital. Quem entende esse ciclo começa antes, e passa primeiro.</p>
-    </div>
-    <div class="tl-frame dark-frame reveal">
-      <div class="tl-bar d"><span class="a">Fase pré-edital</span><span class="m">· 6 a 9 meses</span><span class="z">ampliar ⤢</span></div>
-      <picture>
-        <source media="(max-width:768px)" srcset="img/timeline-preedital.png">
-        <source srcset="img/timeline-preedital.png">
-        <img data-zoom src="img/timeline-preedital.png" alt="Como nasce um concurso de perícia: as fases do processo pré-edital">
-      </picture>
-    </div>
-  </div>
-</section>
-
-<!-- TIMELINE B -->
-<section class="sec cream" style="padding-top:clamp(70px,9vw,116px);padding-bottom:clamp(70px,9vw,116px)">
-  <div class="wrap" style="text-align:center">
-    <div class="tl-head reveal">
-      <span class="eyebrow">As fases do concurso</span>
-      <h2>Da publicação do edital à convocação e posse</h2>
-      <p class="lead" style="text-align:center">Onze fases separam o edital da nomeação. Saber onde você está no caminho muda como você estuda.</p>
-    </div>
-    <div class="tl-frame light-frame reveal">
-      <div class="tl-bar l"><span class="a">11 fases</span><span class="m">· edital → posse</span><span class="z">ampliar ⤢</span></div>
-      <picture>
-        <source media="(max-width:768px)" srcset="img/timeline-fases.png">
-        <source srcset="img/timeline-fases.png">
-        <img data-zoom src="img/timeline-fases.png" alt="As 11 fases do concurso público, da publicação do edital à convocação e posse">
-      </picture>
-    </div>
-  </div>
-</section>
-
-<!-- DESAFIO -->
-<section class="sec dark desafio" style="position:relative;overflow:hidden;padding-top:clamp(74px,9vw,120px);padding-bottom:clamp(74px,9vw,120px);background:linear-gradient(rgba(10,10,12,.91),rgba(10,10,12,.95)),url('img/bg-forense-2.jpg') center/cover fixed">
-  <div class="glowbox g" aria-hidden="true"></div>
-  <div class="wrap-sm desafio-in">
-    <div class="reveal">
-      <span class="eyebrow">O Desafio</span>
-      <h3>Você sabe que precisa se preparar. A dúvida é como.</h3>
-      <p>Você trabalha o dia inteiro. Plantão, expediente, casa, família. Quando sobra tempo para estudar, sobra pouco, e a dúvida é sempre a mesma: estou estudando a coisa certa?</p>
-      <p>A maioria de quem se prepara para a perícia criminal enfrenta os mesmos obstáculos: material genérico que não cobre o específico da área, questões espalhadas sem padrão de recorrência, cronograma que dura uma semana antes de ser abandonado, e a sensação constante de que o tempo está passando sem um plano real.</p>
-    </div>
-    <div class="pains reveal">
-      <div class="pain"><div class="n">01</div><div class="ti">Rotina esgotante</div><div class="tx">Trabalho + casa + família. Chega cansado e precisa decidir sozinho o que estudar.</div></div>
-      <div class="pain"><div class="n">02</div><div class="ti">Material genérico</div><div class="tx">Cursos que cobrem o geral e te deixam descoberto no específico da sua área.</div></div>
-      <div class="pain"><div class="n">03</div><div class="ti">Questões espalhadas</div><div class="tx">Questões de perícia difíceis de encontrar, sem comentário, sem análise de recorrência.</div></div>
-      <div class="pain"><div class="n">04</div><div class="ti">Sem direcionamento</div><div class="tx">Sem saber o que a banca cobra, você estuda tudo e perde tempo.</div></div>
-    </div>
-    <div class="desafio-close reveal">A maioria reprova não por falta de capacidade, mas por falta de <span class="accent">direcionamento</span>.</div>
-  </div>
-</section>
-
-<!-- METODO -->
-<section id="metodo" class="sec cream" style="scroll-margin-top:82px;padding-bottom:clamp(30px,4vw,48px)">
-  <div class="wrap metodo-head reveal">
-    <span class="eyebrow">O Método</span>
-    <h2>Um sistema de 6 etapas que funciona na sua rotina</h2>
-    <p class="lead" style="max-width:580px">Não é um curso com videoaulas de 2 horas. É um programa de preparação que se adapta ao seu tempo, não contra ele.</p>
-  </div>
-  <div class="wrap steps">
-    <div class="step reveal">
-      <div class="step-text"><div class="step-num">01</div><h3>Diagnóstico da Banca</h3><p>Antes de abrir qualquer material, você entende como a sua banca cobra. O Mapa das Questões analisa os padrões de recorrência por instituto, disciplina e tema. Você não estuda tudo, estuda o que aparece.</p></div>
-      <div class="step-media"><div class="bframe"><div class="bbar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">app.dissecandoquestoes.com</span><span class="zoomlbl">ampliar ⤢</span></div><img data-zoom src="img/plat-mapa.png" alt="Mapa das Questões, recorrência por tema e banca"></div></div>
-    </div>
-    <div class="step rev reveal">
-      <div class="step-text"><div class="step-num">02</div><h3>Conteúdo Direcionado</h3><p>Com o mapa na mão, você estuda os materiais de conhecimentos básicos e específicos da sua área. Tudo em texto, direto ao ponto, sem videoaula de 2 horas. Cada página existe porque a banca cobra.</p></div>
-      <div class="step-media"><div class="bframe"><div class="bbar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">app.dissecandoquestoes.com</span><span class="zoomlbl">ampliar ⤢</span></div><picture><source srcset="img/plat-material.png"><img data-zoom src="img/plat-material.png" alt="Material didático enxuto por disciplina específica"></picture></div></div>
-    </div>
-    <div class="step reveal">
-      <div class="step-text"><div class="step-num">03</div><h3>Prática com Inteligência</h3><p>O Banco de Questões Dissecadas traz as provas anteriores com resolução estratégica. Você não só acerta ou erra, entende por que a banca formulou daquele jeito e o que ela quer testar.</p></div>
-      <div class="step-media"><div class="bframe"><div class="bbar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">app.dissecandoquestoes.com</span><span class="zoomlbl">ampliar ⤢</span></div><img data-zoom src="img/plat-questao.png" alt="Questão dissecada com resolução estratégica"></div></div>
-    </div>
-    <div class="step rev reveal">
-      <div class="step-text"><div class="step-num">04</div><h3>Revisão Espaçada</h3><p>Flashcards calibrados pelo seu desempenho. O que você erra, volta mais vezes. O que você domina, espaça. A revisão é ativa, não passiva, e acontece dentro da plataforma.</p></div>
-      <div class="step-media"><div class="bframe"><div class="bbar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">app.dissecandoquestoes.com</span><span class="zoomlbl">ampliar ⤢</span></div><picture><source srcset="img/plat-flashcards.png"><img data-zoom src="img/plat-flashcards.png" alt="Flashcards com indicadores de desempenho"></picture></div></div>
-    </div>
-    <div class="step reveal">
-      <div class="step-text"><div class="step-num">05</div><h3>Cronograma que se Adapta</h3><p>A plataforma gera seu cronograma com base no tempo que você realmente tem. Se sua semana muda, o plano muda junto. Você não abandona o cronograma, ele se ajusta a você.</p></div>
-      <div class="step-media"><div class="bframe"><div class="bbar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">app.dissecandoquestoes.com</span><span class="zoomlbl">ampliar ⤢</span></div><img data-zoom src="img/plat-cronograma.png" alt="Cronograma adaptável com metas semanais"></div></div>
-    </div>
-    <div class="step rev reveal">
-      <div class="step-text"><div class="step-num">06</div><h3>Acompanhamento Real</h3><p>Todo mês, encontro ao vivo com o Prof. Manoel Machado. Correção de rota, dúvidas estratégicas, alinhamento de prioridades. Você não está sozinho, tem alguém que já percorreu esse caminho acompanhando o seu.</p></div>
-      <div class="step-media"><div class="photoframe"><picture><source type="image/webp" srcset="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/FOTO%20DO%20PROF.%20MANOEL%20EM%20MENTORIA%20AO%20VIVO.webp"><img data-zoom src="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/FOTO%20DO%20PROF.%20MANOEL%20EM%20MENTORIA%20AO%20VIVO.jpg" alt="Encontro de mentoria coletiva ao vivo com o Prof. Manoel"></picture><div class="imgtag">Mentoria ao vivo · mensal</div></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- PROGRAMA -->
-<section id="programa" class="sec cream" style="scroll-margin-top:82px;padding-bottom:clamp(56px,7vw,80px)">
-  <div class="wrap">
-    <div class="prog-head reveal">
-      <span class="eyebrow">O Programa</span>
-      <h2>Tudo que está incluído no Dossiê Perícia</h2>
-      <p class="lead" style="max-width:620px">16 ferramentas e recursos organizados em três dimensões da preparação. Cada item resolve um problema real, nenhum está aqui para encher lista.</p>
-    </div>
-
-    <div class="reveal" style="max-width:840px;margin:0 auto clamp(44px,5vw,68px);text-align:center;background:linear-gradient(160deg,rgba(245,224,0,.07),rgba(244,242,234,.02));border:1px solid rgba(244,242,234,.12);border-radius:20px;padding:clamp(30px,4vw,46px)">
-      <span class="eyebrow">Plataforma própria</span>
-      <h3 style="font-size:clamp(23px,2.9vw,34px);margin:14px 0 14px;color:var(--off)">Tudo dentro da nossa <span style="color:var(--acc)">própria plataforma</span>, não um curso solto</h3>
-      <p style="color:var(--txt);font-size:16.5px;line-height:1.65;max-width:640px;margin:0 auto">Materiais, banco de questões, simulados, flashcards e o cronograma que se adapta à sua rotina: tudo em um só lugar, construído pela gente. Sem depender de ferramenta de terceiro e sem juntar aula solta de canto nenhum.</p>
-    </div>
-
-    <div class="dim reveal">
-      <div style="max-width:640px">
-        <span class="dim-badge">Dimensão 01</span>
-        <h3>Conteúdo e Inteligência</h3>
-        <p>O conhecimento completo da Perícia Criminal, organizado, direcionado e pronto para estudar. Sem garimpar material, sem improvisar.</p>
-      </div>
-    </div>
-
-    <div class="cards c6 reveal">
-      <div class="tcard"><div class="n">01</div><h4>Materiais Básicos</h4><p>Legislação, didática, pedagogia, tudo que é comum a todos os editais. Em texto, direto ao ponto.</p></div>
-      <div class="tcard"><div class="n">02</div><h4>Materiais Específicos</h4><p>Conteúdo completo para todas as áreas que a perícia exige. Feito para a perícia, não genérico.</p></div>
-      <div class="tcard"><div class="n">03</div><h4>Banco de Questões</h4><p>Provas anteriores com resolução estratégica. Filtros por banca, instituto e tema.</p></div>
-      <div class="tcard"><div class="n">04</div><h4>Mapa das Questões</h4><p>Recorrência dinâmica por banca e tema. Você sabe o peso de cada assunto.</p></div>
-      <div class="tcard"><div class="n">05</div><h4>Biblioteca de Provas</h4><p>Acervo completo organizado por instituto e disciplina.</p></div>
-      <div class="tcard"><div class="n">06</div><h4>Método DQ</h4><p>Vídeos e documentos com a lógica da preparação.</p></div>
-    </div>
-
-    <div class="dim reveal">
-      <div style="max-width:640px">
-        <span class="dim-badge">Dimensão 02</span>
-        <h3>Prática e Revisão</h3>
-        <p>Treinar como a banca cobra e fixar o que importa. Com ferramentas inteligentes que se adaptam ao seu desempenho.</p>
-      </div>
-    </div>
-
-    <div class="cards c3 reveal">
-      <div class="icard"><div class="top" data-zoom><img src="img/plat-robo.png" alt="Chat com o Robô Tutor"></div><div class="body"><div class="n">01</div><h4>Robô Tutor Dissecador</h4><p>Tira-dúvidas por IA especializado nas suas disciplinas. Resposta clara e direta, na hora.</p></div></div>
-      <div class="icard"><div class="top" data-zoom><img src="img/plat-simulado.png" alt="Resultado de simulado"></div><div class="body"><div class="n">02</div><h4>Simulados Dissecados</h4><p>Gerados por histórico de questões, direcionados por banca e área. Ajuste fino para a prova.</p></div></div>
-      <div class="icard"><div class="top" data-zoom><img src="img/plat-flashcards.png" alt="Tela de flashcards"></div><div class="body"><div class="n">03</div><h4>Flashcards de Revisão</h4><p>Revisão espaçada calibrada pelo desempenho. O que você erra, volta mais vezes.</p></div></div>
-    </div>
-  </div>
-
-  <!-- DIM 3 -->
-  <div class="dim3 reveal">
-    <div class="glowbox g" aria-hidden="true"></div>
-    <div class="dim3-head">
-      <span class="dim-badge">Dimensão 03</span>
-      <h3>Organização e Acompanhamento</h3>
-      <p>A estrutura que transforma estudo disperso em preparação real. Com tecnologia, comunidade e mentoria.</p>
-    </div>
-    <div class="d3feat">
-      <div class="d3card"><div class="top" data-zoom><img src="img/plat-dashboard.png" alt="Dashboard da plataforma"></div><div class="body"><div class="n">01</div><h4>Plataforma Inteligente</h4><p>Organiza seu progresso, identifica lacunas e sugere próximos passos. Seu copiloto de preparação.</p></div></div>
-      <div class="d3card"><div class="top" data-zoom><img src="img/plat-metas.png" alt="Cronograma com metas"></div><div class="body"><div class="n">02</div><h4>Cronograma Adaptável</h4><p>Gerado automaticamente com base no seu tempo real. Se a semana muda, o plano muda junto.</p></div></div>
-    </div>
-    <div class="d3comp">
-      <div class="d3chip"><div class="n">03</div><h5>Comunidade por Área</h5><p>Grupo WhatsApp da sua disciplina</p></div>
-      <div class="d3chip"><div class="n">04</div><h5>Mentoria Mensal</h5><p>Ao vivo com Prof. Manoel, gravada</p></div>
-      <div class="d3chip"><div class="n">05</div><h5>Curso da Didática</h5><p>Gravado + 1 encontro ao vivo</p></div>
-      <div class="d3chip"><div class="n">06</div><h5>Prep. Discursiva</h5><p>Técnica e correção com feedback</p></div>
-      <div class="d3chip"><div class="n">07</div><h5>Suporte WhatsApp</h5><p>Chat individual, horário comercial</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- RESULTADOS -->
-<section id="resultados" class="sec cream res" style="scroll-margin-top:82px">
-  <div class="wrap">
-    <div class="reveal">
-      <span class="eyebrow">Resultados</span>
-      <h2>Números reais de quem seguiu o método</h2>
-    </div>
-    <div class="res-stats reveal">
-      <div class="res-stat"><div class="res-num" data-count data-pre="+" data-target="300">+300</div><p>Aprovados pelo método DQ em concursos públicos de todo o país</p></div>
-      <div class="res-stat"><div class="res-num" data-count data-target="85" data-suf="%">85%</div><p>Dos aprovados de primeira começaram entre 6 e 10 meses antes da prova</p></div>
-      <div class="res-stat"><div class="res-num" data-count data-target="18" data-suf="+">18+</div><p>Estados com alunos aprovados, em mais de 15 disciplinas diferentes</p></div>
-    </div>
-    <!-- DEPOIMENTOS, portado de lps/banco (carrossel de vídeos + marquee de prints) -->
-    <div class="depo-sub reveal">
-      <h3>Quem já dissecou a banca pelo método DQ</h3>
-      <div class="depo-marquee-outer">
-        <div class="depo-marquee-track" id="depoMarqueeTrack"></div>
-      </div>
-    </div>
-    <div class="bio reveal">
-      <div class="bio-img"><picture><source type="image/webp" srcset="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/FOTO%20PROFISSIONAL%20DO%20PROF.%20MANOEL%20MACHADO2.webp"><img src="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/FOTO%20PROFISSIONAL%20DO%20PROF.%20MANOEL%20MACHADO2.jpg" alt="Retrato profissional do Prof. Manoel Machado"></picture></div>
-      <div class="bio-body">
-        <div class="bio-top">
-          <div class="bio-bar"></div>
-          <div>
-            <h3>Prof. Manoel Machado</h3>
-            <span class="bio-role">Criador do Método DQ</span>
-          </div>
-        </div>
-        <p>Criador do Método Dissecando Questões. Mais de 300 alunos aprovados em concursos públicos de 18 estados. Aprovado em Perícia Criminal, ele ensina o mesmo método que forma peritos: dissecar a banca em vez de estudar no escuro.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- INVESTIMENTO -->
-<section id="investimento" class="sec dark invest" style="scroll-margin-top:82px;position:relative;overflow:hidden;background:linear-gradient(rgba(10,10,12,.92),rgba(10,10,12,.96)),url('img/bg-forense-3.jpg') center/cover fixed">
-  <div class="glowbox g" aria-hidden="true"></div>
-  <div class="invest-in">
-    <div class="invest-head reveal">
-      <span class="eyebrow">Investimento</span>
-      <h2>Comece sua preparação</h2>
-      <p>Acesso completo à plataforma, todos os materiais, ferramentas de prática e revisão, cronograma adaptável e acompanhamento mensal.</p>
-    </div>
-    <div class="pricing reveal">
-      <div class="pricing-grid">
-        <div class="pricing-left">
-          <span class="badge">Programa Completo</span>
-          <h3>Dossiê Perícia</h3>
-          <p class="pricing-sub">Mentoria em grupo + plataforma inteligente de estudos</p>
-          <div class="incs">
-            <div class="inc"><span class="ck">✓</span><span class="t">Acesso completo à plataforma inteligente</span></div>
-            <div class="inc"><span class="ck">✓</span><span class="t">Todos os materiais, básicos e específicos</span></div>
-            <div class="inc"><span class="ck">✓</span><span class="t">Ferramentas de prática e revisão</span></div>
-            <div class="inc"><span class="ck">✓</span><span class="t">Cronograma que se adapta à sua rotina</span></div>
-            <div class="inc"><span class="ck">✓</span><span class="t">Acompanhamento mensal ao vivo com o Prof. Manoel</span></div>
-          </div>
-        </div>
-        <div class="pricing-right">
-          <div class="pre">em até</div>
-          <div class="price">12x <span class="sm">de</span> R$ 124,70</div>
-          <div class="pix">ou R$ 1.247 à vista no Pix</div>
-          <!-- CHECKOUT Path A: o href é fallback PRONTO (fail-open, ainda leva os
-               UTMs); o checkout-links.js roteia por campanha quando há config de
-               checkout cadastrada no CRM. NÃO trocar por link montado em JS. -->
-          <a href="https://checkout.dissecandoquestoes.com.br/checkout/lnc-grupos2-dossie-if-2-anos" class="btn-primary cta-full" data-dq-checkout data-comprar="cartao">Começar minha preparação <span aria-hidden="true">→</span></a>
-          <div class="guar"><span class="sh" aria-hidden="true">🛡️</span><span class="t">Garantia incondicional de 7 dias. Se por qualquer motivo sentir que não é pra você, devolvemos 100% do valor. Sem perguntas.</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FAQ -->
-<section id="faq" class="sec cream" style="scroll-margin-top:82px">
-  <div class="faq-wrap reveal">
-    <span class="eyebrow">Perguntas Frequentes</span>
-    <h2>Tire suas dúvidas</h2>
-    <div class="faq-list" id="faqList">
-      <div class="faq-item"><button type="button" class="faq-q"><span>Funciona para a minha área?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>Sim. O Dossiê Perícia cobre todas as áreas de atuação com materiais específicos para cada disciplina. Os cadernos de questões, simulados e flashcards são filtrados pela sua área. As comunidades no WhatsApp também são segmentadas por disciplina.</p></div></div>
-      <div class="faq-item"><button type="button" class="faq-q"><span>Tenho pouco tempo. Vai funcionar?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>O Dossiê foi feito para quem tem pouco tempo. O cronograma se adapta às horas que você realmente tem disponíveis na semana. Sessões de 20-30 minutos por dia já geram progresso consistente. É o oposto de ‘videoaula de 2 horas’, é material direto, consultável, que vai no ponto.</p></div></div>
-      <div class="faq-item"><button type="button" class="faq-q"><span>O material é em vídeo ou texto?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>Os materiais didáticos (básicos e específicos) são 100% em texto, diretos, consultáveis, feitos para quem não pode assistir videoaulas longas. O Método DQ e o Curso Dissecando a Didática incluem vídeo por serem conteúdos de formação.</p></div></div>
-      <div class="faq-item"><button type="button" class="faq-q"><span>E se sair edital durante o meu acesso?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>Melhor cenário possível. Você já vai estar preparado. A plataforma permite ajustar o cronograma para intensificar os estudos quando o edital sair. E como você já domina o mapa de recorrência da banca, sabe exatamente onde focar.</p></div></div>
-      <div class="faq-item"><button type="button" class="faq-q"><span>Posso parcelar?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>Sim, em até 12 vezes no cartão de crédito. O valor por dia fica abaixo de R$ 3, menos que um café.</p></div></div>
-      <div class="faq-item"><button type="button" class="faq-q"><span>E se eu não gostar?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>Você tem 7 dias de garantia incondicional. Se sentir que não é pra você, basta solicitar o reembolso e devolvemos 100% do valor. Sem perguntas, sem burocracia.</p></div></div>
-      <div class="faq-item"><button type="button" class="faq-q"><span>Qual a diferença entre o Dossiê Perícia e outros cursos?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>A maioria dos cursos entrega conteúdo genérico gravado e te deixa sozinho. O Dossiê Perícia entrega conteúdo direcionado especificamente para a perícia, uma plataforma que adapta o cronograma ao seu tempo, ferramentas de prática inteligente, e acompanhamento mensal ao vivo com o Prof. Manoel Machado.</p></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- CTA FINAL -->
-<section class="ctafinal">
-  <picture>
-    <source type="image/webp" srcset="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/FOTO%20PROFISSIONAL%20DO%20PROF.%20MANOEL%20MACHADO2.webp">
-    <img class="ctafinal-bg" src="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/FOTO%20PROFISSIONAL%20DO%20PROF.%20MANOEL%20MACHADO2.jpg" alt="" aria-hidden="true">
-  </picture>
-  <div class="ctafinal-scrim"></div>
-  <div class="ctafinal-in reveal">
-    <h2>Pronto para começar?</h2>
-    <p>Sua preparação para a Perícia Criminal começa aqui.</p>
-    <a href="#investimento" class="btn-primary" data-scroll="investimento">Começar minha preparação <span aria-hidden="true">→</span></a>
-    <div class="fine">Garantia de 7 dias · +300 aprovados · 18 estados</div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="footer-logo"><span class="footer-mark"></span><span class="footer-word">Dossiê Perícia</span></div>
-  <span class="c">Dissecando Questões · Perícia Criminal · @pericia.dissecadordequestoes</span>
-</footer>
-
-<!-- STICKY CTA BAR -->
-<div class="sticky" id="sticky">
-  <div class="sticky-in">
-    <div class="sticky-txt">
-      <div class="a">Ainda com dúvida sobre o Dossiê Perícia?</div>
-      <div class="b">Fale com um consultor de carreira</div>
-    </div>
-    <a href="https://wa.link/dq-consultor" class="sticky-cta" target="_blank" rel="noopener">Falar no WhatsApp <span aria-hidden="true">→</span></a>
-  </div>
-</div>
-
-<!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox">
-  <img id="lightboxImg" alt="">
-  <button type="button" class="lightbox-close" id="lightboxClose" aria-label="Fechar">✕</button>
-  <span class="lightbox-hint">Clique para fechar</span>
-</div>
+<div class="toast" id="toast"></div>
 
 <script>
-(function(){
-  "use strict";
-  var $=function(s,c){return (c||document).querySelector(s)};
-  var $$=function(s,c){return Array.prototype.slice.call((c||document).querySelectorAll(s))};
-  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+/* ====== CONFIG (troque pelo WhatsApp oficial da Perícia) ====== */
+var WHATS = "5511953432311"; // número que dispara a automação do diagnóstico (só dígitos, com DDI 55)
 
-  // ---- reveal ----
-  function reveal(el){el.classList.add('vis')}
-  if(reduce || !('IntersectionObserver' in window)){
-    $$('.reveal').forEach(reveal);
-  } else {
-    var ro=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){reveal(e.target);ro.unobserve(e.target)}})},{threshold:.12,rootMargin:'0px 0px -8% 0px'});
-    $$('.reveal').forEach(function(el){ro.observe(el)});
-    setTimeout(function(){$$('.reveal').forEach(function(el){if(!el.classList.contains('vis'))reveal(el)})},2600);
-  }
+/* ====== PLANILHA (Google Sheets via Apps Script Web App) ======
+   Cole aqui a URL do seu Web App (termina em /exec). Enquanto estiver vazio,
+   o quiz funciona normal e só não grava na planilha. Passo a passo no guia. */
+var SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbw_DvfNABbrGuiGaUd5vKekQovkC7YNcQDnVtdgreBttaCkH3FWC06BlOOo_jUJFKnV/exec";
 
-  // ---- count-up ----
-  function fmt(v,dec,pre,suf){var s=dec>0?v.toFixed(dec).replace('.',','):Math.round(v).toLocaleString('pt-BR');return (pre||'')+s+(suf||'')}
-  function countUp(el){
-    if(el.dataset.done)return; el.dataset.done='1';
-    var pre=el.dataset.pre||'',suf=el.dataset.suf||'',dec=parseInt(el.dataset.dec||'0',10),target=parseFloat(el.dataset.target||'0');
-    if(reduce){el.textContent=fmt(target,dec,pre,suf);return}
-    var dur=1300,t0=performance.now();
-    function step(now){var p=Math.min(1,(now-t0)/dur),e=1-Math.pow(1-p,3);el.textContent=fmt(target*e,dec,pre,suf);if(p<1)requestAnimationFrame(step);else el.textContent=fmt(target,dec,pre,suf)}
-    requestAnimationFrame(step);
-  }
-  if('IntersectionObserver' in window){
-    var co=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){countUp(e.target);co.unobserve(e.target)}})},{threshold:.4});
-    $$('[data-count]').forEach(function(el){co.observe(el)});
-  } else { $$('[data-count]').forEach(countUp) }
-
-  // ---- smooth scroll for internal CTAs + nav ----
-  function scrollToId(id){var el=document.getElementById(id);if(el&&el.scrollIntoView)el.scrollIntoView({behavior:'smooth',block:'start'})}
-  var navLinks=$('#navLinks');
-  if(navLinks){navLinks.addEventListener('click',function(e){var a=e.target.closest?e.target.closest('a[data-id]'):null;if(!a)return;e.preventDefault();scrollToId(a.getAttribute('data-id'))})}
-  $$('[data-scroll]').forEach(function(btn){btn.addEventListener('click',function(e){e.preventDefault();scrollToId(btn.getAttribute('data-scroll'))})});
-
-  // ---- scroll-spy ----
-  if('IntersectionObserver' in window){
-    var spyIds=['cenario','metodo','programa','resultados','faq','investimento'];
-    var spy=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){$$('.nav-links a').forEach(function(a){a.classList.toggle('active',a.getAttribute('data-id')===e.target.id)})}})},{rootMargin:'-45% 0px -50% 0px'});
-    spyIds.forEach(function(id){var s=document.getElementById(id);if(s)spy.observe(s)});
-  }
-
-  // ---- FAQ ----
-  var faqList=$('#faqList');
-  if(faqList){
-    faqList.addEventListener('click',function(e){
-      var btn=e.target.closest?e.target.closest('.faq-q'):null; if(!btn)return;
-      var item=btn.parentNode, open=item.classList.contains('open');
-      $$('.faq-item').forEach(function(it){it.classList.remove('open');var p=$('.faq-a',it);if(p)p.style.maxHeight='0px'});
-      if(!open){item.classList.add('open');var p=$('.faq-a',item);if(p)p.style.maxHeight=p.scrollHeight+'px'}
-    });
-    var first=$('.faq-item',faqList);
-    if(first){setTimeout(function(){first.classList.add('open');var p=$('.faq-a',first);if(p)p.style.maxHeight=p.scrollHeight+'px'},80)}
-  }
-
-  // ---- lightbox ----
-  var lb=$('#lightbox'),lbImg=$('#lightboxImg');
-  if(lb&&lbImg){
-    function openLb(src,alt){lbImg.src=src;lbImg.alt=alt||'';lb.classList.add('open');document.body.style.overflow='hidden'}
-    function closeLb(){lb.classList.remove('open');lbImg.removeAttribute('src');document.body.style.overflow=''}
-    $$('[data-zoom]').forEach(function(z){z.addEventListener('click',function(){var img=z.tagName==='IMG'?z:$('img',z);if(img)openLb(img.currentSrc||img.src,img.alt)})});
-    lb.addEventListener('click',closeLb);
-    window.addEventListener('keydown',function(e){if(e.key==='Escape'&&lb.classList.contains('open'))closeLb()});
-  }
-
-  // ---- nav solidify + progress + sticky ----
-  var nav=$('#nav'),prog=$('#progress'),sticky=$('#sticky');
-  function onScroll(){
-    var y=window.pageYOffset||document.documentElement.scrollTop||0;
-    if(nav)nav.classList.toggle('solid',y>40);
-    if(prog){var h=document.documentElement.scrollHeight-window.innerHeight;prog.style.width=(h>0?Math.min(100,(y/h)*100):0)+'%'}
-    if(sticky){
-      var inv=document.getElementById('investimento');
-      var invBottom=inv?(inv.getBoundingClientRect().top+y+inv.offsetHeight):1e9;
-      var show=(y+window.innerHeight*0.5)>invBottom; // botao aparece so depois da secao de preco
-      sticky.classList.toggle('show',show);
-    }
-  }
-  window.addEventListener('scroll',onScroll,{passive:true});
-  window.addEventListener('resize',onScroll,{passive:true});
-  onScroll();
-
-  // ---- depoimentos (portado de lps/banco): carrossel de vídeos ----
-  var DEPO='https://kqvwmmiguoqfuseabmtt.supabase.co/storage/v1/object/public/depoimentos';
-  var VIDEOS=[
-    { src: DEPO+'/depoimento-video-1.mp4', nome:'Fábio', inst:'método DQ' },
-    { src: DEPO+'/depoimento-video-2.mp4', nome:'Fabrício', inst:'método DQ' },
-    { src: DEPO+'/depoimento-video-3.mp4', nome:'Jocielle', inst:'método DQ' }
-  ];
-  var vIdx=0;
-  var videoEl=document.getElementById('depoVideo');
-  var sourceEl=document.getElementById('depoSource');
-  var captionEl=document.getElementById('depoCaption');
-  var dotsEl=document.getElementById('depoDots');
-  function renderDots(){
-    if(!dotsEl) return;
-    var html='';
-    for(var i=0;i<VIDEOS.length;i++){
-      html+='<button type="button" class="depo-dot'+(i===vIdx?' on':'')+'" data-i="'+i+'" aria-label="Ir para vídeo '+(i+1)+'"></button>';
-    }
-    dotsEl.innerHTML=html;
-  }
-  function setVideo(i){
-    vIdx=(i+VIDEOS.length)%VIDEOS.length;
-    var v=VIDEOS[vIdx];
-    try{ sourceEl.setAttribute('src',v.src); videoEl.load(); }catch(e){}
-    captionEl.innerHTML=v.nome+' · <span class="inst">aprovado(a) pelo '+v.inst+'</span>';
-    renderDots();
-  }
-  var prevBtn=document.getElementById('depoPrev');
-  var nextBtn=document.getElementById('depoNext');
-  if(prevBtn) prevBtn.addEventListener('click',function(){ setVideo(vIdx-1); });
-  if(nextBtn) nextBtn.addEventListener('click',function(){ setVideo(vIdx+1); });
-  if(dotsEl) dotsEl.addEventListener('click',function(e){
-    var t=e.target.closest?e.target.closest('.depo-dot'):null;
-    if(t) setVideo(+t.getAttribute('data-i'));
-  });
-  renderDots();
-
-  // ---- depoimentos: marquee de prints (duplicado p/ loop infinito) ----
-  var PRINTS=[
-    { src: DEPO+'/depoimento-print-1.jpg', nome:'Nádia', inst:'método DQ' },
-    { src: DEPO+'/depoimento-print-2.jpg?v=2', nome:'Fabrício', inst:'método DQ' },
-    { src: DEPO+'/depoimento-print-3.jpg', nome:'Olena', inst:'método DQ' },
-    { src: DEPO+'/depoimento-print-4.jpg', nome:'Caio', inst:'método DQ' },
-    { src: DEPO+'/depoimento-print-5.jpg', nome:'Clarisvaldo', inst:'método DQ' },
-    { src: DEPO+'/depoimento-print-6.webp?v=2', nome:'Daniele', inst:'método DQ' },
-    { src: DEPO+'/depoimento-print-7.jpg?v=2', nome:'Emily', inst:'método DQ' },
-    { src: DEPO+'/depoimento-print-8.jpg?v=2', nome:'Ligiane', inst:'método DQ' },
-    { src: DEPO+'/depoimento-print-9.jpg?v=2', nome:'Diandra', inst:'método DQ' },
-    { src: DEPO+'/depoimento-print-10.jpg?v=2', nome:'Alexandre', inst:'método DQ' }
-  ];
-  var depoTrack=document.getElementById('depoMarqueeTrack');
-  if(depoTrack){
-    var full=PRINTS.concat(PRINTS);
-    var dhtml='';
-    for(var dp=0;dp<full.length;dp++){
-      var it=full[dp];
-      dhtml+='<div class="depo-marquee-item">'
-        +'<img src="'+it.src+'" alt="Depoimento de '+it.nome+', aprovado(a) pelo '+it.inst+'" loading="'+(dp===0?'eager':'lazy')+'">'
-        +'<div class="cap">'+it.nome+' · '+it.inst+'</div>'
-        +'</div>';
-    }
-    depoTrack.innerHTML=dhtml;
-  }
-
-  // ═══ TRACKING lps/dossie (portado da versão anterior da página, manter) ═══
-  var ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtxdndtbWlndW9xZnVzZWFibXR0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1Mjc2MTAsImV4cCI6MjA4OTEwMzYxMH0.61Qh2PKIHXJDtWHXiG-l5-u3NSKYUu9q25om2ABzG2o';
-  var BASE='https://kqvwmmiguoqfuseabmtt.supabase.co';
-  var PAGINA='lps/dossie-pericia';
-
-  window.dataLayer = window.dataLayer || [];
-
-  function euuid(){ try{ if(crypto && crypto.randomUUID) return crypto.randomUUID(); }catch(e){} return 'e'+Date.now()+Math.random().toString(36).slice(2); }
-
-  function readCookie(name){
-    try{
-      var m = document.cookie.match(new RegExp('(?:^|; )'+name+'=([^;]*)'));
-      return m ? decodeURIComponent(m[1]) : null;
-    }catch(e){ return null; }
-  }
-
-  // ---- CTAs de compra: InitiateCheckout + rastreio interno no clique ----
-  // O href do botão é resolvido pelo checkout-links.js (Path A), aqui só eventos.
-  $$('[data-comprar]').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      try{
-        window.dataLayer.push({event:'InitiateCheckout',event_id:euuid(),content_name:'dossie_if'});
-      }catch(e){}
-      // rastreio interno (religa vendas_dossie_clicou, invisível)
-      try{
-        var lid = readCookie('dq_lead_id');
-        if(lid){
-          var ctrl2 = ('AbortController' in window) ? new AbortController() : null;
-          if(ctrl2) setTimeout(function(){ try{ctrl2.abort();}catch(e){} }, 20000);
-          fetch(BASE+'/functions/v1/api-track-evento',{
-            method:'POST',
-            headers:{'Content-Type':'application/json'},
-            body:JSON.stringify({lead_id:lid, tipo:'vendas_dossie_clicou'}),
-            signal: ctrl2 ? ctrl2.signal : undefined
-          }).catch(function(){});
-        }
-      }catch(e){}
-    });
-  });
-
-  // ---- eventos de load: ViewContent + lp_dossie_visualizou ----
+function enviarPlanilha(){
+  if(!SHEET_ENDPOINT) return;
   try{
-    window.dataLayer.push({event:'ViewContent', content_name:PAGINA});
-    window.dataLayer.push({event:'lp_dossie_visualizou'});
-  }catch(e){}
-
-  // ---- rastreio interno de visualização (se já identificado) ----
-  try{
-    var leadId = readCookie('dq_lead_id');
-    if(leadId){
-      var ctrl = ('AbortController' in window) ? new AbortController() : null;
-      if(ctrl) setTimeout(function(){ try{ctrl.abort();}catch(e){} }, 20000);
-      fetch(BASE+'/functions/v1/api-track-evento',{
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({lead_id:leadId, tipo:'vendas_dossie_visualizou'}),
-        signal: ctrl ? ctrl.signal : undefined
-      }).catch(function(){});
+    var payload = {
+      data: new Date().toISOString(),
+      nome: LEAD.nome||'', email: LEAD.email||'', telefone: LEAD.telefone||'',
+      formacao: rot('formacao'), area: (AREA[ans.formacao]||AREA.outra),
+      momento: rot('momento'), tempo: rot('tempo'), prazo: rot('prazo'),
+      estado: (ans.estado||''),
+      code: "QZ|"+(ans.formacao||'')+"|"+(ans.momento||'')+"|"+(ans.tempo||'')+"|"+(ans.prazo||'')+"|"+(ans.estado||'')
+    };
+    var body = JSON.stringify(payload);
+    if(navigator.sendBeacon){
+      navigator.sendBeacon(SHEET_ENDPOINT, new Blob([body], {type:'text/plain;charset=UTF-8'}));
+    } else {
+      fetch(SHEET_ENDPOINT, {method:'POST', mode:'no-cors', keepalive:true, headers:{'Content-Type':'text/plain;charset=UTF-8'}, body:body});
     }
   }catch(e){}
+}
 
-  // ---- ping de visita (fire-and-forget) ----
-  try{
-    fetch(BASE+'/rest/v1/rpc/fn_registrar_visita',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','apikey':ANON,'Authorization':'Bearer '+ANON},
-      body:JSON.stringify({p_pagina:PAGINA})
-    }).catch(function(){});
-  }catch(e){}
+/* ====== PERGUNTAS (o code de cada opção segmenta o lead) ====== */
+var Q = [
+  { n:"01", t:"Vamos começar pelo que mais importa: qual é a sua formação? É ela que abre as portas da Perícia.",
+    tag:"formacao", o:[
+    ["Química / Farmácia / Biomedicina","quimica"],
+    ["Biologia","biologia"],
+    ["Engenharias","engenharia"],
+    ["Computação / TI","ti"],
+    ["Ciências Contábeis / Economia","contabeis"],
+    ["Medicina","medicina"],
+    ["Outra formação","outra"]
+  ]},
+  { n:"02", t:"E como você está agora em relação à Perícia?",
+    tag:"momento", o:[
+    ["Só pesquisando, quero ver se é pra mim","pesquisando"],
+    ["Quero, mas ainda não comecei","quero"],
+    ["Já estudo, mas sem direção","estudando"],
+    ["Já passei em outro concurso","aprovado"]
+  ]},
+  { n:"03", t:"Sendo sincero: quanto tempo por dia você realmente tem pra se dedicar?",
+    tag:"tempo", o:[
+    ["Menos de 1h, rotina corrida","t1"],
+    ["1 a 2 horas","t2"],
+    ["2 a 4 horas","t3"],
+    ["Mais de 4 horas","t4"]
+  ]},
+  { n:"04", t:"Em quanto tempo você quer estar pronto pra prova?",
+    tag:"prazo", o:[
+    ["O quanto antes, quero pegar a onda","agora"],
+    ["Nos próximos 6 meses","6m"],
+    ["Dentro de 1 ano","12m"],
+    ["Sem pressa, com calma","calma"]
+  ]},
+  { n:"05", t:"Por último: onde você quer ser perito?",
+    tag:"estado", o:[
+    ["Maranhão","MA"],["Espírito Santo","ES"],["São Paulo","SP"],
+    ["Rio de Janeiro","RJ"],["Rio Grande do Sul","RS"],["Distrito Federal","DF"],
+    ["Qualquer estado que abrir","QUALQUER"]
+  ]}
+];
+
+/* micro-reações entre as perguntas */
+var REACT = [
+  "🔬 Boa. Já tô cruzando a sua formação com as áreas...",
+  "🧭 Entendi o seu momento.",
+  "⏱ Isso muda o plano. Anotado.",
+  "🎯 Penúltima, segue!",
+  "✅ Fechou! Seu diagnóstico já tá pronto."
+];
+
+/* formação -> área de entrada na Perícia (mostrado no resultado) */
+var AREA = {
+  quimica:"Perícia Química e Toxicologia Forense",
+  biologia:"Perícia Biológica e Genética Forense",
+  engenharia:"Perícia de Engenharia Legal e Crimes contra o Patrimônio",
+  ti:"Perícia em Informática e Crimes Cibernéticos",
+  contabeis:"Perícia Contábil e Financeira",
+  medicina:"Perícia Médico-Legal (Legista)",
+  outra:"Perícia Criminal (várias áreas abrem pra sua formação)"
+};
+
+/* formação -> áreas de atuação (mostradas no diagnóstico) */
+var ATUACAO = {
+  quimica:["Toxicologia forense: drogas, venenos e dosagem alcoólica","Química forense e identificação de substâncias","Resíduos de disparo de arma de fogo","Perícia de incêndios e explosões"],
+  biologia:["Genética forense (análise de DNA)","Biologia forense: sangue, fluidos e vestígios","Entomologia forense (estimativa do tempo de morte)","Coleta e análise de vestígios no local"],
+  engenharia:["Engenharia legal e perícia de estruturas","Perícia de acidentes, incêndios e explosões","Documentoscopia e crimes contra o patrimônio","Balística e perícia de local de crime"],
+  ti:["Informática forense e análise de dispositivos","Investigação de crimes cibernéticos","Recuperação e perícia de dados","Análise de redes e evidências digitais"],
+  contabeis:["Perícia contábil e financeira","Crimes financeiros e lavagem de dinheiro","Rastreamento de fraudes e desvios","Perícia econômica e patrimonial"],
+  medicina:["Perícia médico-legal e necropsia","Traumatologia e antropologia forense","Sexologia forense","Determinação de causa e hora da morte"],
+  outra:["Criminalística e local de crime","Documentoscopia","Áreas de apoio à perícia","Vários editais aceitam formações diversas"]
+};
+
+/* estado -> editais no radar (dados do Radar da Perícia, jul/2026) */
+var EDITAIS = {
+  SP:{h:"São Paulo · 447 vagas",b:"Perito Criminal · banca VUNESP. Concurso em andamento, um dos maiores do país agora."},
+  DF:{h:"Distrito Federal · 315 vagas",b:"Perito Criminal, Médico-Legista e Papiloscopista (PCDF). Edital em preparação, salário de R$ 13,8 mil a R$ 26,7 mil."},
+  MA:{h:"Maranhão · 76 vagas",b:"Perito Criminal, Médico-legista, Odontolegista e Agentes (Cebraspe). Edital autorizado."},
+  RJ:{h:"Rio de Janeiro · 414 vagas",b:"Perito Criminal e Perito Legista, entre outros. Seleção já anunciada."},
+  ES:{h:"Espírito Santo · no radar 2026",b:"Perito Criminal pela Polícia Científica. Previsto e em monitoramento."},
+  RS:{h:"Rio Grande do Sul · em monitoramento",b:"Ainda sem edital aberto no RS. Enquanto isso, as maiores oportunidades do momento são SP (447), RJ (414) e DF (315)."},
+  QUALQUER:{h:"Brasil · vários estados se movendo",b:"As frentes mais quentes agora: SP (447 vagas), RJ (414), DF (315) e MA (76). Novos estados entram no radar a cada mês."}
+};
+
+var idx=0, ans={}, LEAD={};
+function show(id){["cover","capture","quiz","result"].forEach(function(x){document.getElementById(x).classList.toggle('hidden',x!==id);});window.scrollTo(0,0);}
+function setProg(p){document.getElementById('prog').style.width=p+'%';}
+function digits(s){return (s||'').replace(/\D/g,'');}
+var reEmail=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+/* cover -> começa direto pelas perguntas */
+function start(){ idx=0; show('quiz'); render(); }
+
+/* máscara do telefone */
+(function(){ var t=document.getElementById('tel'); if(!t)return;
+  t.addEventListener('input',function(){var d=digits(t.value).slice(0,11),o=d;if(d.length>2)o='('+d.slice(0,2)+') '+d.slice(2);if(d.length>7)o='('+d.slice(0,2)+') '+d.slice(2,7)+'-'+d.slice(7);t.value=o;});
 })();
+
+/* valida a captura (depois das perguntas) e mostra o diagnóstico */
+function submitLead(){
+  var nome=(document.getElementById('nome').value||'').trim();
+  var email=(document.getElementById('email').value||'').trim();
+  var tel=digits(document.getElementById('tel').value);
+  var err=document.getElementById('cerr');
+  if(nome.length<2||!reEmail.test(email)||tel.length<10){ err.style.display='block'; return; }
+  err.style.display='none';
+  LEAD={nome:nome,email:email,telefone:tel};
+  ans.nome=nome;
+  try{ (window.dataLayer=window.dataLayer||[]).push({event:'quiz_pericia_lead',email:email}); }catch(e){}
+  enviarPlanilha();
+  finish();
+}
+
+function render(){
+  var q=Q[idx];
+  document.getElementById('qnum').textContent=q.n+" / 05";
+  document.getElementById('qh').textContent=q.t;
+  setProg(6 + (idx/Q.length)*80);
+  var box=document.getElementById('opts'); box.innerHTML='';
+  q.o.forEach(function(op){
+    var b=document.createElement('button');
+    b.className='opt'+(ans[q.tag]===op[1]?' sel':'');
+    b.innerHTML='<span class="dot"></span><span>'+op[0]+'</span>';
+    b.onclick=function(){ pick(q.tag, op[1]); };
+    box.appendChild(b);
+  });
+  document.getElementById('back').classList.toggle('hidden', idx===0);
+}
+
+function pick(tag, code){
+  ans[tag]=code;
+  toast(REACT[idx]);
+  setTimeout(function(){
+    if(idx < Q.length-1){ idx++; render(); }
+    else { show('capture'); setProg(94); }
+  }, 620);
+}
+function prev(){ if(idx>0){ idx--; render(); } }
+
+var tt;
+function toast(msg){
+  var el=document.getElementById('toast');
+  el.textContent=msg; el.classList.add('on');
+  clearTimeout(tt); tt=setTimeout(function(){ el.classList.remove('on'); }, 1600);
+}
+
+function finish(){
+  var nome=LEAD.nome||ans.nome||'';
+  setProg(100);
+  document.getElementById('rtitle').textContent = nome ? ('Diagnóstico pronto, '+nome+'!') : 'Seu diagnóstico está pronto!';
+  // 1) porta de entrada
+  document.getElementById('rarea').textContent = AREA[ans.formacao]||AREA.outra;
+  // 2) áreas de atuação da formação
+  var atu=ATUACAO[ans.formacao]||ATUACAO.outra;
+  var ul=document.getElementById('ratua'); ul.innerHTML='';
+  atu.forEach(function(a,i){
+    var li=document.createElement('li');
+    li.innerHTML='<span class="ic">'+(i+1)+'</span><span>'+a+'</span>';
+    ul.appendChild(li);
+  });
+  // 3) editais no estado escolhido (radar) ou proximidades
+  var ed=EDITAIS[ans.estado]||EDITAIS.QUALQUER;
+  document.getElementById('rufLabel').textContent = ans.estado && ans.estado!=='QUALQUER' ? ('· '+ans.estado) : '';
+  document.getElementById('reditalHead').textContent = ed.h;
+  document.getElementById('reditalBody').textContent = ed.b;
+  // mensagem pro comercial (com dados do lead + código de segmentação)
+  var linha = "Oi! Fiz o quiz da Perícia e quero meu diagnóstico completo. 🔎";
+  var dados = "Nome: "+nome+" · E-mail: "+(LEAD.email||'-')+" · WhatsApp: "+(LEAD.telefone||'-');
+  var perfil = "Formação: "+rot('formacao')+" · Momento: "+rot('momento')+" · Tempo: "+rot('tempo')+" · Prazo: "+rot('prazo')+" · Estado: "+(ans.estado||'-');
+  var code = "[QZ|"+(ans.formacao||'')+"|"+(ans.momento||'')+"|"+(ans.tempo||'')+"|"+(ans.prazo||'')+"|"+(ans.estado||'')+"|"+encodeURIComponent(nome)+"]";
+  var txt = linha+"%0A%0A"+encodeURIComponent(dados)+"%0A"+encodeURIComponent(perfil)+"%0A"+encodeURIComponent(code);
+  document.getElementById('waBtn').href = "https://wa.me/"+WHATS+"?text="+txt;
+  show('result');
+  try{ (window.dataLayer=window.dataLayer||[]).push({event:'quiz_pericia_concluido',formacao:ans.formacao,estado:ans.estado}); }catch(e){}
+}
+
+/* rótulos legíveis para a mensagem */
+var ROT={ quimica:"Química/Farmácia/Biomed", biologia:"Biologia", engenharia:"Engenharias", ti:"Computação/TI", contabeis:"Contábeis/Economia", medicina:"Medicina", outra:"Outra",
+  pesquisando:"Só pesquisando", quero:"Quero mas não comecei", estudando:"Já estudo sem direção", aprovado:"Já passei em outro concurso",
+  t1:"menos de 1h/dia", t2:"1 a 2h/dia", t3:"2 a 4h/dia", t4:"mais de 4h/dia",
+  agora:"o quanto antes", "6m":"em 6 meses", "12m":"em 1 ano", calma:"sem pressa" };
+function rot(tag){ return ROT[ans[tag]] || ans[tag] || "-"; }
 </script>
-<!-- NÃO REMOVER (contrato CRM): roteia o checkout por campanha (Path A) -->
-<script src="../../assets/js/checkout-links.js" data-secao="lps" data-slug="dossie"></script>
 </body>
 </html>
