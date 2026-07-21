@@ -98,43 +98,11 @@ footer{text-align:center;padding:36px 0;color:var(--muted);font-size:13px}
 <link rel="dns-prefetch" href="https://license.vturb.com">
 </head>
 <body>
-<section class="gate" id="gate">
-  <div class="wrap">
-    <div class="nav"><div class="brand"><i></i>Dissecando Questões</div><div class="tag">Aula aberta</div></div>
-    <div class="hero">
-      <div>
-        <span class="eyebrow">Carreira de professor de IF</span>
-        <h1>Por dentro da carreira de professor de IF: <mark>estabilidade, carga humana e os melhores alunos do país</mark></h1>
-        <p class="sub">Nesta aula, o Prof. Manoel Machado mostra o que a carreira do Instituto Federal realmente oferece, e por que ela é considerada a melhor do magistério no Brasil.</p>
-        <ul class="ulist">
-          <li>O que essa carreira tem por dentro, muito além do salário</li>
-          <li>Carga horária humana: 16 a 20h de sala de aula por semana</li>
-          <li>Dedicação exclusiva, estabilidade real e o prestígio de ensinar entre os melhores</li>
-        </ul>
-      </div>
-      <div class="card">
-        <span class="k">Acesso liberado na hora</span>
-        <h2>Assista à aula completa agora</h2>
-        <p class="small">Preencha para liberar o vídeo completo:</p>
-        <form id="leadForm" novalidate>
-          <div class="field"><label for="nome">Seu nome</label><input id="nome" name="nome" type="text" autocomplete="name" placeholder="Como podemos te chamar?"></div>
-          <div class="field"><label for="whats">WhatsApp (com DDD)</label><input id="whats" name="telefone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(00) 00000-0000"></div>
-          <div class="field"><label for="email">Seu melhor e-mail</label><input id="email" name="email" type="email" autocomplete="email" placeholder="voce@email.com"></div>
-          <p class="err" id="err">Preencha nome, WhatsApp e e-mail válidos para liberar a aula.</p>
-          <label class="consent"><input type="checkbox" id="consent"> Autorizo o contato da equipe do Dissecando Questões e concordo em receber materiais sobre a preparação para os IFs.</label>
-          <button class="btn" type="submit">Liberar minha aula agora →</button>
-          <p class="trust">🔒 Seus dados estão seguros. Sem spam.</p>
-        </form>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="release" id="aula" hidden>
+<section class="release" id="aula">
   <div class="wrap">
     <div class="rel-head">
       <span class="eyebrow">Acesso liberado</span>
-      <h2>Sua aula está pronta, <span id="nomeOla">tudo certo</span></h2>
+      <h2>Sua aula está pronta</h2>
       <p>Assista até o final. No fim, eu te mostro como essa carreira sai do sonho e vira realidade.</p>
     </div>
     <div class="stage">
@@ -204,28 +172,6 @@ footer{text-align:center;padding:36px 0;color:var(--muted);font-size:13px}
 
 <footer>© Dissecando Questões · Prof. Manoel Machado · Preparação estratégica para os Institutos Federais</footer>
 
-<script>
-(function(){
-  var form=document.getElementById('leadForm'),err=document.getElementById('err');
-  var reEmail=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;function digits(s){return (s||'').replace(/\D/g,'');}
-  var w=document.getElementById('whats');
-  if(w){w.addEventListener('input',function(){var d=digits(w.value).slice(0,11),o=d;if(d.length>2)o='('+d.slice(0,2)+') '+d.slice(2);if(d.length>7)o='('+d.slice(0,2)+') '+d.slice(2,7)+'-'+d.slice(7);w.value=o;});}
-  if(form){form.addEventListener('submit',function(e){
-    e.preventDefault();
-    var nome=document.getElementById('nome').value.trim(),tel=digits(w.value),email=document.getElementById('email').value.trim(),consent=document.getElementById('consent').checked;
-    if(nome.length<2||tel.length<10||!reEmail.test(email)||!consent){err.style.display='block';return;}
-    err.style.display='none';
-    var lead={nome:nome,telefone:tel,email:email,aula:'carreira-if',data:new Date().toISOString()};
-    /* ===== DESTINO DOS LEADS: descomente e troque a URL pelo seu endpoint (CRM/webhook) =====
-    fetch('https://SEU-ENDPOINT',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(lead)}).catch(function(){});
-    ===== */
-    document.getElementById('gate').hidden=true;
-    document.getElementById('nomeOla').textContent=nome.split(' ')[0];
-    document.getElementById('aula').hidden=false;
-    window.scrollTo({top:0,behavior:'smooth'});
-  });}
-})();
-</script>
 </body>
 </html>
   
