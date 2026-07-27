@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mapa Pré-Edital da Perícia Criminal | Dissecando Questões</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0a0a0c;--panel:#141418;--panel2:#1b1b20;--acc:#f5e000;--off:#f4f2ea;--txt:#cfd3d8;--txt2:#a2a8ae;--line:rgba(244,242,234,.09)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Montserrat',sans-serif;background:var(--ink);color:var(--off);line-height:1.6;-webkit-font-smoothing:antialiased}
+.hero{position:relative;min-height:88vh;display:flex;align-items:flex-end;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:url('hero.jpg') center 30%/cover;filter:saturate(.8)}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,12,.55) 0%,rgba(10,10,12,.75) 45%,rgba(10,10,12,.97) 100%)}
+.hero .in{position:relative;z-index:2;max-width:920px;margin:0 auto;padding:120px 24px 70px;width:100%}
+.brand{position:absolute;top:26px;left:24px;z-index:3;display:flex;align-items:center;gap:10px;background:rgba(10,10,12,.72);border:1px solid var(--line);border-radius:12px;padding:9px 16px;backdrop-filter:blur(6px)}
+.brand img{height:30px}
+.brand span{font-size:12px;font-weight:700;letter-spacing:1.6px}
+.chip{display:inline-flex;align-items:center;gap:8px;background:var(--acc);color:#101014;font-weight:800;font-size:12px;letter-spacing:2px;text-transform:uppercase;padding:8px 16px;border-radius:24px}
+.hero h1{font-weight:900;font-size:clamp(34px,7vw,60px);line-height:1.05;margin:20px 0 14px;text-wrap:balance}
+.hero h1 b{color:var(--acc)}
+.hero p{color:var(--txt);font-size:clamp(15px,2.4vw,18px);max-width:600px}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.st{background:rgba(20,20,24,.85);border:1px solid var(--line);border-left:3px solid var(--acc);border-radius:12px;padding:12px 18px}
+.st b{display:block;color:var(--acc);font-size:22px;font-weight:800;line-height:1.1}
+.st span{font-size:11.5px;color:var(--txt2);letter-spacing:.6px;text-transform:uppercase;font-weight:600}
+.wrap{max-width:920px;margin:0 auto;padding:70px 24px 90px}
+.eyebrow{color:var(--acc);text-transform:uppercase;letter-spacing:2.6px;font-size:12px;font-weight:700}
+.eyebrow::before{content:"";display:inline-block;width:28px;height:3px;background:var(--acc);margin-right:10px;vertical-align:middle}
+h2{font-weight:800;font-size:clamp(24px,4.6vw,34px);margin:10px 0 8px;line-height:1.15}
+.h2sub{color:var(--txt2);font-size:15.5px;margin-bottom:28px;max-width:620px}
+.fases{display:flex;flex-direction:column;gap:12px;counter-reset:f}
+.fase{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px 22px;display:flex;gap:18px;cursor:pointer;transition:.22s}
+.fase:hover{border-color:rgba(245,224,0,.55);transform:translateX(4px)}
+.fase.on{border-color:var(--acc);background:var(--panel2)}
+.fase .n{flex:none;width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,var(--acc),#c8b900);color:#101014;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:19px;box-shadow:0 6px 16px -6px rgba(245,224,0,.5)}
+.fase h3{font-size:17px;font-weight:800;display:flex;align-items:center;gap:10px}
+.fase h3 svg{opacity:.9}
+.fase p{color:var(--txt2);font-size:14.5px;max-height:0;overflow:hidden;transition:.3s;margin:0}
+.fase.on p{max-height:130px;margin-top:8px}
+.sec{margin-top:86px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.uf{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:24px;cursor:pointer;transition:.22s;overflow:hidden}
+.uf::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--acc);opacity:0;transition:.2s}
+.uf:hover{transform:translateY(-4px);border-color:rgba(245,224,0,.5);box-shadow:0 18px 34px -18px rgba(0,0,0,.8)}
+.uf:hover::before{opacity:1}
+.uf.on{border-color:var(--acc);background:var(--panel2)}
+.uf.on::before{opacity:1}
+.tag{display:inline-block;font-size:10px;font-weight:800;letter-spacing:1.8px;text-transform:uppercase;padding:5px 12px;border-radius:20px;margin-bottom:12px}
+.t-hot{background:var(--acc);color:#101014}.t-warm{background:rgba(245,224,0,.15);color:var(--acc);border:1px solid rgba(245,224,0,.4)}.t-cool{border:1px solid var(--line);color:var(--txt2)}
+.uf h3{font-size:20px;font-weight:800}
+.uf .vagas{color:var(--acc);font-weight:900;font-size:32px;margin:2px 0;letter-spacing:-.5px}
+.uf p{color:var(--txt2);font-size:13.5px;max-height:0;overflow:hidden;transition:.3s}
+.uf.on p{max-height:120px;margin-top:10px}
+.callout{position:relative;background:linear-gradient(135deg,#1b1b10,#141418);border:1px solid rgba(245,224,0,.35);border-radius:20px;padding:30px 32px;margin-top:86px;overflow:hidden}
+.callout::before{content:"";position:absolute;right:-40px;top:-40px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(245,224,0,.14),transparent 70%)}
+.callout .k{color:var(--acc);font-weight:800;font-size:17px;display:block;margin-bottom:8px}
+.callout p{color:var(--txt);font-size:15.5px}
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;background:var(--acc);color:#101014;font-weight:900;font-size:17.5px;border-radius:16px;padding:20px;margin-top:44px;text-decoration:none;letter-spacing:.2px;box-shadow:0 18px 40px -14px rgba(245,224,0,.45);transition:.2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 24px 48px -14px rgba(245,224,0,.55)}
+.btn svg{transition:.2s}
+.btn:hover svg{transform:translateX(4px)}
+.foot{color:var(--txt2);text-align:center;font-size:13px;margin-top:28px}
+.foot a{color:var(--acc);text-decoration:none;font-weight:700}
+@media(max-width:560px){.hero .in{padding-top:150px}}
+/* ---- portão de captura ---- */
+body.locked .gated{filter:blur(9px);user-select:none}
+.gatebar{display:none;align-items:center;gap:12px;background:linear-gradient(150deg,#1b1b10,var(--panel));border:1px solid rgba(245,224,0,.5);border-radius:16px;padding:16px 20px;margin:0 0 18px;cursor:pointer}
+body.locked .gatebar{display:flex}
+.gatebar .lk{flex:none;width:42px;height:42px;border-radius:12px;background:var(--acc);display:flex;align-items:center;justify-content:center;font-size:20px}
+.gatebar b{display:block;font-size:15px}
+.gatebar span{color:var(--txt2);font-size:13px}
+.gmodal{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(5,5,7,.8);backdrop-filter:blur(4px)}
+.gmodal.on{display:flex}
+.gcard{width:100%;max-width:430px;background:var(--panel2);border:1px solid var(--acc);border-radius:22px;padding:30px;animation:up .35s ease}
+.gcard .gk{color:var(--acc);font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase}
+.gcard h3{font-size:22px;font-weight:900;margin:8px 0 6px}
+.gcard p{color:var(--txt2);font-size:14px;margin-bottom:16px}
+.gcard input{width:100%;background:var(--ink);border:1px solid var(--line);border-radius:12px;padding:14px 16px;color:var(--off);font-family:'Montserrat',sans-serif;font-size:15px;margin-bottom:10px;outline:none}
+.gcard input:focus{border-color:var(--acc)}
+.gcard .gbtn{width:100%;background:var(--acc);color:#101014;font-weight:900;font-size:16px;border:0;border-radius:12px;padding:16px;cursor:pointer;font-family:'Montserrat',sans-serif;margin-top:4px}
+.gcard .gerr{display:none;color:#ff8a7a;font-size:13px;margin-top:8px}
+.gcard .gpriv{color:var(--txt2);font-size:11.5px;text-align:center;margin-top:12px}
+@keyframes up{from{opacity:0;transform:translateY(16px)}to{opacity:1}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="brand"><img src="logo.png" alt="DQ"><span>DISSECANDO QUESTÕES</span></div>
+  <div class="in">
+    <span class="chip">🔎 Radar DQ · atualizado jul/2026</span>
+    <h1>Mapa <b>Pré-Edital</b><br>da Perícia Criminal</h1>
+    <p>O concurso da Perícia começa muito antes do edital sair. Este mapa mostra em que fase cada estado está e onde o jogo já está rolando agora.</p>
+    <div class="stats">
+      <div class="st"><b>1.252+</b><span>vagas mapeadas</span></div>
+      <div class="st"><b>6</b><span>estados no radar</span></div>
+      <div class="st"><b>R$ 26,7 mil</b><span>teto salarial no DF</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <span class="eyebrow">A linha do tempo</span>
+  <h2>As 5 fases até a prova</h2>
+  <p class="h2sub">Todo concurso percorre esse caminho. Quem entende a fase, sabe a hora certa de começar. Toque para abrir cada uma.</p>
+  <div class="fases" id="fases">
+    <div class="fase on"><div class="n">1</div><div><h3>Movimentação interna</h3><p>Declarações, déficit de peritos, pedidos da categoria. É o primeiro sinal público de que algo vem aí.</p></div></div>
+    <div class="fase"><div class="n">2</div><div><h3>Autorização e comissão</h3><p>Governo autoriza e forma a comissão organizadora. A partir daqui o concurso é uma questão de tempo.</p></div></div>
+    <div class="fase"><div class="n">3</div><div><h3>Escolha da banca</h3><p>Contrato assinado com a banca (Cebraspe, VUNESP, FGV...). Agora dá para dissecar o histórico dela e estudar direcionado.</p></div></div>
+    <div class="fase"><div class="n">4</div><div><h3>Edital publicado</h3><p>Em média 60 a 90 dias até a prova. Quem começou aqui corre atrás. Quem começou antes, revisa.</p></div></div>
+    <div class="fase"><div class="n">5</div><div><h3>Prova e nomeação</h3><p>Prova, curso de formação e posse. A estabilidade de uma carreira que paga entre as melhores da segurança pública.</p></div></div>
+  </div>
+
+  <div class="sec">
+    <span class="eyebrow">O mapa agora</span>
+    <h2>Estado por estado</h2>
+    <p class="h2sub">Panorama do Radar DQ. O cenário muda todo mês: siga o perfil para receber cada movimentação antes de virar edital.</p>
+    <div class="gatebar" onclick="openGate()"><div class="lk">🔒</div><div><b>Destrave o mapa completo</b><span>Informe seus dados uma única vez e veja os estados em movimento.</span></div></div>
+    <div class="grid gated" id="ufs">
+      <div class="uf on"><span class="tag t-hot">Em andamento</span><h3>São Paulo</h3><div class="vagas">447</div><p>Perito Criminal · banca VUNESP. Um dos maiores concursos de perícia do país acontecendo agora.</p></div>
+      <div class="uf"><span class="tag t-hot">Anunciada</span><h3>Rio de Janeiro</h3><div class="vagas">414</div><p>Perito Criminal e Perito Legista, entre outros cargos. Seleção já anunciada.</p></div>
+      <div class="uf"><span class="tag t-hot">Em preparação</span><h3>Distrito Federal</h3><div class="vagas">315</div><p>PCDF: Perito Criminal, Médico-Legista e Papiloscopista. Salários de R$ 13,8 mil a R$ 26,7 mil.</p></div>
+      <div class="uf"><span class="tag t-warm">Autorizado</span><h3>Maranhão</h3><div class="vagas">76</div><p>Perito Criminal, Médico-Legista, Odontolegista e Agentes. Banca Cebraspe.</p></div>
+      <div class="uf"><span class="tag t-warm">No radar 2026</span><h3>Espírito Santo</h3><div class="vagas">previsto</div><p>Perito Criminal pela Polícia Científica. Previsto e em monitoramento.</p></div>
+      <div class="uf"><span class="tag t-cool">Monitoramento</span><h3>Rio Grande do Sul</h3><div class="vagas">aguardando</div><p>Ainda sem edital aberto. Enquanto isso, as maiores frentes são SP (447), RJ (414) e DF (315).</p></div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <span class="k">Por que o jogo é ganho no pré-edital?</span>
+    <p>Nas fases 1 a 3 você tem meses para construir base com calma, 2 horas por dia. Quem espera a fase 4 tenta fazer em 60 dias o que você fez em 6 meses. A prova é a mesma. O preparo, não.</p>
+  </div>
+
+  <a class="btn" href="https://site.dissecandoquestoes.com/lps/dossiepc/">Quero me preparar antes do edital <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  <p class="foot">Feito pelo método Dissecando Questões · <a href="https://instagram.com/pericia.dissecadordequestoes">@pericia.dissecadordequestoes</a></p>
+</div>
+<div class="gmodal" id="gmodal">
+  <div class="gcard">
+    <span class="gk">Acesso ao material</span>
+    <h3>Destrave o Mapa Pré-Edital</h3>
+    <p>Preencha uma única vez e acesse este e os outros materiais do Método DQ Perícia.</p>
+    <input id="gnome" type="text" placeholder="Seu nome" autocomplete="name">
+    <input id="gemail" type="email" placeholder="Seu melhor e-mail" autocomplete="email">
+    <input id="gtel" type="tel" placeholder="WhatsApp com DDD" autocomplete="tel" inputmode="numeric">
+    <button class="gbtn" onclick="submitGate()">DESTRAVAR AGORA →</button>
+    <div class="gerr" id="gerr">Confira nome, e-mail e WhatsApp (com DDD).</div>
+    <p class="gpriv">Seus dados ficam seguros com a equipe Dissecando Questões.</p>
+  </div>
+</div>
+<script>
+var SHEET_ENDPOINT="https://script.google.com/macros/s/AKfycbw_DvfNABbrGuiGaUd5vKekQovkC7YNcQDnVtdgreBttaCkH3FWC06BlOOo_jUJFKnV/exec";
+var ORIGEM="mapa-pre-edital";
+function leadOk(){try{return !!localStorage.getItem('dqpc_lead')}catch(e){return false}}
+function openGate(){document.getElementById('gmodal').classList.add('on')}
+function closeGate(){document.getElementById('gmodal').classList.remove('on')}
+function digits(s){return (s||'').replace(/\D/g,'')}
+(function(){var t=document.getElementById('gtel');t.addEventListener('input',function(){var d=digits(t.value).slice(0,11),o=d;if(d.length>2)o='('+d.slice(0,2)+') '+d.slice(2);if(d.length>7)o='('+d.slice(0,2)+') '+d.slice(2,7)+'-'+d.slice(7);t.value=o;});})();
+function submitGate(){
+  var nome=(document.getElementById('gnome').value||'').trim();
+  var email=(document.getElementById('gemail').value||'').trim();
+  var tel=digits(document.getElementById('gtel').value);
+  if(nome.length<2||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)||tel.length<10){document.getElementById('gerr').style.display='block';return;}
+  try{localStorage.setItem('dqpc_lead',JSON.stringify({nome:nome,email:email,telefone:tel}))}catch(e){}
+  try{
+    var body=JSON.stringify({data:new Date().toISOString(),nome:nome,email:email,telefone:tel,origem:ORIGEM,code:"ISCA|"+ORIGEM});
+    if(navigator.sendBeacon){navigator.sendBeacon(SHEET_ENDPOINT,new Blob([body],{type:'text/plain;charset=UTF-8'}));}
+    else{fetch(SHEET_ENDPOINT,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=UTF-8'},body:body});}
+  }catch(e){}
+  document.body.classList.remove('locked'); closeGate();
+}
+if(!leadOk()) document.body.classList.add('locked');
+document.querySelectorAll('.gated').forEach(function(g){g.addEventListener('click',function(ev){if(document.body.classList.contains('locked')){ev.stopPropagation();ev.preventDefault();openGate();}},true);});
+document.getElementById('gmodal').addEventListener('click',function(ev){if(ev.target===this)closeGate();});
+document.querySelectorAll('.fase,.uf').forEach(function(el){el.addEventListener('click',function(){el.classList.toggle('on');});});
+</script>
+</body>
+</html>

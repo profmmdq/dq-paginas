@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Plano de 2h por dia | Perícia Criminal · Dissecando Questões</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0a0a0c;--panel:#141418;--panel2:#1b1b20;--acc:#f5e000;--off:#f4f2ea;--txt:#cfd3d8;--txt2:#a2a8ae;--line:rgba(244,242,234,.09)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Montserrat',sans-serif;background:var(--ink);color:var(--off);line-height:1.6;-webkit-font-smoothing:antialiased}
+.hero{position:relative;min-height:82vh;display:flex;align-items:flex-end;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:url('hero.jpg') center 35%/cover;filter:saturate(.8)}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,12,.6) 0%,rgba(10,10,12,.78) 45%,rgba(10,10,12,.97) 100%)}
+.hero .in{position:relative;z-index:2;max-width:920px;margin:0 auto;padding:120px 24px 66px;width:100%}
+.brand{position:absolute;top:26px;left:24px;z-index:3;display:flex;align-items:center;gap:10px;background:rgba(10,10,12,.72);border:1px solid var(--line);border-radius:12px;padding:9px 16px;backdrop-filter:blur(6px)}
+.brand img{height:30px}
+.brand span{font-size:12px;font-weight:700;letter-spacing:1.6px}
+.chip{display:inline-flex;align-items:center;gap:8px;background:var(--acc);color:#101014;font-weight:800;font-size:12px;letter-spacing:2px;text-transform:uppercase;padding:8px 16px;border-radius:24px}
+.hero h1{font-weight:900;font-size:clamp(32px,6.6vw,56px);line-height:1.07;margin:20px 0 14px;text-wrap:balance}
+.hero h1 b{color:var(--acc)}
+.hero p{color:var(--txt);font-size:clamp(15px,2.4vw,18px);max-width:620px}
+.wrap{max-width:920px;margin:0 auto;padding:64px 24px 90px}
+.eyebrow{color:var(--acc);text-transform:uppercase;letter-spacing:2.6px;font-size:12px;font-weight:700}
+.eyebrow::before{content:"";display:inline-block;width:28px;height:3px;background:var(--acc);margin-right:10px;vertical-align:middle}
+h2{font-weight:800;font-size:clamp(24px,4.6vw,32px);margin:10px 0 8px}
+.h2sub{color:var(--txt2);font-size:15.5px;margin-bottom:26px;max-width:640px}
+.tempo{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.tp{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px 12px;text-align:center;cursor:pointer;font-weight:800;font-size:16px;transition:.2s}
+.tp small{display:block;color:var(--txt2);font-weight:600;font-size:11.5px;margin-top:4px;letter-spacing:.4px;text-transform:uppercase}
+.tp:hover{transform:translateY(-3px);border-color:rgba(245,224,0,.55)}
+.tp.on{background:var(--acc);color:#101014;border-color:var(--acc);box-shadow:0 16px 34px -12px rgba(245,224,0,.5)}
+.tp.on small{color:#4a460e}
+.nota{background:linear-gradient(150deg,#1b1b10,var(--panel));border:1px solid rgba(245,224,0,.4);border-radius:16px;padding:20px 24px;margin-top:16px;color:var(--txt);font-size:15px}
+.nota b{color:var(--acc)}
+.sec{margin-top:80px}
+.timeline{position:relative;display:flex;flex-direction:column;gap:0}
+.tl{position:relative;display:flex;gap:22px;padding:0 0 26px 0}
+.tl::before{content:"";position:absolute;left:44px;top:56px;bottom:0;width:2px;background:rgba(245,224,0,.25)}
+.tl:last-child::before{display:none}
+.tl .min{flex:none;width:88px;height:52px;border-radius:14px;background:linear-gradient(135deg,var(--acc),#cabb00);color:#101014;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:16px;box-shadow:0 8px 20px -8px rgba(245,224,0,.55)}
+.tl .bx{flex:1;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 22px;transition:.2s}
+.tl .bx:hover{border-color:rgba(245,224,0,.45)}
+.tl h3{font-size:17px;font-weight:800}
+.tl p{color:var(--txt2);font-size:14.5px;margin-top:4px}
+.week{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px}
+.dy{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 8px;text-align:center;transition:.2s}
+.dy:hover{border-color:rgba(245,224,0,.45);transform:translateY(-2px)}
+.dy b{display:block;color:var(--acc);font-size:14px;letter-spacing:1.4px}
+.dy span{font-size:12px;color:var(--txt2)}
+.dy.hl{background:#1b1b10;border-color:rgba(245,224,0,.45)}
+.regras{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.rg{background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--acc);border-radius:16px;padding:22px}
+.rg .ic{font-size:26px}
+.rg h3{font-size:16.5px;font-weight:800;margin:10px 0 6px}
+.rg p{color:var(--txt2);font-size:14px}
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;background:var(--acc);color:#101014;font-weight:900;font-size:17.5px;border-radius:16px;padding:20px;margin-top:44px;text-decoration:none;box-shadow:0 18px 40px -14px rgba(245,224,0,.45);transition:.2s}
+.btn:hover{transform:translateY(-2px)}
+.btn svg{transition:.2s}.btn:hover svg{transform:translateX(4px)}
+.foot{color:var(--txt2);text-align:center;font-size:13px;margin-top:28px}
+.foot a{color:var(--acc);text-decoration:none;font-weight:700}
+/* ---- portão de captura ---- */
+body.locked .gated{filter:blur(9px);user-select:none}
+.gatebar{display:none;align-items:center;gap:12px;background:linear-gradient(150deg,#1b1b10,var(--panel));border:1px solid rgba(245,224,0,.5);border-radius:16px;padding:16px 20px;margin:26px 0 0;cursor:pointer}
+body.locked .gatebar{display:flex}
+.gatebar .lk{flex:none;width:42px;height:42px;border-radius:12px;background:var(--acc);display:flex;align-items:center;justify-content:center;font-size:20px}
+.gatebar b{display:block;font-size:15px}
+.gatebar span{color:var(--txt2);font-size:13px}
+.gmodal{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(5,5,7,.8);backdrop-filter:blur(4px)}
+.gmodal.on{display:flex}
+.gcard{width:100%;max-width:430px;background:var(--panel2);border:1px solid var(--acc);border-radius:22px;padding:30px;animation:up .35s ease}
+.gcard .gk{color:var(--acc);font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase}
+.gcard h3{font-size:22px;font-weight:900;margin:8px 0 6px}
+.gcard p{color:var(--txt2);font-size:14px;margin-bottom:16px}
+.gcard input{width:100%;background:var(--ink);border:1px solid var(--line);border-radius:12px;padding:14px 16px;color:var(--off);font-family:'Montserrat',sans-serif;font-size:15px;margin-bottom:10px;outline:none}
+.gcard input:focus{border-color:var(--acc)}
+.gcard .gbtn{width:100%;background:var(--acc);color:#101014;font-weight:900;font-size:16px;border:0;border-radius:12px;padding:16px;cursor:pointer;font-family:'Montserrat',sans-serif;margin-top:4px}
+.gcard .gerr{display:none;color:#ff8a7a;font-size:13px;margin-top:8px}
+.gcard .gpriv{color:var(--txt2);font-size:11.5px;text-align:center;margin-top:12px}
+@keyframes up{from{opacity:0;transform:translateY(16px)}to{opacity:1}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="brand"><img src="logo.png" alt="DQ"><span>DISSECANDO QUESTÕES</span></div>
+  <div class="in">
+    <span class="chip">⏱️ Método DQ · Perícia Criminal</span>
+    <h1>O plano de <b>2h por dia</b> até a sua vaga de perito</h1>
+    <p>Sem videoaula de 2 horas e sem estudar tudo. Um bloco diário direcionado pelo que a banca cobra, que cabe na rotina de quem trabalha.</p>
+  </div>
+</header>
+<div class="wrap">
+  <span class="eyebrow">Personalize</span>
+  <h2>Quanto tempo você tem por dia?</h2>
+  <p class="h2sub">Toque na sua realidade e veja o ajuste do plano.</p>
+  <div class="tempo" id="tempo">
+    <div class="tp" data-n="<b>Menos de 1h:</b> o segredo é não estudar tudo. 40 minutos dissecando as questões que a sua banca repete rendem mais que 3 horas de PDF. Corte o bloco de conteúdo pela metade e priorize questões.">-1h<small>dá para começar</small></div>
+    <div class="tp on" data-n="<b>1 a 2h por dia</b> é suficiente para construir base sólida, desde que cada minuto seja direcionado por questão, não por videoaula. É o plano abaixo, na íntegra.">1 a 2h<small>o plano ideal</small></div>
+    <div class="tp" data-n="<b>2 a 4h:</b> você acelera de verdade. Rode o bloco completo de manhã e adicione uma segunda bateria de questões à noite.">2 a 4h<small>acelera</small></div>
+    <div class="tp" data-n="<b>4h ou mais:</b> cuidado com o excesso. O risco é estudar muito do jeito errado. Rode o bloco duas vezes e feche com simulado e revisão de erros. Direção antes de volume.">4h+<small>cuidado c/ excesso</small></div>
+  </div>
+  <div class="nota" id="nota"><b>1 a 2h por dia</b> é suficiente para construir base sólida, desde que cada minuto seja direcionado por questão, não por videoaula. É o plano abaixo, na íntegra.</div>
+  <div class="gatebar" onclick="openGate()"><div class="lk">🔒</div><div><b>Destrave o plano completo</b><span>Informe seus dados uma única vez e veja o bloco minuto a minuto.</span></div></div>
+
+  <div class="sec gated">
+    <span class="eyebrow">Minuto a minuto</span>
+    <h2>O bloco de 2 horas</h2>
+    <p class="h2sub">A mesma sequência, todo dia. A decisão do que estudar nunca acontece na hora: ela já vem pronta do mapa da banca.</p>
+    <div class="timeline">
+      <div class="tl"><div class="min">10 min</div><div class="bx"><h3>Abertura: meta do dia</h3><p>Abra o mapa da banca e defina O QUE de hoje: um tema recorrente, não "a matéria inteira".</p></div></div>
+      <div class="tl"><div class="min">40 min</div><div class="bx"><h3>Conteúdo dirigido</h3><p>Material em texto, direto ao ponto, só do tema do dia. Leitura ativa: grifos e anotações do que a banca cobra.</p></div></div>
+      <div class="tl"><div class="min">45 min</div><div class="bx"><h3>Questões dissecadas</h3><p>Bateria do mesmo tema. Em cada erro, entenda POR QUE a banca formulou assim. É aqui que a aprovação é construída.</p></div></div>
+      <div class="tl"><div class="min">15 min</div><div class="bx"><h3>Revisão espaçada</h3><p>Flashcards do que você já estudou. O que errar volta amanhã. O que dominar, espaça.</p></div></div>
+      <div class="tl"><div class="min">10 min</div><div class="bx"><h3>Registro</h3><p>Anote o tópico do dia e os erros. Amanhã o plano começa de onde você parou, sem decidir nada na hora.</p></div></div>
+    </div>
+  </div>
+
+  <div class="sec gated">
+    <span class="eyebrow">Constância</span>
+    <h2>A semana modelo</h2>
+    <div class="week">
+      <div class="dy"><b>SEG</b><span>bloco 2h</span></div>
+      <div class="dy"><b>TER</b><span>bloco 2h</span></div>
+      <div class="dy"><b>QUA</b><span>bloco 2h</span></div>
+      <div class="dy"><b>QUI</b><span>bloco 2h</span></div>
+      <div class="dy"><b>SEX</b><span>bloco 2h</span></div>
+      <div class="dy hl"><b>SÁB</b><span>simulado + erros</span></div>
+      <div class="dy hl"><b>DOM</b><span>descanso</span></div>
+    </div>
+  </div>
+
+  <div class="sec gated">
+    <span class="eyebrow">O que sustenta o plano</span>
+    <h2>As 3 regras</h2>
+    <div class="regras">
+      <div class="rg"><span class="ic">🎯</span><h3>Direção antes de volume</h3><p>2 horas no que a banca cobra valem mais que 6 horas no que "pode cair".</p></div>
+      <div class="rg"><span class="ic">✍️</span><h3>Questão é estudo, não teste</h3><p>Você aprende errando antes da prova, onde errar é permitido.</p></div>
+      <div class="rg"><span class="ic">📆</span><h3>Constância vence intensidade</h3><p>2h todo dia por 6 meses constrói o que maratona de fim de semana nunca constrói.</p></div>
+    </div>
+  </div>
+
+  <a class="btn" href="https://site.dissecandoquestoes.com/lps/dossiepc/">Quero esse plano montado para mim <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  <p class="foot">Feito pelo método Dissecando Questões · <a href="https://instagram.com/pericia.dissecadordequestoes">@pericia.dissecadordequestoes</a></p>
+</div>
+<div class="gmodal" id="gmodal">
+  <div class="gcard">
+    <span class="gk">Acesso ao material</span>
+    <h3>Destrave o Plano de 2h por dia</h3>
+    <p>Preencha uma única vez e acesse este e os outros materiais do Método DQ Perícia.</p>
+    <input id="gnome" type="text" placeholder="Seu nome" autocomplete="name">
+    <input id="gemail" type="email" placeholder="Seu melhor e-mail" autocomplete="email">
+    <input id="gtel" type="tel" placeholder="WhatsApp com DDD" autocomplete="tel" inputmode="numeric">
+    <button class="gbtn" onclick="submitGate()">DESTRAVAR AGORA →</button>
+    <div class="gerr" id="gerr">Confira nome, e-mail e WhatsApp (com DDD).</div>
+    <p class="gpriv">Seus dados ficam seguros com a equipe Dissecando Questões.</p>
+  </div>
+</div>
+<script>
+var SHEET_ENDPOINT="https://script.google.com/macros/s/AKfycbw_DvfNABbrGuiGaUd5vKekQovkC7YNcQDnVtdgreBttaCkH3FWC06BlOOo_jUJFKnV/exec";
+var ORIGEM="plano-2h";
+function leadOk(){try{return !!localStorage.getItem('dqpc_lead')}catch(e){return false}}
+function openGate(){document.getElementById('gmodal').classList.add('on')}
+function closeGate(){document.getElementById('gmodal').classList.remove('on')}
+function digits(s){return (s||'').replace(/\D/g,'')}
+(function(){var t=document.getElementById('gtel');t.addEventListener('input',function(){var d=digits(t.value).slice(0,11),o=d;if(d.length>2)o='('+d.slice(0,2)+') '+d.slice(2);if(d.length>7)o='('+d.slice(0,2)+') '+d.slice(2,7)+'-'+d.slice(7);t.value=o;});})();
+function submitGate(){
+  var nome=(document.getElementById('gnome').value||'').trim();
+  var email=(document.getElementById('gemail').value||'').trim();
+  var tel=digits(document.getElementById('gtel').value);
+  if(nome.length<2||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)||tel.length<10){document.getElementById('gerr').style.display='block';return;}
+  try{localStorage.setItem('dqpc_lead',JSON.stringify({nome:nome,email:email,telefone:tel}))}catch(e){}
+  try{
+    var body=JSON.stringify({data:new Date().toISOString(),nome:nome,email:email,telefone:tel,origem:ORIGEM,code:"ISCA|"+ORIGEM});
+    if(navigator.sendBeacon){navigator.sendBeacon(SHEET_ENDPOINT,new Blob([body],{type:'text/plain;charset=UTF-8'}));}
+    else{fetch(SHEET_ENDPOINT,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=UTF-8'},body:body});}
+  }catch(e){}
+  document.body.classList.remove('locked'); closeGate();
+}
+if(!leadOk()) document.body.classList.add('locked');
+document.querySelectorAll('.gated').forEach(function(g){g.addEventListener('click',function(ev){if(document.body.classList.contains('locked')){ev.stopPropagation();ev.preventDefault();openGate();}},true);});
+document.getElementById('gmodal').addEventListener('click',function(ev){if(ev.target===this)closeGate();});
+document.querySelectorAll('.tp').forEach(function(t){t.addEventListener('click',function(){
+  document.querySelectorAll('.tp').forEach(function(x){x.classList.remove('on')});t.classList.add('on');
+  document.getElementById('nota').innerHTML=t.getAttribute('data-n');});});
+</script>
+</body>
+</html>
