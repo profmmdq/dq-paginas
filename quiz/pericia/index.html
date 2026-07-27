@@ -10,14 +10,14 @@
 <meta property="og:description" content="5 perguntas rápidas. Diagnóstico completo no seu WhatsApp: sua área na Perícia, os concursos chegando e um plano de 2h por dia.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=Work+Sans:wght@400;500;600;700;800&family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   :root{
     --ink:#101014; --ink2:#0b0b0e; --blue:#0c3d64; --acc:#f5e000; --acc2:#ffe870;
     --cream:#f1f3e6; --line:rgba(241,243,230,.14); --muted:#9aa6b2;
-    --disp:'Big Shoulders Display',system-ui,sans-serif;
-    --body:'Work Sans',system-ui,-apple-system,Segoe UI,sans-serif;
-    --mono:'Geist Mono',ui-monospace,monospace;
+    --disp:'Montserrat',system-ui,sans-serif;
+    --body:'Montserrat',system-ui,-apple-system,Segoe UI,sans-serif;
+    --mono:'Montserrat',system-ui,sans-serif;
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
@@ -161,6 +161,7 @@ function enviarPlanilha(){
       formacao: rot('formacao'), area: (AREA[ans.formacao]||AREA.outra),
       momento: rot('momento'), tempo: rot('tempo'), prazo: rot('prazo'),
       estado: (ans.estado||''),
+      origem: "quiz",
       code: "QZ|"+(ans.formacao||'')+"|"+(ans.momento||'')+"|"+(ans.tempo||'')+"|"+(ans.prazo||'')+"|"+(ans.estado||'')
     };
     var body = JSON.stringify(payload);
