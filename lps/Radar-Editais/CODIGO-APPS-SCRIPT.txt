@@ -1,0 +1,191 @@
+/**********************************************************************
+ * RADAR DE EDITAIS IF · Dissecando Questões
+ * Varredura de hora em hora nas fontes de concursos dos IFs.
+ * Cole este arquivo inteiro no Apps Script de uma Planilha Google
+ * e execute a função setup() uma única vez. Instruções no COMO-INSTALAR.
+ **********************************************************************/
+
+var KEYWORDS = /(edital|concurso|ebtt|tae|docente|professor(?:es)?\s+(?:efetivo|substituto)?|homologa|retifica|inscri[cç][aã]o|magist[ée]rio|t[ée]cnico[- ]administrativo)/i;
+var IGNORAR = /(javascript:|mailto:|\.jpg|\.png|\.gif|\.css|\.js\b|#$|facebook\.com|instagram\.com|twitter\.com|youtube\.com|whatsapp\.com)/i;
+
+var FONTES_SEED = [
+  // [Nome, Categoria, URL, Conferir]
+  ["CEBRASPE","Banca","https://www.cebraspe.org.br/concursos/","NAO"],
+  ["FUNDEP","Banca","https://www.gestaodeconcursos.com.br/","SIM"],
+  ["IBFC","Banca","https://www.ibfc.org.br/","NAO"],
+  ["DOU · EBTT","Governo","https://www.in.gov.br/leiturajornal?q=EBTT","NAO"],
+  ["DOU · IF Concurso","Governo","https://www.in.gov.br/leiturajornal?q=%22instituto federal%22 concurso","SIM"],
+  ["CEFET-MG","Instituto Federal","https://www.cefetmg.br/informacoes/concursos/","SIM"],
+  ["CEFET-RJ","Instituto Federal","https://concursos.cefet-rj.br/","SIM"],
+  ["CPII","Instituto Federal","https://www.cp2.g12.br/","SIM"],
+  ["IFAC","Instituto Federal","https://portal.ifac.edu.br/","SIM"],
+  ["IFAL","Instituto Federal","https://www2.ifal.edu.br/","SIM"],
+  ["IFAM","Instituto Federal","https://www.ifam.edu.br/","SIM"],
+  ["IFAP","Instituto Federal","https://ifap.edu.br/","SIM"],
+  ["IFB","Instituto Federal","https://www.ifb.edu.br/","SIM"],
+  ["IFBA","Instituto Federal","https://portal.ifba.edu.br/","SIM"],
+  ["IFBaiano","Instituto Federal","https://ifbaiano.edu.br/portal/","SIM"],
+  ["IFC","Instituto Federal","https://concursos.ifc.edu.br/","NAO"],
+  ["IFCE","Instituto Federal","https://ifce.edu.br/","SIM"],
+  ["IFES","Instituto Federal","https://www.ifes.edu.br/concursos","SIM"],
+  ["IFF","Instituto Federal","https://portal1.iff.edu.br/","SIM"],
+  ["IFFarroupilha","Instituto Federal","https://www.iffarroupilha.edu.br/concursos-e-processos-seletivos","SIM"],
+  ["IFG","Instituto Federal","https://www.ifg.edu.br/concursos","SIM"],
+  ["IFGoiano","Instituto Federal","https://www.ifgoiano.edu.br/home/","SIM"],
+  ["IFMA","Instituto Federal","https://portal.ifma.edu.br/","SIM"],
+  ["IFMG","Instituto Federal","https://www.ifmg.edu.br/portal/concursos","SIM"],
+  ["IFMS","Instituto Federal","https://www.ifms.edu.br/","SIM"],
+  ["IFMT","Instituto Federal","https://ifmt.edu.br/","SIM"],
+  ["IFNorteMinas","Instituto Federal","https://www.ifnmg.edu.br/","SIM"],
+  ["IFPA","Instituto Federal","https://ifpa.edu.br/","SIM"],
+  ["IFPB","Instituto Federal","https://www.ifpb.edu.br/","SIM"],
+  ["IFPE","Instituto Federal","https://portal.ifpe.edu.br/","SIM"],
+  ["IFPI","Instituto Federal","https://www.ifpi.edu.br/","SIM"],
+  ["IFPR","Instituto Federal","https://ifpr.edu.br/","SIM"],
+  ["IFRJ","Instituto Federal","https://portal.ifrj.edu.br/","SIM"],
+  ["IFRN","Instituto Federal","https://portal.ifrn.edu.br/","SIM"],
+  ["IFRO","Instituto Federal","https://portal.ifro.edu.br/","SIM"],
+  ["IFRR","Instituto Federal","https://www.ifrr.edu.br/","SIM"],
+  ["IFRS","Instituto Federal","https://ifrs.edu.br/","SIM"],
+  ["IFS","Instituto Federal","https://www.ifs.edu.br/","SIM"],
+  ["IFSC","Instituto Federal","https://www.ifsc.edu.br/editais","SIM"],
+  ["IFSertaoPE","Instituto Federal","https://www.ifsertao-pe.edu.br/","SIM"],
+  ["IFSP","Instituto Federal","https://www.ifsp.edu.br/","SIM"],
+  ["IFSudesteMG","Instituto Federal","https://www.ifsudestemg.edu.br/","SIM"],
+  ["IFSul","Instituto Federal","http://www.ifsul.edu.br/","SIM"],
+  ["IFSULDEMINAS","Instituto Federal","https://portal.ifsuldeminas.edu.br/","NAO"],
+  ["IFTM","Instituto Federal","https://iftm.edu.br/","SIM"],
+  ["IFTO","Instituto Federal","https://www.ifto.edu.br/","SIM"],
+  ["UTFPR","Instituto Federal","https://www.utfpr.edu.br/concursos","SIM"],
+  ["JC Concursos · IF","Agregador","https://jcconcursos.com.br/concursos","SIM"],
+  ["PCI Concursos","Agregador","https://www.pciconcursos.com.br/concursos/","SIM"]
+];
+
+/* ============ 1. EXECUTE UMA VEZ: cria abas, fontes e o gatilho ============ */
+function setup(){
+  var ss = SpreadsheetApp.getActive();
+  var f = ss.getSheetByName("Fontes") || ss.insertSheet("Fontes");
+  if (f.getLastRow() < 2){
+    f.clear();
+    f.appendRow(["Nome","Categoria","URL","Ativa","Conferir","Status","Última coleta","Erros seguidos","Último erro"]);
+    var rows = FONTES_SEED.map(function(s){ return [s[0],s[1],s[2],"SIM",s[3],"NUNCA","","0",""]; });
+    f.getRange(2,1,rows.length,9).setValues(rows);
+    f.setFrozenRows(1);
+  }
+  var a = ss.getSheetByName("Achados") || ss.insertSheet("Achados");
+  if (a.getLastRow() < 1){
+    a.appendRow(["Detectado em","Fonte","Categoria","Título","Link","Status"]);
+    a.setFrozenRows(1);
+  }
+  var l = ss.getSheetByName("Log") || ss.insertSheet("Log");
+  if (l.getLastRow() < 1) l.appendRow(["Data","Mensagem"]);
+  // gatilho de hora em hora (remove duplicados antes)
+  ScriptApp.getProjectTriggers().forEach(function(t){
+    if (t.getHandlerFunction()==="varrer") ScriptApp.deleteTrigger(t);
+  });
+  ScriptApp.newTrigger("varrer").timeBased().everyHours(1).create();
+  log("Setup concluído. Gatilho de 1 em 1 hora criado.");
+  varrer(); // primeira varredura imediata
+}
+
+/* ============ 2. A VARREDURA (roda sozinha a cada hora) ============ */
+function varrer(){
+  var ss = SpreadsheetApp.getActive();
+  var fs = ss.getSheetByName("Fontes");
+  var as = ss.getSheetByName("Achados");
+  var dados = fs.getDataRange().getValues();
+  // links já conhecidos (dedup)
+  var conhecidos = {};
+  var la = as.getLastRow();
+  if (la > 1){
+    as.getRange(2,5,la-1,1).getValues().forEach(function(r){ conhecidos[r[0]] = true; });
+  }
+  var novos = [];
+  var agora = Utilities.formatDate(new Date(),"America/Sao_Paulo","dd/MM/yyyy HH:mm");
+  for (var i=1;i<dados.length;i++){
+    var nome=dados[i][0], cat=dados[i][1], url=dados[i][2], ativa=String(dados[i][3]).toUpperCase();
+    if (!url || ativa!=="SIM") continue;
+    try{
+      var resp = UrlFetchApp.fetch(url,{muteHttpExceptions:true,followRedirects:true,validateHttpsCertificates:false,
+        headers:{"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) RadarDQ/1.0"}});
+      var code = resp.getResponseCode();
+      if (code >= 400) throw new Error("HTTP "+code);
+      var html = resp.getContentText();
+      var achou = extrairLinks(html,url);
+      for (var j=0;j<achou.length;j++){
+        var it = achou[j];
+        if (!conhecidos[it.link]){
+          conhecidos[it.link]=true;
+          novos.push([agora,nome,cat,it.titulo,it.link,"NOVO"]);
+        }
+      }
+      fs.getRange(i+1,6,1,4).setValues([["OK",agora,0,""]]);
+    }catch(e){
+      var errs = Number(dados[i][7]||0)+1;
+      fs.getRange(i+1,6,1,4).setValues([["ERRO",agora,errs,String(e).slice(0,180)]]);
+    }
+  }
+  if (novos.length){
+    as.getRange(as.getLastRow()+1,1,novos.length,6).setValues(novos);
+    log(novos.length+" achado(s) novo(s).");
+  }
+}
+
+function extrairLinks(html,base){
+  var out=[], vistos={}, m;
+  var re=/<a\b[^>]*href=["']([^"'#]+)["'][^>]*>([\s\S]{0,300}?)<\/a>/gi;
+  var origem = base.match(/^https?:\/\/[^\/]+/)[0];
+  var n=0;
+  while ((m=re.exec(html)) && n<4000){
+    n++;
+    var href=m[1].trim(), txt=m[2].replace(/<[^>]+>/g," ").replace(/\s+/g," ").trim();
+    if (!txt || txt.length<8 || txt.length>220) continue;
+    if (IGNORAR.test(href)) continue;
+    if (!KEYWORDS.test(txt) && !KEYWORDS.test(href)) continue;
+    if (href.indexOf("http")!==0){
+      href = href.indexOf("/")===0 ? origem+href : base.replace(/\/[^\/]*$/,"/")+href;
+    }
+    if (vistos[href]) continue;
+    vistos[href]=true;
+    out.push({titulo:txt.slice(0,180),link:href});
+    if (out.length>=60) break;
+  }
+  return out;
+}
+
+function log(msg){
+  SpreadsheetApp.getActive().getSheetByName("Log")
+    .appendRow([Utilities.formatDate(new Date(),"America/Sao_Paulo","dd/MM/yyyy HH:mm:ss"),msg]);
+}
+
+/* ============ 3. API PARA O PAINEL (doGet) ============ */
+function doGet(e){
+  var p = (e && e.parameter) || {};
+  var ss = SpreadsheetApp.getActive();
+  if (p.acao === "visto"){ // marca todos os NOVO como VISTO
+    var as = ss.getSheetByName("Achados");
+    var la = as.getLastRow();
+    if (la>1){
+      var st = as.getRange(2,6,la-1,1).getValues();
+      for (var i=0;i<st.length;i++) if (st[i][0]==="NOVO") st[i][0]="VISTO";
+      as.getRange(2,6,la-1,1).setValues(st);
+    }
+    return saidaJSON({ok:true});
+  }
+  var fontes = ss.getSheetByName("Fontes").getDataRange().getValues().slice(1).map(function(r){
+    return {nome:r[0],categoria:r[1],url:r[2],ativa:r[3],conferir:r[4],status:r[5],coleta:r[6],erros:r[7],erro:r[8]};
+  });
+  var as = ss.getSheetByName("Achados");
+  var la = as.getLastRow(), achados=[];
+  if (la>1){
+    var ini = Math.max(2, la-399); // últimos 400
+    achados = as.getRange(ini,1,la-ini+1,6).getValues().map(function(r){
+      return {data:r[0],fonte:r[1],categoria:r[2],titulo:r[3],link:r[4],status:r[5]};
+    }).reverse();
+  }
+  return saidaJSON({geradoEm:new Date().toISOString(),fontes:fontes,achados:achados});
+}
+function saidaJSON(obj){
+  return ContentService.createTextOutput(JSON.stringify(obj))
+    .setMimeType(ContentService.MimeType.JSON);
+}
