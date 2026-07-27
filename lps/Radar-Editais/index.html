@@ -87,6 +87,7 @@ footer{margin-top:40px;text-align:center;font-size:11.5px;color:var(--grey)}
   <h2>Achados</h2>
   <div class="filtros">
     <input id="fBusca" placeholder="Buscar por IF, palavra do título…" oninput="render()">
+    <select id="fTipo" onchange="render()"><option value="">EBTT e TAE</option><option value="EBTT">Só EBTT (docente)</option><option value="TAE">Só TAE</option></select>
     <select id="fCat" onchange="render()"><option value="">Todas as categorias</option></select>
     <select id="fSt" onchange="render()"><option value="">Novos e vistos</option><option value="NOVO">Só novos</option></select>
   </div>
@@ -144,13 +145,21 @@ function montarFiltros(){
     Object.keys(cats).sort().map(function(c){return '<option'+(c===atual?' selected':'')+'>'+c+'</option>';}).join('');
 }
 
+function tipoDe(a){
+  var t=(a.titulo+" "+a.link).toLowerCase();
+  if(/t[ée]cnico[- ]administrativo|\btae\b/.test(t)) return "TAE";
+  if(/ebtt|docente|professor|magist[ée]rio|substitut/.test(t)) return "EBTT";
+  return "GERAL";
+}
 function render(){
   var q = document.getElementById('fBusca').value.toLowerCase();
   var cat = document.getElementById('fCat').value;
   var st = document.getElementById('fSt').value;
+  var tp = document.getElementById('fTipo').value;
   var itens = DADOS.achados.filter(function(a){
     if(cat && a.categoria!==cat) return false;
     if(st && a.status!==st) return false;
+    if(tp && tipoDe(a)!==tp) return false;
     if(q && (a.titulo+" "+a.fonte).toLowerCase().indexOf(q)<0) return false;
     return true;
   }).slice(0,150);
@@ -161,7 +170,7 @@ function render(){
     return '<a class="achado'+(novo?' novo':'')+'" href="'+a.link+'" target="_blank" rel="noopener">'+
       '<span class="badge '+(novo?'n':'v')+'">'+(novo?'NOVO':'visto')+'</span>'+
       '<span><span class="t">'+esc(a.titulo)+'</span>'+
-      '<span class="m"><b>'+esc(a.fonte)+'</b> · '+esc(a.categoria)+' · detectado em '+esc(a.data)+'</span></span></a>';
+      '<span class="m"><b>'+esc(a.fonte)+'</b> · '+esc(a.categoria)+' · <b>'+tipoDe(a)+'</b> · detectado em '+esc(a.data)+'</span></span></a>';
   }).join('');
 }
 
