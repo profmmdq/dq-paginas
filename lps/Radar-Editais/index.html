@@ -149,11 +149,26 @@ function montarFiltros(){
   var st = document.getElementById('fTag');
   var atualT = st.value;
   var tags = {};
-  DADOS.achados.forEach(function(a){if(a.tag)tags[a.tag]=1;});
+  DADOS.achados.forEach(function(a){tags[tagFinal(a)]=1;});
   st.innerHTML = '<option value="">Todas as tags</option>' +
     Object.keys(tags).sort().map(function(t){return '<option'+(t===atualT?' selected':'')+'>'+t+'</option>';}).join('');
 }
 
+function tagLocal(titulo){
+  var t=String(titulo||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+  if(/retifica/.test(t)) return "Retificação";
+  if(/homologa/.test(t)) return "Homologação";
+  if(/convoca|nomea|posse/.test(t)) return "Convocação";
+  if(/resultado|classificacao final|gabarito|nota final/.test(t)) return "Resultado";
+  if(/substitut|processo seletivo simplificado|\bpss\b/.test(t)) return "Prof. Substituto (PSS)";
+  if(/(cebraspe|fgv|ibfc|fundep|vunesp|funcern|faurgs|fundatec|idecan).*(defini|contrat|escolhi|assinad|organiza)|banca (defini|contrat|escolhi)/.test(t)) return "Banca contratada";
+  if(/autoriza|portaria.*(vaga|cargo|provimento)/.test(t)) return "Autorização de vagas";
+  if(/inscric/.test(t)) return "Inscrições";
+  if(/prova|cronograma/.test(t)) return "Prova / Cronograma";
+  if(/abertura|edital n|concurso publico|edital de concurso|lanca edital|publica edital/.test(t)) return "Edital publicado";
+  return "Movimentação";
+}
+function tagFinal(a){ return a.tag || tagLocal(a.titulo); }
 function tipoDe(a){
   var t=(a.titulo+" "+a.link).toLowerCase();
   if(/t[ée]cnico[- ]administrativo|\btae\b/.test(t)) return "TAE";
@@ -170,7 +185,7 @@ function render(){
     if(cat && a.categoria!==cat) return false;
     if(st && a.status!==st) return false;
     if(tp && tipoDe(a)!==tp) return false;
-    if(tg && a.tag!==tg) return false;
+    if(tg && tagFinal(a)!==tg) return false;
     if(q && (a.titulo+" "+a.fonte).toLowerCase().indexOf(q)<0) return false;
     return true;
   }).slice(0,150);
@@ -181,8 +196,8 @@ function render(){
     return '<a class="achado'+(novo?' novo':'')+'" href="'+a.link+'" target="_blank" rel="noopener">'+
       '<span class="badge '+(novo?'n':'v')+'">'+(novo?'NOVO':'visto')+'</span>'+
       '<span><span class="t">'+esc(a.titulo)+'</span>'+
-      (a.resumo?'<span class="r">'+esc(a.resumo)+'</span>':'')+
-      '<span class="m">'+(a.tag?'<span class="tg">'+esc(a.tag)+'</span> · ':'')+'<b>'+esc(a.fonte)+'</b> · '+esc(a.categoria)+' · <b>'+tipoDe(a)+'</b> · detectado em '+esc(a.data)+'</span></span></a>';
+      (a.resumo&&a.resumo!=='—'?'<span class="r">'+esc(a.resumo)+'</span>':'')+
+      '<span class="m"><span class="tg">'+esc(tagFinal(a))+'</span> · <b>'+esc(a.fonte)+'</b> · '+esc(a.categoria)+' · <b>'+tipoDe(a)+'</b> · detectado em '+esc(a.data)+'</span></span></a>';
   }).join('');
 }
 
