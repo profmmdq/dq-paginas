@@ -1,12 +1,12 @@
 <!DOCTYPE html><html lang="pt-BR"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Teste Dissecador: seu estudo tem direção? · Dissecando Questões</title>
-<meta name="description" content="Descubra em 6 perguntas o seu perfil de estudo para o IF e receba na hora um plano de ação com o método do Prof. Manoel Machado.">
+<title>Teste Dissecador: sua preparação para EBTT e TAE tem direção? · Dissecando Questões</title>
+<meta name="description" content="Descubra em 6 perguntas o seu perfil de estudo para os concursos EBTT e TAE dos Institutos Federais e receba na hora um plano de ação com o método do Prof. Manoel Machado.">
 <link rel="canonical" href="https://site.dissecandoquestoes.com/quiz/dissecador/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://site.dissecandoquestoes.com/quiz/dissecador/">
-<meta property="og:title" content="Teste Dissecador: seu estudo tem direção?">
-<meta property="og:description" content="6 perguntas rápidas revelam seu perfil de estudo e um plano de ação com o método do Prof. Manoel Machado.">
+<meta property="og:title" content="Teste Dissecador: sua preparação para EBTT e TAE tem direção?">
+<meta property="og:description" content="6 perguntas rápidas revelam seu perfil de estudo para os concursos EBTT e TAE do IF e um plano de ação com o método do Prof. Manoel Machado.">
 <meta property="og:image" content="https://site.dissecandoquestoes.com/quiz/dissecador/og.jpg">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
@@ -50,6 +50,12 @@ body{font-family:'Montserrat',Arial,sans-serif;background:var(--off);color:var(-
 .cover{min-height:100vh;display:flex;align-items:center;padding:44px 0}
 .cwrap{max-width:720px;margin:0 auto;padding:0 26px;width:100%;text-align:center;position:relative;z-index:2}
 .cover .qpix{justify-content:center;display:inline-grid}
+.ifmark{display:flex;justify-content:center;align-items:center;margin-bottom:18px}
+.ifmark img{height:70px;width:auto;display:block;filter:drop-shadow(0 6px 18px rgba(0,0,0,.3))}
+.ifmark .ifselo{display:none}
+.ifmark.semarquivo .ifselo{display:inline-flex;align-items:center;gap:12px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.22);border-radius:14px;padding:10px 18px}
+.ifmark .ifselo b{font-size:34px;font-weight:900;letter-spacing:-.02em;color:#eafff0;line-height:1}
+.ifmark .ifselo i{font-style:normal;font-size:11px;font-weight:700;line-height:1.35;letter-spacing:.06em;text-transform:uppercase;color:var(--leaf2);border-left:2px solid var(--leaf2);padding-left:12px}
 .startbtn{background:var(--leaf);color:#fff;border:none;font-family:inherit;font-weight:800;font-size:17px;padding:18px 40px;border-radius:13px;cursor:pointer;box-shadow:0 14px 28px rgba(46,156,58,.4);margin-top:30px;letter-spacing:.3px;transition:.12s}
 .startbtn:hover{background:#23823a}.startbtn:active{transform:scale(.99)}
 .cmicro{font-size:12.5px;color:#a9c4b3;margin-top:14px;letter-spacing:.02em}
@@ -105,10 +111,15 @@ body{font-family:'Montserrat',Arial,sans-serif;background:var(--off);color:var(-
 <div id="cover"><div class="grn cover">
   <div class="ribbon">QUIZ · QUIZ</div>
   <div class="cwrap">
-    <div class="qpix"><i></i><i></i><i></i><i class="r"></i><i></i><i></i><i></i><i></i><i></i></div>
-    <div style="display:flex;justify-content:center"><span class="qbadge"><span class="dot"></span> Teste Dissecador · leva 1 minuto</span></div>
-    <h1 class="qh1">Seu estudo para o IF tem <em>direção</em>?</h1>
-    <p class="qsub" style="margin:0 auto">Responda 6 perguntas rápidas e descubra o seu perfil de estudo. No fim, eu te entrego um plano de ação com o meu método.</p>
+    <!-- LOGO IF: coloque o arquivo em assets/img/quiz/logo-if.png. Sem o arquivo, entra o selo tipográfico abaixo. -->
+    <div class="ifmark">
+      <img src="../../assets/img/quiz/logo-if.png" alt="Institutos Federais · Rede Federal de Educação Profissional, Científica e Tecnológica"
+           onerror="this.parentNode.classList.add('semarquivo');this.remove()">
+      <span class="ifselo"><b>IF</b><i>Institutos Federais<br>Rede Federal de Ensino</i></span>
+    </div>
+    <div style="display:flex;justify-content:center"><span class="qbadge"><span class="dot"></span> Teste Dissecador · EBTT e TAE · leva 1 minuto</span></div>
+    <h1 class="qh1">Sua preparação para os concursos <em>EBTT e TAE</em> do IF tem direção?</h1>
+    <p class="qsub" style="margin:0 auto">Responda 6 perguntas rápidas e descubra o seu perfil de estudo, seja você candidato a professor EBTT ou a técnico-administrativo. No fim, eu te entrego um plano de ação com o meu método.</p>
     <div class="qstats"><div><div class="n">3.552</div><div class="l">Novos postos</div></div><div><div class="n">24</div><div class="l">Novos campi</div></div><div><div class="n">754</div><div class="l">Unidades no país</div></div></div>
     <button class="startbtn" onclick="begin()">COMEÇAR O TESTE →</button>
     <div class="cmicro">6 perguntas · sem enrolação · resultado na hora</div>
@@ -187,7 +198,7 @@ body{font-family:'Montserrat',Arial,sans-serif;background:var(--off);color:var(-
 var AULA="https://sndflw.com/i/D44WGy8IPL92V6WPPX2b", TIME="https://wa.link/quizdissecador";
 function pt(x){return /[.!?]$/.test(x)?x:x+'.';}
 var Q=[
- {t:"Como você se sente hoje em relação à sua preparação para o IF?",o:[["A","Tenho plano, mas fico refazendo o cronograma toda semana"],["B","Sigo o ciclo, mas ainda me perco quando erro questões"],["C","Tenho resultado, mas quero subir o nível"],["D","Tô começando agora e tentando encontrar meu ritmo"]]},
+ {t:"Como você se sente hoje em relação à sua preparação para o concurso do IF, seja EBTT ou TAE?",o:[["A","Tenho plano, mas fico refazendo o cronograma toda semana"],["B","Sigo o ciclo, mas ainda me perco quando erro questões"],["C","Tenho resultado, mas quero subir o nível"],["D","Tô começando agora e tentando encontrar meu ritmo"]]},
  {t:"Quando você erra uma questão, você...",o:[["A","Volta pra videoaula ou resumo e repete o conteúdo inteiro"],["B","Revê só aquele ponto, mas nem sempre sabe o motivo do erro"],["C","Analisa, anota o padrão e transforma em aprendizado"],["D","Sente que tá errando por falta de base"]]},
  {t:"Como você monta o seu estudo da semana?",o:[["A","Refaço o cronograma quase toda semana, nunca fica pronto"],["B","Sigo um ritmo de questões, mas sem um plano muito claro"],["C","Tenho um ciclo definido e ajusto pelos meus dados"],["D","Ainda não tenho um método, vou montando no dia a dia"]]},
  {t:"No que vai a maior parte do seu tempo de estudo?",o:[["A","Videoaula, resumo e PDF, eu acumulo muito material"],["B","Bastante questão e simulado, focado no volume"],["C","Questão de banca filtrada e análise dos meus erros"],["D","Um pouco de tudo, ainda testando o que funciona"]]},
