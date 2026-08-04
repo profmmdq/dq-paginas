@@ -211,6 +211,34 @@ var LEAD_ENDPOINT = "https://unnichat.com.br/a/start/dYp8pWleoxd0Gt1oCIv0";  // 
   track.appendChild(copia);
 })();
 
+/* Se o aula-config.js não carregou, TUDO abaixo quebrava e o formulário parava
+   de funcionar junto. Isso acontece, por exemplo, ao abrir o arquivo direto do
+   computador: o caminho absoluto /aula/webinar/... só existe no servidor.
+   Aqui montamos uma configuração mínima de emergência para a página continuar
+   de pé e a captação seguir funcionando. */
+if (!window.DQ_AULA){
+  console.error('[DQ] aula-config.js não carregou. Conferir o caminho /aula/webinar/assets/aula-config.js. Usando configuração de emergência.');
+  window.DQ_AULA = (function(){
+    function pad(n){ return (n<10?'0':'')+n; }
+    function inicio(){ var d=new Date(); d.setHours(20,0,0,0);
+      if (Date.now() > d.getTime()+90*60*1000) d.setDate(d.getDate()+1); return d; }
+    function abertura(){ return new Date(inicio().getTime()+60000); }
+    return {
+      CFG:{HORA:20,MINUTO:0,BUFFER_SEG:60,DURACAO_MIN:90},
+      URLS:{AO_VIVO:'ao-vivo.html',SALA_DE_ESPERA:'sala-de-espera.html',OBRIGADO:'obrigado.html'},
+      pad:pad, inicio:inicio, abertura:abertura,
+      faltaParaAbrir:function(){ return abertura().getTime()-Date.now(); },
+      decorridos:function(){ var s=(Date.now()-abertura().getTime())/1000; return s>0?s:0; },
+      jaComecou:function(){ return abertura().getTime()-Date.now() <= 0; },
+      horaTexto:function(){ return '20h00'; },
+      diaTexto:function(){ var d=inicio(), h=new Date(); h.setHours(0,0,0,0);
+        return Math.round((new Date(d.getFullYear(),d.getMonth(),d.getDate())-h)/86400000)===0?'Hoje':'Amanhã'; },
+      partes:function(ms){ if(ms<0)ms=0; var s=Math.floor(ms/1000);
+        return {d:pad(Math.floor(s/86400)),h:pad(Math.floor(s%86400/3600)),m:pad(Math.floor(s%3600/60)),s:pad(s%60)}; }
+    };
+  })();
+}
+
 var A = window.DQ_AULA;
 var AULA     = A.inicio();
 var DIA_TXT  = A.diaTexto();
@@ -249,23 +277,63 @@ document.getElementById('leadForm').addEventListener('submit', function(e){
   try{ localStorage.setItem('web_aula_iso', AULA.toISOString()); }catch(e2){}
   try{ (window.dataLayer=window.dataLayer||[]).push({event:'lead_webinar', nome:nome, whats:whats, email:email, horario:horario}); }catch(e2){}
 
-  enviarLead({nome:nome, whats:whats, email:email}, horario);
-  location.href = A.URLS.OBRIGADO + '?h='+encodeURIComponent(HORA_TXT)
-                + '&d='+encodeURIComponent(DIA_TXT)
-                + '&iso='+encodeURIComponent(AULA.toISOString());
+  var destino = A.URLS.OBRIGADO + '?h='+encodeURIComponent(HORA_TXT)
+              + '&d='+encodeURIComponent(DIA_TXT)
+              + '&iso='+encodeURIComponent(AULA.toISOString());
+
+  /* Trava o botão para a pessoa não clicar duas vezes e criar lead duplicado */
+  var btn = e.target.querySelector('button[type="submit"]');
+  if (btn){ btn.disabled = true; btn.textContent = 'Confirmando...'; }
+
+  enviarLead({nome:nome, whats:whats, email:email}, horario, function(){
+    location.href = destino;
+  });
 });
 
-function enviarLead(lead, horario){
-  if(!LEAD_ENDPOINT) return;
-  var p=new URLSearchParams();
+/* ENVIO DO LEAD
+   O problema anterior: a página trocava no mesmo instante em que o pedido era
+   disparado, e o navegador cancelava a requisição antes de sair. Agora:
+   1. usamos fetch com keepalive, que sobrevive à troca de página;
+   2. reforçamos com sendBeacon, que também sobrevive;
+   3. só navegamos quando o pedido responde, ou depois de 1,5 segundo, o que
+      vier primeiro, para ninguém ficar preso esperando.
+   Para ver o que está sendo enviado, abra a página com ?debug=1 no fim da URL
+   e olhe o console do navegador. */
+var DEBUG = /[?&]debug=1/.test(location.search);
+
+function enviarLead(lead, horario, aoTerminar){
+  var seguir = (function(){ var feito=false;
+    return function(){ if(feito) return; feito=true; if(aoTerminar) aoTerminar(); };
+  })();
+
+  if(!LEAD_ENDPOINT){ seguir(); return; }
+
+  var p = new URLSearchParams();
   p.set('nome',lead.nome); p.set('email',lead.email); p.set('telefone',lead.whats);
   p.set('horario',horario); p.set('origem','webinar'); p.set('tema',TEMA);
-  var urlComQuery = LEAD_ENDPOINT + (LEAD_ENDPOINT.indexOf('?')>-1?'&':'?') + p.toString();
+  var url = LEAD_ENDPOINT + (LEAD_ENDPOINT.indexOf('?')>-1?'&':'?') + p.toString();
+
+  if (DEBUG){
+    console.log('[DQ] endpoint:', LEAD_ENDPOINT);
+    console.log('[DQ] parametros:', Object.fromEntries(p));
+    console.log('[DQ] URL completa:', url);
+  }
+
+  /* rede de segurança: se o servidor demorar, não seguramos a pessoa */
+  var limite = setTimeout(seguir, 1500);
+
   try{
-    new Image().src = urlComQuery;                                   // GET, jeito que o "start" do Unnichat lê melhor
-    if(navigator.sendBeacon){ navigator.sendBeacon(LEAD_ENDPOINT, p); }  // reforço no corpo
-    else { fetch(urlComQuery,{method:'POST',mode:'no-cors',keepalive:true,headers:{'Content-Type':'application/x-www-form-urlencoded'},body:p.toString()}); }
-  }catch(e){}
+    if (navigator.sendBeacon) navigator.sendBeacon(url);   // POST na URL completa, com os dados na query
+  }catch(e){ if(DEBUG) console.warn('[DQ] sendBeacon falhou:', e); }
+
+  try{
+    fetch(url, {method:'GET', mode:'no-cors', keepalive:true, cache:'no-store'})
+      .then(function(){ if(DEBUG) console.log('[DQ] envio concluído'); clearTimeout(limite); seguir(); })
+      .catch(function(err){ if(DEBUG) console.warn('[DQ] fetch falhou:', err); clearTimeout(limite); seguir(); });
+  }catch(e){
+    if(DEBUG) console.warn('[DQ] fetch indisponível:', e);
+    clearTimeout(limite); seguir();
+  }
 }
 </script>
 </body>
