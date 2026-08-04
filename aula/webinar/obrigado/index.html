@@ -72,7 +72,7 @@
 
     <div class="teaser">
       <span class="k">Já leve isto anotado</span>
-      <p>Quando o edital sai, você tem cerca de <b>45 dias</b> até a prova. Esse é o prazo real, e ele não perdoa quem começa do zero ali. Por isso o padrão ouro do método é o <b>pré-edital</b>: chegar nesses 45 dias já sabendo o que a banca cobra, com o conteúdo mapeado e a rotina rodando. Na quarta o Prof. Manoel mostra como montar essa vantagem antes de qualquer edital ser publicado.</p>
+      <p>Quando o edital sai, você tem cerca de <b>45 dias</b> até a prova. Esse é o prazo real, e ele não perdoa quem começa do zero ali. Por isso o padrão ouro do método é o <b>pré-edital</b>: chegar nesses 45 dias já sabendo o que a banca cobra, com o conteúdo mapeado e a rotina rodando. <span id="teaserQuando">Na aula</span>, o Prof. Manoel mostra como montar essa vantagem antes de qualquer edital ser publicado.</p>
     </div>
 
     <div class="cd" id="cd">
@@ -138,6 +138,19 @@ if (iso && !isNaN(new Date(iso).getTime())) {
 var FIM = new Date(AULA.getTime() + DURACAO*60*1000);
 
 document.getElementById('quando').textContent = d + ' · ' + h;
+
+/* Referência de tempo na copy, sempre correta para quem está lendo.
+   "Hoje às 20h" ou "Amanhã às 20h", nunca um dia da semana fixo, que ficaria
+   estranho justamente para quem abre a página naquele dia. */
+(function(){
+  var alvo = document.getElementById('teaserQuando');
+  if (!alvo) return;
+  var dia = String(d || '').trim();
+  var hora = String(h || '20h00').replace(/h00$/, 'h');
+  if (/^hoje$/i.test(dia))       alvo.textContent = 'Hoje às ' + hora;
+  else if (/^amanhã$/i.test(dia)) alvo.textContent = 'Amanhã às ' + hora;
+  else                            alvo.textContent = 'Na aula das ' + hora;
+})();
 
 /* ---- cronômetro ---- */
 function tick(){
