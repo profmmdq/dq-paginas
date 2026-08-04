@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vaga reservada | Dissecando Questões</title>
+<title>Vaga confirmada no Workshop | Dissecando Questões</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
@@ -16,7 +16,7 @@
   *{margin:0;padding:0;box-sizing:border-box}
   body{font-family:var(--body);color:var(--ink);background:var(--cream);min-height:100vh;-webkit-font-smoothing:antialiased;line-height:1.5}
   .bg{position:fixed;inset:0;z-index:-1;background:radial-gradient(62% 44% at 50% -4%,rgba(63,122,57,.13),transparent 62%),var(--cream)}
-  .wrap{max-width:600px;margin:0 auto;padding:22px 22px 46px;min-height:100vh;display:flex;flex-direction:column}
+  .wrap{max-width:560px;margin:0 auto;padding:22px 22px 46px;min-height:100vh;display:flex;flex-direction:column}
   header{display:flex;justify-content:center;margin-bottom:26px}
   .brand{display:inline-flex;background:var(--ink);border-radius:12px;padding:8px 14px}
   .brand img{height:30px;display:block;filter:brightness(0) invert(1)}
@@ -25,39 +25,25 @@
   .check svg{width:33px;height:33px;color:var(--gr)}
   .kicker{font-family:var(--mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--accd);margin-bottom:10px}
   h1{font-family:var(--disp);font-weight:800;font-size:clamp(26px,5.5vw,38px);line-height:1.05;letter-spacing:-.6px;margin-bottom:8px}
-  .sub{color:var(--txt);margin-bottom:22px}
+  .sub{color:var(--txt);margin-bottom:6px}
+  .quando-linha{font-size:15px;color:var(--txt);margin-bottom:22px}
+  .quando-linha b{color:var(--accd);font-weight:800}
 
-  .when{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:14px;box-shadow:0 16px 38px -32px rgba(15,24,41,.5)}
-  .when .k{font-family:var(--mono);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
-  .when .big{font-family:var(--disp);font-weight:800;font-size:30px;color:var(--accd);line-height:1.06}
-  .when .tema{font-size:14px;color:var(--txt);margin-top:10px;padding-top:12px;border-top:1px solid var(--line);line-height:1.42}
-  .when .tema span{display:block;font-family:var(--mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
-
-  .teaser{background:var(--paper);border:1px solid var(--line);border-left:4px solid var(--acc);border-radius:14px;padding:17px 19px;margin-bottom:22px;text-align:left}
-  .teaser .k{display:block;font-family:var(--mono);font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:var(--accd);margin-bottom:7px}
-  .teaser p{font-size:14px;color:var(--txt);line-height:1.58}
-  .teaser b{color:var(--ink);font-weight:700}
-
-  .cd{display:flex;justify-content:center;gap:8px;margin-bottom:18px}
-  .cdu{min-width:66px;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:10px 6px;box-shadow:0 5px 14px -11px rgba(15,24,41,.4)}
-  .cdu .v{font-family:var(--disp);font-weight:800;font-size:24px;color:var(--ink);line-height:1;font-variant-numeric:tabular-nums}
+  .cd{display:flex;justify-content:center;gap:8px;margin-bottom:22px}
+  .cdu{min-width:70px;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:11px 6px;box-shadow:0 5px 14px -11px rgba(15,24,41,.4)}
+  .cdu .v{font-family:var(--disp);font-weight:800;font-size:25px;color:var(--ink);line-height:1;font-variant-numeric:tabular-nums}
   .cdu .u{font-family:var(--mono);font-size:9px;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted);margin-top:5px}
 
-  .agenda{background:#eef3f7;border:1px solid #dbe4ec;border-radius:16px;padding:18px;margin-bottom:18px}
-  .agenda .k{font-family:var(--mono);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
-  .agenda p{font-size:13.5px;color:var(--txt);margin-bottom:14px;line-height:1.45}
-  .abtn{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;background:var(--paper);border:1.5px solid var(--line);color:var(--ink);font-family:var(--body);font-weight:700;font-size:15px;text-decoration:none;padding:15px 14px;border-radius:12px;cursor:pointer;transition:border-color .15s ease,background .15s ease}
-  .abtn:hover{border-color:var(--acc);background:var(--accs)}
-  .abtn svg{width:18px;height:18px;flex:none;color:var(--accd)}
-  .abtn.google{border-color:rgba(255,117,31,.55)}
-
-  .steps{text-align:left;max-width:460px;margin:0 auto 22px}
-  .step{display:flex;gap:13px;align-items:flex-start;padding:12px 0;border-top:1px solid var(--line)}
-  .step:first-child{border-top:0}
-  .step .n{flex:none;width:28px;height:28px;border-radius:50%;background:var(--acc);color:#fff;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center}
-  .step .t{font-size:14.5px;color:var(--txt)}
-  .btn{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;max-width:460px;margin:0 auto;background:var(--acc);color:#fff;font-weight:800;font-size:16px;text-decoration:none;padding:16px 24px;border-radius:14px;box-shadow:0 16px 32px -14px rgba(255,117,31,.85)}
-  footer{text-align:center;margin-top:24px;font-family:var(--mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)}
+  /* PRÓXIMO PASSO · único caminho da página */
+  .agenda{background:var(--paper);border:1.5px solid rgba(255,117,31,.4);border-radius:18px;padding:24px 20px;box-shadow:0 20px 46px -34px rgba(255,117,31,.85)}
+  .agenda .k{font-family:var(--mono);font-size:10.5px;letter-spacing:1.8px;text-transform:uppercase;color:var(--accd);margin-bottom:6px}
+  .agenda-h{font-family:var(--disp);font-weight:800;font-size:clamp(20px,4vw,25px);color:var(--ink);letter-spacing:-.6px;line-height:1.12;margin-bottom:9px}
+  .agenda p{font-size:14px;color:var(--txt);margin-bottom:16px;line-height:1.5}
+  .abtn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;background:var(--acc);border:0;color:#fff;font-family:var(--body);font-weight:800;font-size:16px;text-decoration:none;padding:17px 14px;border-radius:13px;cursor:pointer;box-shadow:0 16px 32px -14px rgba(255,117,31,.85);transition:transform .15s ease,background .15s ease}
+  .abtn:hover{transform:translateY(-2px);background:#ff8636}
+  .abtn svg{width:19px;height:19px;flex:none;color:#fff}
+  .agenda .fine{font-size:12.5px;color:var(--muted);margin:14px 0 0;line-height:1.5}
+  footer{text-align:center;margin-top:26px;font-family:var(--mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)}
 </style>
 </head>
 <body>
@@ -68,12 +54,8 @@
     <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
     <div class="kicker">Vaga confirmada</div>
     <h1>Pronto, Prof!</h1>
-    <p class="sub">A sua vaga na aula das 20h está reservada. Faltam dois passos rápidos para você não perder.</p>
-
-    <div class="teaser">
-      <span class="k">Já leve isto anotado</span>
-      <p>Quando o edital sai, você tem cerca de <b>45 dias</b> até a prova. Esse é o prazo real, e ele não perdoa quem começa do zero ali. Por isso o padrão ouro do método é o <b>pré-edital</b>: chegar nesses 45 dias já sabendo o que a banca cobra, com o conteúdo mapeado e a rotina rodando. Na quarta o Prof. Manoel mostra como montar essa vantagem antes de qualquer edital ser publicado.</p>
-    </div>
+    <p class="sub">A sua vaga no Workshop das 20h está reservada.</p>
+    <p class="quando-linha" id="quandoLinha">Hoje, <b>20h00</b> · horário de Brasília</p>
 
     <div class="cd" id="cd">
       <div class="cdu"><div class="v" id="cdD">00</div><div class="u">dias</div></div>
@@ -82,49 +64,35 @@
       <div class="cdu"><div class="v" id="cdS">00</div><div class="u">seg</div></div>
     </div>
 
-    <div class="when">
-      <div class="k">Seu horário</div>
-      <div class="big" id="quando">--:--</div>
-      <div class="tema"><span>O que você vai ver</span>O mapa dos próximos editais do IF, por que os 45 dias após a publicação decidem o resultado e como construir a vantagem do pré-edital com até 2 horas por dia.</div>
-    </div>
-
     <div class="agenda">
-      <div class="k">Passo 1 · Colocar na sua agenda</div>
+      <div class="k">Próximo passo agora</div>
+      <h2 class="agenda-h">Coloque na sua agenda</h2>
       <p>Toque no botão e o evento abre já preenchido, com lembrete 30 minutos antes. Basta salvar.</p>
-      <a class="abtn google" id="btnGoogle" href="#" target="_blank" rel="noopener">
+      <a class="abtn" id="btnGoogle" href="#" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
         Adicionar ao Google Agenda
       </a>
+      <p class="fine">O link de acesso chega no seu WhatsApp antes de começar.</p>
     </div>
-
-    <div class="steps">
-      <div class="step"><span class="n">2</span><span class="t">Toque no botão abaixo para falar com a nossa equipe no WhatsApp. A mensagem já vai pronta.</span></div>
-      <div class="step"><span class="n">3</span><span class="t">Enviamos o link da aula e um lembrete quando estiver perto de começar.</span></div>
-      <div class="step"><span class="n">4</span><span class="t">Às 20h, é só abrir o link. Chegue alguns minutos antes, com bloco de notas em mãos.</span></div>
-    </div>
-
-    <a class="btn" id="comercialBtn" href="#" target="_blank" rel="noopener">Falar com a equipe e receber o link →</a>
   </div>
   <footer>Dissecando Questões · Prof. Manoel Machado</footer>
 </div>
 
 <script>
 /* ================= CONFIG ================= */
-var COMERCIAL  = "5511953432311"; // WhatsApp do comercial: só dígitos, com DDI 55
-var TEMA       = "O Plano Infalível para ser Aprovado como Professor ou TAE no IF em 45 dias";
-var DURACAO    = 90;              // duração da aula em minutos
-var LOCAL      = "Online · o link chega pelo WhatsApp";
-/* O lembrete de 30 minutos antes é o padrão do próprio Google Agenda, então
-   não precisamos configurar nada aqui. */
+var TEMA    = "O Plano Infalível para ser Aprovado como Professor ou TAE no IF em 45 dias";
+var DURACAO = 90;   // duração do workshop, em minutos
+var LOCAL   = "Online · o link chega pelo WhatsApp";
+/* O lembrete de 30 minutos antes é o padrão do próprio Google Agenda. */
 /* ========================================== */
 
 function pad(n){ return (n<10?'0':'')+n; }
-var p = new URLSearchParams(location.search);
-var h = p.get('h') || '20h00';
-var d = p.get('d') || 'Hoje';
+var p   = new URLSearchParams(location.search);
+var h   = p.get('h') || '20h00';
+var d   = p.get('d') || 'Hoje';
 var iso = p.get('iso');
 
-/* Data e hora da aula. Vem por parâmetro; se faltar, reconstrói para as 20h. */
+/* Data e hora do workshop. Vem por parâmetro; se faltar, reconstrói para as 20h. */
 var AULA;
 if (iso && !isNaN(new Date(iso).getTime())) {
   AULA = new Date(iso);
@@ -137,7 +105,7 @@ if (iso && !isNaN(new Date(iso).getTime())) {
 }
 var FIM = new Date(AULA.getTime() + DURACAO*60*1000);
 
-document.getElementById('quando').textContent = d + ' · ' + h;
+document.getElementById('quandoLinha').innerHTML = d + ', <b>' + h + '</b> · horário de Brasília';
 
 /* ---- cronômetro ---- */
 function tick(){
@@ -151,34 +119,23 @@ function tick(){
 }
 tick(); setInterval(tick, 1000);
 
-/* ---- agenda ---- */
+/* ---- Google Agenda ---- */
 function utc(dt){
   return dt.getUTCFullYear()+pad(dt.getUTCMonth()+1)+pad(dt.getUTCDate())+'T'
        + pad(dt.getUTCHours())+pad(dt.getUTCMinutes())+'00Z';
 }
-var DETALHES = "Aula ao vivo com o Prof. Manoel Machado, do Dissecando Questões.\n\n"
-             + "Quando o edital sai, são cerca de 45 dias até a prova. Nesta aula você vai ver o mapa "
-             + "dos próximos editais do IF e como construir a vantagem do pré-edital, com até 2 horas por dia.\n\n"
+var DETALHES = "Workshop ao vivo com o Prof. Manoel Machado, do Dissecando Questões.\n\n"
+             + "O passo a passo para ser aprovado como Professor ou TAE no Instituto Federal, "
+             + "com menos de 2 horas por dia de preparação.\n\n"
              + "O link de acesso chega pelo WhatsApp. Chegue alguns minutos antes, com bloco de notas em mãos.";
 
-// Google Agenda: abre o evento já preenchido para a pessoa salvar
 document.getElementById('btnGoogle').href =
   "https://calendar.google.com/calendar/render?action=TEMPLATE"
-  + "&text=" + encodeURIComponent("Aula ao vivo · " + TEMA)
+  + "&text=" + encodeURIComponent("Workshop ao vivo · " + TEMA)
   + "&dates=" + utc(AULA) + "/" + utc(FIM)
   + "&details=" + encodeURIComponent(DETALHES)
   + "&location=" + encodeURIComponent(LOCAL)
   + "&ctz=America/Sao_Paulo";
-
-/* O botão de arquivo .ics para Apple e Outlook foi retirado: a maior parte do
-   público usa Google Agenda, e o download do arquivo confundia no celular. */
-
-/* ---- WhatsApp do comercial ---- */
-var nome=''; try{ nome=(JSON.parse(localStorage.getItem('web_lead')||'{}').nome)||''; }catch(e){}
-var msg = (nome ? ("Olá! Sou " + nome + ". ") : "Olá! ")
-        + "Acabei de garantir a minha vaga na aula ao vivo do Prof. Manoel, " + d + " às " + h
-        + ", sobre o plano de 45 dias para o IF. Quero receber o link de acesso. Pode confirmar?";
-document.getElementById('comercialBtn').href = "https://wa.me/" + COMERCIAL + "?text=" + encodeURIComponent(msg);
 
 try{ (window.dataLayer=window.dataLayer||[]).push({event:'agendou_webinar', horario:d+' '+h, tema:TEMA}); }catch(e){}
 </script>
