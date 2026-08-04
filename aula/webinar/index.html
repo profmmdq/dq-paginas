@@ -271,11 +271,9 @@ document.getElementById('leadForm').addEventListener('submit', function(e){
   if(!/^\S+@\S+\.\S+$/.test(email)){ err.textContent='Coloque um e-mail válido.'; err.classList.add('on'); return; }
   err.textContent=''; err.classList.remove('on');
 
-  var horario = DIA_TXT+' '+HORA_TXT;
   try{ localStorage.setItem('web_lead', JSON.stringify({nome:nome,whats:whats,email:email,origem:'webinar',ts:Date.now()})); }catch(e2){}
-  try{ localStorage.setItem('web_horario', horario); }catch(e2){}
   try{ localStorage.setItem('web_aula_iso', AULA.toISOString()); }catch(e2){}
-  try{ (window.dataLayer=window.dataLayer||[]).push({event:'lead_webinar', nome:nome, whats:whats, email:email, horario:horario}); }catch(e2){}
+  try{ (window.dataLayer=window.dataLayer||[]).push({event:'lead_webinar', nome:nome, whats:whats, email:email}); }catch(e2){}
 
   var destino = A.URLS.OBRIGADO + '?h='+encodeURIComponent(HORA_TXT)
               + '&d='+encodeURIComponent(DIA_TXT)
@@ -285,23 +283,25 @@ document.getElementById('leadForm').addEventListener('submit', function(e){
   var btn = e.target.querySelector('button[type="submit"]');
   if (btn){ btn.disabled = true; btn.textContent = 'Confirmando...'; }
 
-  enviarLead({nome:nome, whats:whats, email:email}, horario, function(){
+  enviarLead({nome:nome, whats:whats, email:email}, function(){
     location.href = destino;
   });
 });
 
 /* ENVIO DO LEAD
-   O problema anterior: a página trocava no mesmo instante em que o pedido era
-   disparado, e o navegador cancelava a requisição antes de sair. Agora:
-   1. usamos fetch com keepalive, que sobrevive à troca de página;
-   2. reforçamos com sendBeacon, que também sobrevive;
-   3. só navegamos quando o pedido responde, ou depois de 1,5 segundo, o que
-      vier primeiro, para ninguém ficar preso esperando.
+   Mecanismo idêntico ao da versão que funcionava: a imagem dispara o GET com os
+   dados na query (é assim que o "start" do Unnichat lê melhor) e o sendBeacon
+   reforça com um POST no corpo, em formato de formulário. Os dois sobrevivem à
+   troca de página.
+
+   Envia SÓ nome, e-mail e telefone. Horário e tema saíram: a aula é sempre às
+   20h e o tema é sempre o mesmo, então não havia o que informar.
+
    Para ver o que está sendo enviado, abra a página com ?debug=1 no fim da URL
    e olhe o console do navegador. */
 var DEBUG = /[?&]debug=1/.test(location.search);
 
-function enviarLead(lead, horario, aoTerminar){
+function enviarLead(lead, aoTerminar){
   var seguir = (function(){ var feito=false;
     return function(){ if(feito) return; feito=true; if(aoTerminar) aoTerminar(); };
   })();
@@ -309,31 +309,23 @@ function enviarLead(lead, horario, aoTerminar){
   if(!LEAD_ENDPOINT){ seguir(); return; }
 
   var p = new URLSearchParams();
-  p.set('nome',lead.nome); p.set('email',lead.email); p.set('telefone',lead.whats);
-  p.set('horario',horario); p.set('origem','webinar'); p.set('tema',TEMA);
+  p.set('nome',     lead.nome);
+  p.set('email',    lead.email);
+  p.set('telefone', lead.whats);
   var url = LEAD_ENDPOINT + (LEAD_ENDPOINT.indexOf('?')>-1?'&':'?') + p.toString();
 
   if (DEBUG){
     console.log('[DQ] endpoint:', LEAD_ENDPOINT);
-    console.log('[DQ] parametros:', Object.fromEntries(p));
+    console.log('[DQ] parametros:', {nome:lead.nome, email:lead.email, telefone:lead.whats});
     console.log('[DQ] URL completa:', url);
   }
 
-  /* rede de segurança: se o servidor demorar, não seguramos a pessoa */
-  var limite = setTimeout(seguir, 1500);
+  try{ new Image().src = url; }catch(e){ if(DEBUG) console.warn('[DQ] imagem falhou:', e); }
+  try{ if(navigator.sendBeacon) navigator.sendBeacon(LEAD_ENDPOINT, p); }
+  catch(e){ if(DEBUG) console.warn('[DQ] sendBeacon falhou:', e); }
 
-  try{
-    if (navigator.sendBeacon) navigator.sendBeacon(url);   // POST na URL completa, com os dados na query
-  }catch(e){ if(DEBUG) console.warn('[DQ] sendBeacon falhou:', e); }
-
-  try{
-    fetch(url, {method:'GET', mode:'no-cors', keepalive:true, cache:'no-store'})
-      .then(function(){ if(DEBUG) console.log('[DQ] envio concluído'); clearTimeout(limite); seguir(); })
-      .catch(function(err){ if(DEBUG) console.warn('[DQ] fetch falhou:', err); clearTimeout(limite); seguir(); });
-  }catch(e){
-    if(DEBUG) console.warn('[DQ] fetch indisponível:', e);
-    clearTimeout(limite); seguir();
-  }
+  /* meio segundo de folga para o pedido sair antes da troca de página */
+  setTimeout(seguir, 500);
 }
 </script>
 </body>
