@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sua aula começa às 20h | Dissecando Questões</title>
+<title>O Workshop começa às 20h | Dissecando Questões</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
@@ -55,26 +55,26 @@
   <header><span class="brand"><img src="/aula/webinar/assets/logo-dq.png" alt="Dissecando Questões"></span></header>
   <div class="mid">
     <div class="kicker" id="kicker">Sala de espera · você está dentro</div>
-    <h1 id="titulo">A aula abre às 20h em ponto</h1>
-    <p class="sub" id="subtitulo">A sala destrava sozinha no horário. Não feche esta página: quando o contador zerar, você entra automaticamente.</p>
+    <h1 id="titulo">O Workshop começa às 20h em ponto</h1>
+    <p class="sub" id="subtitulo">Não feche esta página. Vamos começar assim que o contador zerar, e você entra automaticamente.</p>
 
     <div class="ring">
       <svg width="216" height="216" viewBox="0 0 216 216">
         <circle cx="108" cy="108" r="96" fill="none" stroke="#e6e8dc" stroke-width="11"/>
         <circle id="arc" cx="108" cy="108" r="96" fill="none" stroke="#ff751f" stroke-width="11" stroke-linecap="round" stroke-dasharray="603" stroke-dashoffset="603"/>
       </svg>
-      <div class="val"><div class="t" id="timer">--:--</div><div class="l" id="timerLabel">para a aula começar</div></div>
+      <div class="val"><div class="t" id="timer">--:--</div><div class="l" id="timerLabel">para o Workshop começar</div></div>
     </div>
     <p class="quando" id="quando">Hoje, <b>20h00</b> · horário de Brasília</p>
 
     <div class="tips">
       <h3>Aproveite estes minutos para se preparar</h3>
-      <div class="row"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 010 8h-1M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="tx">Pegue uma água ou um café. A aula é direta, mas você vai querer estar confortável.</span></div>
+      <div class="row"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 010 8h-1M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="tx">Pegue uma água ou um café. O Workshop é direto, mas você vai querer estar confortável.</span></div>
       <div class="row"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4 12.5-12.5z"/></svg></span><span class="tx">Separe bloco de notas e caneta. Vai ter bastante coisa para anotar.</span></div>
       <div class="row"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18.6 5.4a9 9 0 010 13.2M15.5 8.5a4.5 4.5 0 010 7M2 9v6h4l5 4V5L6 9H2z"/><line x1="2" y1="2" x2="22" y2="22"/></svg></span><span class="tx">Silencie as notificações. Uma hora de foco vale meses de preparação dispersa.</span></div>
       <div class="row"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-6a9 9 0 0118 0v6"/><path d="M21 19a2 2 0 01-2 2h-1a2 2 0 01-2-2v-3a2 2 0 012-2h3zM3 19a2 2 0 002 2h1a2 2 0 002-2v-3a2 2 0 00-2-2H3z"/></svg></span><span class="tx">Se puder, use fone. A qualidade do áudio muda a experiência.</span></div>
     </div>
-    <p class="note" id="note">Você será levado para a aula automaticamente.</p>
+    <p class="note" id="note">Você será levado para o Workshop automaticamente.</p>
   </div>
   <footer>Dissecando Questões · Prof. Manoel Machado</footer>
 </div>
@@ -108,7 +108,7 @@ function tick(){
 
   if (falta <= 0){
     elTimer.textContent = '00:00';
-    elLabel.textContent = 'entrando na aula';
+    elLabel.textContent = 'entrando no Workshop';
     arc.setAttribute('stroke-dashoffset', 0);
     location.replace(A.URLS.AO_VIVO);
     return;
@@ -119,10 +119,10 @@ function tick(){
 
   if (s >= 3600){
     elTimer.textContent = p.h+':'+p.m+':'+p.s;
-    elLabel.textContent = 'para a aula começar';
+    elLabel.textContent = 'para o Workshop começar';
   } else {
     elTimer.textContent = p.m+':'+p.s;
-    elLabel.textContent = 'para a aula começar';
+    elLabel.textContent = 'para o Workshop começar';
   }
 
   /* último minuto: o buffer de 1 minuto a partir das 20h */
@@ -130,7 +130,7 @@ function tick(){
     if (!iminenteMarcado){
       iminenteMarcado = true;
       document.body.classList.add('iminente');
-      document.getElementById('kicker').textContent = 'A aula está abrindo';
+      document.getElementById('kicker').textContent = 'O Workshop está abrindo';
       document.getElementById('titulo').textContent = 'Estamos abrindo a sala agora';
       document.getElementById('subtitulo').innerHTML = 'Deu <b>'+A.horaTexto()+'</b>. Em instantes você entra automaticamente.';
       elLabel.textContent = 'para você entrar';
