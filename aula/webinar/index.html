@@ -51,6 +51,28 @@
     .hero-txt .bullets{order:5}
     .hero-txt .with{order:6}
   }
+  /* CELULAR · compressão vertical do topo.
+     Objetivo: o começo do formulário aparecer sem rolagem. Cada ajuste abaixo
+     corta altura do que vem antes dele, sem tirar nenhuma informação. */
+  @media(max-width:900px){
+    .wrap{padding:14px 18px 44px}
+    header{margin-bottom:16px;gap:9px}
+    .brand{padding:6px 11px}
+    .brand img{height:26px}
+    .hero{gap:14px;margin-bottom:20px}
+    .kicker{font-size:10px;letter-spacing:1.6px;margin-bottom:9px}
+    .kicker::before{width:16px}
+    h1{font-size:clamp(25px,6.6vw,32px);line-height:1.06;letter-spacing:-.7px;margin-bottom:11px}
+    .sub{font-size:15px;line-height:1.46;margin-bottom:0}
+    .panel{padding:19px 18px 20px;border-radius:17px}
+    .panel .lab{font-size:10px;margin-bottom:3px}
+    .pquando{font-size:17px;margin-bottom:11px}
+    #leadForm{gap:8px}
+    #leadForm input{padding:13px 14px;border-radius:11px}
+    .btn{padding:16px;font-size:16px}
+    .lprivacy{margin-top:9px}
+    .bullets{margin-bottom:18px}
+  }
   .kicker{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--accd);font-weight:500;margin-bottom:15px}
   .kicker::before{content:"";width:22px;height:1.5px;background:var(--acc)}
   h1{font-family:var(--disp);font-weight:800;font-size:clamp(28px,4.6vw,46px);line-height:1.04;letter-spacing:-1px;margin-bottom:16px;text-wrap:balance;color:var(--ink)}
