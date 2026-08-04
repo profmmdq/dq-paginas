@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>O Plano Infalível para ser Aprovado como Professor ou TAE no IF em 45 dias | Dissecando Questões</title>
-<meta name="description" content="Aula ao vivo com o Prof. Manoel Machado. O plano infalível para ser aprovado como Professor ou TAE no Instituto Federal em 45 dias. Toda noite, às 20h.">
+<meta name="description" content="Workshop ao vivo com o Prof. Manoel Machado. O plano infalível para ser aprovado como Professor ou TAE no Instituto Federal em 45 dias. Toda noite, às 20h.">
 <meta property="og:title" content="O Plano Infalível para ser Aprovado como Professor ou TAE no IF em 45 dias">
-<meta property="og:description" content="Aula ao vivo com o Prof. Manoel Machado. Às 20h, horário de Brasília.">
+<meta property="og:description" content="Workshop ao vivo com o Prof. Manoel Machado. Às 20h, horário de Brasília.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
@@ -32,9 +32,23 @@
   .livepill .d{width:8px;height:8px;border-radius:50%;background:#e13333;animation:pr 1.6s infinite}
   @keyframes pr{0%{box-shadow:0 0 0 0 rgba(225,51,51,.45)}70%{box-shadow:0 0 0 8px rgba(225,51,51,0)}100%{box-shadow:0 0 0 0 rgba(225,51,51,0)}}
 
-  /* HERO */
-  .hero{display:grid;grid-template-columns:1.55fr .45fr;gap:34px;align-items:center;margin-bottom:26px}
-  @media(max-width:820px){.hero{grid-template-columns:1fr;gap:22px}}
+  /* HERO · texto à esquerda, conversão à direita */
+  .hero{display:grid;grid-template-columns:1.08fr .92fr;gap:36px;align-items:start;margin-bottom:26px}
+  @media(max-width:900px){.hero{grid-template-columns:1fr;gap:24px}}
+  .cta-col{position:sticky;top:22px;display:flex;flex-direction:column;gap:12px}
+  @media(max-width:900px){.cta-col{position:static}}
+  /* No celular a conversão sobe: fica logo depois do título e do subtítulo,
+     antes dos bullets, que a pessoa lê enquanto decide. */
+  @media(max-width:900px){
+    .hero{display:flex;flex-direction:column}
+    .hero-txt{display:contents}
+    .hero-txt .kicker{order:1}
+    .hero-txt h1{order:2}
+    .hero-txt .sub{order:3}
+    .cta-col{order:4;width:100%}
+    .hero-txt .bullets{order:5}
+    .hero-txt .with{order:6}
+  }
   .kicker{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--accd);font-weight:500;margin-bottom:15px}
   .kicker::before{content:"";width:22px;height:1.5px;background:var(--acc)}
   h1{font-family:var(--disp);font-weight:800;font-size:clamp(28px,4.6vw,46px);line-height:1.04;letter-spacing:-1px;margin-bottom:16px;text-wrap:balance;color:var(--ink)}
@@ -48,23 +62,14 @@
   .with img{width:38px;height:38px;border-radius:50%;object-fit:cover;object-position:50% 30%;border:2px solid rgba(255,117,31,.55)}
   .with b{color:var(--ink);font-weight:700}
 
-  .figure{position:relative;border-radius:16px;overflow:hidden;aspect-ratio:3/4;max-width:230px;margin-left:auto;box-shadow:0 26px 52px -30px rgba(15,24,41,.5);border:1px solid var(--line)}
-  @media(max-width:820px){.figure{max-width:170px;margin:0 auto}}
-  .figure img{width:100%;height:100%;object-fit:cover;object-position:50% 22%}
-  .figure::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 48%,rgba(15,24,41,.82))}
-  .figcap{position:absolute;left:12px;right:12px;bottom:12px;z-index:2;color:#fff}
-  .figcap .n{font-family:var(--disp);font-weight:800;font-size:14.5px;line-height:1.16}
-  .figcap .r{font-size:11px;color:#ffd9bf;line-height:1.3;margin-top:2px}
-
-  /* CRONÔMETRO */
-  .cdbox{background:linear-gradient(150deg,#fff6ee,#fffdfa);border:1.5px solid rgba(255,117,31,.34);border-radius:20px;padding:24px 26px;margin-bottom:14px;text-align:center;box-shadow:0 16px 40px -30px rgba(255,117,31,.7)}
-  .cdbox .lab{font-family:var(--mono);font-size:11px;letter-spacing:1.8px;text-transform:uppercase;color:var(--accd);margin-bottom:14px}
-  .cdgrid{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
-  .cdu{min-width:82px;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:13px 8px;box-shadow:0 5px 14px -10px rgba(15,24,41,.35)}
-  @media(max-width:420px){.cdu{min-width:68px;padding:11px 6px}}
-  .cdu .v{font-family:var(--disp);font-weight:800;font-size:clamp(28px,6vw,40px);letter-spacing:-1.6px;color:var(--ink);line-height:1;font-variant-numeric:tabular-nums}
-  .cdu .u{font-family:var(--mono);font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:var(--muted);margin-top:6px}
-  .cdwhen{font-size:14.5px;color:var(--txt);margin-top:15px}
+  /* CRONÔMETRO · dentro da coluna de conversão, por isso mais compacto */
+  .cdbox{background:linear-gradient(150deg,#fff6ee,#fffdfa);border:1.5px solid rgba(255,117,31,.34);border-radius:18px;padding:19px 18px;text-align:center;box-shadow:0 16px 40px -30px rgba(255,117,31,.7)}
+  .cdbox .lab{font-family:var(--mono);font-size:10.5px;letter-spacing:1.8px;text-transform:uppercase;color:var(--accd);margin-bottom:12px}
+  .cdgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+  .cdu{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:11px 4px;box-shadow:0 5px 14px -10px rgba(15,24,41,.35)}
+  .cdu .v{font-family:var(--disp);font-weight:800;font-size:clamp(24px,4.4vw,32px);letter-spacing:-1.4px;color:var(--ink);line-height:1;font-variant-numeric:tabular-nums}
+  .cdu .u{font-family:var(--mono);font-size:9px;letter-spacing:1.3px;text-transform:uppercase;color:var(--muted);margin-top:5px}
+  .cdwhen{font-size:13.5px;color:var(--txt);margin-top:13px}
   .cdwhen b{color:var(--accd);font-weight:800}
   .cdlive{display:none;font-family:var(--disp);font-weight:800;font-size:22px;color:#c22b2b}
   .cdbox.live .cdgrid,.cdbox.live .cdwhen{display:none}
@@ -82,6 +87,27 @@
   .lerr{color:#c22b2b;font-size:13px;min-height:0}
   .lerr.on{min-height:18px;margin-top:-2px}
   .lprivacy{color:var(--muted);font-size:12px;margin-top:12px;text-align:center}
+
+  /* QUEM VAI TE ENSINAR */
+  .quem{margin-top:30px;background:var(--ink);border-radius:20px;overflow:hidden;box-shadow:0 30px 64px -40px rgba(15,24,41,.75)}
+  .quem-in{display:grid;grid-template-columns:250px 1fr}
+  @media(max-width:720px){.quem-in{grid-template-columns:1fr}}
+  .quem-foto{position:relative;min-height:230px;background:#0a111c}
+  .quem-foto img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 20%}
+  @media(max-width:720px){.quem-foto{min-height:230px;max-height:270px}}
+  .quem-txt{padding:clamp(26px,3.4vw,38px)}
+  .quem-k{font-family:var(--mono);font-size:10px;letter-spacing:2.2px;text-transform:uppercase;color:var(--acc);margin-bottom:12px;display:block}
+  .quem-nome{display:flex;gap:14px;align-items:center;margin-bottom:16px}
+  .quem-bar{width:4px;align-self:stretch;min-height:44px;background:var(--acc);border-radius:3px;flex:none}
+  .quem-nome h3{font-family:var(--disp);font-weight:800;font-size:clamp(21px,2.7vw,27px);color:#fff;letter-spacing:-.7px;line-height:1.1}
+  .quem-nome .role{font-family:var(--mono);font-size:10.5px;letter-spacing:2px;text-transform:uppercase;color:var(--acc);margin-top:5px;display:block}
+  .quem-txt p{font-size:15px;color:rgba(241,243,230,.8);line-height:1.62;margin-bottom:12px}
+  .quem-txt p:last-of-type{margin-bottom:0}
+  .quem-txt b{color:#fff;font-weight:700}
+  .quem-nums{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:20px;padding-top:18px;border-top:1px solid rgba(241,243,230,.14)}
+  .quem-nums div{text-align:center}
+  .quem-nums .v{font-family:var(--disp);font-weight:800;font-size:22px;color:var(--acc)}
+  .quem-nums .l{font-size:11px;color:rgba(241,243,230,.6);line-height:1.3;margin-top:3px}
 
   .proof{display:flex;align-items:center;gap:14px;margin-top:26px;padding:16px 18px;background:#eef3f7;border:1px solid #dbe4ec;border-radius:16px}
   .proof img{width:96px;height:60px;object-fit:cover;border-radius:9px;flex:none}
@@ -110,58 +136,77 @@
 <div class="wrap">
   <header>
     <span class="brand"><img src="/aula/webinar/assets/logo-dq.png" alt="Dissecando Questões"></span>
-    <span class="livepill"><span class="d"></span>Aula ao vivo · 20h</span>
+    <span class="livepill"><span class="d"></span>Workshop ao vivo · 20h</span>
   </header>
 
   <div class="hero">
-    <div>
-      <span class="kicker">Aula ao vivo · hoje às 20h</span>
+    <div class="hero-txt">
+      <span class="kicker">Workshop ao vivo · hoje às 20h</span>
       <h1>O Plano Infalível para ser Aprovado como Professor ou TAE no IF em <em>45 dias</em></h1>
-      <p class="sub">Entre a publicação do edital e a prova, a média é de <b>45 dias</b>. Quem só começa a se organizar quando o edital sai já entrou atrasado. Nesta aula o Prof. Manoel abre o plano que os aprovados usam para chegar prontos nessa janela, <b>mesmo tendo até 2 horas por dia disponíveis para a preparação</b>.</p>
+      <p class="sub">Descubra o passo a passo simples para ser aprovado e garantir uma remuneração <b>acima de R$ 12.000,00 mensais</b> com estabilidade, mesmo que você tenha <b>menos de 2h por dia</b> para estudar.</p>
       <div class="bullets">
-        <div class="bl"><span class="ck">✓</span><span>Por que o problema nunca foi conteúdo, e sim a falta de método</span></div>
-        <div class="bl"><span class="ck">✓</span><span>O mapa dos próximos editais do IF e onde estão as vagas de EBTT e TAE</span></div>
-        <div class="bl"><span class="ck">✓</span><span>Como dissecar questões para descobrir o que a banca realmente cobra</span></div>
-        <div class="bl"><span class="ck">✓</span><span>O plano de 45 dias montado para uma rotina de até 2 horas diárias</span></div>
+        <div class="bl"><span class="ck">✓</span><span>Por que estudar mais não aumenta suas chances de aprovação, e o que realmente faz diferença</span></div>
+        <div class="bl"><span class="ck">✓</span><span>Onde estão as vagas mais promissoras para Professor EBTT e TAE nos próximos concursos dos IFs</span></div>
+        <div class="bl"><span class="ck">✓</span><span>A técnica que revela os padrões escondidos das provas para você acertar mais questões</span></div>
+        <div class="bl"><span class="ck">✓</span><span>O plano de estudos infalível para chegar competitivo na prova, mesmo tendo menos de 2 horas por dia</span></div>
+        <div class="bl"><span class="ck">✓</span><span>O método que já colocou mais de 300 professores na carreira federal</span></div>
       </div>
       <div class="with">
         <img src="/aula/webinar/assets/manoel-hero.jpg" alt="Prof. Manoel Machado">
         <span>com <b>Prof. Manoel Machado</b><br>Dissecando Questões</span>
       </div>
     </div>
-    <div class="figure">
-      <img src="/aula/webinar/assets/manoel-hero.jpg" alt="Prof. Manoel Machado">
-      <div class="figcap">
-        <div class="n">Prof. Manoel Machado</div>
-        <div class="r">Método para a estabilidade no IF</div>
+    <!-- COLUNA DA CONVERSÃO: cronômetro e formulário juntos, ao lado do título -->
+    <aside class="cta-col">
+      <div class="cdbox" id="cdbox">
+        <div class="lab">O workshop começa em</div>
+        <div class="cdgrid">
+          <div class="cdu"><div class="v" id="cdD">00</div><div class="u">dias</div></div>
+          <div class="cdu"><div class="v" id="cdH">00</div><div class="u">horas</div></div>
+          <div class="cdu"><div class="v" id="cdM">00</div><div class="u">min</div></div>
+          <div class="cdu"><div class="v" id="cdS">00</div><div class="u">seg</div></div>
+        </div>
+        <div class="cdwhen" id="cdWhen">Hoje, <b>20h00</b> · horário de Brasília</div>
+        <div class="cdlive">O workshop está começando agora</div>
+      </div>
+
+      <div class="panel capture" id="capture">
+        <div class="lab">Garanta a sua vaga no workshop das 20h</div>
+        <form id="leadForm" novalidate>
+          <input id="lnome" type="text" placeholder="Seu nome" autocomplete="name" required>
+          <input id="lwhats" type="tel" placeholder="Seu WhatsApp com DDD" autocomplete="tel" inputmode="numeric" required>
+          <input id="lemail" type="email" placeholder="Seu melhor e-mail" autocomplete="email" required>
+          <div class="lerr" id="lerr"></div>
+          <button class="btn" type="submit">Quero participar do Workshop →</button>
+        </form>
+        <p class="lprivacy">Usamos o seu contato apenas para enviar o link e os lembretes do workshop.</p>
+      </div>
+    </aside>
+  </div>
+
+  <!-- QUEM VAI TE ENSINAR -->
+  <section class="quem">
+    <div class="quem-in">
+      <div class="quem-foto"><img src="/aula/webinar/assets/manoel-hero.jpg" alt="Prof. Manoel Machado"></div>
+      <div class="quem-txt">
+        <span class="quem-k">Quem vai te ensinar</span>
+        <div class="quem-nome">
+          <span class="quem-bar"></span>
+          <div>
+            <h3>Prof. Manoel Machado</h3>
+            <span class="role">Criador do Método DQ</span>
+          </div>
+        </div>
+        <p>Manoel é professor, como você. Durante anos tentou encaixar a preparação nas brechas da rotina, entre aulas, correções e a vida acontecendo. Não faltava esforço nem conteúdo estudado. <b>Faltava método.</b></p>
+        <p>A virada veio quando ele parou de tentar dar conta de tudo e começou a <b>dissecar as questões</b> para entender o que a banca realmente cobra. Foi assim que conquistou a estabilidade na Rede Federal, e é esse mesmo caminho que ele ensina hoje.</p>
+        <div class="quem-nums">
+          <div><div class="v">+300</div><div class="l">professores aprovados</div></div>
+          <div><div class="v">18</div><div class="l">estados</div></div>
+          <div><div class="v">15+</div><div class="l">disciplinas</div></div>
+        </div>
       </div>
     </div>
-  </div>
-
-  <!-- CRONÔMETRO ATÉ A AULA -->
-  <div class="cdbox" id="cdbox">
-    <div class="lab">A aula começa em</div>
-    <div class="cdgrid">
-      <div class="cdu"><div class="v" id="cdD">00</div><div class="u">dias</div></div>
-      <div class="cdu"><div class="v" id="cdH">00</div><div class="u">horas</div></div>
-      <div class="cdu"><div class="v" id="cdM">00</div><div class="u">minutos</div></div>
-      <div class="cdu"><div class="v" id="cdS">00</div><div class="u">segundos</div></div>
-    </div>
-    <div class="cdwhen" id="cdWhen">Hoje, <b>20h00</b> · horário de Brasília</div>
-    <div class="cdlive">A aula está começando agora</div>
-  </div>
-
-  <div class="panel capture" id="capture">
-    <div class="lab">Garanta a sua vaga na aula das 20h</div>
-    <form id="leadForm" novalidate>
-      <input id="lnome" type="text" placeholder="Seu nome" autocomplete="name" required>
-      <input id="lwhats" type="tel" placeholder="Seu WhatsApp com DDD" autocomplete="tel" inputmode="numeric" required>
-      <input id="lemail" type="email" placeholder="Seu melhor e-mail" autocomplete="email" required>
-      <div class="lerr" id="lerr"></div>
-      <button class="btn" type="submit">Confirmar minha vaga às 20h →</button>
-    </form>
-    <p class="lprivacy">Usamos o seu contato apenas para enviar o link e os lembretes da aula.</p>
-  </div>
+  </section>
 
   <div class="proof">
     <img src="/aula/webinar/assets/manoel-live.jpg" alt="Mentoria ao vivo Dissecando Questões">
