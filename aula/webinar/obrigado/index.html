@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vaga reservada | Dissecando Questões</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
+<script src="/aula/webinar/assets/aula-config.js"></script>
+<style>
+  :root{--ink:#0f1829;--txt:#3c4757;--muted:#6b7788;
+    --acc:#ff751f;--accd:#d1560c;--accs:#fff1e6;--gr:#3f7a39;
+    --cream:#f6f7ef;--paper:#ffffff;--line:#e2e4d6;
+    --disp:'Montserrat',sans-serif;--body:'Montserrat',system-ui,sans-serif;--mono:'Geist Mono',monospace;}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:var(--body);color:var(--ink);background:var(--cream);min-height:100vh;-webkit-font-smoothing:antialiased;line-height:1.5}
+  .bg{position:fixed;inset:0;z-index:-1;background:radial-gradient(62% 44% at 50% -4%,rgba(63,122,57,.13),transparent 62%),var(--cream)}
+  .wrap{max-width:600px;margin:0 auto;padding:22px 22px 46px;min-height:100vh;display:flex;flex-direction:column}
+  header{display:flex;justify-content:center;margin-bottom:26px}
+  .brand{display:inline-flex;background:var(--ink);border-radius:12px;padding:8px 14px}
+  .brand img{height:30px;display:block;filter:brightness(0) invert(1)}
+  .mid{flex:1;display:flex;flex-direction:column;justify-content:center;text-align:center}
+  .check{width:70px;height:70px;border-radius:50%;background:#eaf3e8;border:1.5px solid #bcd8b7;display:flex;align-items:center;justify-content:center;margin:0 auto 18px}
+  .check svg{width:33px;height:33px;color:var(--gr)}
+  .kicker{font-family:var(--mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--accd);margin-bottom:10px}
+  h1{font-family:var(--disp);font-weight:800;font-size:clamp(26px,5.5vw,38px);line-height:1.05;letter-spacing:-.6px;margin-bottom:8px}
+  .sub{color:var(--txt);margin-bottom:22px}
+
+  .when{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:14px;box-shadow:0 16px 38px -32px rgba(15,24,41,.5)}
+  .when .k{font-family:var(--mono);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+  .when .big{font-family:var(--disp);font-weight:800;font-size:30px;color:var(--accd);line-height:1.06}
+  .when .tema{font-size:14px;color:var(--txt);margin-top:10px;padding-top:12px;border-top:1px solid var(--line);line-height:1.42}
+  .when .tema span{display:block;font-family:var(--mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+
+  .cd{display:flex;justify-content:center;gap:8px;margin-bottom:18px}
+  .cdu{min-width:66px;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:10px 6px;box-shadow:0 5px 14px -11px rgba(15,24,41,.4)}
+  .cdu .v{font-family:var(--disp);font-weight:800;font-size:24px;color:var(--ink);line-height:1;font-variant-numeric:tabular-nums}
+  .cdu .u{font-family:var(--mono);font-size:9px;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted);margin-top:5px}
+
+  .agenda{background:#eef3f7;border:1px solid #dbe4ec;border-radius:16px;padding:18px;margin-bottom:18px}
+  .agenda .k{font-family:var(--mono);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+  .agenda p{font-size:13.5px;color:var(--txt);margin-bottom:14px;line-height:1.45}
+  .agrid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+  @media(max-width:460px){.agrid{grid-template-columns:1fr}}
+  .abtn{display:flex;align-items:center;justify-content:center;gap:8px;background:var(--paper);border:1.5px solid var(--line);color:var(--ink);font-family:var(--body);font-weight:700;font-size:14px;text-decoration:none;padding:14px 12px;border-radius:12px;cursor:pointer;transition:border-color .15s ease,background .15s ease}
+  .abtn:hover{border-color:var(--acc);background:var(--accs)}
+  .abtn svg{width:17px;height:17px;flex:none;color:var(--accd)}
+  .abtn.google{border-color:rgba(255,117,31,.55)}
+
+  .steps{text-align:left;max-width:460px;margin:0 auto 22px}
+  .step{display:flex;gap:13px;align-items:flex-start;padding:12px 0;border-top:1px solid var(--line)}
+  .step:first-child{border-top:0}
+  .step .n{flex:none;width:28px;height:28px;border-radius:50%;background:var(--acc);color:#fff;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center}
+  .step .t{font-size:14.5px;color:var(--txt)}
+  .btn{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;max-width:460px;margin:0 auto;background:var(--acc);color:#fff;font-weight:800;font-size:16px;text-decoration:none;padding:16px 24px;border-radius:14px;box-shadow:0 16px 32px -14px rgba(255,117,31,.85)}
+  footer{text-align:center;margin-top:24px;font-family:var(--mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="wrap">
+  <header><span class="brand"><img src="/aula/webinar/assets/logo-dq.png" alt="Dissecando Questões"></span></header>
+  <div class="mid">
+    <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <div class="kicker">Vaga confirmada</div>
+    <h1>Pronto, Prof!</h1>
+    <p class="sub">A sua vaga na aula das 20h está reservada. Faltam dois passos rápidos para você não perder.</p>
+
+    <div class="cd" id="cd">
+      <div class="cdu"><div class="v" id="cdD">00</div><div class="u">dias</div></div>
+      <div class="cdu"><div class="v" id="cdH">00</div><div class="u">horas</div></div>
+      <div class="cdu"><div class="v" id="cdM">00</div><div class="u">min</div></div>
+      <div class="cdu"><div class="v" id="cdS">00</div><div class="u">seg</div></div>
+    </div>
+
+    <div class="when">
+      <div class="k">Seu horário</div>
+      <div class="big" id="quando">--:--</div>
+      <div class="tema"><span>Tema da aula</span>O Plano Infalível para ser Aprovado como Professor ou TAE no IF em 45 dias</div>
+    </div>
+
+    <div class="agenda">
+      <div class="k">Passo 1 · Colocar na sua agenda</div>
+      <p>Toque no botão e o evento abre já preenchido, com lembrete 30 minutos antes. Basta salvar.</p>
+      <div class="agrid">
+        <a class="abtn google" id="btnGoogle" href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Google Agenda
+        </a>
+        <a class="abtn" id="btnIcs" href="#" download="aula-dissecando-questoes.ics">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Apple ou Outlook
+        </a>
+      </div>
+    </div>
+
+    <div class="steps">
+      <div class="step"><span class="n">2</span><span class="t">Toque no botão abaixo para falar com a nossa equipe no WhatsApp. A mensagem já vai pronta.</span></div>
+      <div class="step"><span class="n">3</span><span class="t">Enviamos o link da aula e um lembrete quando estiver perto de começar.</span></div>
+      <div class="step"><span class="n">4</span><span class="t">Às 20h, é só abrir o link. Chegue alguns minutos antes, com bloco de notas em mãos.</span></div>
+    </div>
+
+    <a class="btn" id="comercialBtn" href="#" target="_blank" rel="noopener">Falar com a equipe e receber o link →</a>
+  </div>
+  <footer>Dissecando Questões · Prof. Manoel Machado</footer>
+</div>
+
+<script>
+/* ================= CONFIG ================= */
+var COMERCIAL  = "5511953432311"; // WhatsApp do comercial: só dígitos, com DDI 55
+var TEMA       = "O Plano Infalível para ser Aprovado como Professor ou TAE no IF em 45 dias";
+var DURACAO    = 90;              // duração da aula em minutos
+var LOCAL      = "Online · o link chega pelo WhatsApp";
+var LEMBRETE   = 30;              // minutos de antecedência do alarme no arquivo .ics
+/* ========================================== */
+
+function pad(n){ return (n<10?'0':'')+n; }
+var p = new URLSearchParams(location.search);
+var h = p.get('h') || '20h00';
+var d = p.get('d') || 'Hoje';
+var iso = p.get('iso');
+
+/* Data e hora da aula. Vem por parâmetro; se faltar, reconstrói para as 20h. */
+var AULA;
+if (iso && !isNaN(new Date(iso).getTime())) {
+  AULA = new Date(iso);
+} else {
+  try { var g = localStorage.getItem('web_aula_iso'); if (g) AULA = new Date(g); } catch(e){}
+  if (!AULA || isNaN(AULA.getTime())) {
+    AULA = new Date(); AULA.setHours(20,0,0,0);
+    if (Date.now() > AULA.getTime() + 90*60*1000) AULA.setDate(AULA.getDate()+1);
+  }
+}
+var FIM = new Date(AULA.getTime() + DURACAO*60*1000);
+
+document.getElementById('quando').textContent = d + ' · ' + h;
+
+/* ---- cronômetro ---- */
+function tick(){
+  var falta = AULA.getTime() - Date.now();
+  if (falta < 0) falta = 0;
+  var s = Math.floor(falta/1000);
+  document.getElementById('cdD').textContent = pad(Math.floor(s/86400));
+  document.getElementById('cdH').textContent = pad(Math.floor(s%86400/3600));
+  document.getElementById('cdM').textContent = pad(Math.floor(s%3600/60));
+  document.getElementById('cdS').textContent = pad(s%60);
+}
+tick(); setInterval(tick, 1000);
+
+/* ---- agenda ---- */
+function utc(dt){
+  return dt.getUTCFullYear()+pad(dt.getUTCMonth()+1)+pad(dt.getUTCDate())+'T'
+       + pad(dt.getUTCHours())+pad(dt.getUTCMinutes())+'00Z';
+}
+var DETALHES = "Aula ao vivo com o Prof. Manoel Machado, do Dissecando Questões.\n\n"
+             + TEMA + "\n\n"
+             + "O link de acesso chega pelo WhatsApp. Chegue alguns minutos antes, com bloco de notas em mãos.";
+
+// Google Agenda: abre o evento já preenchido para a pessoa salvar
+document.getElementById('btnGoogle').href =
+  "https://calendar.google.com/calendar/render?action=TEMPLATE"
+  + "&text=" + encodeURIComponent("Aula ao vivo · " + TEMA)
+  + "&dates=" + utc(AULA) + "/" + utc(FIM)
+  + "&details=" + encodeURIComponent(DETALHES)
+  + "&location=" + encodeURIComponent(LOCAL)
+  + "&ctz=America/Sao_Paulo";
+
+// Arquivo .ics para Apple Calendário, Outlook e afins
+function esc(t){ return String(t).replace(/\\/g,'\\\\').replace(/;/g,'\\;').replace(/,/g,'\\,').replace(/\n/g,'\\n'); }
+var ICS = [
+  "BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Dissecando Questoes//Aula ao vivo//PT-BR","CALSCALE:GREGORIAN","METHOD:PUBLISH",
+  "BEGIN:VEVENT",
+  "UID:" + Date.now() + "@dissecandoquestoes.com",
+  "DTSTAMP:" + utc(new Date()),
+  "DTSTART:" + utc(AULA),
+  "DTEND:"   + utc(FIM),
+  "SUMMARY:" + esc("Aula ao vivo · " + TEMA),
+  "DESCRIPTION:" + esc(DETALHES),
+  "LOCATION:" + esc(LOCAL),
+  "BEGIN:VALARM","TRIGGER:-PT" + LEMBRETE + "M","ACTION:DISPLAY","DESCRIPTION:" + esc("A aula do Prof. Manoel começa em " + LEMBRETE + " minutos"),"END:VALARM",
+  "END:VEVENT","END:VCALENDAR"
+].join("\r\n");
+try{
+  document.getElementById('btnIcs').href =
+    URL.createObjectURL(new Blob([ICS], {type:'text/calendar;charset=utf-8'}));
+}catch(e){
+  document.getElementById('btnIcs').href = "data:text/calendar;charset=utf-8," + encodeURIComponent(ICS);
+}
+
+/* ---- WhatsApp do comercial ---- */
+var nome=''; try{ nome=(JSON.parse(localStorage.getItem('web_lead')||'{}').nome)||''; }catch(e){}
+var msg = (nome ? ("Olá! Sou " + nome + ". ") : "Olá! ")
+        + "Acabei de garantir a minha vaga na aula ao vivo do Prof. Manoel, " + d + " às " + h
+        + ", sobre o plano de 45 dias para o IF. Quero receber o link de acesso. Pode confirmar?";
+document.getElementById('comercialBtn').href = "https://wa.me/" + COMERCIAL + "?text=" + encodeURIComponent(msg);
+
+try{ (window.dataLayer=window.dataLayer||[]).push({event:'agendou_webinar', horario:d+' '+h, tema:TEMA}); }catch(e){}
+</script>
+</body>
+</html>
