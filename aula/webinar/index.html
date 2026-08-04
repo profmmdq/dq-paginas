@@ -26,8 +26,11 @@
   .wrap{max-width:1080px;margin:0 auto;padding:22px 22px 56px}
 
   header{display:flex;align-items:center;gap:12px;margin-bottom:30px;flex-wrap:wrap}
-  .hchips{margin-left:auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
-  @media(max-width:420px){.hchips{margin-left:0;width:100%;justify-content:flex-start}}
+  /* Os dois selos ficam SEMPRE no canto superior direito, na mesma linha da
+     logo. No celular eles encolhem em vez de descer para outra linha, para não
+     roubar altura do que interessa, que é o formulário. */
+  .hchips{margin-left:auto;display:flex;align-items:center;gap:7px;flex-wrap:nowrap;justify-content:flex-end;min-width:0}
+  .livepill .sm{display:none}
   .brand{display:inline-flex;background:var(--ink);border-radius:12px;padding:8px 14px;box-shadow:0 10px 24px -14px rgba(15,24,41,.55)}
   .brand img{height:32px;display:block;filter:brightness(0) invert(1)}
   .livepill{display:inline-flex;align-items:center;gap:8px;background:#fff0f0;border:1px solid #f6c9c9;color:#c22b2b;font-family:var(--mono);font-size:11px;letter-spacing:1.4px;text-transform:uppercase;padding:7px 13px;border-radius:999px}
@@ -60,8 +63,6 @@
     .brand{padding:6px 11px}
     .brand img{height:26px}
     .hero{gap:14px;margin-bottom:20px}
-    .kicker{font-size:10px;letter-spacing:1.6px;margin-bottom:9px}
-    .kicker::before{width:16px}
     h1{font-size:clamp(25px,6.6vw,32px);line-height:1.06;letter-spacing:-.7px;margin-bottom:11px}
     .sub{font-size:15px;line-height:1.46;margin-bottom:0}
     .panel{padding:19px 18px 20px;border-radius:17px}
@@ -94,10 +95,22 @@
   .cdmini.live{background:#fff0f0;border-color:#f6c9c9}
   .cdmini.live .k{color:#c22b2b}
   .cdmini.live b{color:#c22b2b;font-size:12.5px;letter-spacing:.2px}
-  @media(max-width:400px){
-    .cdmini{padding:5px 10px;gap:5px}
-    .cdmini .k{font-size:8.5px;letter-spacing:.8px}
-    .cdmini b{font-size:13px}
+  /* Celular: os selos encolhem para caber ao lado da logo.
+     O texto longo do selo dá lugar ao curto e o rótulo "Começa em" sai,
+     porque o número sozinho já se explica ao lado de "Ao vivo · 20h". */
+  @media(max-width:700px){
+    .livepill{padding:6px 11px;font-size:9.5px;letter-spacing:1px;gap:6px}
+    .livepill .lg{display:none}
+    .livepill .sm{display:inline}
+    .cdmini{padding:6px 11px;gap:0}
+    .cdmini .k{display:none}
+    .cdmini b{font-size:13.5px}
+    .cdmini.live b{font-size:12px}
+  }
+  @media(max-width:360px){
+    .livepill{padding:5px 9px;font-size:9px}
+    .cdmini{padding:5px 9px}
+    .cdmini b{font-size:12.5px}
   }
 
   .panel{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:26px;margin-bottom:14px;box-shadow:0 20px 46px -34px rgba(15,24,41,.5)}
@@ -164,14 +177,13 @@
   <header>
     <span class="brand"><img src="/aula/webinar/assets/logo-dq.png" alt="Dissecando Questões"></span>
     <div class="hchips">
-      <span class="livepill"><span class="d"></span>Workshop ao vivo · 20h</span>
+      <span class="livepill"><span class="d"></span><span class="lg">Workshop ao vivo · 20h</span><span class="sm">Ao vivo · 20h</span></span>
       <span class="cdmini" id="cdmini"><span class="k">Começa em</span><b id="cdVal">--:--:--</b></span>
     </div>
   </header>
 
   <div class="hero">
     <div class="hero-txt">
-      <span class="kicker">Workshop ao vivo · hoje às 20h</span>
       <h1>O Plano Infalível para ser Aprovado como Professor ou TAE no IF em <em>45 dias</em></h1>
       <p class="sub">Descubra o passo a passo simples para ser aprovado e garantir uma remuneração <b>acima de R$ 12.000,00 mensais</b> com estabilidade, mesmo que você tenha <b>menos de 2h por dia</b> para estudar.</p>
       <div class="bullets">
