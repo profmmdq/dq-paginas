@@ -26,15 +26,8 @@
   .wrap{max-width:1080px;margin:0 auto;padding:22px 22px 56px}
 
   header{display:flex;align-items:center;gap:12px;margin-bottom:30px;flex-wrap:wrap}
-  /* Os dois selos ficam SEMPRE no canto superior direito, na mesma linha da
-     logo. No celular eles encolhem em vez de descer para outra linha, para não
-     roubar altura do que interessa, que é o formulário. */
-  .hchips{margin-left:auto;display:flex;align-items:center;gap:7px;flex-wrap:nowrap;justify-content:flex-end;min-width:0}
-  .livepill .sm{display:none}
   .brand{display:inline-flex;background:var(--ink);border-radius:12px;padding:8px 14px;box-shadow:0 10px 24px -14px rgba(15,24,41,.55)}
   .brand img{height:32px;display:block;filter:brightness(0) invert(1)}
-  .livepill{display:inline-flex;align-items:center;gap:8px;background:#fff0f0;border:1px solid #f6c9c9;color:#c22b2b;font-family:var(--mono);font-size:11px;letter-spacing:1.4px;text-transform:uppercase;padding:7px 13px;border-radius:999px}
-  .livepill .d{width:8px;height:8px;border-radius:50%;background:#e13333;animation:pr 1.6s infinite}
   @keyframes pr{0%{box-shadow:0 0 0 0 rgba(225,51,51,.45)}70%{box-shadow:0 0 0 8px rgba(225,51,51,0)}100%{box-shadow:0 0 0 0 rgba(225,51,51,0)}}
 
   /* HERO · texto à esquerda, conversão à direita */
@@ -87,29 +80,24 @@
   .with img{width:38px;height:38px;border-radius:50%;object-fit:cover;object-position:50% 30%;border:2px solid rgba(255,117,31,.55)}
   .with b{color:var(--ink);font-weight:700}
 
-  /* CRONÔMETRO MINI · no topo, ao lado do selo do Workshop */
-  .cdmini{display:inline-flex;align-items:center;gap:7px;background:var(--accs);border:1px solid rgba(255,117,31,.4);
-    border-radius:999px;padding:6px 13px;white-space:nowrap}
-  .cdmini .k{font-family:var(--mono);font-size:9.5px;letter-spacing:1.2px;text-transform:uppercase;color:var(--accd)}
-  .cdmini b{font-family:var(--disp);font-weight:800;font-size:14px;color:var(--ink);letter-spacing:-.3px;font-variant-numeric:tabular-nums}
-  .cdmini.live{background:#fff0f0;border-color:#f6c9c9}
-  .cdmini.live .k{color:#c22b2b}
-  .cdmini.live b{color:#c22b2b;font-size:12.5px;letter-spacing:.2px}
-  /* Celular: os selos encolhem para caber ao lado da logo.
-     O texto longo do selo dá lugar ao curto e o rótulo "Começa em" sai,
-     porque o número sozinho já se explica ao lado de "Ao vivo · 20h". */
+  /* SELO ÚNICO · ponto vermelho pulsando, rótulo e cronômetro na mesma tag,
+     sempre no canto superior direito. No celular ele só encolhe, nunca desce
+     para outra linha, para não roubar altura do formulário. */
+  .cdmini{margin-left:auto;display:inline-flex;align-items:center;gap:8px;background:#fff0f0;
+    border:1px solid #f6c9c9;border-radius:999px;padding:7px 14px;white-space:nowrap;flex:none}
+  .cdmini .d{width:8px;height:8px;border-radius:50%;background:#e13333;animation:pr 1.6s infinite;flex:none}
+  .cdmini .k{font-family:var(--mono);font-size:10px;letter-spacing:1.3px;text-transform:uppercase;color:#c22b2b}
+  .cdmini b{font-family:var(--disp);font-weight:800;font-size:15px;color:var(--ink);letter-spacing:-.4px;font-variant-numeric:tabular-nums}
+  .cdmini.live b{color:#c22b2b;font-size:13.5px;letter-spacing:.4px;text-transform:uppercase}
   @media(max-width:700px){
-    .livepill{padding:6px 11px;font-size:9.5px;letter-spacing:1px;gap:6px}
-    .livepill .lg{display:none}
-    .livepill .sm{display:inline}
-    .cdmini{padding:6px 11px;gap:0}
-    .cdmini .k{display:none}
+    .cdmini{padding:6px 11px;gap:6px}
+    .cdmini .k{font-size:8.5px;letter-spacing:.7px}
     .cdmini b{font-size:13.5px}
     .cdmini.live b{font-size:12px}
   }
   @media(max-width:360px){
-    .livepill{padding:5px 9px;font-size:9px}
-    .cdmini{padding:5px 9px}
+    .cdmini{padding:5px 9px;gap:5px}
+    .cdmini .k{font-size:8px;letter-spacing:.4px}
     .cdmini b{font-size:12.5px}
   }
 
@@ -176,10 +164,11 @@
 <div class="wrap">
   <header>
     <span class="brand"><img src="/aula/webinar/assets/logo-dq.png" alt="Dissecando Questões"></span>
-    <div class="hchips">
-      <span class="livepill"><span class="d"></span><span class="lg">Workshop ao vivo · 20h</span><span class="sm">Ao vivo · 20h</span></span>
-      <span class="cdmini" id="cdmini"><span class="k">Começa em</span><b id="cdVal">--:--:--</b></span>
-    </div>
+    <span class="cdmini" id="cdmini">
+      <span class="d" aria-hidden="true"></span>
+      <span class="k" id="cdLab">Ao vivo inicia em</span>
+      <b id="cdVal">--:--:--</b>
+    </span>
   </header>
 
   <div class="hero">
@@ -326,15 +315,17 @@ document.getElementById('cdWhen').innerHTML = DIA_TXT+', <b>'+HORA_TXT+'</b> · 
 
 var elMini = document.getElementById('cdmini');
 var elVal  = document.getElementById('cdVal');
+var elLab  = document.getElementById('cdLab');
 function tick(){
   var falta = AULA.getTime() - Date.now();
   if (falta <= 0){
     elMini.classList.add('live');
-    elMini.querySelector('.k').textContent = 'Ao vivo';
-    elVal.textContent = 'agora';
+    elLab.textContent = 'Workshop';
+    elVal.textContent = 'ao vivo agora';
     return;
   }
   elMini.classList.remove('live');
+  elLab.textContent = 'Ao vivo inicia em';
   var p = A.partes(falta);
   elVal.textContent = (p.d !== '00' ? p.d + 'd ' : '') + p.h + ':' + p.m + ':' + p.s;
 }
