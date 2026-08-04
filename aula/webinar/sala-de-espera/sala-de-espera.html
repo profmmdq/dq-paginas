@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>O Workshop começa às 20h | Dissecando Questões</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
+<script src="/aula/webinar/assets/aula-config.js"></script>
+<style>
+  :root{--ink:#0f1829;--txt:#3c4757;--muted:#6b7788;
+    --acc:#ff751f;--accd:#d1560c;--accs:#fff1e6;
+    --cream:#f6f7ef;--paper:#ffffff;--line:#e2e4d6;
+    --disp:'Montserrat',sans-serif;--body:'Montserrat',system-ui,sans-serif;--mono:'Geist Mono',monospace;}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:var(--body);color:var(--ink);background:var(--cream);-webkit-font-smoothing:antialiased;line-height:1.5;min-height:100vh}
+  .bg{position:fixed;inset:0;z-index:-1;background:radial-gradient(66% 46% at 50% -4%,rgba(255,117,31,.12),transparent 62%),var(--cream)}
+  .wrap{max-width:680px;margin:0 auto;padding:22px 22px 48px;min-height:100vh;display:flex;flex-direction:column}
+  header{display:flex;justify-content:center;margin-bottom:28px}
+  .brand{display:inline-flex;background:var(--ink);border-radius:12px;padding:8px 14px}
+  .brand img{height:30px;display:block;filter:brightness(0) invert(1)}
+  .mid{flex:1;display:flex;flex-direction:column;justify-content:center;text-align:center}
+  .kicker{font-family:var(--mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--accd);margin-bottom:12px}
+  h1{font-family:var(--disp);font-weight:800;font-size:clamp(26px,5.5vw,38px);line-height:1.05;letter-spacing:-.6px;margin-bottom:8px;text-wrap:balance}
+  .sub{color:var(--txt);margin-bottom:28px;max-width:34em;margin-left:auto;margin-right:auto}
+  .sub b{color:var(--ink);font-weight:700}
+
+  .ring{position:relative;width:216px;height:216px;margin:0 auto 16px}
+  .ring svg{transform:rotate(-90deg)}
+  .ring .val{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .ring .t{font-family:var(--disp);font-weight:800;font-size:40px;letter-spacing:-1.5px;color:var(--ink);line-height:1;font-variant-numeric:tabular-nums}
+  .ring .l{font-family:var(--mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-top:8px;padding:0 18px;line-height:1.5}
+  .quando{font-size:15px;color:var(--txt);margin-bottom:30px}
+  .quando b{color:var(--accd);font-weight:800}
+
+  /* estado final: último minuto */
+  body.iminente .ring .t{color:var(--accd)}
+  body.iminente .quando{color:var(--accd);font-weight:700}
+
+  .tips{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:24px;text-align:left;max-width:470px;margin:0 auto;box-shadow:0 18px 44px -34px rgba(15,24,41,.5)}
+  .tips h3{font-family:var(--disp);font-weight:800;font-size:16px;margin-bottom:16px}
+  .tips .row{display:flex;gap:13px;align-items:center;padding:11px 0;border-top:1px solid var(--line)}
+  .tips .row:first-of-type{border-top:0;padding-top:0}
+  .tips .ic{flex:none;width:34px;height:34px;border-radius:10px;background:var(--accs);color:var(--accd);display:flex;align-items:center;justify-content:center}
+  .tips .ic svg{width:18px;height:18px}
+  .tips .tx{font-size:14.5px;color:var(--txt)}
+  .note{color:var(--muted);font-size:13px;margin-top:22px;text-align:center}
+  footer{text-align:center;margin-top:26px;font-family:var(--mono);font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="wrap">
+  <header><span class="brand"><img src="/aula/webinar/assets/logo-dq.png" alt="Dissecando Questões"></span></header>
+  <div class="mid">
+    <div class="kicker" id="kicker">Sala de espera · você está dentro</div>
+    <h1 id="titulo">O Workshop começa às 20h em ponto</h1>
+    <p class="sub" id="subtitulo">Não feche esta página. Vamos começar assim que o contador zerar, e você entra automaticamente.</p>
+
+    <div class="ring">
+      <svg width="216" height="216" viewBox="0 0 216 216">
+        <circle cx="108" cy="108" r="96" fill="none" stroke="#e6e8dc" stroke-width="11"/>
+        <circle id="arc" cx="108" cy="108" r="96" fill="none" stroke="#ff751f" stroke-width="11" stroke-linecap="round" stroke-dasharray="603" stroke-dashoffset="603"/>
+      </svg>
+      <div class="val"><div class="t" id="timer">--:--</div><div class="l" id="timerLabel">para o Workshop começar</div></div>
+    </div>
+    <p class="quando" id="quando">Hoje, <b>20h00</b> · horário de Brasília</p>
+
+    <div class="tips">
+      <h3>Aproveite estes minutos para se preparar</h3>
+      <div class="row"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 010 8h-1M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span class="tx">Pegue uma água ou um café. O Workshop é direto, mas você vai querer estar confortável.</span></div>
+      <div class="row"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4 12.5-12.5z"/></svg></span><span class="tx">Separe bloco de notas e caneta. Vai ter bastante coisa para anotar.</span></div>
+      <div class="row"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18.6 5.4a9 9 0 010 13.2M15.5 8.5a4.5 4.5 0 010 7M2 9v6h4l5 4V5L6 9H2z"/><line x1="2" y1="2" x2="22" y2="22"/></svg></span><span class="tx">Silencie as notificações. Uma hora de foco vale meses de preparação dispersa.</span></div>
+      <div class="row"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-6a9 9 0 0118 0v6"/><path d="M21 19a2 2 0 01-2 2h-1a2 2 0 01-2-2v-3a2 2 0 012-2h3zM3 19a2 2 0 002 2h1a2 2 0 002-2v-3a2 2 0 00-2-2H3z"/></svg></span><span class="tx">Se puder, use fone. A qualidade do áudio muda a experiência.</span></div>
+    </div>
+    <p class="note" id="note">Você será levado para o Workshop automaticamente.</p>
+  </div>
+  <footer>Dissecando Questões · Prof. Manoel Machado</footer>
+</div>
+
+<script>
+/* ==========================================================================
+   PORTÃO DE HORÁRIO
+   A sala não abre por tempo de permanência na página, e sim pelo relógio.
+   A aula é às 20h; a porta destrava 1 minuto depois, às 20h01.
+   Quem chega depois disso é mandado direto para a aula, que já está rolando.
+   Todo o horário vem de assets/aula-config.js.
+   ========================================================================== */
+var A = window.DQ_AULA;
+var C = 603;                       // perímetro do anel
+var arc     = document.getElementById('arc');
+var elTimer = document.getElementById('timer');
+var elLabel = document.getElementById('timerLabel');
+
+document.getElementById('quando').innerHTML = A.diaTexto()+', <b>'+A.horaTexto()+'</b> · horário de Brasília';
+
+/* Se a aula já começou, não faz sentido esperar: entra agora, no ponto certo. */
+if (A.jaComecou()){ location.replace(A.URLS.AO_VIVO); }
+
+/* O anel representa a última hora de espera. Se falta mais que isso, ele fica
+   cheio e o número mostra o tempo restante em horas. */
+var JANELA = 60*60*1000;
+var iminenteMarcado = false;
+
+function tick(){
+  var falta = A.faltaParaAbrir();
+
+  if (falta <= 0){
+    elTimer.textContent = '00:00';
+    elLabel.textContent = 'entrando no Workshop';
+    arc.setAttribute('stroke-dashoffset', 0);
+    location.replace(A.URLS.AO_VIVO);
+    return;
+  }
+
+  var p = A.partes(falta);
+  var s = Math.floor(falta/1000);
+
+  if (s >= 3600){
+    elTimer.textContent = p.h+':'+p.m+':'+p.s;
+    elLabel.textContent = 'para o Workshop começar';
+  } else {
+    elTimer.textContent = p.m+':'+p.s;
+    elLabel.textContent = 'para o Workshop começar';
+  }
+
+  /* último minuto: o buffer de 1 minuto a partir das 20h */
+  if (s <= A.CFG.BUFFER_SEG){
+    if (!iminenteMarcado){
+      iminenteMarcado = true;
+      document.body.classList.add('iminente');
+      document.getElementById('kicker').textContent = 'O Workshop está abrindo';
+      document.getElementById('titulo').textContent = 'Estamos abrindo a sala agora';
+      document.getElementById('subtitulo').innerHTML = 'Deu <b>'+A.horaTexto()+'</b>. Em instantes você entra automaticamente.';
+      elLabel.textContent = 'para você entrar';
+      document.getElementById('note').textContent = 'Não atualize a página. A entrada é automática.';
+    }
+    elLabel.textContent = 'para você entrar';
+  }
+
+  var frac = falta > JANELA ? 1 : (falta/JANELA);
+  arc.setAttribute('stroke-dashoffset', (C*frac).toFixed(1));
+}
+tick(); setInterval(tick, 1000);
+</script>
+</body>
+</html>
