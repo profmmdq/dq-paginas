@@ -184,6 +184,36 @@
   table.campitbl td.i{font-weight:800;color:var(--navy);white-space:nowrap}
   table.campitbl td.u{font-weight:700;color:var(--orange);text-align:center;white-space:nowrap}
   @media(max-width:600px){ table.campitbl{font-size:12.5px} table.campitbl td,table.campitbl thead th{padding:9px 10px} .cttwrap{overflow-x:auto} }
+
+  /* --- menu de navegacao fixo --- */
+  .navbar{position:sticky;top:0;z-index:60;background:rgba(12,25,41,.97);border-bottom:1px solid rgba(255,255,255,.09)}
+  .navbar .nv{max-width:1120px;margin:0 auto;display:flex;gap:8px;overflow-x:auto;padding:11px 22px;-ms-overflow-style:none;scrollbar-width:none}
+  .navbar .nv::-webkit-scrollbar{display:none}
+  .navbar a{flex:none;color:#cfd6e4;font-size:13px;font-weight:800;text-decoration:none;padding:8px 15px;border-radius:999px;white-space:nowrap;border:1px solid rgba(255,255,255,.14);transition:.15s}
+  .navbar a:hover{color:#fff;border-color:rgba(255,255,255,.4)}
+  .navbar a.on{background:var(--orange);color:#0d1b2a;border-color:transparent}
+  section[id]{scroll-margin-top:78px}
+  /* --- os cards do seletor de instituto alinham a esquerda --- */
+  .grid,.ic,.cmpwrap,.cttwrap{text-align:left}
+  /* --- no celular a tabela vira lista, e a fase ocupa a largura toda --- */
+  @media(max-width:640px){
+    .cttwrap{overflow:visible}
+    table.campitbl{font-size:14px}
+    table.campitbl thead{display:none}
+    table.campitbl tbody,table.campitbl tr,table.campitbl td{display:block;width:100%}
+    table.campitbl tr{padding:15px 16px;border-top:1px solid #eef0e2}
+    table.campitbl tr.reg{padding:11px 16px}
+    table.campitbl tr.reg td{padding:0;font-size:12px;line-height:1.4}
+    table.campitbl td{border:none;padding:0}
+    table.campitbl td.i{display:inline-block;width:auto;font-size:18px;font-weight:900;margin-right:9px;vertical-align:middle}
+    table.campitbl td.u{display:inline-block;width:auto;font-size:11px;font-weight:800;color:#fff;background:var(--navy);border-radius:999px;padding:4px 10px;vertical-align:middle;text-align:center}
+    table.campitbl td.p{display:inline-block;width:auto;margin-left:8px;font-size:11px;font-weight:800;color:#b8480a;background:#fff1e6;border-radius:999px;padding:4px 11px;text-align:left;vertical-align:middle}
+    table.campitbl td.p::after{content:" postos"}
+    table.campitbl td.f{margin-top:10px;font-size:14.5px;line-height:1.55}
+    table.campitbl td.f b{display:block;margin-bottom:3px}
+    table.campitbl td.f span{font-size:13px!important;line-height:1.5}
+  }
+
 </style>
 </head>
 <body>
@@ -204,10 +234,21 @@
   </div>
 </header>
 
+<nav class="navbar" id="navbar">
+  <div class="nv">
+    <a href="#abertos">Editais abertos</a>
+    <a href="#proximos">Próximos editais</a>
+    <a href="#institutos">Institutos</a>
+    <a href="#comparar">Comparar</a>
+    <a href="#campi">Novos campi</a>
+    <a href="#expansao">A expansão</a>
+  </div>
+</nav>
+
 <!-- ================= CONTEÚDO LIBERADO ================= -->
 <div id="dataZone">
 
-  <section style="padding-top:34px;padding-bottom:0">
+  <section id="expansao" style="padding-top:34px;padding-bottom:0">
     <div class="wrap">
       <div class="expbanner">
         <span class="tag">● Novo PAC · Expansão 2026</span>
@@ -225,7 +266,7 @@
     </div>
   </section>
 
-  <section style="padding-top:34px;padding-bottom:0">
+  <section id="campi" style="padding-top:34px;padding-bottom:0">
     <div class="wrap center">
       <div class="kick">Notícia · MEC · 06/07/2026</div>
       <h2 class="sec">24 novos campi <span class="u">autorizados a funcionar</span></h2>
@@ -237,25 +278,25 @@
           <thead><tr><th>Instituto</th><th>UF</th><th>Novos campi (cidades)</th></tr></thead>
           <tbody>
             <tr class="reg" style="--rc:#e8600f"><td colspan="3">Norte · 7 campi</td></tr>
-            <tr><td class="i">IFAM</td><td class="u">AM</td><td>Manicoré, Santo Antônio do Içá</td></tr>
-            <tr><td class="i">IFPA</td><td class="u">PA</td><td>Alenquer, Barcarena, Redenção, Tailândia, Viseu</td></tr>
+            <tr><td class="i">IFAM</td><td class="u">AM</td><td class="f">Manicoré, Santo Antônio do Içá</td></tr>
+            <tr><td class="i">IFPA</td><td class="u">PA</td><td class="f">Alenquer, Barcarena, Redenção, Tailândia, Viseu</td></tr>
             <tr class="reg" style="--rc:#c6960a"><td colspan="3">Nordeste · 5 campi</td></tr>
-            <tr><td class="i">IFBA</td><td class="u">BA</td><td>Itabuna</td></tr>
-            <tr><td class="i">IFCE</td><td class="u">CE</td><td>Fortaleza (São Gerardo)</td></tr>
-            <tr><td class="i">IFPE</td><td class="u">PE</td><td>Águas Belas, Santa Cruz do Capibaribe</td></tr>
-            <tr><td class="i">IF Sertão-PE</td><td class="u">PE</td><td>Araripina</td></tr>
+            <tr><td class="i">IFBA</td><td class="u">BA</td><td class="f">Itabuna</td></tr>
+            <tr><td class="i">IFCE</td><td class="u">CE</td><td class="f">Fortaleza (São Gerardo)</td></tr>
+            <tr><td class="i">IFPE</td><td class="u">PE</td><td class="f">Águas Belas, Santa Cruz do Capibaribe</td></tr>
+            <tr><td class="i">IF Sertão-PE</td><td class="u">PE</td><td class="f">Araripina</td></tr>
             <tr class="reg" style="--rc:#1f7a44"><td colspan="3">Sudeste · 4 campi</td></tr>
-            <tr><td class="i">IF Sudeste MG</td><td class="u">MG</td><td>São João Nepomuceno</td></tr>
-            <tr><td class="i">IFF</td><td class="u">RJ</td><td>Magé</td></tr>
-            <tr><td class="i">IFSP</td><td class="u">SP</td><td>Carapicuíba, São Bernardo do Campo</td></tr>
+            <tr><td class="i">IF Sudeste MG</td><td class="u">MG</td><td class="f">São João Nepomuceno</td></tr>
+            <tr><td class="i">IFF</td><td class="u">RJ</td><td class="f">Magé</td></tr>
+            <tr><td class="i">IFSP</td><td class="u">SP</td><td class="f">Carapicuíba, São Bernardo do Campo</td></tr>
             <tr class="reg" style="--rc:#2b6cb0"><td colspan="3">Sul · 7 campi</td></tr>
-            <tr><td class="i">IFPR</td><td class="u">PR</td><td>Araucária</td></tr>
-            <tr><td class="i">IF Farroupilha</td><td class="u">RS</td><td>Caçapava do Sul</td></tr>
-            <tr><td class="i">IFRS</td><td class="u">RS</td><td>Gramado</td></tr>
-            <tr><td class="i">IFSul</td><td class="u">RS</td><td>Rosário do Sul, Triunfo</td></tr>
-            <tr><td class="i">IFC</td><td class="u">SC</td><td>Campos Novos, Mafra</td></tr>
+            <tr><td class="i">IFPR</td><td class="u">PR</td><td class="f">Araucária</td></tr>
+            <tr><td class="i">IF Farroupilha</td><td class="u">RS</td><td class="f">Caçapava do Sul</td></tr>
+            <tr><td class="i">IFRS</td><td class="u">RS</td><td class="f">Gramado</td></tr>
+            <tr><td class="i">IFSul</td><td class="u">RS</td><td class="f">Rosário do Sul, Triunfo</td></tr>
+            <tr><td class="i">IFC</td><td class="u">SC</td><td class="f">Campos Novos, Mafra</td></tr>
             <tr class="reg" style="--rc:#7b4bb7"><td colspan="3">Centro-Oeste · 1 campus</td></tr>
-            <tr><td class="i">IFG</td><td class="u">GO</td><td>Cavalcante</td></tr>
+            <tr><td class="i">IFG</td><td class="u">GO</td><td class="f">Cavalcante</td></tr>
           </tbody>
         </table>
       </div>
@@ -265,7 +306,7 @@
 
 
   <!-- ===== EDITAL PUBLICADO (IFPI · TAE · 03/08) ===== -->
-  <section style="padding-top:0">
+  <section id="abertos" style="padding-top:0">
     <div class="wrap">
       <div style="max-width:940px;margin:0 auto 26px;background:#fff;border:1px solid rgba(15,24,41,.10);border-radius:18px;box-shadow:0 26px 64px rgba(0,0,0,.18);overflow:hidden">
         <div style="height:6px;background:linear-gradient(90deg,#1f9d55,#37c26f)"></div>
@@ -514,7 +555,7 @@
   </section>
 
   <!-- ===== PRE-EDITAL · ONDE NASCE O PROXIMO EDITAL (relatorio 09/08/2026) ===== -->
-  <section style="padding-top:34px;padding-bottom:0">
+  <section id="proximos" style="padding-top:34px;padding-bottom:0">
     <div class="wrap center">
       <div class="kick">Radar pré-edital · atualizado em 09/08/2026</div>
       <h2 class="sec">Onde o próximo edital <span class="u">vai nascer</span></h2>
@@ -549,7 +590,7 @@
         <table class="campitbl">
           <thead><tr><th>Instituto</th><th>UF</th><th>Postos</th><th>Fase atual e expansão</th></tr></thead>
           <tbody>
-            <tr class="reg" style="--rc:#1f9d55"><td colspan="4">Estágio 1 · Banca contratada ou licitação aberta · 4 institutos</td></tr><tr><td class="i">IFB</td><td class="u">DF</td><td style="text-align:center;font-weight:800;color:#e8600f;white-space:nowrap">64</td><td><b style="color:#12293f">Licitação de banca em fase final</b><br><span style="font-size:12.5px;color:#7a8169">sem cota EBTT específica · 64 pela Portaria 41. Edital previsto para os próximos meses, com ingresso dos servidores no início de 2027. Obras iniciadas nos novos campi Sobradinho e Sol Nascente.</span></td></tr><tr><td class="i">IFPA</td><td class="u">PA</td><td style="text-align:center;font-weight:800;color:#e8600f;white-space:nowrap">234</td><td><b style="color:#12293f">Banca definida em agosto de 2026: Instituto AOCP</b><br><span style="font-size:12.5px;color:#7a8169">74 EBTT · 160 pela Portaria 41. Edital de Técnico-Administrativo iminente. É o segundo maior volume de vagas autorizadas entre os institutos que ainda não abriram certame.</span></td></tr><tr><td class="i">IFRJ</td><td class="u">RJ</td><td style="text-align:center;font-weight:800;color:#e8600f;white-space:nowrap">222</td><td><b style="color:#12293f">Banca contratada: IDECAN</b><br><span style="font-size:12.5px;color:#7a8169">30 EBTT · 192 pela Portaria 41. Previsão de cerca de 50 vagas de Técnico-Administrativo, com edital iminente. Dois novos campi de grande porte autorizados: Parque Olímpico e Complexo do Alemão.</span></td></tr><tr><td class="i">IF Goiano</td><td class="u">GO</td><td style="text-align:center;font-weight:800;color:#e8600f;white-space:nowrap">47</td><td><b style="color:#12293f">Dispensa de licitação publicada para contratar a banca</b><br><span style="font-size:12.5px;color:#7a8169">15 EBTT · 32 pela Portaria 41. Edital iminente. O Campus Porangatu teve as obras iniciadas, com entrega prevista para agosto de 2026.</span></td></tr><tr class="reg" style="--rc:#c6960a"><td colspan="4">Estágio 2 · Comissão formada ou planejamento avançado · 4 institutos</td></tr><tr><td class="i">IFAC</td><td class="u">AC</td><td style="text-align:center;font-weight:800;color:#e8600f;white-space:nowrap">32</td><td><b style="color:#12293f">Comissão formada · 66 vagas anunciadas</b><br><span style="font-size:12.5px;color:#7a8169">sem cota EBTT específica · 32 pela Portaria 41. O reitor anunciou concurso em 2027 com 66 vagas, sendo 40 de docente e 26 de TAE, para atender o novo campus de Feijó, cujas obras receberam investimento de R$ 25 milhões.</span></td></tr><tr><td class="i">IFNMG</td><td class="u">MG</td><td style="text-align:center;font-weight:800;color:#e8600f;white-space:nowrap">47</td><td><b style="color:#12293f">Comissões de planejamento ativas · 32 vagas autorizadas pela Portaria 41</b><br><span style="font-size:12.5px;color:#7a8169">15 EBTT · 32 pela Portaria 41. O instituto publicou as Portarias nº 0869/2026 e nº 1896/2026, instituindo formalmente as equipes de planejamento dos concursos de docente e de TAE. Campus Minas Novas autorizado.</span></td></tr><tr><td class="i">IFFar</td><td class="u">RS</td><td style="text-align:center;font-weight:800;color:#e8600f;white-space:nowrap">126</td><td><b style="color:#12293f">Análise interna de viabilidade · 41 vagas em estudo</b><br><span style="font-size:12.5px;color:#7a8169">30 EBTT · 96 pela Portaria 41. O estudo em andamento contempla 41 vagas, sendo 24 de Professor EBTT e 17 de TAE. Campus São Luiz Gonzaga e Campus Santiago autorizados.</span></td></tr><tr><td class="i">IFMS</td><td class="u">MS</td><td style="text-align:center;font-weight:800;color:#e8600f;white-space:nowrap">64</td><td><b style="color:#12293f">Previsão de edital anunciada pela gestão · cerca de 58 vagas previstas</b><br><span style="font-size:12.5px;color:#7a8169">sem cota EBTT específica · 64 pela Portaria 41. Há previsão pública confirmada pela gestão do instituto para a publicação de um novo edital contemplando cerca de 58 vagas entre EBTT e TAE.</span></td></tr><tr class="reg" style="--rc:#2b6cb0"><td colspan="4">Estágio 3 · Vagas autorizadas e novos campi, aguardando comissão · 16 institutos</td></tr><tr><td class="i">IFSP</td><td class="u">SP</td><td style="text-align:center;font-weight:800;color:#e8600f;white-space:nowrap">628</td><td><b style="color:#12293f">Aguardando abertura de comissão</b><br><span style="font-size:12.5px;color:#7a8169">180 EBTT · 448 pela Portaria 41. Novos campi autorizados pela Portaria 267/2026 em Cotia, Diadema, Guarujá, Mauá, Osasco, Ribeirão Preto, Santos, São Paulo (Cidade Tiradentes), São Paulo (Jardim Ângela) e São Vicente. Sete deles foram inaugurados pelo MEC em julho de 2026.</span></td></tr><tr><td class="i">IFPR</td><td class="u">PR</td><td style="text-align:center;font-weight:800;color:#e8600f;white-space:nowrap">207</td><td><b style="color:#12293f">Aguardando abertura de comissão</b><br><span style="font-size:12.5px;color:#7a8169">15 EBTT · 192 pela Portaria 41. Sem novos campi anunciados. Comissão ainda não oficializada, com planejamento interno em andamento.</span></td></tr><tr><td class="i">IF Baiano</td><td class="u">BA</td><td style="text-align:center;font-weight:800;color:#e8600f;white-space:nowrap">188</td><td><b style="color:#12293f">Aguardando abertura de comissão</b><br><span style="font-size:12.5px;color:#7a8169">60 EBTT · 128 pela Portaria 41. Quatro novos campi autorizados e em obras: Remanso, Ribeira do Pombal, Ruy Barbosa e Santo Estêvão.</span></td></tr><tr><td class="i">IFMG</td><td class="u">MG</td><td style="text-align:center;font-weight:800;color:#e8600f;white-space:nowrap">173</td><td><b style="color:#12293f">Aguardando abertura de comissão</b><br><span style="font-size:12.5px;color:#7a8169">45 EBTT · 128 pela Portaria 41. Três novos campi autorizados: Bom Despacho, João Monlevade e Contagem. O concurso realizado no início de 2026 contemplou apenas 5 vagas de TAE.</span></td></tr><tr><td class="i">IFBA</td><td class="u">BA</td><td style="text-align:center;font-weight:800;color:#e8600f;white-space:nowrap">158</td><td><b style="color:#12293f">Aguardando abertura de comissão</b><br><span style="font-size:12.5px;color:#7a8169">30 EBTT · 128 pela Portaria 41. Início das obras do novo campus em Poções autorizado pelo MEC.</span></td></tr><tr><td class="i">IFPE</td><td class="u">PE</td><td style="text-align:center;font-weight:800;color:#e8600f;white-space:nowrap">158</td><td><b style="color:#12293f">Aguardando abertura de comissão</b><br><span style="font-size:12.5px;color:#7a8169">30 EBTT · 128 pela Portaria 41. Campus Goiana autorizado, com tipologia 70/45.</span></td></tr><tr><td class="i">IFSul</td><td class="u">RS</td><td style="text-align:center;font-weight:800;color:#e8600f;white-space:nowrap">141</td><td><b style="color:#12293f">Aguardando abertura de comissão</b><br><span style="font-size:12.5px;color:#7a8169">45 EBTT · 96 pela Portaria 41. Campus São Leopoldo autorizado. As 45 vagas recebidas em agosto de 2026 dispararam o planejamento interno para a contratação dos primeiros docentes do novo campus.</span></td></tr><tr><td class="i">IFRS</td><td class="u">RS</td><td style="text-align:center;font-weight:800;color:#e8600f;white-space:nowrap">94</td><td><b style="color:#12293f">Aguardando abertura de comissão</b><br><span style="font-size:12.5px;color:#7a8169">30 EBTT · 64 pela Portaria 41. Dois novos campi: Porto Alegre Zona Norte, com bloco multiuso de 5 andares e R$ 25 milhões em obras, e Gramado, com pedra fundamental lançada.</span></td></tr><tr><td class="i">IFG</td><td class="u">GO</td><td style="text-align:center;font-weight:800;color:#e8600f;white-space:nowrap">90</td><td><b style="color:#12293f">Aguardando abertura de comissão</b><br><span style="font-size:12.5px;color:#7a8169">26 EBTT · 64 pela Portaria 41. Campus Quirinópolis autorizado. O instituto está em fase de planejamento interno.</span></td></tr><tr><td class="i">IFAP</td><td class="u">AP</td><td style="text-align:center;font-weight:800;color:#e8600f;white-space:nowrap">79</td><td><b style="color:#12293f">Aguardando abertura de comissão</b><br><span style="font-size:12.5px;color:#7a8169">15 EBTT · 64 pela Portaria 41. Campus Tartarugalzinho autorizado pela Portaria 267/2026, com tipologia 40/26. O concurso do início de 2026 contemplou 19 vagas de docente.</span></td></tr><tr><td class="i">IFTO</td><td class="u">TO</td><td style="text-align:center;font-weight:800;color:#e8600f;white-space:nowrap">47</td><td><b style="color:#12293f">Aguardando abertura de comissão</b><br><span style="font-size:12.5px;color:#7a8169">15 EBTT · 32 pela Portaria 41. Campus Tocantinópolis autorizado.</span></td></tr><tr><td class="i">IFF</td><td class="u">RJ</td><td style="text-align:center;font-weight:800;color:#e8600f;white-space:nowrap">47</td><td><b style="color:#12293f">Aguardando abertura de comissão</b><br><span style="font-size:12.5px;color:#7a8169">15 EBTT · 32 pela Portaria 41. Campus Magé autorizado, com obras em andamento. Os campi Maricá e São João da Barra passam de campus avançado para campus pleno.</span></td></tr><tr><td class="i">IFTM</td><td class="u">MG</td><td style="text-align:center;font-weight:800;color:#e8600f;white-space:nowrap">47</td><td><b style="color:#12293f">Aguardando abertura de comissão</b><br><span style="font-size:12.5px;color:#7a8169">15 EBTT · 32 pela Portaria 41. Novo Campus Sete Lagoas em obras, com tipologia 70/45 e visita recente do MEC. O Campus Avançado Campina Verde teve a tipologia elevada para campus pleno pela Portaria 268/2026. O instituto publicou edital em 2026 para 21 vagas de docente e 22 de TAE, com comissão organizadora ativa, mas as vagas recebidas pelas Portarias 41 e 657 ainda não foram providas e exigirão novo certame para o Campus Sete Lagoas.</span></td></tr><tr><td class="i">IFRR</td><td class="u">RR</td><td style="text-align:center;font-weight:800;color:#e8600f;white-space:nowrap">32</td><td><b style="color:#12293f">Aguardando abertura de comissão</b><br><span style="font-size:12.5px;color:#7a8169">sem cota EBTT específica · 32 pela Portaria 41. Campus Rorainópolis em construção, com obras iniciadas em 2026 e atrasos. O Campus Avançado Bonfim está em processo de mudança de tipologia para campus pleno.</span></td></tr><tr><td class="i">IFRO</td><td class="u">RO</td><td style="text-align:center;font-weight:800;color:#e8600f;white-space:nowrap">32</td><td><b style="color:#12293f">Aguardando abertura de comissão</b><br><span style="font-size:12.5px;color:#7a8169">sem cota EBTT específica · 32 pela Portaria 41. Campus Buritis autorizado em fevereiro de 2026, com R$ 12,3 milhões. O concurso de 2024 já foi finalizado.</span></td></tr><tr><td class="i">IFES</td><td class="u">ES</td><td style="text-align:center;font-weight:800;color:#e8600f;white-space:nowrap">32</td><td><b style="color:#12293f">Aguardando abertura de comissão</b><br><span style="font-size:12.5px;color:#7a8169">sem cota EBTT específica · 32 pela Portaria 41. Campus Pedro Canário inaugurado em julho de 2026, com R$ 16,9 milhões. Novo campus em Muniz Freire anunciado, com terreno doado em março de 2026.</span></td></tr>
+            <tr class="reg" style="--rc:#1f9d55"><td colspan="4">Estágio 1 · Banca contratada ou licitação aberta · 4 institutos</td></tr><tr><td class="i">IFB</td><td class="u">DF</td><td class="p" style="text-align:center;font-weight:800;color:#e8600f;white-space:nowrap">64</td><td class="f"><b style="color:#12293f">Licitação de banca em fase final</b><br><span style="font-size:12.5px;color:#7a8169">sem cota EBTT específica · 64 pela Portaria 41. Edital previsto para os próximos meses, com ingresso dos servidores no início de 2027. Obras iniciadas nos novos campi Sobradinho e Sol Nascente.</span></td></tr><tr><td class="i">IFPA</td><td class="u">PA</td><td class="p" style="text-align:center;font-weight:800;color:#e8600f;white-space:nowrap">234</td><td class="f"><b style="color:#12293f">Banca definida em agosto de 2026: Instituto AOCP</b><br><span style="font-size:12.5px;color:#7a8169">74 EBTT · 160 pela Portaria 41. Edital de Técnico-Administrativo iminente. É o segundo maior volume de vagas autorizadas entre os institutos que ainda não abriram certame.</span></td></tr><tr><td class="i">IFRJ</td><td class="u">RJ</td><td class="p" style="text-align:center;font-weight:800;color:#e8600f;white-space:nowrap">222</td><td class="f"><b style="color:#12293f">Banca contratada: IDECAN</b><br><span style="font-size:12.5px;color:#7a8169">30 EBTT · 192 pela Portaria 41. Previsão de cerca de 50 vagas de Técnico-Administrativo, com edital iminente. Dois novos campi de grande porte autorizados: Parque Olímpico e Complexo do Alemão.</span></td></tr><tr><td class="i">IF Goiano</td><td class="u">GO</td><td class="p" style="text-align:center;font-weight:800;color:#e8600f;white-space:nowrap">47</td><td class="f"><b style="color:#12293f">Dispensa de licitação publicada para contratar a banca</b><br><span style="font-size:12.5px;color:#7a8169">15 EBTT · 32 pela Portaria 41. Edital iminente. O Campus Porangatu teve as obras iniciadas, com entrega prevista para agosto de 2026.</span></td></tr><tr class="reg" style="--rc:#c6960a"><td colspan="4">Estágio 2 · Comissão formada ou planejamento avançado · 4 institutos</td></tr><tr><td class="i">IFAC</td><td class="u">AC</td><td class="p" style="text-align:center;font-weight:800;color:#e8600f;white-space:nowrap">32</td><td class="f"><b style="color:#12293f">Comissão formada · 66 vagas anunciadas</b><br><span style="font-size:12.5px;color:#7a8169">sem cota EBTT específica · 32 pela Portaria 41. O reitor anunciou concurso em 2027 com 66 vagas, sendo 40 de docente e 26 de TAE, para atender o novo campus de Feijó, cujas obras receberam investimento de R$ 25 milhões.</span></td></tr><tr><td class="i">IFNMG</td><td class="u">MG</td><td class="p" style="text-align:center;font-weight:800;color:#e8600f;white-space:nowrap">47</td><td class="f"><b style="color:#12293f">Comissões de planejamento ativas · 32 vagas autorizadas pela Portaria 41</b><br><span style="font-size:12.5px;color:#7a8169">15 EBTT · 32 pela Portaria 41. O instituto publicou as Portarias nº 0869/2026 e nº 1896/2026, instituindo formalmente as equipes de planejamento dos concursos de docente e de TAE. Campus Minas Novas autorizado.</span></td></tr><tr><td class="i">IFFar</td><td class="u">RS</td><td class="p" style="text-align:center;font-weight:800;color:#e8600f;white-space:nowrap">126</td><td class="f"><b style="color:#12293f">Análise interna de viabilidade · 41 vagas em estudo</b><br><span style="font-size:12.5px;color:#7a8169">30 EBTT · 96 pela Portaria 41. O estudo em andamento contempla 41 vagas, sendo 24 de Professor EBTT e 17 de TAE. Campus São Luiz Gonzaga e Campus Santiago autorizados.</span></td></tr><tr><td class="i">IFMS</td><td class="u">MS</td><td class="p" style="text-align:center;font-weight:800;color:#e8600f;white-space:nowrap">64</td><td class="f"><b style="color:#12293f">Previsão de edital anunciada pela gestão · cerca de 58 vagas previstas</b><br><span style="font-size:12.5px;color:#7a8169">sem cota EBTT específica · 64 pela Portaria 41. Há previsão pública confirmada pela gestão do instituto para a publicação de um novo edital contemplando cerca de 58 vagas entre EBTT e TAE.</span></td></tr><tr class="reg" style="--rc:#2b6cb0"><td colspan="4">Estágio 3 · Vagas autorizadas e novos campi, aguardando comissão · 16 institutos</td></tr><tr><td class="i">IFSP</td><td class="u">SP</td><td class="p" style="text-align:center;font-weight:800;color:#e8600f;white-space:nowrap">628</td><td class="f"><b style="color:#12293f">Aguardando abertura de comissão</b><br><span style="font-size:12.5px;color:#7a8169">180 EBTT · 448 pela Portaria 41. Novos campi autorizados pela Portaria 267/2026 em Cotia, Diadema, Guarujá, Mauá, Osasco, Ribeirão Preto, Santos, São Paulo (Cidade Tiradentes), São Paulo (Jardim Ângela) e São Vicente. Sete deles foram inaugurados pelo MEC em julho de 2026.</span></td></tr><tr><td class="i">IFPR</td><td class="u">PR</td><td class="p" style="text-align:center;font-weight:800;color:#e8600f;white-space:nowrap">207</td><td class="f"><b style="color:#12293f">Aguardando abertura de comissão</b><br><span style="font-size:12.5px;color:#7a8169">15 EBTT · 192 pela Portaria 41. Sem novos campi anunciados. Comissão ainda não oficializada, com planejamento interno em andamento.</span></td></tr><tr><td class="i">IF Baiano</td><td class="u">BA</td><td class="p" style="text-align:center;font-weight:800;color:#e8600f;white-space:nowrap">188</td><td class="f"><b style="color:#12293f">Aguardando abertura de comissão</b><br><span style="font-size:12.5px;color:#7a8169">60 EBTT · 128 pela Portaria 41. Quatro novos campi autorizados e em obras: Remanso, Ribeira do Pombal, Ruy Barbosa e Santo Estêvão.</span></td></tr><tr><td class="i">IFMG</td><td class="u">MG</td><td class="p" style="text-align:center;font-weight:800;color:#e8600f;white-space:nowrap">173</td><td class="f"><b style="color:#12293f">Aguardando abertura de comissão</b><br><span style="font-size:12.5px;color:#7a8169">45 EBTT · 128 pela Portaria 41. Três novos campi autorizados: Bom Despacho, João Monlevade e Contagem. O concurso realizado no início de 2026 contemplou apenas 5 vagas de TAE.</span></td></tr><tr><td class="i">IFBA</td><td class="u">BA</td><td class="p" style="text-align:center;font-weight:800;color:#e8600f;white-space:nowrap">158</td><td class="f"><b style="color:#12293f">Aguardando abertura de comissão</b><br><span style="font-size:12.5px;color:#7a8169">30 EBTT · 128 pela Portaria 41. Início das obras do novo campus em Poções autorizado pelo MEC.</span></td></tr><tr><td class="i">IFPE</td><td class="u">PE</td><td class="p" style="text-align:center;font-weight:800;color:#e8600f;white-space:nowrap">158</td><td class="f"><b style="color:#12293f">Aguardando abertura de comissão</b><br><span style="font-size:12.5px;color:#7a8169">30 EBTT · 128 pela Portaria 41. Campus Goiana autorizado, com tipologia 70/45.</span></td></tr><tr><td class="i">IFSul</td><td class="u">RS</td><td class="p" style="text-align:center;font-weight:800;color:#e8600f;white-space:nowrap">141</td><td class="f"><b style="color:#12293f">Aguardando abertura de comissão</b><br><span style="font-size:12.5px;color:#7a8169">45 EBTT · 96 pela Portaria 41. Campus São Leopoldo autorizado. As 45 vagas recebidas em agosto de 2026 dispararam o planejamento interno para a contratação dos primeiros docentes do novo campus.</span></td></tr><tr><td class="i">IFRS</td><td class="u">RS</td><td class="p" style="text-align:center;font-weight:800;color:#e8600f;white-space:nowrap">94</td><td class="f"><b style="color:#12293f">Aguardando abertura de comissão</b><br><span style="font-size:12.5px;color:#7a8169">30 EBTT · 64 pela Portaria 41. Dois novos campi: Porto Alegre Zona Norte, com bloco multiuso de 5 andares e R$ 25 milhões em obras, e Gramado, com pedra fundamental lançada.</span></td></tr><tr><td class="i">IFG</td><td class="u">GO</td><td class="p" style="text-align:center;font-weight:800;color:#e8600f;white-space:nowrap">90</td><td class="f"><b style="color:#12293f">Aguardando abertura de comissão</b><br><span style="font-size:12.5px;color:#7a8169">26 EBTT · 64 pela Portaria 41. Campus Quirinópolis autorizado. O instituto está em fase de planejamento interno.</span></td></tr><tr><td class="i">IFAP</td><td class="u">AP</td><td class="p" style="text-align:center;font-weight:800;color:#e8600f;white-space:nowrap">79</td><td class="f"><b style="color:#12293f">Aguardando abertura de comissão</b><br><span style="font-size:12.5px;color:#7a8169">15 EBTT · 64 pela Portaria 41. Campus Tartarugalzinho autorizado pela Portaria 267/2026, com tipologia 40/26. O concurso do início de 2026 contemplou 19 vagas de docente.</span></td></tr><tr><td class="i">IFTO</td><td class="u">TO</td><td class="p" style="text-align:center;font-weight:800;color:#e8600f;white-space:nowrap">47</td><td class="f"><b style="color:#12293f">Aguardando abertura de comissão</b><br><span style="font-size:12.5px;color:#7a8169">15 EBTT · 32 pela Portaria 41. Campus Tocantinópolis autorizado.</span></td></tr><tr><td class="i">IFF</td><td class="u">RJ</td><td class="p" style="text-align:center;font-weight:800;color:#e8600f;white-space:nowrap">47</td><td class="f"><b style="color:#12293f">Aguardando abertura de comissão</b><br><span style="font-size:12.5px;color:#7a8169">15 EBTT · 32 pela Portaria 41. Campus Magé autorizado, com obras em andamento. Os campi Maricá e São João da Barra passam de campus avançado para campus pleno.</span></td></tr><tr><td class="i">IFTM</td><td class="u">MG</td><td class="p" style="text-align:center;font-weight:800;color:#e8600f;white-space:nowrap">47</td><td class="f"><b style="color:#12293f">Aguardando abertura de comissão</b><br><span style="font-size:12.5px;color:#7a8169">15 EBTT · 32 pela Portaria 41. Novo Campus Sete Lagoas em obras, com tipologia 70/45 e visita recente do MEC. O Campus Avançado Campina Verde teve a tipologia elevada para campus pleno pela Portaria 268/2026. O instituto publicou edital em 2026 para 21 vagas de docente e 22 de TAE, com comissão organizadora ativa, mas as vagas recebidas pelas Portarias 41 e 657 ainda não foram providas e exigirão novo certame para o Campus Sete Lagoas.</span></td></tr><tr><td class="i">IFRR</td><td class="u">RR</td><td class="p" style="text-align:center;font-weight:800;color:#e8600f;white-space:nowrap">32</td><td class="f"><b style="color:#12293f">Aguardando abertura de comissão</b><br><span style="font-size:12.5px;color:#7a8169">sem cota EBTT específica · 32 pela Portaria 41. Campus Rorainópolis em construção, com obras iniciadas em 2026 e atrasos. O Campus Avançado Bonfim está em processo de mudança de tipologia para campus pleno.</span></td></tr><tr><td class="i">IFRO</td><td class="u">RO</td><td class="p" style="text-align:center;font-weight:800;color:#e8600f;white-space:nowrap">32</td><td class="f"><b style="color:#12293f">Aguardando abertura de comissão</b><br><span style="font-size:12.5px;color:#7a8169">sem cota EBTT específica · 32 pela Portaria 41. Campus Buritis autorizado em fevereiro de 2026, com R$ 12,3 milhões. O concurso de 2024 já foi finalizado.</span></td></tr><tr><td class="i">IFES</td><td class="u">ES</td><td class="p" style="text-align:center;font-weight:800;color:#e8600f;white-space:nowrap">32</td><td class="f"><b style="color:#12293f">Aguardando abertura de comissão</b><br><span style="font-size:12.5px;color:#7a8169">sem cota EBTT específica · 32 pela Portaria 41. Campus Pedro Canário inaugurado em julho de 2026, com R$ 16,9 milhões. Novo campus em Muniz Freire anunciado, com terreno doado em março de 2026.</span></td></tr>
           </tbody>
         </table>
       </div>
@@ -557,7 +598,7 @@
     </div>
   </section>
 
-  <section>
+  <section id="institutos">
     <div class="wrap center">
       <div class="kick">Escolha o seu</div>
       <h2 class="sec">Qual instituto <span class="u">você quer conquistar?</span></h2>
@@ -568,7 +609,7 @@
     </div>
   </section>
 
-  <section style="padding-top:0">
+  <section id="comparar" style="padding-top:0">
     <div class="wrap">
       <div class="cmpwrap">
         <div class="center">
@@ -922,6 +963,20 @@
 
   // ---- página de resultado: conteúdo sempre visível (sem gate) ----
   renderCards(); renderChips();
+
+  // ---- menu: marca a seção visível ----
+  (function(){
+    const links=[...document.querySelectorAll('.navbar a')];
+    const alvos=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+    if(!alvos.length) return;
+    const marca=()=>{
+      let atual=null;
+      alvos.forEach(sec=>{ if(sec.getBoundingClientRect().top<=110) atual=sec; });
+      links.forEach(a=>a.classList.toggle('on', atual && a.getAttribute('href')==='#'+atual.id));
+    };
+    window.addEventListener('scroll',marca,{passive:true}); marca();
+  })();
+
   const au=$('aulaBtn'); if(au) au.href=AULA_LINK;
 </script>
 </body>
