@@ -195,7 +195,7 @@ body{font-family:'Montserrat',Arial,sans-serif;background:var(--off);color:var(-
 </div></div>
 
 <script>
-var AULA="https://sndflw.com/i/D44WGy8IPL92V6WPPX2b", TIME="https://wa.link/quizdissecador";
+var GRUPO="https://sndflw.com/i/D44WGy8IPL92V6WPPX2b";
 function pt(x){return /[.!?]$/.test(x)?x:x+'.';}
 var Q=[
  {t:"Como você se sente hoje em relação à sua preparação para o concurso do IF, seja EBTT ou TAE?",o:[["A","Tenho plano, mas fico refazendo o cronograma toda semana"],["B","Sigo o ciclo, mas ainda me perco quando erro questões"],["C","Tenho resultado, mas quero subir o nível"],["D","Tô começando agora e tentando encontrar meu ritmo"]]},
@@ -245,18 +245,15 @@ function showResult(k){
  document.getElementById('rdesc').textContent=p.d;
  document.getElementById('rsig').innerHTML=p.s.map(function(x){return '<li>'+pt(x)+'</li>'}).join('');
  document.getElementById('ratk').innerHTML=p.a.map(function(x){return '<li>'+pt(x)+'</li>'}).join('');
- var aula='<a class="qcta" href="'+AULA+'" target="_blank">QUERO PARTICIPAR DA AULA</a>';
- var time='<a class="qcta2" href="'+TIME+'" target="_blank">FALAR COM O MEU TIME</a>';
- var timeMain='<a class="qcta" href="'+TIME+'" target="_blank">FALAR COM O MEU TIME</a>';
- var aulaAlt='<a class="qcta2" href="'+AULA+'" target="_blank">PARTICIPAR DA AULA DE QUINTA</a>';
+ var grupo='<a class="qcta" href="'+GRUPO+'" target="_blank">ENTRAR NO GRUPO DE NOVIDADES IF</a>';
  if(p.hot){
-   document.getElementById('ctat').textContent='Você já tá pronto pro próximo passo.';
-   document.getElementById('ctas').textContent='Seu perfil mostra que falta pouco. Meu time te mostra como encurtar esse caminho agora, e quinta, 20h, eu destrincho tudo ao vivo.';
-   document.getElementById('ctabtns').innerHTML=timeMain+'<div class="orsep">ou participe da aula ao vivo</div>'+aulaAlt;
+   document.getElementById('ctat').textContent='Você já está pronto para o próximo passo.';
+   document.getElementById('ctas').textContent='Seu perfil mostra que falta pouco. No Grupo de Novidades IF eu aviso cada edital no dia em que sai e dou aula ao vivo toda quarta, às 20h.';
+   document.getElementById('ctabtns').innerHTML=grupo;
  }else{
-   document.getElementById('ctat').textContent='Seu plano tá pronto. Agora vem montar ele comigo.';
-   document.getElementById('ctas').textContent='Quinta, 20h, eu vou destrinchar o caminho do seu perfil ao vivo e te mostrar as novas vagas nos IFs para Professor e TAE.';
-   document.getElementById('ctabtns').innerHTML=aula+'<div class="orsep">ou, se você quer virar esse jogo agora</div>'+time;
+   document.getElementById('ctat').textContent='Seu plano está pronto. Agora vem montar ele comigo.';
+   document.getElementById('ctas').textContent='Toda quarta, às 20h, eu destrincho o caminho do seu perfil ao vivo e mostro as novas vagas nos IFs para Professor e TAE. Tudo acontece dentro do grupo.';
+   document.getElementById('ctabtns').innerHTML=grupo;
  }
  show('result');
 }
