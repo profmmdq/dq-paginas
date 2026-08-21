@@ -10,8 +10,9 @@
 <script src="/aula/webinar/assets/aula-config.js"></script>
 <!-- Vturb / ConverteAI: prefetch dos domínios (performance do player) -->
 <script>!function(i,n){i._plt=i._plt||(n&&n.timeOrigin?n.timeOrigin+n.now():Date.now())}(window,performance);</script>
-<link rel="preload" href="https://scripts.converteai.net/8fb0c85a-c7c1-400e-a28a-5dc648d0969c/players/6a5dc0ca98b6e5f7c5ed4853/v4/player.js" as="script">
+<link rel="preload" href="https://scripts.converteai.net/8fb0c85a-c7c1-400e-a28a-5dc648d0969c/players/6a85ca998eaf0dd6e3cc358e/v4/player.js" as="script">
 <link rel="preload" href="https://scripts.converteai.net/lib/js/smartplayer-wc/v4/smartplayer.js" as="script">
+<link rel="preload" href="https://cdn.converteai.net/8fb0c85a-c7c1-400e-a28a-5dc648d0969c/6a85c9bac8248560d1744ae4/main.m3u8" as="fetch">
 <link rel="dns-prefetch" href="https://cdn.converteai.net">
 <link rel="dns-prefetch" href="https://scripts.converteai.net">
 <link rel="dns-prefetch" href="https://images.converteai.net">
@@ -39,7 +40,7 @@
   .vhost vturb-smartplayer{width:100%;display:block}
   .stage .player{position:absolute;inset:0}
   .pre{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;z-index:8}
-  .pre::before{content:"";position:absolute;inset:0;background:url('assets/manoel-hero.jpg') center 22%/cover;filter:saturate(.9)}
+  .pre::before{content:"";position:absolute;inset:0;background:url('/aula/webinar/assets/manoel-hero.jpg') center 22%/cover;filter:saturate(.9)}
   .pre::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,18,32,.62),rgba(11,18,32,.9))}
   .pre>*{position:relative;z-index:2}
   .pre .k{font-family:var(--mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--acc);margin-bottom:14px}
@@ -59,7 +60,7 @@
 
   .endlive{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;z-index:8}
   .endlive.on{display:flex}
-  .endlive::before{content:"";position:absolute;inset:0;background:url('assets/manoel-hero.jpg') center 22%/cover}
+  .endlive::before{content:"";position:absolute;inset:0;background:url('/aula/webinar/assets/manoel-hero.jpg') center 22%/cover}
   .endlive::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,18,32,.72),rgba(11,18,32,.93))}
   .endlive>*{position:relative;z-index:2}
   .endlive .k{font-family:var(--mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--acc);margin-bottom:10px}
@@ -151,20 +152,20 @@
       <div class="mask" id="mask">
         <div class="mcard">
           <span class="mk">Oferta especial desta aula</span>
-          <div class="mt">Disponível até <b>sexta, 23:59</b></div>
-          <div class="mcode"><span>Código de acesso</span><b>PLANO250</b></div>
+          <div class="mt">Disponível até <b>hoje, 23h59</b></div>
+          <div class="mcode"><span>Código de acesso</span><b>HOJE500</b></div>
         </div>
       </div>
 
       <div class="pre" id="pre">
         <div class="k">Sua aula ao vivo começa em</div>
         <div class="cd" id="cd">30</div>
-        <button class="start" id="startBtn">Entrar na aula ao vivo →</button>
+        <button class="start" id="startBtn" style="display:none">Entrar na aula ao vivo →</button>
       </div>
       <div class="endlive" id="endlive">
         <div class="k">A aula ao vivo foi encerrada</div>
-        <h3>Mas a condição de quem ficou até o fim segue liberada</h3>
-        <a class="start" id="endCta" href="#" target="_blank" rel="noopener">Ver a condição do Dossiê IF →</a>
+        <h3>A condição de hoje segue liberada até 23h59</h3>
+        <a class="start" id="endCta" href="#" target="_blank" rel="noopener">Garantir com o cupom HOJE500 →</a>
       </div>
     </div>
 
@@ -177,14 +178,14 @@
       <a id="bonusBtn" href="#" target="_blank" rel="noopener">Pegar o brinde</a>
     </div>
 
-    <!-- a própria página do Dossiê IF, embutida (cópia real) com a barra do cupom PLANO250 -->
+    <!-- a própria página do Dossiê IF, embutida (cópia real) com a barra do cupom HOJE500 -->
     <section class="vendas" id="vendas">
       <div class="cupombar">
-        <span class="cbk">Cupom PLANO250</span>
-        <span class="cbp">12x R$ 99,70 · R$ 997 à vista no pix</span>
+        <span class="cbk">Cupom HOJE500</span>
+        <span class="cbp">12x R$ 124,70 · R$ 1.247 à vista no pix · R$ 500 de desconto</span>
         <span class="ctimer" id="cupomTimer">zera em 00:00:00</span>
       </div>
-      <div class="dossie-frame"><iframe src="dossie/index.html" title="Dossiê IF" loading="lazy"></iframe></div>
+      <div class="dossie-frame"><iframe src="/aula/webinar/dossie/" title="Dossiê IF" loading="lazy"></iframe></div>
       <div style="text-align:center;margin-top:12px">
         <a class="vbtn2" id="teamB" href="#" target="_blank" rel="noopener">Ainda com dúvida? Falar com a equipe</a>
       </div>
@@ -207,28 +208,27 @@
    Tudo é sincronizado por um RELÓGIO DE TEMPO DECORRIDO (segundos desde o
    início da aula), então funciona igual com o player Vturb (que é um iframe
    e não deixa ler o tempo do vídeo pela página).
-   Tempos em SEGUNDOS. Referência: 1:12:57 = 4377s (min*60 + seg).
+   Tempos em SEGUNDOS. Referência: 1:33:12 = 5592s (h*3600 + min*60 + seg). Aula: "Plano Infalível" (2h01m).
    ============================================================= */
-var VIDEO      = "/aula/webinar/aula.mp4";   // hoje o mp4 local. No Vturb, veja LEIA-ME (chame startWebinar() no play).
+var VIDEO      = "";   // player Vturb (aula "Plano Infalível", 2h01m, versão íntegra com perguntas)
 var PRE_SECONDS= 30;
 
 // destinos / textos
-var DOSSIE_CHECKOUT = "https://checkout.dissecandoquestoes.com.br/checkout/auladossie-if";
+var DOSSIE_CHECKOUT = "https://checkout.dissecandoquestoes.com.br/pay/dossie-1-ano-webinar";   // checkout do webinar (cupom HOJE500)
 // nome do lead (se já preencheu na landing) pra personalizar a mensagem pro comercial
 var _wln=''; try{ _wln=(JSON.parse(localStorage.getItem('web_lead')||'{}').nome)||''; }catch(e){}
-var COMERCIAL       = "5511953432311"; // WhatsApp do comercial (Prof. Manoel / DQ IF)
-var EQUIPE_WHATS    = "https://wa.me/"+COMERCIAL+"?text="+encodeURIComponent((_wln?("Oi! Sou "+_wln+". "):"Oi! ")+"Tô na aula ao vivo do Prof. Manoel e quero garantir minha vaga no Dossiê IF com o cupom PLANO250. Pode me ajudar?");
+var EQUIPE_WHATS    = "https://wa.link/dq-consultor";   // consultor / equipe comercial
 var BRINDE          = "https://wa.link/brinde-dq";
-var EXPANSAO_LP     = "https://site.dissecandoquestoes.com/lps/expansaoif/";
-var CUPOM           = "PLANO250";
+var RADAR_LP        = "https://wa.link/vagasif";        // Vagas IF (radar de editais)
+var CUPOM           = "HOJE500";
 var PALAVRA_CHAVE   = "IF2026";
 
 // eventos por tempo (segundos)
-var BONUS_AT = 250;    // 4:10  — brinde liberado (fala que a palavra-chave vem no fim)
-var MASK_IN  = 4377;   // 1:12:57 — máscara entra sobre o slide
-var MASK_OUT = 4440;   // 1:14:00 — máscara sai
-var OFFER_AT = 4495;   // 1:14:55 — abre o restante da página (Dossiê IF) + cronômetro
-var END_AT   = 5826;   // 1:37:06 — fim da aula (card de encerramento)
+var BONUS_AT = 235;    // 3:55 — "clica no link que a gente está colocando no chat" (brinde)
+var MASK_IN  = 0;      // máscara DESLIGADA nesta aula: os slides já dizem "HOJE500" e "até hoje 23h59" (sem data)
+var MASK_OUT = 0;      // (para ligar: MASK_IN/MASK_OUT em segundos, ex.: 5583 e 5640)
+var OFFER_AT = 5599;   // 1:33:19 — link do checkout no chat; abre o Dossiê IF + barra do cupom
+var END_AT   = 7290;   // 2:01:30 — fim da aula (card de encerramento)
 
 // caixa da máscara em % do vídeo (cobre só a região do slide). Ajuste fino se precisar.
 var MASK_BOX = { left:33, top:6, width:64, height:82 };
@@ -241,152 +241,180 @@ var BONUS_SHOW_MS = 10000;  // quanto tempo o card do brinde fica na tela antes 
 
 /* CHAT — cada item: {t(seg), nome, msg, host?, link?, linkTxt?} */
 var CHAT = [
-  { t: 3,    nome:"Prof. Manoel", host:true, msg:"Boa noite, pessoal! Já tô vendo gente chegando. Comenta de onde vocês tão falando 👇" },
-  { t: 9,    nome:"Fernanda R.",  msg:"Boa noite! De Fortaleza-CE" },
-  { t: 14,   nome:"Diego M.",     msg:"Salvador aqui, professor!" },
-  { t: 21,   nome:"Cláudia S.",   msg:"Curitiba, presente 🙌" },
-  { t: 30,   nome:"Rafael A.",    msg:"vim entender essa expansão do IF" },
-  { t: 55,   nome:"Prof. Manoel", host:true, msg:"Chegou todo mundo? Então bora, que hoje é aula de mapa." },
-
-  { t: 250,  nome:"Prof. Manoel", host:true, msg:"Liberei o brinde de quem tá ao vivo, tá aqui em cima 👆 no fim da aula eu falo a palavra-chave pra você resgatar 🔑", link:BRINDE, linkTxt:"Pegar o brinde" },
-
-  { t: 480,  nome:"Marcos V.",    msg:"professor, TAE também tá incluso?" },
-  { t: 510,  nome:"Prof. Manoel", host:true, msg:"Tá sim, Marcos. Professor EBTT e TAE, os dois. Já já detalho." },
-  { t: 540,  nome:"Tatiane L.",   msg:"não sabia que tinha tanta vaga nova assim 😳" },
-  { t: 575,  nome:"Vânia C.",     msg:"essa expansão tá surreal" },
-
-  // 14:30 em diante: Manoel pede pra comentarem área + de onde falam (ele lê no vídeo a partir de 15:04)
-  { t: 870,  nome:"Prof. Manoel", host:true, msg:"Comenta aqui no chat 👇 sua área e de onde você tá falando. Bora ver esse mapa do Brasil!" },
-  { t: 879,  nome:"Renata A.",    msg:"biologia, falando de Goiânia" },
-  { t: 886,  nome:"Cléber M.",    msg:"geografia aqui, do RS" },
-  { t: 892,  nome:"Simone T.",    msg:"química, Recife-PE" },
-  { t: 896,  nome:"Larissa F.",   msg:"matemática 🙌 professora do interior" },
-  { t: 900,  nome:"André P.",     msg:"pedagogia, e o Manoel arrasando" },
-  { t: 904,  nome:"Marcos V.",    msg:"falando do Espírito Santo!" },
-  { t: 908,  nome:"Juliana S.",   msg:"Minas presente ⛰️" },
-  { t: 912,  nome:"Elton R.",     msg:"Maranhão na área 👋" },
-  { t: 916,  nome:"Patrícia L.",  msg:"sou de adm" },
-  { t: 920,  nome:"Rafael G.",    msg:"Minas também!" },
-  { t: 924,  nome:"Bruna C.",     msg:"Floripa 🌊" },
-  { t: 928,  nome:"Diego N.",     msg:"história aqui" },
-  { t: 932,  nome:"Camila R.",    msg:"São Paulo, capital" },
-  { t: 936,  nome:"Wesley A.",    msg:"Minas Gerais 🙌" },
-  { t: 940,  nome:"Tainá M.",     msg:"Bahia, axé 💛" },
-  { t: 944,  nome:"Iara B.",      msg:"Pará, Belém!" },
-  { t: 951,  nome:"Fernando D.",  msg:"letras, do Ceará" },
-  { t: 957,  nome:"Priscila O.",  msg:"educação física, Paraná" },
-  { t: 963,  nome:"Gustavo H.",   msg:"física, Distrito Federal" },
-  { t: 970,  nome:"Prof. Manoel", host:true, msg:"Que mapa lindo esse chat! Tem gente de canto a canto do Brasil 🇧🇷 bora seguir!" },
-
-  { t: 1185, nome:"Sandra M.",    msg:"vi vários aprovados de vocês: Fábio no IFAC, Jocielle no IFS, Ligiane no IFPB 👏" },
-  { t: 1230, nome:"Aline P.",     msg:"pré-edital é onde o jogo é ganho... anotado" },
-  { t: 1500, nome:"Josué B.",     msg:"tô anotando tudo aqui 📝" },
-
-  // 32:55: Manoel fala como a carreira no IF é boa -> reações no chat
-  { t: 1968, nome:"Bruno C.",     msg:"que carreira dos sonhos 😍" },
-  { t: 1974, nome:"Aline P.",     msg:"estabilidade + qualidade de vida, é isso que eu quero" },
-  { t: 1980, nome:"Tatiane L.",   msg:"a carga horária é bem mais humana mesmo" },
-  { t: 1986, nome:"Rafael G.",    msg:"salário + estabilidade não tem preço" },
-  { t: 1992, nome:"Juliana S.",   msg:"quero MUITO essa vida 🙏" },
-  { t: 1998, nome:"Diego N.",     msg:"trocar pro IF é a melhor decisão 🙌" },
-  { t: 2004, nome:"Sandra M.",    msg:"isso me deu ainda mais certeza" },
-  { t: 2010, nome:"Camila R.",    msg:"tô até arrepiada 🥹" },
-  { t: 2016, nome:"Prof. Manoel", host:true, msg:"É isso, gente. Vale cada minuto de preparação 🔥 comenta um 🙌 quem quer essa carreira!" },
-  { t: 2024, nome:"Elton R.",     msg:"🙌🙌🙌" },
-  { t: 2030, nome:"Priscila O.",  msg:"🙌 é o meu sonho" },
-
-  // 36:30: os +250 subtópicos -> "nunca tinha pensado assim"
-  { t: 2190, nome:"Aline P.",     msg:"250 subtópicos?? nunca tinha parado pra pensar nisso 😳" },
-  { t: 2196, nome:"Diego N.",     msg:"caramba, nunca tinha pensado assim" },
-  { t: 2202, nome:"Sandra M.",    msg:"isso muda toda a minha visão" },
-  { t: 2208, nome:"Rafael G.",    msg:"eu estudava no chute mesmo... agora entendi" },
-  // 37:18: a objeção -> é impossível, a conta não bate, não tem tempo
-  { t: 2238, nome:"Tatiane L.",   msg:"mas assim é impossível né, não tem tempo pra tudo isso" },
-  { t: 2244, nome:"Juliana S.",   msg:"a conta não bate, trabalho o dia todo 😔" },
-  { t: 2250, nome:"Bruno C.",     msg:"sozinho não dá pra dar conta de 250 subtópicos" },
-  { t: 2256, nome:"Camila R.",    msg:"é muita coisa, desanima só de pensar" },
-  // 38:39: fazendo a conta REAL das horas necessárias -> choque
-  { t: 2319, nome:"Rafael G.",    msg:"fiz a conta aqui... são MUITAS horas 😱" },
-  { t: 2325, nome:"Aline P.",     msg:"tô chocada com a quantidade de horas que daria" },
-  { t: 2331, nome:"Diego N.",     msg:"desse jeito daria anos pra ficar pronto" },
-  { t: 2337, nome:"Sandra M.",    msg:"sozinha eu jamais teria tempo pra tudo isso" },
-  { t: 2343, nome:"Juliana S.",   msg:"com a minha rotina? impossível 😵" },
-  { t: 2545, nome:"Carla M.",     msg:"esse plano de 3 passos ficou claro demais" },
-
-  { t: 2760, nome:"Prof. Manoel", host:true, msg:"Quem tá ao vivo comigo agora? Deixa um 🔥 no chat." },
-  { t: 2820, nome:"Diandra S.",   msg:"🔥🔥🔥" },
-  { t: 2826, nome:"Bruno C.",     msg:"🔥🔥" },
-  { t: 2831, nome:"Tatiane L.",   msg:"🔥🔥🔥🔥" },
-  { t: 2837, nome:"Rafael A.",    msg:"🔥" },
-  { t: 2844, nome:"Aline P.",     msg:"🔥🔥🔥" },
-  { t: 2851, nome:"Sandra M.",    msg:"🔥🔥" },
-
-  { t: 3334, nome:"Emily R.",     msg:"os depoimentos são reais demais" },
-  { t: 3344, nome:"Nádia (IFRN)", msg:"passei com o método, confirmo tudo 🙌" },
-
-  // 01:03:59: Manoel mostra a plataforma (cronograma interativo + escolha de áreas)
-  { t: 3839, nome:"Aline P.",     msg:"que plataforma linda 😍 o cronograma se monta sozinho" },
-  { t: 3846, nome:"Diego N.",     msg:"amei poder escolher as minhas áreas" },
-  { t: 3852, nome:"Sandra M.",    msg:"muito intuitiva, dá pra usar sem enrolação" },
-  { t: 3858, nome:"Rafael G.",    msg:"e é plataforma própria de vocês? top demais" },
-  { t: 3864, nome:"Juliana S.",   msg:"o cronograma interativo é tudo que eu precisava 🙌" },
-  { t: 3870, nome:"Camila R.",    msg:"isso facilita MUITO a minha rotina" },
-  // 01:05:12: materiais enxutos da plataforma
-  { t: 3912, nome:"Bruno C.",     msg:"materiais enxutos assim é o sonho, direto ao ponto" },
-  { t: 3918, nome:"Tatiane L.",   msg:"nada de PDF de 500 páginas, amei 🙌" },
-  { t: 3924, nome:"Diego N.",     msg:"só o que cai, do jeito que tem que ser" },
-  { t: 3930, nome:"Aline P.",     msg:"isso economiza MUITO tempo de estudo" },
-  { t: 3936, nome:"Sandra M.",    msg:"material curto e certeiro, perfeito pra minha rotina" },
-
-  { t: 4180, nome:"Paulo H.",     msg:"como faço pra entrar no Dossiê?" },
-  { t: 4360, nome:"Prof. Manoel", host:true, msg:"Deixei o link aqui embaixo: garante e aplica o cupom "+CUPOM+" pra manter o desconto ✅", link:DOSSIE_CHECKOUT, linkTxt:"Garantir com cupom "+CUPOM },
-
-  { t: 4495, nome:"Prof. Manoel", host:true, msg:"A palavra-chave do brinde é "+PALAVRA_CHAVE+" 🔑 resgata aqui 👇", link:BRINDE, linkTxt:"Resgatar meu brinde" },
-  { t: 4560, nome:"Prof. Manoel", host:true, msg:"Aviso importante: só tenho 5 vagas pra encontro individual, a agenda já tá bem apertada." },
-  { t: 4615, nome:"Prof. Manoel", host:true, msg:"Bora pras dúvidas! Manda no chat que eu vou respondendo 👇" },
-
-  { t: 4648, nome:"Jorge P.",     msg:"fiquei por duas questões" },
-  { t: 4659, nome:"Jorge P.",     msg:"não sou aluno DQ" },
-  { t: 4666, nome:"Susana M.",    msg:"a titulação é avaliada? quem tem mestrado sai muito atrás?" },
-  { t: 4776, nome:"Ricardo T.",   msg:"quem tem doutorado tem a maior titulação" },
-  { t: 4792, nome:"Eduardo L.",   msg:"sou formada em matemática e pedagogia, aparece muitas vagas pra essas áreas?" },
-  { t: 4800, nome:"Leandro Z.",   msg:"você foca em dizer quais IFs terão concurso esse ano; falou rápido dos novos campi, peço pra focar em quais IFs terão concurso ainda esse ano" },
-  { t: 4933, nome:"Prof. Manoel", host:true, msg:"Esse é o nosso mapeamento das movimentações dos IFs no Brasil todo. É só se cadastrar e abrir 👇", link:EXPANSAO_LP, linkTxt:"Abrir o mapeamento IF" },
-  { t: 4956, nome:"Leandro Z.",   msg:"passa a aula toda dizendo que a pessoa precisa se preparar antes do edital, prof; peço pra focar em quais IFs vão abrir concurso esse ano" },
-  { t: 5025, nome:"Tassiana C.",  msg:"a banca IDECAN fez a última prova num nível aquém do nível dos professores dos IFs. muito difícil" },
-  { t: 5105, nome:"Laura D.",     msg:"tem questões ultra selecionadas de téc em agropecuária?" },
-  { t: 5115, nome:"Camila F.",    msg:"Prof, se você tivesse hoje só licenciatura, o que faria? vale a pena fazer o mestrado antes do concurso?" },
-  { t: 5215, nome:"Rogério A.",   msg:"previsão de edital EBTT 2026?" },
-  { t: 5220, nome:"Mayara L.",    msg:"Oi Prof. Manoel, carioca aqui, focada no IFRJ" },
-  { t: 5244, nome:"Felipe N.",    msg:"pode sair autorização; o IMGI autorizou um monte de aplicação de concurso essa semana, mas os IFs não entraram" },
-  { t: 5279, nome:"Iara S.",      msg:"sou de Pernambuco" },
-
-  { t: 5338, nome:"Prof. Manoel", host:true, msg:"Bem-vindos, Geraldo e Marília! 🙌" },
-  { t: 5342, nome:"Geraldo A.",   msg:"oba, consegui entrar!" },
-  { t: 5346, nome:"Marília F.",   msg:"entrei agora, ansiosa 🎉" },
-
-  { t: 5355, nome:"Eduardo L.",   msg:"tem provas dos anos anteriores?" },
-  { t: 5356, nome:"Valéria P.",   msg:"quais bancas têm por vir?" },
-  { t: 5390, nome:"Mayara L.",    msg:"consegui entrar!!" },
-  { t: 5411, nome:"Marcos R.",    msg:"no seu site não tem educação exclusiva AE" },
-  { t: 5425, nome:"Rose R.",      msg:"eu quero o cupom" },
-  { t: 5440, nome:"Pedro H.",     msg:"o material é vitalício?" },
-  { t: 5455, nome:"Neto B.",      msg:"no Pará, o edital era pro interior e no fim foi direcionado pra capital" },
-  { t: 5485, nome:"Jorge P.",     msg:"quanto tempo de acesso?" },
-  { t: 5488, nome:"Guto H.",      msg:"IFBA Itabuna" },
-  { t: 5492, nome:"Guto H.",      msg:"qual o cupom mesmo?" },
-  { t: 5496, nome:"Prof. Manoel", host:true, msg:"Bem-vindo, Edinaldo! 🙌" },
-  { t: 5500, nome:"Edinaldo P.",  msg:"cheguei!" },
-  { t: 5509, nome:"Laura R.",     msg:"comecei a prestar concurso pra técnico em setembro" },
-  { t: 5565, nome:"Prof. Manoel", host:true, msg:"Link aqui, gente: aplica o cupom "+CUPOM+" e garante 👇", link:DOSSIE_CHECKOUT, linkTxt:"Garantir com cupom "+CUPOM },
-  { t: 5620, nome:"Paulo R.",     msg:"esse ano de eleição não deve sair mais edital" },
-  { t: 5660, nome:"Cláudia S.",   msg:"mesma dúvida da Susana aqui" },
-  { t: 5685, nome:"Bruno C.",     msg:"obrigado, prof! aula top 🙏" },
-  { t: 5705, nome:"Tatiane L.",   msg:"anotei tudo, valeu demais" },
-  { t: 5725, nome:"Prof. Manoel", host:true, msg:"Bem-vindo, Cleber! 🙌" },
-  { t: 5728, nome:"Guto H.",      msg:"o IDECAN deveria chamar IDECÃO kkk" },
-  { t: 5730, nome:"Rose R.",      msg:"sempre sai edital de IF?" },
-  { t: 5770, nome:"Prof. Manoel", host:true, msg:"Fechei por aqui, pessoal! Dúvida ou pra garantir sua vaga, chama a gente no WhatsApp. O cupom "+CUPOM+" vale até sexta, 23:59 ⏳", link:EQUIPE_WHATS, linkTxt:"Falar no WhatsApp" }
+  { t:     4, nome:"Prof. Manoel", host:true, msg:"Boa noite, pessoal! Já estou vendo gente chegando. Comenta de onde você fala e qual a sua área 👇" },   // 0:04
+  { t:    11, nome:"Fernanda R.", msg:"Boa noite! Fortaleza, CE. Pedagogia" },   // 0:11
+  { t:    17, nome:"Diego M.", msg:"Salvador aqui, professor! Matemática" },   // 0:17
+  { t:    24, nome:"Cláudia S.", msg:"Curitiba presente 🙌 letras" },   // 0:24
+  { t:    31, nome:"Rafael A.", msg:"professor, está sem áudio aqui" },   // 0:31
+  { t:    36, nome:"Tatiane L.", msg:"sem áudio também" },   // 0:36
+  { t:    44, nome:"Marcos V.", msg:"aqui também mudo" },   // 0:44
+  { t:    52, nome:"Prof. Manoel", host:true, msg:"Um minuto, pessoal, equipe já sinalizou que precisa ajustar o áudio aqui 🎙️" },   // 0:52
+  { t:    65, nome:"Vânia C.", msg:"Recife, PE. Química. Esperando o áudio" },   // 1:05
+  { t:    74, nome:"Juliana S.", msg:"BH, Minas. Biologia 🙌" },   // 1:14
+  { t:    82, nome:"Elton R.", msg:"São Luís, MA. História" },   // 1:22
+  { t:    93, nome:"Rafael A.", msg:"voltou o áudio! 🙌" },   // 1:33
+  { t:    98, nome:"Tatiane L.", msg:"voltou aqui também" },   // 1:38
+  { t:   105, nome:"Prof. Manoel", host:true, msg:"Voltou? Então bora." },   // 1:45
+  { t:   118, nome:"Priscila O.", msg:"Londrina, PR. Educação física" },   // 1:58
+  { t:   132, nome:"Gustavo H.", msg:"Brasília, DF. Física. TAE também vale essa aula?" },   // 2:12
+  { t:   157, nome:"Aline P.", msg:"IFSULDEMINAS com 45 dias... foi exatamente o que aconteceu comigo 😩" },   // 2:37
+  { t:   168, nome:"Prof. Manoel", host:true, msg:"Vale sim, Gustavo. Professor EBTT e TAE. Você encontra aqui o movimento dos outros institutos no nosso Vagas IF 👇", link:RADAR_LP, linkTxt:"Abrir o Vagas IF" },   // 2:48
+  { t:   188, nome:"Sandra M.", msg:"3% 😳" },   // 3:08
+  { t:   196, nome:"Bruno C.", msg:"97% fica de fora. eu fui um deles em 2023" },   // 3:16
+  { t:   225, nome:"Carla M.", msg:"fico até o fim então kk" },   // 3:45
+  { t:   235, nome:"Prof. Manoel", host:true, msg:"Quem está ao vivo comigo pega o brinde aqui 👇 No fim da aula eu solto a palavra-chave para você resgatar o Mapa das Questões 🔑", link:BRINDE, linkTxt:"Pegar o brinde" },   // 3:55
+  { t:   262, nome:"Tainá M.", msg:"peguei! 🙌" },   // 4:22
+  { t:   270, nome:"Wesley A.", msg:"mandei mensagem pra equipe" },   // 4:30
+  { t:   291, nome:"Camila R.", msg:"o mapa já mostra o que mais cai por disciplina? que útil" },   // 4:51
+  { t:   345, nome:"Fernando D.", msg:"não é palestra motivacional, gostei kk" },   // 5:45
+  { t:   473, nome:"Iara B.", msg:"70% começaram de 6 a 10 meses antes? achei que deveria começar só após o edital sair" },   // 7:53
+  { t:   495, nome:"Simone T.", msg:"metade só passou depois do primeiro concurso? isso me conforta, já tentei 2x" },   // 8:15
+  { t:   547, nome:"Bruna C.", msg:"estou cansada de ser professora do jeito que é hoje" },   // 9:07
+  { t:   562, nome:"Rafael G.", msg:"1000 inscritos, 30 aprovados 😱" },   // 9:22
+  { t:   672, nome:"Sandra M.", msg:"dois terços nem fazem a nota mínima. então a briga é entre 300, não 1000" },   // 11:12
+  { t:   732, nome:"Cléber M.", msg:"\"perdeu para ele mesmo\" 💔" },   // 12:12
+  { t:   777, nome:"Juliana S.", msg:"quem faz o que a maioria faz tem o resultado da maioria. é isso" },   // 12:57
+  { t:   827, nome:"Marcos V.", msg:"eu sou o cara das milhões de videoaulas kkkk 🙋" },   // 13:47
+  { t:   867, nome:"Tatiane L.", msg:"todo mundo que passa tem rotina real. preciso ouvir isso" },   // 14:27
+  { t:   937, nome:"Vânia C.", msg:"32 horas em sala, burnout... professor, essa é a minha vida agora" },   // 15:37
+  { t:  1122, nome:"Priscila O.", msg:"mesmo doutor em química eliminado na nota de corte? 😳" },   // 18:42
+  { t:  1197, nome:"Gustavo H.", msg:"título não aprova. só desempata na terceira etapa. nunca tinham me explicado assim" },   // 19:57
+  { t:  1282, nome:"Fernanda R.", msg:"a prova por ser objetiva não mede o quanto você sabe. mede quantas questões você acerta 🎯" },   // 21:22
+  { t:  1367, nome:"Cláudia S.", msg:"então o método nasceu da prova que ele perdeu? 🥹" },   // 22:47
+  { t:  1582, nome:"Aline P.", msg:"questão é feita pra você errar. agora faz sentido tanto erro bobo" },   // 26:22
+  { t:  1685, nome:"Bruno C.", msg:"15 mil por mês com 16 horas de aula 😍" },   // 28:05
+  { t:  1721, nome:"Prof. Manoel", host:true, msg:"Chegou agora? Bem-vindo(a). Se ainda não pegou o brinde, manda mensagem para a equipe por aqui 👇 A palavra-chave eu falo no fim.", link:BRINDE, linkTxt:"Pegar o brinde" },   // 28:41
+  { t:  1737, nome:"Renata A.", msg:"cheguei agora! peguei, obrigada" },   // 28:57
+  { t:  1962, nome:"Tainá M.", msg:"abriu o edital ao vivo 👀" },   // 32:42
+  { t:  2022, nome:"Iara B.", msg:"22 subtópicos só de pedagógico 😵" },   // 33:42
+  { t:  2132, nome:"Carla M.", msg:"250 subtópicos?? nunca tinha parado pra contar" },   // 35:32
+  { t:  2147, nome:"Diego N.", msg:"e só 20% cai na prova. o problema é saber quais" },   // 35:47
+  { t:  2192, nome:"Patrícia L.", msg:"1 hora pra estudar a LDB inteira? não dá nem pra ler" },   // 36:32
+  { t:  2257, nome:"Rafael G.", msg:"1.500 horas 😱" },   // 37:37
+  { t:  2282, nome:"Sandra M.", msg:"2 horas por dia... 750 dias. dois anos" },   // 38:02
+  { t:  2302, nome:"Juliana S.", msg:"a conta não bate com a minha vida" },   // 38:22
+  { t:  2362, nome:"Cléber M.", msg:"professor é o profissional mais inteligente 🙌 verdade" },   // 39:22
+  { t:  2397, nome:"André P.", msg:"não fecha. nem com 4 horas" },   // 39:57
+  { t:  2403, nome:"Bruna C.", msg:"não fecha 😔" },   // 40:03
+  { t:  2410, nome:"Fernando D.", msg:"com 2h por dia? impossível" },   // 40:10
+  { t:  2417, nome:"Tatiane L.", msg:"a conta não fecha nem perto" },   // 40:17
+  { t:  2455, nome:"Marcos V.", msg:"tô ficando desanimado só de ver a conta, sério" },   // 40:55
+  { t:  2487, nome:"Vânia C.", msg:"kkk ele viu a mensagem do Marcos" },   // 41:27
+  { t:  2517, nome:"Priscila O.", msg:"\"perguntas que ninguém responde\". é isso que eu sinto" },   // 41:57
+  { t:  2537, nome:"Aline P.", msg:"questão de prefeitura do interior só porque é a mesma banca, eu faço isso 🙈" },   // 42:17
+  { t:  2607, nome:"Gustavo H.", msg:"a organização não sobrevive. chega uma semana ruim e vai tudo embora" },   // 43:27
+  { t:  2667, nome:"Elton R.", msg:"nunca tinha pensado que vitalício era sinônimo disso" },   // 44:27
+  { t:  2807, nome:"Fernanda R.", msg:"curadoria = estudar só o que cai. simples de falar, difícil de fazer sozinha kkk" },   // 46:47
+  { t:  2917, nome:"Larissa F.", msg:"comunidade de quem trabalha e estuda é silenciosa mesmo kk não dá tempo" },   // 48:37
+  { t:  2972, nome:"Renata A.", msg:"saber o que fazer hoje, amanhã e semana que vem. é só isso que eu quero!" },   // 49:32
+  { t:  3042, nome:"Camila R.", msg:"classificar questão por tópico... trabalho demais" },   // 50:42
+  { t:  3217, nome:"Wesley A.", msg:"peso da prova: 60% específico, 10% português. e eu passava horas em português 🤦" },   // 53:37
+  { t:  3287, nome:"Tainá M.", msg:"curso de português é pra quem faz tribunal, não pra IF. faz sentido" },   // 54:47
+  { t:  3353, nome:"Iara B.", msg:"certo!" },   // 55:53
+  { t:  3358, nome:"Carla M.", msg:"certíssimo" },   // 55:58
+  { t:  3364, nome:"Diego N.", msg:"certo demais, professor" },   // 56:04
+  { t:  3370, nome:"Patrícia L.", msg:"está certo. dói mas está certo kkk" },   // 56:10
+  { t:  3527, nome:"Juliana S.", msg:"PCI Concursos anotado" },   // 58:47
+  { t:  3567, nome:"Cléber M.", msg:"baixar uma por uma kkk é isso que dá fazer sozinho" },   // 59:27
+  { t:  3697, nome:"André P.", msg:"mais horas no que mais cai, estudo + questão + revisão por tópico. claro" },   // 1:01:37
+  { t:  3782, nome:"Fernando D.", msg:"não é complicado, é trabalhoso" },   // 1:03:02
+  { t:  3788, nome:"Tatiane L.", msg:"simples de entender" },   // 1:03:08
+  { t:  3795, nome:"Marcos V.", msg:"trabalhoso demais sozinho" },   // 1:03:15
+  { t:  3982, nome:"Gustavo H.", msg:"chegar com 50% bem feito > tentar 100% e não fechar nada" },   // 1:06:22
+  { t:  4042, nome:"Elton R.", msg:"saiu vários editais de uma vez agora. é verdade" },   // 1:07:22
+  { t:  4097, nome:"Cláudia S.", msg:"5 campi novos, 600 professores em 3 anos e só 100 vagas? vai ter mais concurso então..." },   // 1:08:17
+  { t:  4132, nome:"Prof. Manoel", host:true, msg:"24 campi autorizados pelo MEC e 14 editais só no ano passado. Quem quer acompanhar comissão, banca e edital em tempo real entra no Vagas IF 👇", link:RADAR_LP, linkTxt:"Entrar no Vagas IF" },   // 1:08:52
+  { t:  4152, nome:"Diego M.", msg:"entrei no Vagas IF 🙌" },   // 1:09:12
+  { t:  4277, nome:"Renata A.", msg:"que plataforma bonita 😍" },   // 1:11:17
+  { t:  4297, nome:"Camila R.", msg:"filtra por disciplina, pré-edital e tópico?" },   // 1:11:37
+  { t:  4407, nome:"Wesley A.", msg:"tutor especialista na lei daquela questão?? 🤯" },   // 1:13:27
+  { t:  4477, nome:"Tainá M.", msg:"salvar a questão, anotar, revisar depois. organizado demais" },   // 1:14:37
+  { t:  4547, nome:"Iara B.", msg:"cadernos de questões por disciplina e tópico 👏" },   // 1:15:47
+  { t:  4597, nome:"Carla M.", msg:"23 páginas de legislação enxuta. não 500 igual tem uns PDFs aqui" },   // 1:16:37
+  { t:  4677, nome:"Diego N.", msg:"material construído de trás pra frente, a partir das questões. faz todo sentido" },   // 1:17:57
+  { t:  4717, nome:"Patrícia L.", msg:"casca de banana, pegadinha da banca... amei as seções kkk" },   // 1:18:37
+  { t:  4777, nome:"Rafael G.", msg:"material de administração muda de IF pra IF? sério?" },   // 1:19:37
+  { t:  4852, nome:"Sandra M.", msg:"cronograma tático 👀" },   // 1:20:52
+  { t:  4917, nome:"Juliana S.", msg:"domingo de folga e terça só 1 hora. é a MINHA rotina" },   // 1:21:57
+  { t:  4967, nome:"Cléber M.", msg:"desmarcar tópico de português que eu já domino. ótimo" },   // 1:22:47
+  { t:  5067, nome:"Bruna C.", msg:"revisão aparece sozinha com base nas questões que errei 😍" },   // 1:24:27
+  { t:  5157, nome:"Fernando D.", msg:"comunidade por área + encontro mensal com o professor 🙌" },   // 1:25:57
+  { t:  5457, nome:"Gustavo H.", msg:"radar de editais, calculadora de salário, biblioteca de editais... tem muita coisa" },   // 1:30:57
+  { t:  5512, nome:"Elton R.", msg:"12x 174,70 pra um ano de tudo isso é justo" },   // 1:31:52
+  { t:  5547, nome:"Cláudia S.", msg:"174 por mês pra mudar de carreira. é menos que eu gasto de transporte" },   // 1:32:27
+  { t:  5599, nome:"Prof. Manoel", host:true, msg:"Link aqui embaixo 👇 aplica o cupom HOJE500 no checkout e fica 12x R$ 124,70 (R$ 500 de desconto direto). Vale até hoje, 23h59.", link:DOSSIE_CHECKOUT, linkTxt:"Garantir com cupom HOJE500" },   // 1:33:19
+  { t:  5627, nome:"Diego M.", msg:"500 de desconto 😳" },   // 1:33:47
+  { t:  5637, nome:"Larissa F.", msg:"124,70 por mês. dá" },   // 1:33:57
+  { t:  5667, nome:"Renata A.", msg:"10 primeiros levam a Dissecando a Didática junto?? 😱" },   // 1:34:27
+  { t:  5697, nome:"Camila R.", msg:"a didática é onde a galera tira 10, ele mostrou lá no início" },   // 1:34:57
+  { t:  5737, nome:"Simone T.", msg:"análise do plano de aula e dos slides no formato do IF 👏" },   // 1:35:37
+  { t:  5787, nome:"Wesley A.", msg:"etapa 1 e etapa 2 resolvidas. as que eliminam" },   // 1:36:27
+  { t:  5847, nome:"Tainá M.", msg:"artigo científico não conta pra IF. ufa kk" },   // 1:37:27
+  { t:  5877, nome:"Iara B.", msg:"doutora com currículo imenso x especialista com 10 anos de sala: experiência vale mais. adorei" },   // 1:37:57
+  { t:  5925, nome:"Prof. Manoel", host:true, msg:"Bem-vindos Flávia, Hedder, Fernando e Flora! 🙌 Já são 4 dentro. Restam 6 vagas com a Dissecando a Didática inclusa." },   // 1:38:45
+  { t:  5935, nome:"Flávia N.", msg:"entrei!! 🎉" },   // 1:38:55
+  { t:  5941, nome:"Hedder S.", msg:"garanti 🙌" },   // 1:39:01
+  { t:  5949, nome:"Flora M.", msg:"consegui, ansiosa demais" },   // 1:39:09
+  { t:  5957, nome:"Carla M.", msg:"até hoje 23h59. sem prorrogação" },   // 1:39:17
+  { t:  5977, nome:"Prof. Manoel", host:true, msg:"Quer falar com alguém antes de decidir? João, Alda, Ágatha e Alícia estão atendendo agora 👇", link:EQUIPE_WHATS, linkTxt:"Falar com a equipe" },   // 1:39:37
+  { t:  6027, nome:"Prof. Manoel", host:true, msg:"Direto para o checkout, com o cupom HOJE500 👇", link:DOSSIE_CHECKOUT, linkTxt:"Ir para o checkout" },   // 1:40:27
+  { t:  6047, nome:"Patrícia L.", msg:"comprei!! 🙌🙌" },   // 1:40:47
+  { t:  6082, nome:"Prof. Manoel", host:true, msg:"Palavra-chave do brinde: IF2026 🔑 Resgata o Mapa das Questões aqui 👇", link:BRINDE, linkTxt:"Resgatar meu brinde" },   // 1:41:22
+  { t:  6097, nome:"Juliana S.", msg:"IF2026 anotado!" },   // 1:41:37
+  { t:  6105, nome:"Bruna C.", msg:"resgatei 🙌" },   // 1:41:45
+  { t:  6112, nome:"Cléber M.", msg:"o Baú de Provas vai junto? 😍" },   // 1:41:52
+  { t:  6132, nome:"Prof. Manoel", host:true, msg:"Restam 5 vagas com a Dissecando a Didática inclusa. Perguntas ao vivo agora 👇" },   // 1:42:12
+  { t:  6145, nome:"Edna P.", msg:"professor, vai ficar gravado?" },   // 1:42:25
+  { t:  6153, nome:"André P.", msg:"a mentoria da didática vale amanhã também?" },   // 1:42:33
+  { t:  6165, nome:"Socorro M.", msg:"quero passar no concurso do IFRN! 🙏" },   // 1:42:45
+  { t:  6179, nome:"Vália R.", msg:"tem material específico de informática?" },   // 1:42:59
+  { t:  6192, nome:"Fernando D.", msg:"mensagem pra equipe enviada, esperando o link do cupom" },   // 1:43:12
+  { t:  6229, nome:"Prof. Manoel", host:true, msg:"Mais uma pessoa dentro. 4 vagas com a Didática inclusa." },   // 1:43:49
+  { t:  6252, nome:"Rafael A.", msg:"o material específico cobre tudo que está no edital?" },   // 1:44:12
+  { t:  6285, nome:"Márcia T.", msg:"a PND (Prova Nacional Docente) vai valer pro IF?" },   // 1:44:45
+  { t:  6337, nome:"Vânia C.", msg:"PND esquece. anotado kk" },   // 1:45:37
+  { t:  6377, nome:"Prof. Manoel", host:true, msg:"Bem-vindos Paulo César e Adriana! 🙌" },   // 1:46:17
+  { t:  6383, nome:"Paulo César", msg:"cheguei!! professor de química, vamos pra cima 💪" },   // 1:46:23
+  { t:  6389, nome:"Adriana L.", msg:"entrei também 🎉" },   // 1:46:29
+  { t:  6397, nome:"Cristina F.", msg:"o material é por edital ou por área?" },   // 1:46:37
+  { t:  6425, nome:"Petrúcia S.", msg:"estou ficando desanimada, não saiu edital pra minha área ainda" },   // 1:47:05
+  { t:  6437, nome:"Prof. Manoel", host:true, msg:"Paulo, o link está aqui 👇 cupom HOJE500", link:DOSSIE_CHECKOUT, linkTxt:"Garantir com cupom HOJE500" },   // 1:47:17
+  { t:  6452, nome:"Vanessa O.", msg:"professor, já sou aluna e estou meio perdida na plataforma" },   // 1:47:32
+  { t:  6482, nome:"Prof. Manoel", host:true, msg:"Vanessa, chama o João no suporte que ele te guia na plataforma 👇", link:EQUIPE_WHATS, linkTxt:"Falar com o suporte" },   // 1:48:02
+  { t:  6487, nome:"Rodrigo S.", msg:"e o IFSP? são 12 campi em SP + 4 avançados virando campus, né?" },   // 1:48:07
+  { t:  6537, nome:"Lia M.", msg:"dá pra estudar por prova anterior mesmo sem o edital novo?" },   // 1:48:57
+  { t:  6567, nome:"Lucas T.", msg:"automação quase não tem concurso, né professor" },   // 1:49:27
+  { t:  6602, nome:"Paula R.", msg:"tenho 62 anos. ainda vale a pena tentar?" },   // 1:50:02
+  { t:  6637, nome:"Tatiane L.", msg:"até 75 anos dá pra ser professor de IF. 13 anos de carreira ainda, Paula 💪" },   // 1:50:37
+  { t:  6707, nome:"Geraldo A.", msg:"o áudio estava baixo no início, agora está ótimo" },   // 1:51:47
+  { t:  6732, nome:"Rodrigo S.", msg:"IFSP saindo agora... se eu não comecei ainda, dá tempo?" },   // 1:52:12
+  { t:  6757, nome:"Jéssica V.", msg:"esse método é punk kkk gostei" },   // 1:52:37
+  { t:  6787, nome:"Marcos V.", msg:"o método de 45 dias é o Dossiê?" },   // 1:53:07
+  { t:  6815, nome:"Jéssica V.", msg:"o site de questões que você mostrou é de vocês?" },   // 1:53:35
+  { t:  6827, nome:"Tiago B.", msg:"onde baixo as provas antigas do IF?" },   // 1:53:47
+  { t:  6855, nome:"Sônia R.", msg:"perdi a palavra-chave 😭" },   // 1:54:15
+  { t:  6861, nome:"Iara B.", msg:"é IF2026, Sônia" },   // 1:54:21
+  { t:  6869, nome:"Edna P.", msg:"vale a pena o Dossiê? é completo mesmo?" },   // 1:54:29
+  { t:  6892, nome:"Edna P.", msg:"fica gravada a aula?" },   // 1:54:52
+  { t:  6909, nome:"Prof. Manoel", host:true, msg:"Bem-vindos Kalin e Felipe! 🙌 Restam 3 vagas com a Didática inclusa." },   // 1:55:09
+  { t:  6917, nome:"Kalin S.", msg:"entrei!!" },   // 1:55:17
+  { t:  6923, nome:"Felipe N.", msg:"dentro 🙌" },   // 1:55:23
+  { t:  6947, nome:"Marley C.", msg:"queria muito, mas só recebo no fim do mês 😢" },   // 1:55:47
+  { t:  6975, nome:"Prof. Manoel", host:true, msg:"Marley, chama o comercial e explica a sua situação. A equipe vê o que dá para fazer 👇", link:EQUIPE_WHATS, linkTxt:"Chamar o comercial" },   // 1:56:15
+  { t:  6982, nome:"Tássia A.", msg:"o conteúdo muda muito de um estado pro outro?" },   // 1:56:22
+  { t:  7015, nome:"Prof. Manoel", host:true, msg:"Bem-vinda, Adriana! Já são 8. Restam 2 vagas com a Didática inclusa." },   // 1:56:55
+  { t:  7022, nome:"Geraldo A.", msg:"se eu comprar agora recebo o acesso no email?" },   // 1:57:02
+  { t:  7032, nome:"Fernando D.", msg:"fabricação mecânica ainda não tem todos os tópicos do edital" },   // 1:57:12
+  { t:  7097, nome:"Filipe C.", msg:"professor, fala dos novos IFs. quais costumam abrir concurso?" },   // 1:58:17
+  { t:  7122, nome:"Filipe C.", msg:"sou coordenador pedagógico, 44 horas" },   // 1:58:42
+  { t:  7147, nome:"Iara B.", msg:"quais IFs do Nordeste podem abrir concurso nos próximos meses?" },   // 1:59:07
+  { t:  7177, nome:"Prof. Manoel", host:true, msg:"Bahia, Sergipe, Piauí, Ceará, Rio... tudo isso eu acompanho no Vagas IF. Entra aqui que a equipe avisa quando mexer 👇", link:RADAR_LP, linkTxt:"Entrar no Vagas IF" },   // 1:59:37
+  { t:  7199, nome:"Mayara L.", msg:"e o Rio de Janeiro, professor? IFRJ" },   // 1:59:59
+  { t:  7222, nome:"Mayara L.", msg:"pode sair amanhã 😳 IDECAN 😱" },   // 2:00:22
+  { t:  7247, nome:"Prof. Manoel", host:true, msg:"Última chamada: 2 vagas com a Dissecando a Didática inclusa, até hoje 23h59. Cupom HOJE500 👇", link:DOSSIE_CHECKOUT, linkTxt:"Garantir com cupom HOJE500" },   // 2:00:47
+  { t:  7262, nome:"Bruno C.", msg:"obrigado, professor! aula top 🙏" },   // 2:01:02
+  { t:  7269, nome:"Cláudia S.", msg:"melhor aula que eu já vi sobre IF. anotei tudo" },   // 2:01:09
+  { t:  7285, nome:"Prof. Manoel", host:true, msg:"Fechei por aqui, pessoal. Dúvida ou para garantir sua vaga com o cupom HOJE500, chama a equipe 👇 Estamos juntos até a aprovação 🙌", link:EQUIPE_WHATS, linkTxt:"Falar com a equipe" },   // 2:01:25
 ];
 /* ============================================================= */
 
@@ -408,8 +436,8 @@ function addMsg(nome,txt,kind,link,linkTxt){
   m.style.width=MASK_BOX.width+'%'; m.style.height=MASK_BOX.height+'%';})();
 
 // ---------- player Vturb + portão de horário ----------
-var VTURB_ID  = "vid-6a5dc0ca98b6e5f7c5ed4853";
-var VTURB_SRC = "https://scripts.converteai.net/8fb0c85a-c7c1-400e-a28a-5dc648d0969c/players/6a5dc0ca98b6e5f7c5ed4853/v4/player.js";
+var VTURB_ID  = "vid-6a85ca998eaf0dd6e3cc358e";
+var VTURB_SRC = "https://scripts.converteai.net/8fb0c85a-c7c1-400e-a28a-5dc648d0969c/players/6a85ca998eaf0dd6e3cc358e/v4/player.js";
 var pre=document.getElementById('pre'), vhost=document.getElementById('vhost'), vmounted=false;
 
 /* PORTÃO DE HORÁRIO
@@ -443,11 +471,9 @@ if (A && !A.jaComecou()){
 })();
 
 function showStart(titulo, rotulo){
-  document.getElementById('cd').style.display='none';
-  document.querySelector('.pre .k').textContent = titulo || 'Sua aula está começando';
-  var b=document.getElementById('startBtn');
-  if (rotulo) b.textContent = rotulo;
-  b.style.display='inline-block'; b.onclick=iniciar;
+  // Sem botão: a aula começa sozinha assim que a página abre (às 20h ou, para quem chega depois, no ponto em que está).
+  // Obs.: navegadores podem abrir o áudio mudo até o primeiro clique na página; o player Vturb mostra o aviso de "ativar som".
+  setTimeout(iniciar, 50);   // depois que o script inteiro carregou
 }
 function mountVturb(){
   if(vmounted) return; vmounted=true;
@@ -556,17 +582,12 @@ function revealOffer(scroll){
   if(scroll) v.scrollIntoView({behavior:'smooth',block:'start'});
 }
 
-// ---------- cronômetro do cupom: zera toda sexta 23:59 ----------
-function nextFriday2359(){
-  var now=new Date(), d=new Date(now), day=now.getDay(), add=(5-day+7)%7;
-  d.setDate(now.getDate()+add); d.setHours(23,59,59,0);
-  if(d.getTime()<=now.getTime()) d.setDate(d.getDate()+7);
-  return d;
-}
+// ---------- cronômetro do cupom: zera HOJE às 23:59 (o Manoel diz "até hoje, 23h59" no vídeo) ----------
+function hoje2359(){ var d=new Date(); d.setHours(23,59,59,0); if(d.getTime()<=Date.now()) d.setDate(d.getDate()+1); return d; }
 function pad(n){return (n<10?'0':'')+n;}
-function fmtLeft(ms){ if(ms<0)ms=0; var s=Math.floor(ms/1000),dd=Math.floor(s/86400);s%=86400;var hh=Math.floor(s/3600);s%=3600;var mm=Math.floor(s/60),ss=s%60; return (dd>0?dd+'d ':'')+pad(hh)+':'+pad(mm)+':'+pad(ss); }
-var cupomTarget=nextFriday2359();
-setInterval(function(){ var el=document.getElementById('cupomTimer'); if(!el)return; var lft=cupomTarget-Date.now(); if(lft<=0){cupomTarget=nextFriday2359();lft=cupomTarget-Date.now();} el.textContent='zera em '+fmtLeft(lft); },1000);
+function fmtLeft(ms){ if(ms<0)ms=0; var s=Math.floor(ms/1000),hh=Math.floor(s/3600);s%=3600;var mm=Math.floor(s/60),ss=s%60; return pad(hh)+':'+pad(mm)+':'+pad(ss); }
+var cupomTarget=hoje2359();
+setInterval(function(){ var el=document.getElementById('cupomTimer'); if(!el)return; var lft=cupomTarget-Date.now(); if(lft<=0){cupomTarget=hoje2359();lft=cupomTarget-Date.now();} el.textContent='zera em '+fmtLeft(lft); },1000);
 
 // ---------- chat do espectador ----------
 // ---------- moderação do chat ----------
