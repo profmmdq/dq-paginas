@@ -60,16 +60,6 @@
   .btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;max-width:360px;height:56px;margin:0 auto;border-radius:12px;border:none;cursor:pointer;background:linear-gradient(135deg,var(--laranja-vivo) 0%,var(--laranja) 100%);color:#fff;font-family:'Plus Jakarta Sans';font-size:16.5px;font-weight:700;text-decoration:none;box-shadow:0 10px 30px -10px rgba(255,117,31,.6)}
   .btn:disabled{background:rgba(252,127,72,.4);cursor:not-allowed;box-shadow:none}
   .btn.ghost{background:transparent;border:2px solid rgba(255,255,255,.25);box-shadow:none;font-size:15px;height:52px}
-  form.dq-lead-form{display:none;background:rgba(19,31,44,.6);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:22px;margin:18px auto 0;max-width:400px;text-align:left}
-  form.dq-lead-form.aberto{display:block}
-  form.dq-lead-form label{display:block;font-size:13px;font-weight:600;color:rgba(241,243,230,.85);margin-bottom:14px}
-  form.dq-lead-form input{width:100%;height:50px;margin-top:6px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);border-radius:12px;padding:0 15px;color:var(--creme);font-size:16px;outline:none;font-family:inherit}
-  form.dq-lead-form input:focus{border-color:var(--laranja-vivo)}
-  [data-dq-error]{display:none;color:var(--danger);font-size:13px;margin-top:10px;line-height:1.4}
-  [data-dq-error].dq-visible{display:block}
-  #dataZone .liberado{background:rgba(110,162,124,.14);border:1px solid rgba(110,162,124,.5);border-radius:16px;padding:24px;text-align:center;margin-top:18px}
-  #dataZone .liberado h3{font-family:'Plus Jakarta Sans';font-size:18px;margin-bottom:8px;color:var(--verde)}
-  #dataZone .liberado p{font-size:14px;color:rgba(241,243,230,.75);margin-bottom:16px}
   /* áreas */
   .areas{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
   .areas span{font-size:13.5px;font-weight:600;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);border-radius:100px;padding:8px 15px;color:rgba(241,243,230,.9)}
@@ -88,6 +78,8 @@
   .cta-box h2{margin:0 0 8px;font-size:23px}
   .cta-box p{font-size:15px;color:rgba(241,243,230,.75);line-height:1.55;margin-bottom:22px}
   .foot{font-size:12.5px;color:rgba(241,243,230,.45);text-align:center;padding:34px 20px 40px;line-height:1.5}
+  .flutua{position:fixed;right:18px;bottom:18px;z-index:50;display:flex;align-items:center;gap:9px;background:linear-gradient(135deg,var(--laranja-vivo) 0%,var(--laranja) 100%);color:#fff;font-family:'Plus Jakarta Sans';font-weight:700;font-size:15.5px;padding:14px 20px;border-radius:100px;text-decoration:none;box-shadow:0 12px 34px -8px rgba(255,117,31,.7),0 4px 14px rgba(0,0,0,.35);animation:pulsa 2.6s ease-in-out infinite}
+  @keyframes pulsa{0%,100%{transform:scale(1)}50%{transform:scale(1.045)}}
   @media(min-width:560px){.depos{grid-template-columns:1fr 1fr 1fr}}
   @media(max-width:480px){h1{font-size:28px}}
 </style>
@@ -106,36 +98,9 @@
 
     <div class="gate">
       <h2>📥 Quero o mapa em PDF</h2>
-      <p>Preenche aqui embaixo e o download libera na hora, nesta mesma página.</p>
-      <button class="btn" id="abrirForm" type="button">Liberar meu mapa gratuito</button>
-
-      <!-- NÃO REMOVER (contrato CRM) — dq-lead-form + data-secao + data-slug ligam o form ao lead-capture.js.
-           Cadastrar a página no CRM (aba Captação Externa) com secao=brinde, slug=materiais e final = Conteúdo. -->
-      <form class="dq-lead-form" data-secao="brinde" data-slug="materiais" id="formMapa">
-        <label>Nome
-          <input type="text" name="nome" placeholder="Seu nome" required autocomplete="name">
-        </label>
-        <label>WhatsApp
-          <input type="tel" name="whatsapp" placeholder="(00) 00000-0000" required autocomplete="tel" inputmode="numeric">
-        </label>
-        <label>E-mail
-          <input type="email" name="email" placeholder="seu@email.com" autocomplete="email">
-        </label>
-        <button type="submit" class="btn">Baixar o mapa agora</button>
-        <!-- NÃO REMOVER (contrato CRM): mensagens de erro do lead-capture.js -->
-        <div data-dq-error></div>
-      </form>
-
-      <!-- NÃO REMOVER (contrato CRM) se o final = Conteúdo: revelado no dq:unlock -->
-      <div id="dataZone" style="display:none">
-        <div class="liberado">
-          <h3>✅ Liberado! Bom estudo, professor.</h3>
-          <p>O seu Mapa das Questões de Conhecimentos Pedagógicos está pronto. E se quiser o da sua área específica, é só pedir para a Alda no botão do final da página.</p>
-          <a class="btn" href="mapa-conhecimentos-pedagogicos.pdf" target="_blank" rel="noopener">📄 Abrir o mapa em PDF</a>
-        </div>
-      </div>
+      <p>Download direto, sem cadastro. É clicar e estudar.</p>
+      <a class="btn" href="mapa-conhecimentos-pedagogicos.pdf" target="_blank" rel="noopener">Baixar o mapa gratuito</a>
     </div>
-
 
     <h2>Veja por dentro o material que é feito <span>da questão para a teoria</span></h2>
     <p class="h2sub">Você acabou de receber a LDBEN completa no grupo. Agora compare: aqui está como esse mesmo conteúdo vira um material Dissecado, do jeito que a banca cobra na prova de professor de IF. E tem um pronto para a sua área também.</p>
@@ -183,28 +148,12 @@
       <h2>Quero o demonstrativo da minha área</h2>
       <p>Chama a Alda, nossa consultora de carreira, diz qual é a sua área (ou as suas duas áreas) e ela te envia o material demonstrativo específico, sem custo.</p>
       <!-- LINK DA ALDA: colar aqui o link traqueado pronto (wa.link / app.wa.link) -->
-      <a class="btn" href="https://wa.link/dq-consultor">📲 Pedir meu material pela Alda</a>
+      <a class="btn" href="https://wa.link/materiais-mapa">📲 Pedir meu material pela Alda</a>
     </div>
   </div>
 </section>
 <div class="foot">Dissecando Questões · Método DQ IF · Material demonstrativo gratuito, sem compromisso.</div>
 
-<!-- NÃO REMOVER (contrato CRM): o motor da captação (caminho válido quando a página vive em /brinde/materiais/) -->
-<script src="../../assets/js/lead-capture.js"></script>
-<script>
-  // abre o formulário no clique do botão do gate
-  document.getElementById('abrirForm').addEventListener('click', function(){
-    document.getElementById('formMapa').classList.add('aberto');
-    this.style.display = 'none';
-  });
-  // NÃO REMOVER (contrato CRM): revela o conteúdo no desbloqueio
-  document.addEventListener('dq:unlock', function () {
-    var zone = document.getElementById('dataZone');
-    if (zone) zone.style.display = 'block';
-    var form = document.getElementById('formMapa');
-    if (form) form.style.display = 'none';
-    if (zone && zone.scrollIntoView) zone.scrollIntoView({ behavior: 'smooth' });
-  });
-</script>
+<a class="flutua" href="https://wa.link/materiais-mapa">📲 Peça o seu</a>
 </body>
 </html>
