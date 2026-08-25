@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Materiais Dissecados de demonstração — Dissecando Questões</title>
+<meta name="description" content="Veja por dentro o material Dissecado: teoria enxuta feita das questões, casca de banana das bancas e questões comentadas em 3 camadas. Baixe o Mapa de Conhecimentos Pedagógicos e peça o material da sua área.">
+<link rel="canonical" href="https://site.dissecandoquestoes.com/brinde/materiais/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://site.dissecandoquestoes.com/brinde/materiais/">
+<meta property="og:title" content="Materiais Dissecados de demonstração — veja por dentro">
+<meta property="og:description" content="Teoria enxuta feita das questões, casca de banana das bancas e questões comentadas em 3 camadas. Tem para a sua área.">
+<meta property="og:image" content="https://site.dissecandoquestoes.com/brinde/materiais/img/mapa-pdf-exemplo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--laranja-vivo:#FF751F;--laranja:#FC7F48;--creme:#F1F3E6;--carvao:#131F2C;--navy:#0C3D64;--petrol:#16495C;--verde:#6EA27C;--danger:#fa5d5d}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'DM Sans',system-ui,sans-serif;background:radial-gradient(ellipse at top,var(--petrol) 0%,var(--navy) 40%,var(--carvao) 100%);color:var(--creme);-webkit-font-smoothing:antialiased}
+  section{display:flex;flex-direction:column;align-items:center;padding:0 20px}
+  .wrap{width:100%;max-width:640px}
+  .logo{display:flex;align-items:center;justify-content:center;gap:9px;margin:32px 0 40px}
+  .logo .mark{width:26px;height:26px;border-radius:7px;background:var(--laranja-vivo);color:#fff;font-family:'Plus Jakarta Sans';font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center}
+  .logo .name{font-family:'Plus Jakarta Sans';font-weight:700;font-size:14px;letter-spacing:2px;text-transform:uppercase;color:rgba(241,243,230,.85)}
+  .eyebrow{display:inline-block;background:rgba(255,117,31,.15);border:1px solid rgba(255,117,31,.45);color:var(--laranja-vivo);font-weight:700;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;padding:8px 16px;border-radius:100px;margin-bottom:18px}
+  h1{font-family:'Plus Jakarta Sans';font-size:34px;font-weight:800;line-height:1.15;margin-bottom:16px}
+  h1 span{color:var(--laranja-vivo)}
+  .sub{font-size:17px;color:rgba(241,243,230,.78);line-height:1.55;margin-bottom:36px}
+  h2{font-family:'Plus Jakarta Sans';font-size:24px;font-weight:800;line-height:1.2;margin:52px 0 10px}
+  h2 span{color:var(--laranja-vivo)}
+  .h2sub{font-size:15px;color:rgba(241,243,230,.7);line-height:1.5;margin-bottom:24px}
+  .foto{width:100%;border-radius:16px;box-shadow:0 24px 60px -20px rgba(0,0,0,.6);display:block}
+  .foto-nota{font-size:12.5px;color:rgba(241,243,230,.5);text-align:center;margin-top:10px}
+  .card{background:rgba(19,31,44,.6);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:22px 24px;margin-bottom:14px;backdrop-filter:blur(8px)}
+  .card h3{font-family:'Plus Jakarta Sans';font-size:16px;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+  .card p{font-size:14.5px;color:rgba(241,243,230,.75);line-height:1.55}
+  .tag{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 9px;border-radius:100px}
+  .tag.teoria{background:rgba(110,162,124,.2);color:var(--verde);border:1px solid rgba(110,162,124,.5)}
+  .tag.banana{background:rgba(250,93,93,.15);color:#ff9c9c;border:1px solid rgba(250,93,93,.45)}
+  .tag.chave{background:rgba(255,117,31,.15);color:var(--laranja-vivo);border:1px solid rgba(255,117,31,.45)}
+  /* questão dissecada demo */
+  .questao{background:var(--creme);color:var(--carvao);border-radius:16px;padding:26px 26px 22px;margin:6px 0 10px;box-shadow:0 24px 60px -20px rgba(0,0,0,.6)}
+  .questao .qcab{font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--navy);opacity:.75;margin-bottom:12px}
+  .questao .enun{font-size:15px;line-height:1.55;font-weight:500;margin-bottom:14px}
+  .questao .alt{font-size:14.5px;line-height:1.5;padding:9px 12px;border-radius:10px;margin-bottom:6px;border:1.5px solid #dcd8c8}
+  .questao .alt b{margin-right:6px}
+  .questao .alt.certa{border-color:var(--verde);background:rgba(110,162,124,.12)}
+  .diss{border-left:4px solid var(--laranja-vivo);background:#fff;border-radius:0 12px 12px 0;padding:14px 16px;margin-top:14px}
+  .diss h4{font-size:12px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--laranja-vivo);margin-bottom:6px}
+  .diss p{font-size:13.5px;line-height:1.55;color:#2c3947}
+  .diss.verde{border-color:var(--verde)}
+  .diss.verde h4{color:#3c7a4f}
+  .diss.navy{border-color:var(--navy)}
+  .diss.navy h4{color:var(--navy)}
+  /* GATE DO PDF */
+  .gate{background:rgba(19,31,44,.7);border:1px solid rgba(255,117,31,.4);border-radius:18px;padding:28px 24px;margin:14px 0 6px;text-align:center}
+  .gate h2{margin:0 0 8px;font-size:22px}
+  .gate p{font-size:14.5px;color:rgba(241,243,230,.75);line-height:1.55;margin-bottom:18px}
+  .btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;max-width:360px;height:56px;margin:0 auto;border-radius:12px;border:none;cursor:pointer;background:linear-gradient(135deg,var(--laranja-vivo) 0%,var(--laranja) 100%);color:#fff;font-family:'Plus Jakarta Sans';font-size:16.5px;font-weight:700;text-decoration:none;box-shadow:0 10px 30px -10px rgba(255,117,31,.6)}
+  .btn:disabled{background:rgba(252,127,72,.4);cursor:not-allowed;box-shadow:none}
+  .btn.ghost{background:transparent;border:2px solid rgba(255,255,255,.25);box-shadow:none;font-size:15px;height:52px}
+  form.dq-lead-form{display:none;background:rgba(19,31,44,.6);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:22px;margin:18px auto 0;max-width:400px;text-align:left}
+  form.dq-lead-form.aberto{display:block}
+  form.dq-lead-form label{display:block;font-size:13px;font-weight:600;color:rgba(241,243,230,.85);margin-bottom:14px}
+  form.dq-lead-form input{width:100%;height:50px;margin-top:6px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);border-radius:12px;padding:0 15px;color:var(--creme);font-size:16px;outline:none;font-family:inherit}
+  form.dq-lead-form input:focus{border-color:var(--laranja-vivo)}
+  [data-dq-error]{display:none;color:var(--danger);font-size:13px;margin-top:10px;line-height:1.4}
+  [data-dq-error].dq-visible{display:block}
+  #dataZone .liberado{background:rgba(110,162,124,.14);border:1px solid rgba(110,162,124,.5);border-radius:16px;padding:24px;text-align:center;margin-top:18px}
+  #dataZone .liberado h3{font-family:'Plus Jakarta Sans';font-size:18px;margin-bottom:8px;color:var(--verde)}
+  #dataZone .liberado p{font-size:14px;color:rgba(241,243,230,.75);margin-bottom:16px}
+  /* áreas */
+  .areas{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+  .areas span{font-size:13.5px;font-weight:600;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);border-radius:100px;padding:8px 15px;color:rgba(241,243,230,.9)}
+  .areasnota{font-size:13.5px;color:rgba(241,243,230,.65);line-height:1.5;margin-top:8px}
+  /* depoimentos */
+  .depos{display:grid;grid-template-columns:1fr;gap:12px;margin-top:6px}
+  .depo{background:rgba(19,31,44,.6);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:18px 20px}
+  .depo .stars{color:#f5c542;font-size:14px;margin-bottom:8px;letter-spacing:2px}
+  .depo .t{font-size:14.5px;line-height:1.5;color:rgba(241,243,230,.85);margin-bottom:12px}
+  .depo .who{display:flex;align-items:center;gap:10px}
+  .depo .who img{width:34px;height:34px;border-radius:50%;object-fit:cover}
+  .depo .nm{font-weight:700;font-size:13.5px}
+  .depo .rl{font-size:12px;color:rgba(241,243,230,.6)}
+  /* CTA final */
+  .cta-box{background:rgba(19,31,44,.7);border:1px solid rgba(255,117,31,.4);border-radius:18px;padding:30px 26px;text-align:center;margin:48px 0 20px}
+  .cta-box h2{margin:0 0 8px;font-size:23px}
+  .cta-box p{font-size:15px;color:rgba(241,243,230,.75);line-height:1.55;margin-bottom:22px}
+  .foot{font-size:12.5px;color:rgba(241,243,230,.45);text-align:center;padding:34px 20px 40px;line-height:1.5}
+  @media(min-width:560px){.depos{grid-template-columns:1fr 1fr 1fr}}
+  @media(max-width:480px){h1{font-size:28px}}
+</style>
+</head>
+<body>
+<section>
+  <div class="wrap">
+    <div class="logo"><div class="mark">DQ</div><div class="name">Dissecando Questões</div></div>
+    <div style="text-align:center">
+      <div class="eyebrow">🎁 Material gratuito · baixe agora</div>
+      <h1>O <span>Mapa das Questões</span> de Conhecimentos Pedagógicos</h1>
+    </div>
+    <p class="h2sub">Conhecimentos Pedagógicos cai para todas as áreas. Esse mapa mostra o que as bancas de IF já cobraram na disciplina, tópico por tópico, com a frequência de cada um. Você para de estudar no escuro:</p>
+    <img class="foto" src="img/mapa-pdf-exemplo.png" alt="Exemplo do Mapa das Questões em PDF" loading="lazy">
+    <p class="foto-nota">É assim que o mapa chega para você: tópicos ordenados pelo que mais cai na prova.</p>
+
+    <div class="gate">
+      <h2>📥 Quero o mapa em PDF</h2>
+      <p>Preenche aqui embaixo e o download libera na hora, nesta mesma página.</p>
+      <button class="btn" id="abrirForm" type="button">Liberar meu mapa gratuito</button>
+
+      <!-- NÃO REMOVER (contrato CRM) — dq-lead-form + data-secao + data-slug ligam o form ao lead-capture.js.
+           Cadastrar a página no CRM (aba Captação Externa) com secao=brinde, slug=materiais e final = Conteúdo. -->
+      <form class="dq-lead-form" data-secao="brinde" data-slug="materiais" id="formMapa">
+        <label>Nome
+          <input type="text" name="nome" placeholder="Seu nome" required autocomplete="name">
+        </label>
+        <label>WhatsApp
+          <input type="tel" name="whatsapp" placeholder="(00) 00000-0000" required autocomplete="tel" inputmode="numeric">
+        </label>
+        <label>E-mail
+          <input type="email" name="email" placeholder="seu@email.com" autocomplete="email">
+        </label>
+        <button type="submit" class="btn">Baixar o mapa agora</button>
+        <!-- NÃO REMOVER (contrato CRM): mensagens de erro do lead-capture.js -->
+        <div data-dq-error></div>
+      </form>
+
+      <!-- NÃO REMOVER (contrato CRM) se o final = Conteúdo: revelado no dq:unlock -->
+      <div id="dataZone" style="display:none">
+        <div class="liberado">
+          <h3>✅ Liberado! Bom estudo, professor.</h3>
+          <p>O seu Mapa das Questões de Conhecimentos Pedagógicos está pronto. E se quiser o da sua área específica, é só pedir para a Alda no botão do final da página.</p>
+          <a class="btn" href="mapa-conhecimentos-pedagogicos.pdf" target="_blank" rel="noopener">📄 Abrir o mapa em PDF</a>
+        </div>
+      </div>
+    </div>
+
+
+    <h2>Veja por dentro o material que é feito <span>da questão para a teoria</span></h2>
+    <p class="h2sub">Você acabou de receber a LDBEN completa no grupo. Agora compare: aqui está como esse mesmo conteúdo vira um material Dissecado, do jeito que a banca cobra na prova de professor de IF. E tem um pronto para a sua área também.</p>
+    <img class="foto" src="img/mapa-professora-organizada.jpg" alt="Professora estudando com material organizado" loading="lazy">
+
+    <h2>Por que um material <span>Dissecado</span> é diferente</h2>
+    <p class="h2sub">Curso grande entrega material "100% completo": 100 páginas por tópico, feito para servir qualquer concurso. Quem tem 1 hora por dia não precisa de completo, precisa de direcionado. O material Dissecado nasce ao contrário: primeiro a gente mapeia todas as questões já cobradas para professor de IF, depois escreve só a teoria que essas questões exigem.</p>
+
+    <div class="card"><h3><span class="tag teoria">Teoria enxuta</span></h3><p>20 a 30 páginas por tópico, não 100. Só o que aparece em prova de IF, organizado em blocos rápidos de ler e revisar.</p></div>
+    <div class="card"><h3><span class="tag chave">Conceito-chave</span></h3><p>Os pontos que decidem questão ficam destacados em caixas, prontos para a sua revisão de véspera.</p></div>
+    <div class="card"><h3><span class="tag banana">Casca de banana</span></h3><p>As pegadinhas que as bancas de IF repetem há anos, apontadas antes de você cair nelas.</p></div>
+    <div class="card"><h3><span class="tag teoria">Questões dissecadas</span></h3><p>Depois da teoria, questões reais comentadas em 3 camadas. É aqui que a fixação acontece.</p></div>
+
+    <h2>Uma questão <span>dissecada</span>, na prática</h2>
+    <p class="h2sub">Exemplo com a LDBEN que você recebeu no grupo. É assim, nesse formato, para todos os tópicos e todas as áreas:</p>
+
+    <div class="questao">
+      <div class="qcab">LDBEN · Lei 9.394/1996 · Questão estilo banca de IF</div>
+      <div class="enun">De acordo com a Lei nº 9.394/1996 (LDBEN), a educação básica tem por finalidades desenvolver o educando, assegurar-lhe a formação comum indispensável para o exercício da cidadania e:</div>
+      <div class="alt"><b>A)</b> garantir-lhe a aprovação em processos seletivos de ensino superior.</div>
+      <div class="alt certa"><b>B)</b> fornecer-lhe meios para progredir no trabalho e em estudos posteriores. ✓</div>
+      <div class="alt"><b>C)</b> habilitá-lo ao exercício de profissões técnicas de nível médio.</div>
+      <div class="alt"><b>D)</b> prepará-lo exclusivamente para o mercado de trabalho.</div>
+      <div class="diss"><h4>Comentário introdutório</h4><p>O art. 22 da LDBEN é um dos mais cobrados em prova de IF. A banca quase sempre troca uma das três finalidades por um objetivo que parece razoável, mas não está na lei.</p></div>
+      <div class="diss verde"><h4>Alternativas dissecadas</h4><p>A letra B reproduz a literalidade do art. 22. A letra A e a letra D restringem a finalidade (a lei fala em "progredir no trabalho e em estudos posteriores", não em vestibular nem só em mercado). A letra C descreve a educação profissional técnica, que é outro capítulo da lei. Casca de banana clássica: trocar finalidade da educação básica por finalidade da educação profissional.</p></div>
+      <div class="diss navy"><h4>O que eu não posso ficar sem saber</h4><p>As 3 finalidades do art. 22; a diferença entre educação básica e educação profissional na LDBEN; onde a EPT (educação profissional e tecnológica) se encaixa, porque é o coração do Instituto Federal.</p></div>
+    </div>
+
+    <h2>Quem usou o mapa <span>aprovou</span></h2>
+    <div class="depos">
+      <div class="depo"><div class="stars">★★★★★</div><p class="t">"Graças ao mapeamento, consegui focar nos tópicos certos e fui aprovada no IFS!"</p><div class="who"><img src="img/mapa-depo-ana.jpg" alt="Ana P." loading="lazy"><div><div class="nm">Ana P.</div><div class="rl">Biologia · Aprovada IFS</div></div></div></div>
+      <div class="depo"><div class="stars">★★★★★</div><p class="t">"Economizei semanas de estudo. Mudou minha estratégia completamente."</p><div class="who"><img src="img/mapa-depo-carlos.jpg" alt="Carlos M." loading="lazy"><div><div class="nm">Carlos M.</div><div class="rl">Matemática · Aprovado IFRS</div></div></div></div>
+      <div class="depo"><div class="stars">★★★★★</div><p class="t">"Passei no IF de primeira. O Dissecando Questões foi essencial na minha preparação."</p><div class="who"><img src="img/mapa-depo-luciana.jpg" alt="Luciana R." loading="lazy"><div><div class="nm">Luciana R.</div><div class="rl">Português · Aprovada IFMT</div></div></div></div>
+    </div>
+
+    <h2>Tem material Dissecado <span>para a sua área</span></h2>
+    <p class="h2sub">Além das disciplinas comuns a todos os editais (Legislação, Português, Conhecimentos Pedagógicos), a equipe produz material específico por área, sempre a partir das questões já cobradas para professor de IF:</p>
+    <img class="foto" src="img/mapa-plataforma-disciplinas.png" alt="Disciplinas disponíveis na plataforma" loading="lazy" style="margin-bottom:18px">
+    <div class="areas">
+      <span>Matemática</span><span>Física</span><span>Química</span><span>Biologia</span><span>História</span><span>Geografia</span><span>Filosofia</span><span>Sociologia</span><span>Pedagogia</span><span>Letras · Português</span><span>Letras · Inglês</span><span>Letras · Espanhol</span><span>Educação Física</span><span>Artes Visuais</span><span>Música</span><span>Dança</span><span>Administração</span><span>Informática e Computação</span><span>Arquitetura</span><span>Engenharia Civil</span><span>Engenharia Elétrica</span><span>Engenharia de Alimentos</span><span>Engenharia de Minas</span><span>Agronomia</span><span>Zootecnia</span><span>Psicologia</span><span>e mais…</span>
+    </div>
+    <p class="areasnota">Sua área não está na lista? A equipe produz o levantamento dela em até 24 horas. Já saiu material até para Engenharia de Transportes e Música, então pode pedir sem medo.</p>
+
+    <div class="cta-box">
+      <h2>Quero o demonstrativo da minha área</h2>
+      <p>Chama a Alda, nossa consultora de carreira, diz qual é a sua área (ou as suas duas áreas) e ela te envia o material demonstrativo específico, sem custo.</p>
+      <!-- LINK DA ALDA: colar aqui o link traqueado pronto (wa.link / app.wa.link) -->
+      <a class="btn" href="https://wa.link/dq-consultor">📲 Pedir meu material pela Alda</a>
+    </div>
+  </div>
+</section>
+<div class="foot">Dissecando Questões · Método DQ IF · Material demonstrativo gratuito, sem compromisso.</div>
+
+<!-- NÃO REMOVER (contrato CRM): o motor da captação (caminho válido quando a página vive em /brinde/materiais/) -->
+<script src="../../assets/js/lead-capture.js"></script>
+<script>
+  // abre o formulário no clique do botão do gate
+  document.getElementById('abrirForm').addEventListener('click', function(){
+    document.getElementById('formMapa').classList.add('aberto');
+    this.style.display = 'none';
+  });
+  // NÃO REMOVER (contrato CRM): revela o conteúdo no desbloqueio
+  document.addEventListener('dq:unlock', function () {
+    var zone = document.getElementById('dataZone');
+    if (zone) zone.style.display = 'block';
+    var form = document.getElementById('formMapa');
+    if (form) form.style.display = 'none';
+    if (zone && zone.scrollIntoView) zone.scrollIntoView({ behavior: 'smooth' });
+  });
+</script>
+</body>
+</html>
