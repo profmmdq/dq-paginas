@@ -66,15 +66,6 @@
   .areas{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
   .areas span{font-size:13.5px;font-weight:600;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);border-radius:100px;padding:8px 15px;color:rgba(241,243,230,.9)}
   .areasnota{font-size:13.5px;color:rgba(241,243,230,.65);line-height:1.5;margin-top:8px}
-  /* depoimentos */
-  .depos{display:grid;grid-template-columns:1fr;gap:12px;margin-top:6px}
-  .depo{background:rgba(19,31,44,.6);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:18px 20px}
-  .depo .stars{color:#f5c542;font-size:14px;margin-bottom:8px;letter-spacing:2px}
-  .depo .t{font-size:14.5px;line-height:1.5;color:rgba(241,243,230,.85);margin-bottom:12px}
-  .depo .who{display:flex;align-items:center;gap:10px}
-  .depo .who img{width:34px;height:34px;border-radius:50%;object-fit:cover}
-  .depo .nm{font-weight:700;font-size:13.5px}
-  .depo .rl{font-size:12px;color:rgba(241,243,230,.6)}
   /* CTA final */
   .cta-box{background:rgba(19,31,44,.7);border:1px solid rgba(255,117,31,.4);border-radius:18px;padding:30px 26px;text-align:center;margin:48px 0 20px}
   .cta-box h2{margin:0 0 8px;font-size:23px}
@@ -82,7 +73,6 @@
   .foot{font-size:12.5px;color:rgba(241,243,230,.45);text-align:center;padding:34px 20px 40px;line-height:1.5}
   .flutua{position:fixed;right:18px;bottom:18px;z-index:50;display:flex;align-items:center;gap:9px;background:linear-gradient(135deg,var(--laranja-vivo) 0%,var(--laranja) 100%);color:#fff;font-family:'Plus Jakarta Sans';font-weight:700;font-size:15.5px;padding:14px 20px;border-radius:100px;text-decoration:none;box-shadow:0 12px 34px -8px rgba(255,117,31,.7),0 4px 14px rgba(0,0,0,.35);animation:pulsa 2.6s ease-in-out infinite}
   @keyframes pulsa{0%,100%{transform:scale(1)}50%{transform:scale(1.045)}}
-  @media(min-width:560px){.depos{grid-template-columns:1fr 1fr 1fr}}
   @media(max-width:480px){h1{font-size:28px}}
 </style>
 </head>
@@ -94,8 +84,8 @@
       <div class="eyebrow">🎁 Presente da equipe DQ · baixe agora</div>
       <h1>O <span>Mapa das Questões</span> de Conhecimentos Pedagógicos</h1>
     </div>
-    <p class="h2sub">Conhecimentos Pedagógicos cai para todas as áreas. A equipe mapeou quase 700 questões já cobradas em provas de IF e organizou tudo em 12 tópicos, do que mais cai ao que quase não aparece. E olha o que o mapa revela: só 3 tópicos concentram metade das questões, e 5 tópicos cobrem 75% da disciplina.</p>
-    <img class="foto" src="img/mapa-pdf-exemplo.png" alt="Exemplo do Mapa das Questões em PDF" loading="lazy">
+    <p class="h2sub">Foram quase 700 questões de Conhecimentos Pedagógicos já cobradas em provas de professor de IF, mapeadas e organizadas em 12 tópicos, do que mais cai ao que quase não aparece. E olha o que o mapa revela: só 3 tópicos concentram metade das questões, e 5 tópicos cobrem 75% da disciplina.</p>
+    <img class="foto" src="img/mapa-conhecimentos-pedagogicos.png" alt="Mapa das Questões de Conhecimentos Pedagógicos" loading="lazy">
     <p class="foto-nota">É assim que o mapa chega para você: os 12 tópicos ranqueados por frequência real. Os 3 primeiros (Processo de ensino-aprendizagem, Ação docente e Constituição histórica e legal da Educação) somam metade de tudo que já caiu.</p>
 
     <div class="gate">
@@ -108,15 +98,8 @@
     <p class="h2sub">A maioria dos professores estuda na ordem do edital, dando o mesmo peso para tudo. Só que a prova não cobra tudo por igual. Com o mapa na mão, você sabe exatamente onde a banca concentra os pontos, estuda primeiro o que decide aprovação e para de gastar as suas poucas horas com o que quase não cai. É a diferença entre estudar muito e estudar certo.</p>
     <img class="foto" src="img/mapa-professora-organizada.jpg" alt="Professora estudando com material organizado" loading="lazy">
 
-    <h2>Quem usou o mapa <span>aprovou</span></h2>
-    <div class="depos">
-      <div class="depo"><div class="stars">★★★★★</div><p class="t">"Graças ao mapeamento, consegui focar nos tópicos certos e fui aprovada no IFS!"</p><div class="who"><img src="img/mapa-depo-ana.jpg" alt="Ana P." loading="lazy"><div><div class="nm">Ana P.</div><div class="rl">Biologia · Aprovada IFS</div></div></div></div>
-      <div class="depo"><div class="stars">★★★★★</div><p class="t">"Economizei semanas de estudo. Mudou minha estratégia completamente."</p><div class="who"><img src="img/mapa-depo-carlos.jpg" alt="Carlos M." loading="lazy"><div><div class="nm">Carlos M.</div><div class="rl">Matemática · Aprovado IFRS</div></div></div></div>
-      <div class="depo"><div class="stars">★★★★★</div><p class="t">"Passei no IF de primeira. O Dissecando Questões foi essencial na minha preparação."</p><div class="who"><img src="img/mapa-depo-luciana.jpg" alt="Luciana R." loading="lazy"><div><div class="nm">Luciana R.</div><div class="rl">Português · Aprovada IFMT</div></div></div></div>
-    </div>
-
     <h2>Tem um mapa desses <span>para a sua área</span></h2>
-    <p class="h2sub">Conhecimentos Pedagógicos é só o começo, porque cai para todo mundo. O mesmo levantamento existe para a disciplina específica da sua área, feito com as questões que as bancas de IF já cobraram nela:</p>
+    <p class="h2sub">Conhecimentos Pedagógicos é só o começo. O mesmo levantamento existe para a disciplina específica da sua área, feito com as questões que as bancas de IF já cobraram nela:</p>
     <img class="foto" src="img/mapa-plataforma-disciplinas.png" alt="Disciplinas disponíveis na plataforma" loading="lazy" style="margin-bottom:18px">
     <div class="areas">
       <span>Matemática</span><span>Física</span><span>Química</span><span>Biologia</span><span>História</span><span>Geografia</span><span>Filosofia</span><span>Sociologia</span><span>Pedagogia</span><span>Letras · Português</span><span>Letras · Inglês</span><span>Letras · Espanhol</span><span>Educação Física</span><span>Artes Visuais</span><span>Música</span><span>Dança</span><span>Administração</span><span>Informática e Computação</span><span>Arquitetura</span><span>Engenharia Civil</span><span>Engenharia Elétrica</span><span>Engenharia de Alimentos</span><span>Engenharia de Minas</span><span>Agronomia</span><span>Zootecnia</span><span>Psicologia</span><span>e mais…</span>
