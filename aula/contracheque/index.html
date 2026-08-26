@@ -140,7 +140,7 @@
 
 <!-- Página completa do Dossiê IF, embutida (aparece junto com a oferta) -->
 <div id="dossie-wrap" style="display:none;width:100%">
-  <iframe id="dossie" src="" style="display:block;width:100%;height:4200px;border:0" scrolling="no" title="Dossiê IF"></iframe>
+  <iframe id="dossie" src="" style="display:block;width:100%;height:4200px;border:0;background:#0b1626" scrolling="no" title="Dossiê IF"></iframe>
 </div>
 
 <div class="foot">Dissecando Questões · Prof. Manoel Machado, professor e criador do Método Dissecando Questões.</div>
@@ -217,7 +217,7 @@ function revealOffer(){
   revealed = true;
   document.getElementById('oferta').classList.add('on');
   var w=document.getElementById('dossie-wrap'), f=document.getElementById('dossie');
-  if (f && !f.src){ f.src = DOSSIE_URL; }
+  if (f && !f.getAttribute('src')){ f.src = DOSSIE_URL; }
   if (w) w.style.display='block';
   try{ localStorage.setItem(STORE+'_of','1'); }catch(e){}
   try{ dataLayer.push({event:'oferta_revelada'}); }catch(e){}
