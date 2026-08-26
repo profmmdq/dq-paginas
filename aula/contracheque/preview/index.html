@@ -119,9 +119,9 @@
 
         <div class="preco">
           <div class="de">de <s>12x R$ 174,70</s></div><br>
-          <div class="cupom" id="cupombox" title="Tocar para copiar o cupom">🎟️ Cupom de R$ 500 da aula: <b id="cupcode" style="letter-spacing:1px"></b></div>
+          <div class="cupom" id="cupombox" title="Tocar para copiar o cupom">🎟️ Cupom de R$ 500 da aula</div>
           <div class="por">12x R$ 124,70<small> no cartão</small></div>
-          <div class="avista">ou R$ 1.247 à vista · aplica o cupom no checkout</div>
+          <div class="avista">ou R$ 1.247 à vista, com o cupom aplicado no checkout</div>
         </div>
 
         <div class="bonus">
@@ -164,7 +164,7 @@
 var REVEAL_AT    = 2930;
 var RELEASE      = new Date(2020,0,1,0,0,0);  // PRÉVIA para a equipe: sem sala de espera, o player carrega direto
 var CHECKOUT_URL = "https://checkout.dissecandoquestoes.com.br/checkout/trafegopaginadossie-if";
-var CUPOM_CODIGO = "";   // <<< escrever aqui o código do cupom de R$ 500 (ex.: "AULA500")
+var CUPOM_CODIGO = "DESC500";   // código do cupom de R$ 500 (a pessoa digita no checkout)
 var STORE        = "dq_aula_contracheque_previa";
 
 var DEADLINE_11    = new Date(2026,7,26,23,59,59); // quarta 26/08 · encontro individual
@@ -173,13 +173,13 @@ var DEADLINE_CUPOM = new Date(2026,7,28,23,59,59); // sexta 28/08 · cupom + Did
 if (CHECKOUT_URL) document.getElementById('cta').href = CHECKOUT_URL;
 /* cupom por escrito, com toque-para-copiar */
 if (CUPOM_CODIGO){
-  document.getElementById('cupcode').textContent = CUPOM_CODIGO;
+  document.getElementById('cupombox').innerHTML = '🎟️ Seu cupom de R$ 500: <b style="letter-spacing:1px;font-size:15px">'+CUPOM_CODIGO+'</b><br><span style="font-weight:500;opacity:.85">digita ele no checkout para liberar o desconto · toca para copiar</span>';
   document.getElementById('cupombox').style.cursor = 'pointer';
   document.getElementById('cupombox').addEventListener('click', function(){
-    try{ navigator.clipboard.writeText(CUPOM_CODIGO); this.textContent = '✅ Cupom copiado: ' + CUPOM_CODIGO; }catch(e){}
+    try{ navigator.clipboard.writeText(CUPOM_CODIGO); this.innerHTML = '✅ Cupom copiado: <b>' + CUPOM_CODIGO + '</b>'; }catch(e){}
   });
 } else {
-  document.getElementById('cupombox').innerHTML = '🎟️ Cupom de R$ 500 da aula aplicado';
+  document.getElementById('cupombox').innerHTML = '🎟️ Cupom de R$ 500 exclusivo da aula';
 }
 
 /* -------- sala de espera: libera o player às 20h -------- */
