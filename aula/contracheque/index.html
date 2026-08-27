@@ -131,7 +131,7 @@
 
         <div class="timerline" id="timerline"></div>
 
-        <a class="btn" id="cta" data-dq-checkout href="https://checkout.dissecandoquestoes.com.br/checkout/trafegopaginadossie-if">Quero garantir com o cupom de R$ 500</a>
+        <a class="btn" id="cta" href="https://checkout.dissecandoquestoes.com.br/pay/dossie-if?src=a1b9aae5d23c4cdcb76264a37b356d21-a205e6716fa44a168a8cd58e71c7a010&amp;&amp;coupon=DESC500">Quero garantir com o cupom de R$ 500</a>
         <p class="garantia">Tudo que o Dossiê IF entrega está detalhado logo abaixo. 👇</p>
       </div>
     </div>
@@ -163,7 +163,7 @@
    ================================================= */
 var REVEAL_AT    = 2930;
 var RELEASE      = new Date(2026,7,26,20,0,0);  // a aula libera hoje, 26/08, às 20h (horário do aparelho do visitante)
-var CHECKOUT_URL = "https://checkout.dissecandoquestoes.com.br/checkout/trafegopaginadossie-if";
+var CHECKOUT_URL = "https://checkout.dissecandoquestoes.com.br/pay/dossie-if?src=a1b9aae5d23c4cdcb76264a37b356d21-a205e6716fa44a168a8cd58e71c7a010&&coupon=DESC500";
 var CUPOM_CODIGO = "DESC500";   // código do cupom de R$ 500 (a pessoa digita no checkout)
 var STORE        = "dq_aula_contracheque";
 
@@ -173,7 +173,7 @@ var DEADLINE_CUPOM = new Date(2026,7,28,23,59,59); // sexta 28/08 · cupom + Did
 if (CHECKOUT_URL) document.getElementById('cta').href = CHECKOUT_URL;
 /* cupom por escrito, com toque-para-copiar */
 if (CUPOM_CODIGO){
-  document.getElementById('cupombox').innerHTML = '🎟️ Seu cupom de R$ 500: <b style="letter-spacing:1px;font-size:15px">'+CUPOM_CODIGO+'</b><br><span style="font-weight:500;opacity:.85">digita ele no checkout para liberar o desconto · toca para copiar</span>';
+  document.getElementById('cupombox').innerHTML = '🎟️ Cupom <b style="letter-spacing:1px;font-size:15px">'+CUPOM_CODIGO+'</b> de R$ 500 já aplicado no botão abaixo<br><span style="font-weight:500;opacity:.85">toca aqui para copiar o código, se precisar</span>';
   document.getElementById('cupombox').style.cursor = 'pointer';
   document.getElementById('cupombox').addEventListener('click', function(){
     try{ navigator.clipboard.writeText(CUPOM_CODIGO); this.innerHTML = '✅ Cupom copiado: <b>' + CUPOM_CODIGO + '</b>'; }catch(e){}
@@ -241,7 +241,17 @@ function startClock(){
   t0 = Date.now();
   try{ localStorage.setItem(STORE+'_t0', String(t0)); }catch(e){}
 }
-/* hook oficial do smartplayer (Vturb) */
+/* Sinal 1 (preciso): ler o tempo REAL de reprodução direto do elemento de vídeo
+   que o player do Vturb cria na página (funciona com autoplay, pausa e retomada). */
+function findVideo(){
+  var v = document.querySelector('video');
+  if (v) return v;
+  var host = document.getElementById('vid-6a8f136af58cb3b4d2d27882');
+  try{ if (host && host.shadowRoot) return host.shadowRoot.querySelector('video'); }catch(e){}
+  if (host){ var iv = host.querySelector('video'); if (iv) return iv; }
+  return null;
+}
+/* Sinal 2: hook oficial do smartplayer, quando existir */
 function hookPlayer(){
   try{
     if (window.smartplayer && smartplayer.instances && smartplayer.instances.length){
@@ -252,16 +262,24 @@ function hookPlayer(){
   return false;
 }
 var hookTry = setInterval(function(){ if (hookPlayer()) clearInterval(hookTry); }, 800);
-/* reserva: primeiro toque/clique no player também liga o relógio */
-document.addEventListener('click', function(e){
-  var p = document.getElementById('vid-6a8f136af58cb3b4d2d27882');
-  if (p && p.contains(e.target)) startClock();
-}, true);
+/* Sinal 3: qualquer toque/clique no player liga o relógio reserva */
+['click','pointerdown','touchstart'].forEach(function(ev){
+  document.addEventListener(ev, function(e){
+    var p = document.getElementById('vid-6a8f136af58cb3b4d2d27882');
+    if (p && p.contains(e.target)) startClock();
+  }, true);
+});
 
 setInterval(function(){
-  if (revealed || !t0) return;
-  if ((Date.now() - t0)/1000 >= REVEAL_AT) revealOffer();
-}, 4000);
+  if (revealed) return;
+  var v = findVideo();
+  if (v){
+    if (v.currentTime >= REVEAL_AT){ revealOffer(); return; }   /* leitura direta: o mais confiável */
+    if (!t0 && v.currentTime > 1 && !v.paused) startClock();     /* vídeo rodando liga o relógio reserva */
+    try{ if (!v.__dqEnd){ v.__dqEnd = 1; v.addEventListener('ended', revealOffer); } }catch(e){}
+  }
+  if (t0 && (Date.now() - t0)/1000 >= REVEAL_AT) revealOffer();  /* reserva por tempo decorrido */
+}, 3000);
 
 /* -------- cronômetro do prazo -------- */
 function pad(n){ return (n<10?'0':'')+n; }
