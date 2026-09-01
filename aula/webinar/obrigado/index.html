@@ -124,10 +124,12 @@ function utc(dt){
   return dt.getUTCFullYear()+pad(dt.getUTCMonth()+1)+pad(dt.getUTCDate())+'T'
        + pad(dt.getUTCHours())+pad(dt.getUTCMinutes())+'00Z';
 }
+var LINK_AULA = "https://site.dissecandoquestoes.com/aula/webinar/ao-vivo/";
 var DETALHES = "Workshop ao vivo com o Prof. Manoel Machado, do Dissecando Questões.\n\n"
              + "O passo a passo para ser aprovado como Professor ou TAE no Instituto Federal, "
              + "com menos de 2 horas por dia de preparação.\n\n"
-             + "O link de acesso chega pelo WhatsApp. Chegue alguns minutos antes, com bloco de notas em mãos.";
+             + "Link de acesso: " + LINK_AULA + "\n\n"
+             + "Chegue alguns minutos antes, com bloco de notas em mãos.";
 
 document.getElementById('btnGoogle').href =
   "https://calendar.google.com/calendar/render?action=TEMPLATE"
