@@ -194,7 +194,7 @@
         <div class="pquando" id="cdWhen">Hoje, <b>20h00</b> · horário de Brasília</div>
         <form id="leadForm" novalidate>
           <input id="lnome" type="text" placeholder="Seu nome" autocomplete="name" required>
-          <input id="lwhats" type="tel" placeholder="Seu WhatsApp com DDD" autocomplete="tel" inputmode="numeric" required>
+          <input id="lwhats" type="tel" placeholder="55 DDD 9XXXX-XXXX" autocomplete="tel" inputmode="numeric" maxlength="16" value="55 " required>
           <input id="lemail" type="email" placeholder="Seu melhor e-mail" autocomplete="email" required>
           <div class="lerr" id="lerr"></div>
           <button class="btn" type="submit">Quero participar do Workshop →</button>
@@ -333,6 +333,29 @@ tick(); setInterval(tick, 1000);
 
 // ---- captura de lead ----
 function soDigitos(s){ return (s||'').replace(/\D/g,''); }
+
+/* Máscara do WhatsApp: 55 DDD 9XXXX-XXXX (13 dígitos: 55 + DDD + 9 dígitos do número) */
+function maskWhats(v){
+  var d = soDigitos(v).slice(0,13);
+  var out = '';
+  if(d.length>0) out += d.slice(0,2);
+  if(d.length>2) out += ' ' + d.slice(2,4);
+  if(d.length>4) out += ' ' + d.slice(4,9);
+  if(d.length>9) out += '-' + d.slice(9,13);
+  return out;
+}
+var elWhats = document.getElementById('lwhats');
+elWhats.addEventListener('input', function(){
+  var pos = this.selectionStart;
+  var antes = this.value.length;
+  this.value = maskWhats(this.value);
+  var depois = this.value.length;
+  this.selectionStart = this.selectionEnd = Math.max(0, pos + (depois - antes));
+});
+elWhats.addEventListener('focus', function(){
+  if(!this.value){ this.value = '55 '; }
+});
+
 document.getElementById('leadForm').addEventListener('submit', function(e){
   e.preventDefault();
   var nome=document.getElementById('lnome').value.trim();
@@ -340,7 +363,7 @@ document.getElementById('leadForm').addEventListener('submit', function(e){
   var email=document.getElementById('lemail').value.trim();
   var err=document.getElementById('lerr');
   if(nome.length<2){ err.textContent='Escreva o seu nome, por favor.'; err.classList.add('on'); return; }
-  if(whats.length<10){ err.textContent='Coloque o seu WhatsApp com DDD.'; err.classList.add('on'); return; }
+  if(whats.length<12){ err.textContent='Coloque o seu WhatsApp com DDD.'; err.classList.add('on'); return; }
   if(!/^\S+@\S+\.\S+$/.test(email)){ err.textContent='Coloque um e-mail válido.'; err.classList.add('on'); return; }
   err.textContent=''; err.classList.remove('on');
 
