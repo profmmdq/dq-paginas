@@ -221,6 +221,13 @@ var EQUIPE_WHATS    = "https://wa.link/dq-consultor";   // consultor / equipe co
 var BRINDE          = "https://wa.link/brinde-dq";
 var RADAR_LP        = "https://wa.link/vagasif";        // Vagas IF (radar de editais)
 var CUPOM           = "HOJE500";
+
+/* CHAT_ENDPOINT: para onde vai cada mensagem que o espectador envia.
+   Deixe "" para desligar. Com uma URL de Apps Script (ou webhook), cada
+   mensagem enviada no chat dispara um POST JSON:
+   { nome, whats, msg, tempo, tempoSeg, pagina, ts }
+   nome/whats vêm do formulário da landing (web_lead), se a pessoa preencheu. */
+var CHAT_ENDPOINT   = "";
 var PALAVRA_CHAVE   = "IF2026";
 
 // eventos por tempo (segundos)
@@ -611,6 +618,19 @@ function enviar(){
   var r=moderar(v);
   if(r.block){ i.value=''; i.style.borderColor='#ff4d4d'; setTimeout(function(){ i.style.borderColor=''; },700); return; }
   addMsg('Você', r.texto, 'eu'); i.value='';
+  // intercepta: manda a mensagem para o endpoint (se configurado)
+  if(CHAT_ENDPOINT){
+    try{
+      var lead={}; try{ lead=JSON.parse(localStorage.getItem('web_lead')||'{}'); }catch(e){}
+      var seg=Math.floor(getT());
+      var payload={ nome:lead.nome||'', whats:lead.whats||'', msg:r.texto,
+        tempo:(Math.floor(seg/60))+':'+('0'+(seg%60)).slice(-2), tempoSeg:seg,
+        pagina:'webinar-plano-infalivel', ts:new Date().toISOString() };
+      var body=JSON.stringify(payload);
+      if(navigator.sendBeacon){ navigator.sendBeacon(CHAT_ENDPOINT, new Blob([body],{type:'text/plain'})); }
+      else{ fetch(CHAT_ENDPOINT,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:body}); }
+    }catch(e){}
+  }
 }
 document.getElementById('cin').addEventListener('keydown',function(e){if(e.key==='Enter')enviar();});
 
