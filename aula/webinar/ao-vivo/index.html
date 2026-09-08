@@ -1054,7 +1054,7 @@ table{display:block;overflow-x:auto}
           <!-- CHECKOUT Path A: o href é fallback PRONTO (fail-open, ainda leva os
                UTMs); o checkout-links.js roteia por campanha quando há config de
                checkout cadastrada no CRM. NÃO trocar por link montado em JS. -->
-          <a href="https://checkout.dissecandoquestoes.com.br/pay/dossie-1-ano-webinar" class="btn-primary cta-full" data-comprar="cartao">Garantir com o cupom HOJE500 <span aria-hidden="true">→</span></a>
+          <a href="https://checkout.dissecandoquestoes.com.br/pay/dossie-1-ano-webinar?coupon=HOJE500" class="btn-primary cta-full" data-comprar="cartao">Garantir com o cupom HOJE500 <span aria-hidden="true">→</span></a>
           <div class="guar"><span class="sh" aria-hidden="true">🛡️</span><span class="t">Garantia incondicional de 7 dias. Se por qualquer motivo sentir que não é pra você, devolvemos 100% do valor. Sem perguntas.</span></div>
         </div>
       </div>
@@ -1135,7 +1135,7 @@ var VIDEO      = "";   // player Vturb (aula "Plano Infalível", 2h01m, versão 
 var PRE_SECONDS= 30;
 
 // destinos / textos
-var DOSSIE_CHECKOUT = "https://checkout.dissecandoquestoes.com.br/pay/dossie-1-ano-webinar";   // checkout do webinar (cupom HOJE500)
+var DOSSIE_CHECKOUT = "https://checkout.dissecandoquestoes.com.br/pay/dossie-1-ano-webinar?coupon=HOJE500";   // checkout do webinar (cupom HOJE500)
 // nome do lead (se já preencheu na landing) pra personalizar a mensagem pro comercial
 var _wln=''; try{ _wln=(JSON.parse(localStorage.getItem('web_lead')||'{}').nome)||''; }catch(e){}
 var EQUIPE_WHATS    = "https://wa.link/dq-consultor";   // consultor / equipe comercial
