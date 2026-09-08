@@ -10,6 +10,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
+<!-- NÃO REMOVER (contrato CRM): GTM. É por aqui que o Pixel dispara o Lead
+     client-side com o MESMO event_id que a api-pagina-externa manda ao CAPI —
+     sem ele o Meta conta o mesmo lead duas vezes. -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-W5TCMGSW');</script>
 <script src="/aula/webinar/assets/aula-config.js"></script>
 <style>
   :root{
@@ -113,7 +117,7 @@
   #leadForm input:focus{border-color:var(--acc);background:#fff}
   #leadForm .btn{margin-top:4px}
   .lerr{color:#c22b2b;font-size:13px;min-height:0}
-  .lerr.on{min-height:18px;margin-top:-2px}
+  .lerr.on,.lerr.dq-visible{min-height:18px;margin-top:-2px}
   .lprivacy{color:var(--muted);font-size:12px;margin-top:12px;text-align:center}
 
   /* QUEM VAI TE ENSINAR */
@@ -192,12 +196,17 @@
       <div class="panel capture" id="capture">
         <div class="lab">Garanta a sua vaga</div>
         <div class="pquando" id="cdWhen">Hoje, <b>20h</b> · horário de Brasília</div>
-        <form id="leadForm" novalidate>
-          <input id="lnome" type="text" placeholder="Seu nome" autocomplete="name" required>
-          <input id="lwhats" type="tel" placeholder="Seu WhatsApp com DDD" autocomplete="tel" inputmode="numeric" required>
-          <input id="lemail" type="email" placeholder="Seu melhor e-mail" autocomplete="email" required>
-          <div class="lerr" id="lerr"></div>
+        <!-- NÃO REMOVER (contrato CRM) — a classe dq-lead-form + data-secao + data-slug
+             são o que liga este form ao lead-capture.js. Sem os três, o submit é
+             IGNORADO. aula/webinar = a pasta deste repo E o cadastro no CRM. -->
+        <form class="dq-lead-form" data-secao="aula" data-slug="webinar" id="leadForm" novalidate>
+          <!-- NÃO REMOVER (contrato CRM): name="nome" e name="whatsapp" são obrigatórios -->
+          <input id="lnome" name="nome" type="text" placeholder="Seu nome" autocomplete="name" required>
+          <input id="lwhats" name="whatsapp" type="tel" placeholder="Seu WhatsApp com DDD" autocomplete="tel" inputmode="numeric" required>
+          <input id="lemail" name="email" type="email" placeholder="Seu melhor e-mail" autocomplete="email" required>
           <button class="btn" type="submit">Quero participar do Workshop →</button>
+          <!-- NÃO REMOVER (contrato CRM): onde o lead-capture.js escreve os erros -->
+          <div class="lerr" id="lerr" data-dq-error></div>
         </form>
         <p class="lprivacy">Usamos o seu contato apenas para enviar o link e os lembretes do workshop.</p>
       </div>
@@ -261,7 +270,9 @@
    O HORÁRIO da aula não fica mais aqui. Ele vive em assets/aula-config.js,
    que é lido por todas as páginas do webinar. Mexa lá, não aqui.        */
 var TEMA        = "Workshop ao vivo: O Plano Infalível para ser Aprovado como Professor ou TAE no IF em 45 dias";
-var LEAD_ENDPOINT = "https://unnichat.com.br/a/start/E0JBDaHsPpxiOyNgpz1L";  // gatilho Unnichat do WEBINAR (conferido com a Ágatha em 04/08/2026)
+/* O gatilho do UnniChat NÃO mora mais aqui. Quem dispara é a api-pagina-externa,
+   a partir do unnichat_start_url cadastrado em aula/webinar no CRM — link de
+   acionamento é segredo e nunca sai do servidor. */
 /* ========================================== */
 
 /* Clona o grupo de nomes uma vez. A animação anda -50%, que é exatamente a
@@ -331,75 +342,41 @@ function tick(){
 }
 tick(); setInterval(tick, 1000);
 
-// ---- captura de lead ----
-function soDigitos(s){ return (s||'').replace(/\D/g,''); }
-document.getElementById('leadForm').addEventListener('submit', function(e){
-  e.preventDefault();
-  var nome=document.getElementById('lnome').value.trim();
-  var whats=soDigitos(document.getElementById('lwhats').value);
-  var email=document.getElementById('lemail').value.trim();
-  var err=document.getElementById('lerr');
-  if(nome.length<2){ err.textContent='Escreva o seu nome, por favor.'; err.classList.add('on'); return; }
-  if(whats.length<10){ err.textContent='Coloque o seu WhatsApp com DDD.'; err.classList.add('on'); return; }
-  if(!/^\S+@\S+\.\S+$/.test(email)){ err.textContent='Coloque um e-mail válido.'; err.classList.add('on'); return; }
-  err.textContent=''; err.classList.remove('on');
+/* ---- captura de lead ----
+   Quem envia é o lead-capture.js (contrato CRM), carregado no fim do <body>.
+   Ele valida, normaliza o WhatsApp, junta UTM/fbclid/fbp, chama a
+   api-pagina-externa e só então redireciona para a página devolvida pelo CRM.
+   Se o envio falhar, ELE avisa a pessoa — antes, a página seguia para o
+   obrigado mesmo com o lead perdido.
 
+   O que continua sendo trabalho DESTA página: guardar o nome no navegador,
+   porque a página ao-vivo usa esse nome para saudar quem entra. O listener
+   abaixo roda antes do lead-capture.js (o dele é delegado no document) e não
+   interfere no envio. */
+document.getElementById('leadForm').addEventListener('submit', function(e){
+  var nome  = (document.getElementById('lnome').value || '').trim();
+  var whats = (document.getElementById('lwhats').value || '').replace(/\D/g,'');
+  var email = (document.getElementById('lemail').value || '').trim();
   try{ localStorage.setItem('web_lead', JSON.stringify({nome:nome,whats:whats,email:email,origem:'webinar',ts:Date.now()})); }catch(e2){}
   try{ localStorage.setItem('web_aula_iso', AULA.toISOString()); }catch(e2){}
-  try{ (window.dataLayer=window.dataLayer||[]).push({event:'lead_webinar', nome:nome, whats:whats, email:email}); }catch(e2){}
-
-  var destino = A.URLS.OBRIGADO + '?h='+encodeURIComponent(HORA_TXT)
-              + '&d='+encodeURIComponent(DIA_TXT)
-              + '&iso='+encodeURIComponent(AULA.toISOString());
-
-  /* Trava o botão para a pessoa não clicar duas vezes e criar lead duplicado */
-  var btn = e.target.querySelector('button[type="submit"]');
-  if (btn){ btn.disabled = true; btn.textContent = 'Confirmando...'; }
-
-  enviarLead({nome:nome, whats:whats, email:email}, function(){
-    location.href = destino;
-  });
 });
 
-/* ENVIO DO LEAD
-   Mecanismo idêntico ao da versão que funcionava: a imagem dispara o GET com os
-   dados na query (é assim que o "start" do Unnichat lê melhor) e o sendBeacon
-   reforça com um POST no corpo, em formato de formulário. Os dois sobrevivem à
-   troca de página.
+/* REDE DE SEGURANÇA DO DESTINO
+   Quem decide para onde o inscrito vai é o cadastro da página no CRM. Com
+   tipo_final = obrigado, a api-pagina-externa devolve /aula/webinar/obrigado/ e o
+   lead-capture.js navega sozinho — este listener nunca dispara.
 
-   Envia SÓ nome, e-mail e telefone. Horário e tema saíram: a aula é sempre às
-   20h e o tema é sempre o mesmo, então não havia o que informar.
-
-   Para ver o que está sendo enviado, abra a página com ?debug=1 no fim da URL
-   e olhe o console do navegador. */
-var DEBUG = /[?&]debug=1/.test(location.search);
-
-function enviarLead(lead, aoTerminar){
-  var seguir = (function(){ var feito=false;
-    return function(){ if(feito) return; feito=true; if(aoTerminar) aoTerminar(); };
-  })();
-
-  if(!LEAD_ENDPOINT){ seguir(); return; }
-
-  var p = new URLSearchParams();
-  p.set('nome',     lead.nome);
-  p.set('email',    lead.email);
-  p.set('telefone', lead.whats);
-  var url = LEAD_ENDPOINT + (LEAD_ENDPOINT.indexOf('?')>-1?'&':'?') + p.toString();
-
-  if (DEBUG){
-    console.log('[DQ] endpoint:', LEAD_ENDPOINT);
-    console.log('[DQ] parametros:', {nome:lead.nome, email:lead.email, telefone:lead.whats});
-    console.log('[DQ] URL completa:', url);
-  }
-
-  try{ new Image().src = url; }catch(e){ if(DEBUG) console.warn('[DQ] imagem falhou:', e); }
-  try{ if(navigator.sendBeacon) navigator.sendBeacon(LEAD_ENDPOINT, p); }
-  catch(e){ if(DEBUG) console.warn('[DQ] sendBeacon falhou:', e); }
-
-  /* meio segundo de folga para o pedido sair antes da troca de página */
-  setTimeout(seguir, 500);
-}
+   Com tipo_final = conteudo (como está hoje), a resposta é {unlock:true}: o motor
+   entende "desbloqueia algo aqui mesmo" e NÃO redireciona. Como esta página não
+   tem conteúdo para desbloquear, o inscrito ficaria parado na landing sem
+   entender o que aconteceu. O listener abaixo cobre esse caso e leva ao obrigado
+   do mesmo jeito. Assim a captação está correta nas duas configurações. */
+document.addEventListener('dq:unlock', function(){
+  location.href = A.URLS.OBRIGADO;
+});
 </script>
+
+<!-- NÃO REMOVER (contrato CRM): o motor da captação. -->
+<script src="/assets/js/lead-capture.js"></script>
 </body>
 </html>
