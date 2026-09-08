@@ -87,15 +87,23 @@ var LOCAL   = "Online · o link chega pelo WhatsApp";
 /* ========================================== */
 
 function pad(n){ return (n<10?'0':'')+n; }
-var p   = new URLSearchParams(location.search);
-var h   = p.get('h') || '20h';
-var d   = p.get('d') || 'Hoje';
-var iso = p.get('iso');
 
-/* Data e hora do workshop. Vem por parâmetro; se faltar, reconstrói para as 20h. */
+/* Data e hora do workshop.
+   Fonte primária: assets/aula-config.js, que esta página já carrega. Antes vinha
+   pelos parâmetros ?h=&d=&iso= colados pela landing; quem manda o visitante para
+   cá agora é o CRM (a api-pagina-externa devolve o redirect), e esse redirect não
+   carrega parâmetro nenhum. Calcular aqui é o que mantém a página correta em
+   qualquer caminho de chegada. Os parâmetros continuam sendo aceitos, para não
+   quebrar link antigo que alguém tenha salvo. */
+var p   = new URLSearchParams(location.search);
+var iso = p.get('iso');
+var A   = window.DQ_AULA;
+
 var AULA;
 if (iso && !isNaN(new Date(iso).getTime())) {
   AULA = new Date(iso);
+} else if (A) {
+  AULA = A.inicio();
 } else {
   try { var g = localStorage.getItem('web_aula_iso'); if (g) AULA = new Date(g); } catch(e){}
   if (!AULA || isNaN(AULA.getTime())) {
@@ -103,6 +111,12 @@ if (iso && !isNaN(new Date(iso).getTime())) {
     if (Date.now() > AULA.getTime() + 90*60*1000) AULA.setDate(AULA.getDate()+1);
   }
 }
+
+/* Rótulos: do config quando ele existe; senão, derivados da própria AULA — nunca
+   mais do parâmetro sozinho, que era o que fazia a página dizer "Hoje, 20h"
+   depois das 21h30. */
+var h = p.get('h') || (A ? A.horaTexto() : pad(AULA.getHours())+'h'+pad(AULA.getMinutes()));
+var d = p.get('d') || (A ? A.diaTexto()  : 'Hoje');
 var FIM = new Date(AULA.getTime() + DURACAO*60*1000);
 
 document.getElementById('quandoLinha').innerHTML = d + ', <b>' + h + '</b> · horário de Brasília';

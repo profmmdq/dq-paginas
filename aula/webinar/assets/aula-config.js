@@ -45,22 +45,91 @@ window.DQ_AULA = (function(){
 
   function pad(n){ return (n<10?'0':'')+n; }
 
+  /* ---------------------------------------------------------------------
+     FUSO HORÁRIO · a aula é às 20h DE BRASÍLIA, para todo mundo.
+
+     Antes, o horário era montado com setHours() no relógio do visitante: quem
+     acessasse de Portugal via a contagem correr para as 20h de Lisboa, e a
+     sala de espera liberava na hora errada. A página sempre disse "horário de
+     Brasília" — agora o código diz a mesma coisa.
+
+     O cálculo usa o Intl para descobrir o deslocamento real de America/Sao_Paulo
+     no instante em questão, em vez de fixar -03:00 na mão. O Brasil não tem mais
+     horário de verão, mas se voltar a ter, isto continua certo sozinho.
+     --------------------------------------------------------------------- */
+  var TZ = "America/Sao_Paulo";
+
+  function temIntl(){
+    try { return !!(window.Intl && Intl.DateTimeFormat && new Intl.DateTimeFormat('en-US',{timeZone:TZ})); }
+    catch(e){ return false; }
+  }
+  var TZ_OK = temIntl();
+
+  /* Componentes de data/hora de um instante, lidos no fuso de Brasília. */
+  function partesTz(date){
+    var dtf = new Intl.DateTimeFormat('en-US', {
+      timeZone: TZ, hour12: false,
+      year:'numeric', month:'2-digit', day:'2-digit',
+      hour:'2-digit', minute:'2-digit', second:'2-digit', weekday:'short'
+    });
+    var o = {};
+    dtf.formatToParts(date).forEach(function(x){ o[x.type] = x.value; });
+    var semana = {Sun:0,Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6};
+    return { ano:+o.year, mes:+o.month, dia:+o.day,
+             hora:(+o.hour)%24, min:+o.minute, seg:+o.second,
+             diaSemana: semana[o.weekday] };
+  }
+
+  /* Deslocamento de Brasília, em minutos, no instante dado. */
+  function offsetTz(date){
+    var p = partesTz(date);
+    return (Date.UTC(p.ano, p.mes-1, p.dia, p.hora, p.min, p.seg) - date.getTime()) / 60000;
+  }
+
+  /* O instante absoluto correspondente a uma data/hora de parede em Brasília.
+     Chuta com o deslocamento vigente e corrige uma vez — é o que resolve as duas
+     horas ambíguas de uma eventual virada de horário de verão. */
+  function instanteTz(ano, mes0, dia, hora, minuto){
+    var alvo = Date.UTC(ano, mes0, dia, hora, minuto, 0);
+    var off  = offsetTz(new Date(alvo));
+    var inst = alvo - off*60000;
+    var off2 = offsetTz(new Date(inst));
+    if (off2 !== off) inst = alvo - off2*60000;
+    return new Date(inst);
+  }
+
   /* Início da sessão vigente. Se a aula de hoje já começou e ainda não acabou,
      devolve o horário de HOJE (é isso que permite o atrasado cair no ponto
-     certo). Se já acabou, ou ainda não é o dia, devolve a próxima ocorrência. */
+     certo). Se já acabou, ou ainda não é o dia, devolve a próxima ocorrência.
+     "Hoje" e "dia da semana" são sempre os de Brasília. */
   function inicio(){
-    var d = new Date();
-    d.setHours(CFG.HORA, CFG.MINUTO, 0, 0);
+    if (!TZ_OK){
+      /* Navegador sem Intl: mantém o comportamento antigo, no relógio local.
+         É pior, mas é melhor do que a página não funcionar. */
+      var l = new Date();
+      l.setHours(CFG.HORA, CFG.MINUTO, 0, 0);
+      var fimL = l.getTime() + CFG.DURACAO_MIN*60*1000;
+      if (!CFG.SEMANAL){
+        if (Date.now() > fimL) l.setDate(l.getDate() + 1);
+        return l;
+      }
+      var faltaL = (CFG.DIA_SEMANA - l.getDay() + 7) % 7;
+      if (faltaL === 0 && Date.now() > fimL) faltaL = 7;
+      l.setDate(l.getDate() + faltaL);
+      return l;
+    }
+
+    var hoje = partesTz(new Date());
+    var d   = instanteTz(hoje.ano, hoje.mes-1, hoje.dia, CFG.HORA, CFG.MINUTO);
     var fim = d.getTime() + CFG.DURACAO_MIN*60*1000;
 
     if (!CFG.SEMANAL){
-      if (Date.now() > fim) d.setDate(d.getDate() + 1);
+      if (Date.now() > fim) d = instanteTz(hoje.ano, hoje.mes-1, hoje.dia + 1, CFG.HORA, CFG.MINUTO);
       return d;
     }
-    var falta = (CFG.DIA_SEMANA - d.getDay() + 7) % 7;
+    var falta = (CFG.DIA_SEMANA - hoje.diaSemana + 7) % 7;
     if (falta === 0 && Date.now() > fim) falta = 7;
-    d.setDate(d.getDate() + falta);
-    return d;
+    return instanteTz(hoje.ano, hoje.mes-1, hoje.dia + falta, CFG.HORA, CFG.MINUTO);
   }
 
   /* Momento em que a porta abre: o horário da aula mais o buffer de 1 minuto. */
@@ -80,15 +149,28 @@ window.DQ_AULA = (function(){
   function jaComecou(){ return faltaParaAbrir() <= 0; }
 
   /* Rótulos prontos para a interface */
-  function horaTexto(){ return pad(CFG.HORA)+'h'+pad(CFG.MINUTO); }
+  /* "20h" quando não há minutos, "20h30" quando há. O formato acompanha a copy
+     que as páginas do webinar já usam no HTML — antes esta função devolvia
+     "20h00" e sobrescrevia o "20h" escrito à mão em cada página. */
+  function horaTexto(){ return CFG.MINUTO === 0 ? CFG.HORA+'h' : pad(CFG.HORA)+'h'+pad(CFG.MINUTO); }
   function diaTexto(){
-    var d = inicio(), hoje = new Date(); hoje.setHours(0,0,0,0);
-    var alvo = new Date(d.getFullYear(), d.getMonth(), d.getDate());
-    var dias = Math.round((alvo - hoje)/86400000);
+    var d = inicio();
+    var sem = ["domingo","segunda-feira","terça-feira","quarta-feira","quinta-feira","sexta-feira","sábado"];
+
+    /* "Hoje"/"Amanhã" também precisam ser lidos no calendário de Brasília: às 22h
+       de Lisboa já é outro dia lá, mas ainda é hoje aqui. */
+    var alvo = TZ_OK ? partesTz(d)
+                     : { ano:d.getFullYear(), mes:d.getMonth()+1, dia:d.getDate(), diaSemana:d.getDay() };
+    var ag   = TZ_OK ? partesTz(new Date())
+                     : (function(){ var n=new Date(); return { ano:n.getFullYear(), mes:n.getMonth()+1, dia:n.getDate() }; })();
+
+    var dias = Math.round(
+      (Date.UTC(alvo.ano, alvo.mes-1, alvo.dia) - Date.UTC(ag.ano, ag.mes-1, ag.dia)) / 86400000
+    );
     if (dias === 0) return "Hoje";
     if (dias === 1) return "Amanhã";
-    var sem = ["domingo","segunda-feira","terça-feira","quarta-feira","quinta-feira","sexta-feira","sábado"];
-    return sem[d.getDay()].charAt(0).toUpperCase()+sem[d.getDay()].slice(1)+", "+pad(d.getDate())+"/"+pad(d.getMonth()+1);
+    return sem[alvo.diaSemana].charAt(0).toUpperCase()+sem[alvo.diaSemana].slice(1)
+         + ", "+pad(alvo.dia)+"/"+pad(alvo.mes);
   }
 
   /* Quebra um intervalo em dias, horas, minutos e segundos, já com dois dígitos */
