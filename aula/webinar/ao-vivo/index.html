@@ -7,7 +7,149 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
-<script src="/aula/webinar/assets/aula-config.js"></script>
+<script>
+/* ==========================================================================
+   DQ · CONFIGURAÇÃO ÚNICA DO HORÁRIO DA AULA
+   Este arquivo é a fonte da verdade. Todas as páginas do webinar leem daqui:
+   index.html · obrigado.html · sala-de-espera.html · ao-vivo.html
+
+   Para mudar o horário da aula, mexa SÓ neste arquivo.
+   ========================================================================== */
+window.DQ_AULA = (function(){
+
+  var CFG = {
+    HORA: 20,            // hora de início da aula (0 a 23)
+    MINUTO: 0,           // minuto de início
+    BUFFER_SEG: 60,      // espera de 1 minuto a partir do horário antes de liberar a sala
+    DURACAO_MIN: 90,     // duração da aula. Depois disso, a sessão do dia é considerada encerrada
+    SEMANAL: false,      // false = todo dia · true = só no dia da semana abaixo
+    DIA_SEMANA: 3        // 0 domingo, 1 segunda, 2 terça, 3 quarta, 4 quinta, 5 sexta, 6 sábado
+  };
+
+  /* ---------------------------------------------------------------------
+     ENDEREÇOS DAS PÁGINAS · caminhos absolutos, a partir da raiz do site.
+
+     Estrutura publicada:
+       /aula/webinar/                  landing, onde a pessoa se inscreve
+       /aula/webinar/sala-de-espera/   antessala, quem chega antes das 20h
+       /aula/webinar/ao-vivo/          a aula
+       /aula/webinar/obrigado/         confirmação da inscrição
+
+     ATENÇÃO: endereço em servidor diferencia maiúscula de minúscula.
+     "webinar" é tudo minúsculo. Tem de ser exatamente assim na pasta do
+     repositório também, senão dá 404.
+
+     Se algum dia mudar de domínio, pode trocar por URL completa
+     ("https://site.dissecandoquestoes.com/aula/webinar/ao-vivo/").
+     Nenhuma outra linha do projeto precisa mudar: tudo lê daqui.
+     --------------------------------------------------------------------- */
+  var BASE = "https://site.dissecandoquestoes.com/aula/webinar/";
+  var URLS = {
+    BASE:           BASE,
+    ASSETS:         BASE + "assets/",
+    LANDING:        BASE,
+    AO_VIVO:        BASE + "ao-vivo/",
+    SALA_DE_ESPERA: BASE + "sala-de-espera/",
+    OBRIGADO:       BASE + "obrigado/"
+  };
+
+  function pad(n){ return (n<10?'0':'')+n; }
+
+  /* Início da sessão vigente. Se a aula de hoje já começou e ainda não acabou,
+     devolve o horário de HOJE (é isso que permite o atrasado cair no ponto
+     certo). Se já acabou, ou ainda não é o dia, devolve a próxima ocorrência. */
+  function inicio(){
+    var d = new Date();
+    d.setHours(CFG.HORA, CFG.MINUTO, 0, 0);
+    var fim = d.getTime() + CFG.DURACAO_MIN*60*1000;
+
+    if (!CFG.SEMANAL){
+      if (Date.now() > fim) d.setDate(d.getDate() + 1);
+      return d;
+    }
+    var falta = (CFG.DIA_SEMANA - d.getDay() + 7) % 7;
+    if (falta === 0 && Date.now() > fim) falta = 7;
+    d.setDate(d.getDate() + falta);
+    return d;
+  }
+
+  /* Momento em que a porta abre: o horário da aula mais o buffer de 1 minuto. */
+  function abertura(){ return new Date(inicio().getTime() + CFG.BUFFER_SEG*1000); }
+
+  /* Quanto falta, em milissegundos, para a porta abrir. Zero ou negativo
+     significa que a aula já está rolando. */
+  function faltaParaAbrir(){ return abertura().getTime() - Date.now(); }
+
+  /* Segundos já decorridos de aula. É o que sincroniza chat, bônus e oferta
+     para quem entra atrasado. Nunca é negativo. */
+  function decorridos(){
+    var s = (Date.now() - abertura().getTime())/1000;
+    return s > 0 ? s : 0;
+  }
+
+  function jaComecou(){ return faltaParaAbrir() <= 0; }
+
+  /* Rótulos prontos para a interface */
+  function horaTexto(){ return pad(CFG.HORA)+'h'+pad(CFG.MINUTO); }
+  function diaTexto(){
+    var d = inicio(), hoje = new Date(); hoje.setHours(0,0,0,0);
+    var alvo = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+    var dias = Math.round((alvo - hoje)/86400000);
+    if (dias === 0) return "Hoje";
+    if (dias === 1) return "Amanhã";
+    var sem = ["domingo","segunda-feira","terça-feira","quarta-feira","quinta-feira","sexta-feira","sábado"];
+    return sem[d.getDay()].charAt(0).toUpperCase()+sem[d.getDay()].slice(1)+", "+pad(d.getDate())+"/"+pad(d.getMonth()+1);
+  }
+
+  /* Quebra um intervalo em dias, horas, minutos e segundos, já com dois dígitos */
+  function partes(ms){
+    if (ms < 0) ms = 0;
+    var s = Math.floor(ms/1000);
+    return { d: pad(Math.floor(s/86400)), h: pad(Math.floor(s%86400/3600)),
+             m: pad(Math.floor(s%3600/60)),  s: pad(s%60) };
+  }
+
+  return { CFG:CFG, URLS:URLS, pad:pad, inicio:inicio, abertura:abertura,
+           faltaParaAbrir:faltaParaAbrir, decorridos:decorridos, jaComecou:jaComecou,
+           horaTexto:horaTexto, diaTexto:diaTexto, partes:partes };
+})();
+
+</script>
+<script>
+/* ===== SÓ NESTA CÓPIA DE TESTE =====
+   Acrescente ?min=NN no fim do endereço para simular a entrada em qualquer
+   minuto da aula, sem esperar o relógio.
+     ?min=0    entra no começo
+     ?min=66   entra no minuto 66
+     ?min=94   entra com a oferta já aberta
+   Sem o ?min, usa a hora de verdade do computador.
+   O painel no canto mostra o que o player está fazendo. */
+(function(){
+  var m = (location.search.match(/[?&]min=(\d+)/)||[])[1];
+  if (m != null){
+    var seg = parseInt(m,10) * 60, t0 = Date.now(), ab = new Date(Date.now() - seg*1000);
+    window.DQ_AULA.decorridos = function(){ return seg + (Date.now()-t0)/1000; };
+    window.DQ_AULA.jaComecou  = function(){ return true; };
+    window.DQ_AULA.abertura   = function(){ return ab; };
+  }
+  var d = document.createElement('div');
+  d.style.cssText = 'position:fixed;z-index:99999;left:10px;bottom:10px;background:#111;color:#0f0;'
+    + 'font:12px/1.5 monospace;padding:10px 12px;border-radius:8px;max-width:280px;opacity:.92';
+  document.addEventListener('DOMContentLoaded', function(){ document.body.appendChild(d); });
+  setInterval(function(){
+    var p = document.getElementById('vid-6a85ca998eaf0dd6e3cc358e');
+    var alvo = Math.floor(window.DQ_AULA.decorridos());
+    var atual = (p && typeof p.currentTime === 'number') ? Math.floor(p.currentTime) : null;
+    function mmss(x){ return Math.floor(x/60) + 'min' + ('0'+(x%60)).slice(-2); }
+    d.innerHTML = '<b>PAINEL DE TESTE</b><br>'
+      + 'deveria estar em: ' + mmss(alvo) + '<br>'
+      + 'vídeo está em: ' + (atual===null ? '(player carregando)' : mmss(atual)) + '<br>'
+      + (atual===null ? '' : (Math.abs(atual-alvo) <= 15
+          ? '<span style="color:#6f6">✓ SINCRONIZADO</span>'
+          : '<span style="color:#f66">✗ fora de sincronia</span>'));
+  }, 700);
+})();
+</script>
 <!-- Vturb / ConverteAI: prefetch dos domínios (performance do player) -->
 <script>!function(i,n){i._plt=i._plt||(n&&n.timeOrigin?n.timeOrigin+n.now():Date.now())}(window,performance);</script>
 <link rel="preload" href="https://scripts.converteai.net/8fb0c85a-c7c1-400e-a28a-5dc648d0969c/players/6a85ca998eaf0dd6e3cc358e/v4/player.js" as="script">
@@ -142,7 +284,7 @@
 </head>
 <body>
 <div class="bar">
-  <span class="brand"><img src="/aula/webinar/assets/logo-dq.png" alt="Dissecando Questões"></span>
+  <span class="brand"><img src="https://site.dissecandoquestoes.com/aula/webinar/assets/logo-dq.png" alt="Dissecando Questões"></span>
   <span class="badge"><span class="d"></span><span id="liveTxt">Ao vivo</span></span>
   <span class="viewers"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span id="viewers">72 assistindo</span></span>
 </div>
@@ -647,8 +789,8 @@ table{display:block;overflow-x:auto}
 <!-- HERO -->
 <section id="topo" class="hero">
   <picture>
-    <source type="image/webp" srcset="SCREENSHOTS%20DOSSI%C3%8A%20IF/Fachada_campus%20de%20IF%20%2B%20Manoel.webp">
-    <img class="hero-bg" src="/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/Fachada_campus%20de%20IF%20%2B%20Manoel.jpg" alt="Campus de Instituto Federal com o Prof. Manoel Machado">
+    <source type="image/webp" srcset="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/Fachada_campus%20de%20IF%20%2B%20Manoel.webp">
+    <img class="hero-bg" src="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/Fachada_campus%20de%20IF%20%2B%20Manoel.jpg" alt="Campus de Instituto Federal com o Prof. Manoel Machado">
   </picture>
   <div class="hero-scrim1"></div>
   <div class="hero-scrim2"></div>
@@ -665,9 +807,9 @@ table{display:block;overflow-x:auto}
       </div>
       <div class="hero-trust hero-up" style="animation-delay:.32s">
         <div class="avatars">
-          <img class="av" src="/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/avatar-1-fabricio.jpg" alt="" width="34" height="34">
-          <img class="av" src="/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/avatar-2-ligiane.jpg" alt="" width="34" height="34">
-          <img class="av" src="/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/avatar-3-daniele.jpg" alt="" width="34" height="34">
+          <img class="av" src="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/avatar-1-fabricio.jpg" alt="" width="34" height="34">
+          <img class="av" src="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/avatar-2-ligiane.jpg" alt="" width="34" height="34">
+          <img class="av" src="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/avatar-3-daniele.jpg" alt="" width="34" height="34">
           <span class="av av4">+</span>
         </div>
         <div class="hero-trust-txt"><strong>+300 professores aprovados</strong><br>em Institutos Federais de 18 estados</div>
@@ -718,8 +860,8 @@ table{display:block;overflow-x:auto}
       <div class="reveal">
         <div class="imgframe">
           <picture>
-            <source type="image/webp" srcset="SCREENSHOTS%20DOSSI%C3%8A%20IF/PROFESSOR%20EM%20SALA%20DE%20AULA.webp">
-            <img src="/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/PROFESSOR%20EM%20SALA%20DE%20AULA.jpg" alt="Professora orientando alunos em sala de aula de Instituto Federal">
+            <source type="image/webp" srcset="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/PROFESSOR%20EM%20SALA%20DE%20AULA.webp">
+            <img src="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/PROFESSOR%20EM%20SALA%20DE%20AULA.jpg" alt="Professora orientando alunos em sala de aula de Instituto Federal">
           </picture>
           <div class="imgtag">Sala de aula · Rede Federal</div>
         </div>
@@ -747,9 +889,9 @@ table{display:block;overflow-x:auto}
     <div class="tl-frame dark-frame reveal">
       <div class="tl-bar d"><span class="a">Fase pré-edital</span><span class="m">· 6 a 9 meses</span><span class="z">ampliar ⤢</span></div>
       <picture>
-        <source media="(max-width:768px)" srcset="SCREENSHOTS%20DOSSI%C3%8A%20IF/Mobile-INFOGR%C3%81FICO%20TIMELINE%20DO%20CONCURSO%20(2).webp">
-        <source type="image/webp" srcset="SCREENSHOTS%20DOSSI%C3%8A%20IF/INFOGR%C3%81FICO%20TIMELINE%20DO%20CONCURSO%20(2).webp">
-        <img data-zoom src="/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/INFOGR%C3%81FICO%20TIMELINE%20DO%20CONCURSO%20(2).png" alt="Como nasce um concurso IF: as fases do processo pré-edital ao longo de 6 a 9 meses">
+        <source media="(max-width:768px)" srcset="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/Mobile-INFOGR%C3%81FICO%20TIMELINE%20DO%20CONCURSO%20(2).webp">
+        <source type="image/webp" srcset="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/INFOGR%C3%81FICO%20TIMELINE%20DO%20CONCURSO%20(2).webp">
+        <img data-zoom src="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/INFOGR%C3%81FICO%20TIMELINE%20DO%20CONCURSO%20(2).png" alt="Como nasce um concurso IF: as fases do processo pré-edital ao longo de 6 a 9 meses">
       </picture>
     </div>
   </div>
@@ -766,9 +908,9 @@ table{display:block;overflow-x:auto}
     <div class="tl-frame light-frame reveal">
       <div class="tl-bar l"><span class="a">11 fases</span><span class="m">· edital → posse</span><span class="z">ampliar ⤢</span></div>
       <picture>
-        <source media="(max-width:768px)" srcset="SCREENSHOTS%20DOSSI%C3%8A%20IF/Mobile-INFOGR%C3%81FICO%20TIMELINE%20DO%20CONCURSO.webp">
-        <source type="image/webp" srcset="SCREENSHOTS%20DOSSI%C3%8A%20IF/INFOGR%C3%81FICO%20TIMELINE%20DO%20CONCURSO.webp">
-        <img data-zoom src="/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/INFOGR%C3%81FICO%20TIMELINE%20DO%20CONCURSO.png" alt="As 11 fases do concurso EBTT dos Institutos Federais, da publicação do edital à convocação e posse">
+        <source media="(max-width:768px)" srcset="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/Mobile-INFOGR%C3%81FICO%20TIMELINE%20DO%20CONCURSO.webp">
+        <source type="image/webp" srcset="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/INFOGR%C3%81FICO%20TIMELINE%20DO%20CONCURSO.webp">
+        <img data-zoom src="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/INFOGR%C3%81FICO%20TIMELINE%20DO%20CONCURSO.png" alt="As 11 fases do concurso EBTT dos Institutos Federais, da publicação do edital à convocação e posse">
       </picture>
     </div>
   </div>
@@ -804,27 +946,27 @@ table{display:block;overflow-x:auto}
   <div class="wrap steps">
     <div class="step reveal">
       <div class="step-text"><div class="step-num">01</div><h3>Diagnóstico da Banca</h3><p>Antes de abrir qualquer material, você entende como a sua banca cobra. O Mapa das Questões analisa os padrões de recorrência por instituto, disciplina e tema. Você não estuda tudo — estuda o que aparece.</p></div>
-      <div class="step-media"><div class="bframe"><div class="bbar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">app.dissecandoquestoes.com</span><span class="zoomlbl">ampliar ⤢</span></div><img data-zoom src="/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DO%20MAPA%20DAS%20QUEST%C3%95ES.png" alt="Mapa das Questões — recorrência por tema e banca"></div></div>
+      <div class="step-media"><div class="bframe"><div class="bbar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">app.dissecandoquestoes.com</span><span class="zoomlbl">ampliar ⤢</span></div><img data-zoom src="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DO%20MAPA%20DAS%20QUEST%C3%95ES.png" alt="Mapa das Questões — recorrência por tema e banca"></div></div>
     </div>
     <div class="step rev reveal">
       <div class="step-text"><div class="step-num">02</div><h3>Conteúdo Direcionado</h3><p>Com o mapa na mão, você estuda os materiais de conhecimentos básicos e específicos da sua área. Tudo em texto, direto ao ponto, sem videoaula de 2 horas. Cada página existe porque a banca cobra.</p></div>
-      <div class="step-media"><div class="bframe"><div class="bbar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">app.dissecandoquestoes.com</span><span class="zoomlbl">ampliar ⤢</span></div><picture><source type="image/webp" srcset="SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DO%20MATERIAL%20DID%C3%81TICO%20ENXUTO.webp"><img data-zoom src="/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DO%20MATERIAL%20DID%C3%81TICO%20ENXUTO.png" alt="Material didático enxuto por disciplina específica"></picture></div></div>
+      <div class="step-media"><div class="bframe"><div class="bbar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">app.dissecandoquestoes.com</span><span class="zoomlbl">ampliar ⤢</span></div><picture><source type="image/webp" srcset="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DO%20MATERIAL%20DID%C3%81TICO%20ENXUTO.webp"><img data-zoom src="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DO%20MATERIAL%20DID%C3%81TICO%20ENXUTO.png" alt="Material didático enxuto por disciplina específica"></picture></div></div>
     </div>
     <div class="step reveal">
       <div class="step-text"><div class="step-num">03</div><h3>Prática com Inteligência</h3><p>O Banco de Questões Dissecadas traz as provas anteriores com resolução estratégica. Você não só acerta ou erra — entende por que a banca formulou daquele jeito e o que ela quer testar.</p></div>
-      <div class="step-media"><div class="bframe"><div class="bbar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">app.dissecandoquestoes.com</span><span class="zoomlbl">ampliar ⤢</span></div><img data-zoom src="/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DE%20QUEST%C3%83O%20DISSECADA.png" alt="Questão dissecada com resolução estratégica"></div></div>
+      <div class="step-media"><div class="bframe"><div class="bbar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">app.dissecandoquestoes.com</span><span class="zoomlbl">ampliar ⤢</span></div><img data-zoom src="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DE%20QUEST%C3%83O%20DISSECADA.png" alt="Questão dissecada com resolução estratégica"></div></div>
     </div>
     <div class="step rev reveal">
       <div class="step-text"><div class="step-num">04</div><h3>Revisão Espaçada</h3><p>Flashcards calibrados pelo seu desempenho. O que você erra, volta mais vezes. O que você domina, espaça. A revisão é ativa, não passiva — e acontece dentro da plataforma.</p></div>
-      <div class="step-media"><div class="bframe"><div class="bbar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">app.dissecandoquestoes.com</span><span class="zoomlbl">ampliar ⤢</span></div><picture><source type="image/webp" srcset="SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DOS%20FLASHCARDS.webp"><img data-zoom src="/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DOS%20FLASHCARDS.png" alt="Flashcards com indicadores de desempenho"></picture></div></div>
+      <div class="step-media"><div class="bframe"><div class="bbar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">app.dissecandoquestoes.com</span><span class="zoomlbl">ampliar ⤢</span></div><picture><source type="image/webp" srcset="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DOS%20FLASHCARDS.webp"><img data-zoom src="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DOS%20FLASHCARDS.png" alt="Flashcards com indicadores de desempenho"></picture></div></div>
     </div>
     <div class="step reveal">
       <div class="step-text"><div class="step-num">05</div><h3>Cronograma que se Adapta</h3><p>A plataforma gera seu cronograma com base no tempo que você realmente tem. Se sua semana muda, o plano muda junto. Você não abandona o cronograma — ele se ajusta a você.</p></div>
-      <div class="step-media"><div class="bframe"><div class="bbar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">app.dissecandoquestoes.com</span><span class="zoomlbl">ampliar ⤢</span></div><img data-zoom src="/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DO%20CRONOGRAMA%20ADAPT%C3%81VEL.png" alt="Cronograma adaptável com metas semanais"></div></div>
+      <div class="step-media"><div class="bframe"><div class="bbar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">app.dissecandoquestoes.com</span><span class="zoomlbl">ampliar ⤢</span></div><img data-zoom src="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DO%20CRONOGRAMA%20ADAPT%C3%81VEL.png" alt="Cronograma adaptável com metas semanais"></div></div>
     </div>
     <div class="step rev reveal">
       <div class="step-text"><div class="step-num">06</div><h3>Acompanhamento Real</h3><p>Todo mês, encontro ao vivo com o Prof. Manoel Machado. Correção de rota, dúvidas estratégicas, alinhamento de prioridades. Você não está sozinho — tem alguém que já percorreu esse caminho acompanhando o seu.</p></div>
-      <div class="step-media"><div class="photoframe"><picture><source type="image/webp" srcset="SCREENSHOTS%20DOSSI%C3%8A%20IF/FOTO%20DO%20PROF.%20MANOEL%20EM%20MENTORIA%20AO%20VIVO.webp"><img data-zoom src="/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/FOTO%20DO%20PROF.%20MANOEL%20EM%20MENTORIA%20AO%20VIVO.jpg" alt="Encontro de mentoria coletiva ao vivo com o Prof. Manoel"></picture><div class="imgtag">Mentoria ao vivo · mensal</div></div></div>
+      <div class="step-media"><div class="photoframe"><picture><source type="image/webp" srcset="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/FOTO%20DO%20PROF.%20MANOEL%20EM%20MENTORIA%20AO%20VIVO.webp"><img data-zoom src="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/FOTO%20DO%20PROF.%20MANOEL%20EM%20MENTORIA%20AO%20VIVO.jpg" alt="Encontro de mentoria coletiva ao vivo com o Prof. Manoel"></picture><div class="imgtag">Mentoria ao vivo · mensal</div></div></div>
     </div>
   </div>
 </section>
@@ -876,9 +1018,9 @@ table{display:block;overflow-x:auto}
     </div>
 
     <div class="cards c3 reveal">
-      <div class="icard"><div class="top" data-zoom><img src="/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DO%20CHAT%20COM%20ROB%C3%94%20TUTOR.png" alt="Chat com o Robô Tutor"></div><div class="body"><div class="n">01</div><h4>Robô Tutor Dissecador</h4><p>Tira-dúvidas por IA especializado nas suas disciplinas. Resposta clara e direta, na hora.</p></div></div>
-      <div class="icard"><div class="top" data-zoom><img src="/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DE%20RESULTADO%20DE%20SIMULADO.png" alt="Resultado de simulado"></div><div class="body"><div class="n">02</div><h4>Simulados Dissecados</h4><p>Gerados por histórico de questões, direcionados por banca e área. Ajuste fino para a prova.</p></div></div>
-      <div class="icard"><div class="top" data-zoom><img src="/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DA%20TELA%20DE%20FLASHCARDS.png" alt="Tela de flashcards"></div><div class="body"><div class="n">03</div><h4>Flashcards de Revisão</h4><p>Revisão espaçada calibrada pelo desempenho. O que você erra, volta mais vezes.</p></div></div>
+      <div class="icard"><div class="top" data-zoom><img src="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DO%20CHAT%20COM%20ROB%C3%94%20TUTOR.png" alt="Chat com o Robô Tutor"></div><div class="body"><div class="n">01</div><h4>Robô Tutor Dissecador</h4><p>Tira-dúvidas por IA especializado nas suas disciplinas. Resposta clara e direta, na hora.</p></div></div>
+      <div class="icard"><div class="top" data-zoom><img src="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DE%20RESULTADO%20DE%20SIMULADO.png" alt="Resultado de simulado"></div><div class="body"><div class="n">02</div><h4>Simulados Dissecados</h4><p>Gerados por histórico de questões, direcionados por banca e área. Ajuste fino para a prova.</p></div></div>
+      <div class="icard"><div class="top" data-zoom><img src="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DA%20TELA%20DE%20FLASHCARDS.png" alt="Tela de flashcards"></div><div class="body"><div class="n">03</div><h4>Flashcards de Revisão</h4><p>Revisão espaçada calibrada pelo desempenho. O que você erra, volta mais vezes.</p></div></div>
     </div>
   </div>
 
@@ -891,8 +1033,8 @@ table{display:block;overflow-x:auto}
       <p>A estrutura que transforma estudo disperso em preparação real. Com tecnologia, comunidade e mentoria.</p>
     </div>
     <div class="d3feat">
-      <div class="d3card"><div class="top" data-zoom><img src="/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DO%20DASHBOARD%20DA%20PLATAFORMA.png" alt="Dashboard da plataforma"></div><div class="body"><div class="n">01</div><h4>Plataforma Inteligente</h4><p>Organiza seu progresso, identifica lacunas e sugere próximos passos. Seu copiloto de preparação.</p></div></div>
-      <div class="d3card"><div class="top" data-zoom><img src="/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DO%20CRONOGRAMA%20COM%20METAS.png" alt="Cronograma com metas"></div><div class="body"><div class="n">02</div><h4>Cronograma Adaptável</h4><p>Gerado automaticamente com base no seu tempo real. Se a semana muda, o plano muda junto.</p></div></div>
+      <div class="d3card"><div class="top" data-zoom><img src="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DO%20DASHBOARD%20DA%20PLATAFORMA.png" alt="Dashboard da plataforma"></div><div class="body"><div class="n">01</div><h4>Plataforma Inteligente</h4><p>Organiza seu progresso, identifica lacunas e sugere próximos passos. Seu copiloto de preparação.</p></div></div>
+      <div class="d3card"><div class="top" data-zoom><img src="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DO%20CRONOGRAMA%20COM%20METAS.png" alt="Cronograma com metas"></div><div class="body"><div class="n">02</div><h4>Cronograma Adaptável</h4><p>Gerado automaticamente com base no seu tempo real. Se a semana muda, o plano muda junto.</p></div></div>
     </div>
     <div class="d3comp">
       <div class="d3chip"><div class="n">03</div><h5>Comunidade por Área</h5><p>Grupo WhatsApp da sua disciplina</p></div>
@@ -933,7 +1075,7 @@ table{display:block;overflow-x:auto}
       </div>
     </div>
     <div class="bio reveal">
-      <div class="bio-img"><picture><source type="image/webp" srcset="SCREENSHOTS%20DOSSI%C3%8A%20IF/FOTO%20PROFISSIONAL%20DO%20PROF.%20MANOEL%20MACHADO2.webp"><img src="/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/FOTO%20PROFISSIONAL%20DO%20PROF.%20MANOEL%20MACHADO2.jpg" alt="Retrato profissional do Prof. Manoel Machado"></picture></div>
+      <div class="bio-img"><picture><source type="image/webp" srcset="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/FOTO%20PROFISSIONAL%20DO%20PROF.%20MANOEL%20MACHADO2.webp"><img src="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/FOTO%20PROFISSIONAL%20DO%20PROF.%20MANOEL%20MACHADO2.jpg" alt="Retrato profissional do Prof. Manoel Machado"></picture></div>
       <div class="bio-body">
         <div class="bio-top">
           <div class="bio-bar"></div>
@@ -1084,8 +1226,8 @@ table{display:block;overflow-x:auto}
 <!-- CTA FINAL -->
 <section class="ctafinal">
   <picture>
-    <source type="image/webp" srcset="SCREENSHOTS%20DOSSI%C3%8A%20IF/FOTO%20PROFISSIONAL%20DO%20PROF.%20MANOEL%20MACHADO2.webp">
-    <img class="ctafinal-bg" src="/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/FOTO%20PROFISSIONAL%20DO%20PROF.%20MANOEL%20MACHADO2.jpg" alt="" aria-hidden="true">
+    <source type="image/webp" srcset="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/FOTO%20PROFISSIONAL%20DO%20PROF.%20MANOEL%20MACHADO2.webp">
+    <img class="ctafinal-bg" src="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/FOTO%20PROFISSIONAL%20DO%20PROF.%20MANOEL%20MACHADO2.jpg" alt="" aria-hidden="true">
   </picture>
   <div class="ctafinal-scrim"></div>
   <div class="ctafinal-in reveal">
@@ -1156,7 +1298,7 @@ var BONUS_AT = 235;    // 3:55 — "clica no link que a gente está colocando no
 var MASK_IN  = 0;      // máscara DESLIGADA nesta aula: os slides já dizem "HOJE500" e "até hoje 23h59" (sem data)
 var MASK_OUT = 0;      // (para ligar: MASK_IN/MASK_OUT em segundos, ex.: 5583 e 5640)
 var OFFER_AT = 5599;   // 1:33:19 — link do checkout no chat; abre o Dossiê IF + barra do cupom
-var END_AT   = 7290;   // 2:01:30 — fim da aula (card de encerramento)
+var END_AT   = 7320;   // 2:02:00 — fim da aula (duração real do vídeo: 7319,98s)
 
 // caixa da máscara em % do vídeo (cobre só a região do slide). Ajuste fino se precisar.
 var MASK_BOX = { left:33, top:6, width:64, height:82 };
@@ -1427,34 +1569,57 @@ window.startWebinar=function(){
   pre.style.display='none'; saudar(); tickLine();
 };
 
-/* Posiciona o vídeo no minuto correspondente, para quem entra atrasado cair no
-   ponto em que a transmissão está. Com o retrocesso liberado no Vturb, a pessoa
-   pode voltar manualmente e ver o trecho que perdeu; o chat continua ao vivo.
-   Funciona direto em <video> nativo. No Vturb, tentamos os nomes de API mais
-   comuns; se nenhum existir, o vídeo abre no início e a pessoa avança sozinha. */
+/* Posiciona o vídeo no minuto correspondente ao relógio REAL da aula.
+   A aula toca sozinha todo dia às 20h, então o ponto certo do vídeo é sempre
+   "agora menos 20h", nunca o ponto em que a pessoa parou da última vez.
+   API documentada do Vturb: elemento.seek(segundos).
+   O reposicionamento é reaplicado nos primeiros segundos porque o
+   "Continuar Assistindo" do Vturb restaura a posição antiga logo após o load.
+   Depois disso soltamos o controle, para quem quiser voltar um trecho conseguir. */
 function sincronizarVideo(){
   if (!A) return;
-  var seg = Math.floor(A.decorridos());
-  if (seg < 5) return;
 
   var nativo = document.querySelector('.stage video');
   if (nativo){
-    var por = function(){ try{ nativo.currentTime = Math.min(seg, (nativo.duration||seg)-1); }catch(e){} };
+    var por = function(){
+      var alvo = Math.floor(A.decorridos());
+      if (alvo < 5) return;
+      try{ nativo.currentTime = Math.min(alvo, (nativo.duration||alvo)-1); }catch(e){}
+    };
     if (nativo.readyState >= 1) por(); else nativo.addEventListener('loadedmetadata', por, {once:true});
     return;
   }
-  var tentativas = 0;
-  var t = setInterval(function(){
-    tentativas++;
+
+  /* Na primeira visita o player ainda está carregando quando a página pede o
+     seek, e ele engole o pedido: por isso o vídeo começava do zero na primeira
+     vez e só acertava na segunda, com tudo em cache.
+     A saída é conferir. O player expõe currentTime, então pedimos o seek e
+     lemos de volta. Enquanto o vídeo não estiver no ponto, pedimos de novo.
+     Assim que ele confirma duas leituras seguidas no lugar certo, soltamos o
+     controle, e quem quiser voltar um trecho consegue. */
+  var t0 = Date.now(), apareceu = 0;
+  var laco = setInterval(function(){
+    if (Date.now() - t0 > 90000){ clearInterval(laco); return; }   // player nunca subiu: desiste
+
     var p = document.getElementById(VTURB_ID);
-    var api = p && (p.smartplayer || p.player || p);
-    try{
-      if (api && typeof api.seek === 'function'){ api.seek(seg); clearInterval(t); return; }
-      if (api && typeof api.setCurrentTime === 'function'){ api.setCurrentTime(seg); clearInterval(t); return; }
-      if (api && 'currentTime' in api){ api.currentTime = seg; clearInterval(t); return; }
-    }catch(e){}
-    if (tentativas > 40) clearInterval(t);   // desiste depois de 20 segundos
-  }, 500);
+    if (!p || typeof p.seek !== 'function') return;                // ainda carregando
+    if (!apareceu) apareceu = Date.now();
+
+    /* Vigiamos por 30 segundos a partir do momento em que o player aparece.
+       É o tempo de o vídeo carregar e de o "Continuar Assistindo" fazer o que
+       tem de fazer. Passados os 30 segundos soltamos o controle, para quem
+       quiser voltar um trecho conseguir. */
+    if (Date.now() - apareceu > 30000){ clearInterval(laco); return; }
+
+    var alvo = Math.floor(A.decorridos());
+    if (alvo < 5){ clearInterval(laco); return; }                  // entrou no começo
+    if (p.duration && alvo > p.duration - 5) alvo = Math.floor(p.duration - 5);
+
+    var atual = (typeof p.currentTime === 'number') ? p.currentTime : null;
+    if (atual === null || Math.abs(atual - alvo) > 15){
+      try{ p.seek(alvo); }catch(e){}
+    }
+  }, 1000);
 }
 
 var saudado=false;
