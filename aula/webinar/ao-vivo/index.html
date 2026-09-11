@@ -7,149 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
-<script>
-/* ==========================================================================
-   DQ · CONFIGURAÇÃO ÚNICA DO HORÁRIO DA AULA
-   Este arquivo é a fonte da verdade. Todas as páginas do webinar leem daqui:
-   index.html · obrigado.html · sala-de-espera.html · ao-vivo.html
-
-   Para mudar o horário da aula, mexa SÓ neste arquivo.
-   ========================================================================== */
-window.DQ_AULA = (function(){
-
-  var CFG = {
-    HORA: 20,            // hora de início da aula (0 a 23)
-    MINUTO: 0,           // minuto de início
-    BUFFER_SEG: 60,      // espera de 1 minuto a partir do horário antes de liberar a sala
-    DURACAO_MIN: 90,     // duração da aula. Depois disso, a sessão do dia é considerada encerrada
-    SEMANAL: false,      // false = todo dia · true = só no dia da semana abaixo
-    DIA_SEMANA: 3        // 0 domingo, 1 segunda, 2 terça, 3 quarta, 4 quinta, 5 sexta, 6 sábado
-  };
-
-  /* ---------------------------------------------------------------------
-     ENDEREÇOS DAS PÁGINAS · caminhos absolutos, a partir da raiz do site.
-
-     Estrutura publicada:
-       /aula/webinar/                  landing, onde a pessoa se inscreve
-       /aula/webinar/sala-de-espera/   antessala, quem chega antes das 20h
-       /aula/webinar/ao-vivo/          a aula
-       /aula/webinar/obrigado/         confirmação da inscrição
-
-     ATENÇÃO: endereço em servidor diferencia maiúscula de minúscula.
-     "webinar" é tudo minúsculo. Tem de ser exatamente assim na pasta do
-     repositório também, senão dá 404.
-
-     Se algum dia mudar de domínio, pode trocar por URL completa
-     ("https://site.dissecandoquestoes.com/aula/webinar/ao-vivo/").
-     Nenhuma outra linha do projeto precisa mudar: tudo lê daqui.
-     --------------------------------------------------------------------- */
-  var BASE = "https://site.dissecandoquestoes.com/aula/webinar/";
-  var URLS = {
-    BASE:           BASE,
-    ASSETS:         BASE + "assets/",
-    LANDING:        BASE,
-    AO_VIVO:        BASE + "ao-vivo/",
-    SALA_DE_ESPERA: BASE + "sala-de-espera/",
-    OBRIGADO:       BASE + "obrigado/"
-  };
-
-  function pad(n){ return (n<10?'0':'')+n; }
-
-  /* Início da sessão vigente. Se a aula de hoje já começou e ainda não acabou,
-     devolve o horário de HOJE (é isso que permite o atrasado cair no ponto
-     certo). Se já acabou, ou ainda não é o dia, devolve a próxima ocorrência. */
-  function inicio(){
-    var d = new Date();
-    d.setHours(CFG.HORA, CFG.MINUTO, 0, 0);
-    var fim = d.getTime() + CFG.DURACAO_MIN*60*1000;
-
-    if (!CFG.SEMANAL){
-      if (Date.now() > fim) d.setDate(d.getDate() + 1);
-      return d;
-    }
-    var falta = (CFG.DIA_SEMANA - d.getDay() + 7) % 7;
-    if (falta === 0 && Date.now() > fim) falta = 7;
-    d.setDate(d.getDate() + falta);
-    return d;
-  }
-
-  /* Momento em que a porta abre: o horário da aula mais o buffer de 1 minuto. */
-  function abertura(){ return new Date(inicio().getTime() + CFG.BUFFER_SEG*1000); }
-
-  /* Quanto falta, em milissegundos, para a porta abrir. Zero ou negativo
-     significa que a aula já está rolando. */
-  function faltaParaAbrir(){ return abertura().getTime() - Date.now(); }
-
-  /* Segundos já decorridos de aula. É o que sincroniza chat, bônus e oferta
-     para quem entra atrasado. Nunca é negativo. */
-  function decorridos(){
-    var s = (Date.now() - abertura().getTime())/1000;
-    return s > 0 ? s : 0;
-  }
-
-  function jaComecou(){ return faltaParaAbrir() <= 0; }
-
-  /* Rótulos prontos para a interface */
-  function horaTexto(){ return pad(CFG.HORA)+'h'+pad(CFG.MINUTO); }
-  function diaTexto(){
-    var d = inicio(), hoje = new Date(); hoje.setHours(0,0,0,0);
-    var alvo = new Date(d.getFullYear(), d.getMonth(), d.getDate());
-    var dias = Math.round((alvo - hoje)/86400000);
-    if (dias === 0) return "Hoje";
-    if (dias === 1) return "Amanhã";
-    var sem = ["domingo","segunda-feira","terça-feira","quarta-feira","quinta-feira","sexta-feira","sábado"];
-    return sem[d.getDay()].charAt(0).toUpperCase()+sem[d.getDay()].slice(1)+", "+pad(d.getDate())+"/"+pad(d.getMonth()+1);
-  }
-
-  /* Quebra um intervalo em dias, horas, minutos e segundos, já com dois dígitos */
-  function partes(ms){
-    if (ms < 0) ms = 0;
-    var s = Math.floor(ms/1000);
-    return { d: pad(Math.floor(s/86400)), h: pad(Math.floor(s%86400/3600)),
-             m: pad(Math.floor(s%3600/60)),  s: pad(s%60) };
-  }
-
-  return { CFG:CFG, URLS:URLS, pad:pad, inicio:inicio, abertura:abertura,
-           faltaParaAbrir:faltaParaAbrir, decorridos:decorridos, jaComecou:jaComecou,
-           horaTexto:horaTexto, diaTexto:diaTexto, partes:partes };
-})();
-
-</script>
-<script>
-/* ===== SÓ NESTA CÓPIA DE TESTE =====
-   Acrescente ?min=NN no fim do endereço para simular a entrada em qualquer
-   minuto da aula, sem esperar o relógio.
-     ?min=0    entra no começo
-     ?min=66   entra no minuto 66
-     ?min=94   entra com a oferta já aberta
-   Sem o ?min, usa a hora de verdade do computador.
-   O painel no canto mostra o que o player está fazendo. */
-(function(){
-  var m = (location.search.match(/[?&]min=(\d+)/)||[])[1];
-  if (m != null){
-    var seg = parseInt(m,10) * 60, t0 = Date.now(), ab = new Date(Date.now() - seg*1000);
-    window.DQ_AULA.decorridos = function(){ return seg + (Date.now()-t0)/1000; };
-    window.DQ_AULA.jaComecou  = function(){ return true; };
-    window.DQ_AULA.abertura   = function(){ return ab; };
-  }
-  var d = document.createElement('div');
-  d.style.cssText = 'position:fixed;z-index:99999;left:10px;bottom:10px;background:#111;color:#0f0;'
-    + 'font:12px/1.5 monospace;padding:10px 12px;border-radius:8px;max-width:280px;opacity:.92';
-  document.addEventListener('DOMContentLoaded', function(){ document.body.appendChild(d); });
-  setInterval(function(){
-    var p = document.getElementById('vid-6a85ca998eaf0dd6e3cc358e');
-    var alvo = Math.floor(window.DQ_AULA.decorridos());
-    var atual = (p && typeof p.currentTime === 'number') ? Math.floor(p.currentTime) : null;
-    function mmss(x){ return Math.floor(x/60) + 'min' + ('0'+(x%60)).slice(-2); }
-    d.innerHTML = '<b>PAINEL DE TESTE</b><br>'
-      + 'deveria estar em: ' + mmss(alvo) + '<br>'
-      + 'vídeo está em: ' + (atual===null ? '(player carregando)' : mmss(atual)) + '<br>'
-      + (atual===null ? '' : (Math.abs(atual-alvo) <= 15
-          ? '<span style="color:#6f6">✓ SINCRONIZADO</span>'
-          : '<span style="color:#f66">✗ fora de sincronia</span>'));
-  }, 700);
-})();
-</script>
+<script src="/aula/webinar/assets/aula-config.js"></script>
 <!-- Vturb / ConverteAI: prefetch dos domínios (performance do player) -->
 <script>!function(i,n){i._plt=i._plt||(n&&n.timeOrigin?n.timeOrigin+n.now():Date.now())}(window,performance);</script>
 <link rel="preload" href="https://scripts.converteai.net/8fb0c85a-c7c1-400e-a28a-5dc648d0969c/players/6a85ca998eaf0dd6e3cc358e/v4/player.js" as="script">
@@ -257,7 +115,6 @@ window.DQ_AULA = (function(){
   .cupombar .cbp{color:var(--cream);font-size:13.5px}
   .cupombar .ctimer{margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--acc2);background:rgba(255,117,31,.12);border:1px solid rgba(255,117,31,.3);border-radius:999px;padding:5px 11px;white-space:nowrap}
   .dossie-frame{background:transparent;max-width:100%}
-  #dossieEmbed{display:block;width:100%;overflow-x:clip}
   .ofcta{display:block;text-align:center;margin:0 0 12px;background:var(--acc);color:var(--ink2);font-family:var(--disp);font-weight:800;font-size:clamp(15px,2.4vw,19px);border-radius:13px;padding:18px 22px;text-decoration:none;box-shadow:0 18px 34px -14px rgba(255,117,31,.8)}
   .ofcta small{display:block;font-weight:700;font-size:12px;opacity:.75;margin-top:3px}
 
@@ -280,11 +137,49 @@ window.DQ_AULA = (function(){
   .cbox input:focus{border-color:var(--acc)}
   .cbox button{background:var(--acc);color:var(--ink2);border:0;border-radius:11px;font-weight:800;padding:0 17px;cursor:pointer}
   footer{font-family:var(--mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);text-align:center;padding:18px}
+
+  /* ====== OFERTA ENXUTA (preço + botão + FAQ) ====== */
+  .of2{max-width:860px;margin:0 auto;padding:0 16px}
+  .of2-card{background:linear-gradient(180deg,#102033 0%,#0b1420 100%);
+    border:1px solid rgba(255,117,31,.30);border-radius:20px;padding:32px 28px;text-align:center}
+  .of2-eye{font-family:var(--mono);font-size:11.5px;letter-spacing:2.6px;text-transform:uppercase;color:var(--acc2)}
+  .of2-nome{font-family:var(--disp);font-weight:800;font-size:clamp(26px,4.4vw,38px);
+    letter-spacing:-1.4px;color:var(--cream);margin-top:10px;line-height:1.05}
+  .of2-sub{font-size:15px;color:var(--muted);margin-top:12px;line-height:1.55;max-width:520px;
+    margin-left:auto;margin-right:auto}
+  .of2-de{margin-top:26px;font-size:14.5px;color:var(--muted)}
+  .of2-de s{opacity:.75}
+  .of2-parc{margin-top:6px;font-family:var(--disp);font-weight:800;color:var(--cream);
+    font-size:clamp(34px,6.4vw,54px);letter-spacing:-2.4px;line-height:1}
+  .of2-parc b{color:var(--acc)}
+  .of2-parc .x{font-size:.46em;font-weight:700;letter-spacing:-.5px;color:var(--muted)}
+  .of2-pix{margin-top:10px;font-size:15.5px;color:var(--sand)}
+  .of2-pix b{color:var(--cream);font-weight:800}
+  .of2-selos{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:22px}
+  .of2-selo{font-family:var(--mono);font-size:11px;letter-spacing:1.4px;text-transform:uppercase;
+    color:var(--cream);background:rgba(241,243,230,.07);border:1px solid var(--line);
+    border-radius:999px;padding:7px 13px}
+  .of2-gar{margin-top:20px;font-size:13.5px;color:var(--muted);line-height:1.55}
+
+  /* FAQ */
+  .faq2{max-width:860px;margin:34px auto 0;padding:0 16px}
+  .faq2 h3{font-family:var(--disp);font-weight:800;color:var(--cream);
+    font-size:clamp(20px,3vw,26px);letter-spacing:-.9px;text-align:center;margin-bottom:18px}
+  .faq2-i{border-bottom:1px solid var(--line)}
+  .faq2-q{width:100%;background:none;border:0;cursor:pointer;text-align:left;
+    display:flex;justify-content:space-between;align-items:center;gap:14px;padding:18px 0;
+    font-family:var(--disp);font-weight:700;font-size:15.5px;color:var(--cream);line-height:1.35}
+  .faq2-ic{color:var(--acc);font-size:24px;font-weight:300;line-height:1;flex:none;transition:transform .3s ease}
+  .faq2-i.open .faq2-ic{transform:rotate(45deg)}
+  .faq2-a{max-height:0;overflow:hidden;transition:max-height .35s ease}
+  .faq2-a p{font-size:14.5px;color:var(--muted);line-height:1.7;padding-bottom:18px}
+  @media(max-width:640px){ .of2-card{padding:26px 18px} }
+
 </style>
 </head>
 <body>
 <div class="bar">
-  <span class="brand"><img src="https://site.dissecandoquestoes.com/aula/webinar/assets/logo-dq.png" alt="Dissecando Questões"></span>
+  <span class="brand"><img src="/aula/webinar/assets/logo-dq.png" alt="Dissecando Questões"></span>
   <span class="badge"><span class="d"></span><span id="liveTxt">Ao vivo</span></span>
   <span class="viewers"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span id="viewers">72 assistindo</span></span>
 </div>
@@ -345,924 +240,50 @@ window.DQ_AULA = (function(){
         <span class="ctimer" id="cupomTimer">zera em 00:00:00</span>
       </div>
 
-      <div class="dossie-frame"><div id="dossieEmbed"></div></div>
+      <div class="of2">
+        <div class="of2-card">
+          <div class="of2-eye">Condição de hoje</div>
+          <div class="of2-nome">Dossiê IF · 1 ano de acesso</div>
+          <div class="of2-sub">Plataforma, cronograma que se adapta à sua rotina, materiais em texto e acompanhamento mensal com o Prof. Manoel Machado.</div>
 
-      <div class="fecho" style="text-align:center;margin-top:18px">
+          <div class="of2-de">de <s>R$ 1.747</s> por</div>
+          <div class="of2-parc"><span class="x">12x de</span> <b>R$ 124,70</b></div>
+          <div class="of2-pix">ou <b>R$ 1.247</b> à vista no Pix</div>
+
+          <div class="of2-selos">
+            <span class="of2-selo">Cupom HOJE500</span>
+            <span class="of2-selo">R$ 500 de desconto</span>
+            <span class="of2-selo">+300 aprovados</span>
+          </div>
+
+          <div class="of2-gar">Garantia incondicional de 7 dias. Se sentir que não é para você, devolvemos 100% do valor.</div>
+        </div>
+      </div>
+
+      <div class="fecho" style="text-align:center;margin-top:22px">
         <a class="ofcta" id="ofCta" href="#" target="_blank" rel="noopener">Garantir minha vaga com o cupom HOJE500
           <small>o cupom já vem aplicado no checkout</small></a>
         <a class="vbtn2" id="teamB" href="#" target="_blank" rel="noopener">Ainda com dúvida? Falar com a equipe</a>
       </div>
+
+      <div class="faq2">
+        <h3>Perguntas frequentes</h3>
+        <div class="faq2-i"><button class="faq2-q" type="button">Funciona para a minha área?<span class="faq2-ic">+</span></button><div class="faq2-a"><p>Sim. O Dossiê IF cobre todas as áreas de atuação com materiais específicos para cada disciplina. Os cadernos de questões, simulados e flashcards são filtrados pela sua área. As comunidades no WhatsApp também são segmentadas por disciplina.</p></div></div>
+        <div class="faq2-i"><button class="faq2-q" type="button">Tenho pouco tempo. Vai funcionar?<span class="faq2-ic">+</span></button><div class="faq2-a"><p>O Dossiê foi feito para quem tem pouco tempo. O cronograma se adapta às horas que você realmente tem disponíveis na semana. Sessões de 20 a 30 minutos por dia já geram progresso consistente.</p></div></div>
+        <div class="faq2-i"><button class="faq2-q" type="button">O material é em vídeo ou texto?<span class="faq2-ic">+</span></button><div class="faq2-a"><p>Os materiais didáticos, básicos e específicos, são 100% em texto: diretos, consultáveis, feitos para quem não pode assistir videoaulas longas. O Método DQ e o Curso Dissecando a Didática incluem vídeo por serem conteúdos de formação.</p></div></div>
+        <div class="faq2-i"><button class="faq2-q" type="button">Posso parcelar?<span class="faq2-ic">+</span></button><div class="faq2-a"><p>Sim, em até 12 vezes de R$ 124,70 no cartão de crédito com o cupom HOJE500. À vista no Pix, R$ 1.247. Diluído no seu período de acesso, o valor por dia fica abaixo de R$ 5.</p></div></div>
+        <div class="faq2-i"><button class="faq2-q" type="button">E se sair edital durante o meu acesso?<span class="faq2-ic">+</span></button><div class="faq2-a"><p>Melhor cenário possível. Você já vai estar preparado. A plataforma permite ajustar o cronograma para intensificar os estudos quando o edital sair, e você já sabe onde focar.</p></div></div>
+        <div class="faq2-i"><button class="faq2-q" type="button">A Mentoria Dissecando a Didática está mesmo inclusa?<span class="faq2-ic">+</span></button><div class="faq2-a"><p>Sim, e é a versão completa: curso gravado, modelo de plano de aula nota 10, esqueleto de slides, materiais de apoio, grupo exclusivo e encontros mensais.</p></div></div>
+        <div class="faq2-i"><button class="faq2-q" type="button">E se eu não gostar?<span class="faq2-ic">+</span></button><div class="faq2-a"><p>Você tem 7 dias de garantia incondicional. Se sentir que não é para você, basta solicitar o reembolso e devolvemos 100% do valor. Sem perguntas, sem burocracia.</p></div></div>
+      </div>
+
+      <div class="fecho" style="text-align:center;margin-top:26px">
+        <a class="ofcta" href="#" target="_blank" rel="noopener">Garantir minha vaga com o cupom HOJE500
+          <small>o cupom já vem aplicado no checkout</small></a>
+      </div>
     </section>
 
-<template id="dossieTpl"><style>:host{display:block;width:100%;background:#0b1420;overflow-x:clip}
 
-  :host{
-    --ink:#0f1829; --blue:#0c3d64; --acc:#ff751f; --cream:#f1f3e6; --cream2:#fbfcf6;
-    --tan:#ecdcc1; --green:#5e9558; --sky:#35bdf8; --panel:#0f1a26; --panelbar:#0b141d;
-    --petrol:#16495c; --bluecard:#0a2f4e; --txt:#38424f; --txt2:#5a6572; --txt3:#8a94a0;
-    --disp:'Bricolage Grotesque',system-ui,sans-serif;
-    --body:'Hanken Grotesk',system-ui,-apple-system,Segoe UI,sans-serif;
-    --mono:'Geist Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
-  }
-  *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{font-family:var(--body);color:var(--ink);background:var(--cream);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-  img{display:block}
-  a{text-decoration:none}
-  ::selection{background:var(--acc);color:#fff}
-
-  @keyframes heroUp{from{opacity:0;transform:translateY(34px)}to{opacity:1;transform:none}}
-  @keyframes pulseRing{0%{transform:scale(1);opacity:.55}70%{transform:scale(1.75);opacity:0}100%{opacity:0}}
-  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-11px)}}
-  @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-
-  .eyebrow{font-family:var(--mono);text-transform:uppercase;letter-spacing:2.6px;color:var(--acc);font-size:11.5px;font-weight:500;display:inline-block}
-  .eyebrow.line::before{content:"";display:inline-block;width:26px;height:1px;background:var(--acc);vertical-align:middle;margin-right:11px}
-  h1,h2,h3,h4,h5{font-family:var(--disp);font-weight:800;color:var(--blue);line-height:1.05;letter-spacing:-1px}
-
-  .grain{position:fixed;inset:0;z-index:70;pointer-events:none;opacity:.06;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22140%22 height=%22140%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22 numOctaves=%222%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/%3E%3C/svg%3E");background-size:140px 140px}
-  .progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--acc);z-index:130;transition:width .12s linear;box-shadow:0 0 12px rgba(255,117,31,.7)}
-
-  /* NAV */
-  .nav{position:fixed;top:0;left:0;right:0;z-index:120;display:flex;align-items:center;gap:16px;height:66px;padding:0 clamp(16px,4vw,44px);background:rgba(241,243,230,.76);backdrop-filter:blur(16px) saturate(1.25);-webkit-backdrop-filter:blur(16px) saturate(1.25);border-bottom:1px solid rgba(15,24,41,.08);transition:background .35s ease,box-shadow .35s ease,height .35s ease}
-  .nav.solid{background:rgba(241,243,230,.94);box-shadow:0 6px 24px -14px rgba(15,24,41,.4);height:58px}
-  .nav-logo{display:flex;align-items:center;gap:11px;margin-right:auto}
-  .nav-mark{position:relative;width:28px;height:28px;border-radius:8px;background:var(--acc);display:inline-flex;align-items:center;justify-content:center;box-shadow:0 6px 14px -4px rgba(255,117,31,.75)}
-  .nav-mark::after{content:"";width:9px;height:9px;background:#fff;border-radius:2px}
-  .nav-word{font-family:var(--disp);font-weight:800;font-size:17px;letter-spacing:-.4px;color:var(--ink)}
-  .nav-links{display:flex;gap:1px;overflow-x:auto;scrollbar-width:none}
-  .nav-links::-webkit-scrollbar{display:none}
-  .nav-links a{font-family:var(--mono);font-weight:500;font-size:11px;text-transform:uppercase;letter-spacing:1.4px;color:rgba(15,24,41,.5);padding:8px 13px;border-radius:7px;white-space:nowrap;transition:color .2s ease,background .2s ease}
-  .nav-links a:hover{color:var(--ink);background:rgba(15,24,41,.06)}
-  .nav-links a.active{color:var(--acc)}
-  .nav-cta{flex-shrink:0;display:inline-flex;align-items:center;gap:7px;background:var(--acc);color:#fff;font-family:var(--body);font-weight:700;font-size:13px;padding:10px 18px;border-radius:9px;box-shadow:0 10px 22px -10px rgba(255,117,31,.8);transition:transform .3s ease,box-shadow .3s ease}
-  .nav-cta:hover{transform:translateY(-2px);box-shadow:0 16px 30px -10px rgba(255,117,31,.85)}
-
-  .btn-primary{display:inline-flex;align-items:center;gap:10px;background:var(--acc);color:#fff;font-family:var(--body);font-weight:700;font-size:16px;letter-spacing:.2px;padding:17px 32px;border-radius:11px;box-shadow:0 18px 40px -14px rgba(255,117,31,.85);transition:transform .3s ease,box-shadow .3s ease;border:0;cursor:pointer}
-  .btn-primary:hover{transform:translateY(-3px);box-shadow:0 26px 50px -14px rgba(255,117,31,.9)}
-  .btn-ghost{display:inline-flex;align-items:center;gap:9px;background:rgba(241,243,230,.06);color:var(--cream);font-family:var(--body);font-weight:600;font-size:15px;padding:16px 26px;border-radius:11px;border:1px solid rgba(241,243,230,.2);transition:background .3s ease,border-color .3s ease}
-  .btn-ghost:hover{background:rgba(241,243,230,.12);border-color:rgba(241,243,230,.4)}
-
-  /* HERO */
-  .hero{position:relative;min-height:clamp(620px,96vh,940px);display:flex;align-items:center;background:var(--ink);overflow:hidden;padding-top:66px}
-  .hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:78% center;z-index:0}
-  .hero-scrim1{position:absolute;inset:0;z-index:1;background:linear-gradient(102deg,#0f1829 0%,rgba(15,24,41,.96) 34%,rgba(15,24,41,.62) 62%,rgba(15,24,41,.12) 100%)}
-  .hero-scrim2{position:absolute;inset:0;z-index:1;background:linear-gradient(to top,#0f1829 2%,rgba(15,24,41,0) 46%)}
-  .hero-glow{position:absolute;top:-16%;left:-6%;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(255,117,31,.26) 0%,transparent 66%);z-index:1;filter:blur(8px)}
-  .hero-grid{position:absolute;inset:0;z-index:1;opacity:.5;background-image:linear-gradient(rgba(241,243,230,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(241,243,230,.05) 1px,transparent 1px);background-size:64px 64px;-webkit-mask-image:radial-gradient(ellipse 70% 60% at 30% 50%,#000,transparent);mask-image:radial-gradient(ellipse 70% 60% at 30% 50%,#000,transparent)}
-  .hero-inner{position:relative;z-index:3;width:100%;max-width:1200px;margin:0 auto;padding:clamp(40px,8vh,90px) clamp(22px,5vw,56px)}
-  .hero-col{max-width:660px}
-  .hero .eyebrow{margin-bottom:24px;letter-spacing:3px;font-size:12px}
-  .hero h1{color:var(--cream);font-size:clamp(38px,6vw,74px);line-height:1;letter-spacing:-1.8px;margin-bottom:24px;text-wrap:balance}
-  .hero h1 .accent{color:var(--acc)}
-  .hero .sub{color:rgba(241,243,230,.82);font-size:clamp(16px,1.55vw,19px);line-height:1.6;max-width:530px;margin-bottom:36px}
-  .hero-actions{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-bottom:38px}
-  .hero-trust{display:flex;align-items:center;gap:14px}
-  .avatars{display:flex}
-  .avatars .av{width:34px;height:34px;border-radius:50%;border:2px solid var(--ink);flex:none;display:block}
-  .avatars .av+.av{margin-left:-11px}
-  .avatars img.av{object-fit:cover}
-  .av4{background:#1a2539;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;color:var(--cream)}
-  .hero-trust-txt{font-size:13.5px;color:rgba(241,243,230,.7);line-height:1.35}
-  .hero-trust-txt strong{color:var(--cream);font-weight:700}
-  .hero-up{animation:heroUp .8s cubic-bezier(.16,.84,.44,1) both}
-  .hero-float{position:absolute;z-index:3;right:clamp(20px,5vw,64px);bottom:clamp(96px,14vh,150px);background:rgba(15,24,41,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(241,243,230,.16);border-radius:14px;padding:16px 20px;box-shadow:0 24px 50px -18px rgba(0,0,0,.6);display:none}
-  .hero-float .inner{animation:floaty 5s ease-in-out infinite}
-  .hero-float .k{font-family:var(--mono);font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:var(--acc);margin-bottom:8px}
-  .hero-float .big{font-family:var(--disp);font-weight:800;font-size:26px;color:var(--cream);line-height:1}
-  .hero-float .s{font-size:12px;color:rgba(241,243,230,.68);margin-top:3px}
-
-  /* STATS */
-  .stats-wrap{padding:0 clamp(16px,4vw,44px);margin-top:clamp(-58px,-5vw,-48px);position:relative;z-index:40}
-  .stats{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(15,24,41,.1);border-radius:18px;overflow:hidden;border:1px solid rgba(15,24,41,.08);box-shadow:0 44px 90px -46px rgba(15,24,41,.5)}
-  .stats-cell{background:var(--cream2);padding:clamp(26px,3vw,38px) 18px;text-align:center}
-  .stats-val{font-family:var(--disp);font-weight:800;font-size:clamp(30px,3.4vw,40px);color:var(--blue);margin-bottom:9px;letter-spacing:-1px;line-height:1}
-  .stats-label{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:1.3px;color:rgba(15,24,41,.5)}
-
-  /* MARQUEE */
-  .marquee{margin-top:clamp(56px,7vw,84px);overflow:hidden;background:var(--ink);border-top:1px solid rgba(241,243,230,.08);border-bottom:1px solid rgba(241,243,230,.08)}
-  .marquee-track{display:flex;width:max-content;animation:ticker 34s linear infinite;padding:15px 0}
-  .marquee:hover .marquee-track{animation-play-state:paused}
-  .marquee-group{display:flex;align-items:center}
-  .marquee-item{display:inline-flex;align-items:center;gap:22px;padding:0 22px;font-family:var(--mono);font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:rgba(241,243,230,.66);white-space:nowrap}
-  .marquee-item::after{content:"";width:5px;height:5px;border-radius:50%;background:var(--acc)}
-
-  /* SECTION BASICS */
-  .sec{padding:clamp(78px,10vw,124px) clamp(22px,5vw,56px)}
-  .sec.dark{background:var(--ink)}
-  .sec.cream{background:var(--cream)}
-  .wrap{max-width:1120px;margin:0 auto}
-  .wrap-sm{max-width:900px;margin:0 auto}
-  .sec-head h2{font-size:clamp(29px,3.8vw,48px);letter-spacing:-1.6px;margin:16px 0 18px;text-wrap:balance}
-  .lead{font-size:16.5px;color:var(--txt);line-height:1.62}
-  .dark .lead{color:rgba(241,243,230,.78)}
-
-  /* CENARIO */
-  .cenario-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:clamp(38px,5vw,72px);align-items:center}
-  .cenario-grid h2{font-size:clamp(29px,3.7vw,46px);line-height:1.04;letter-spacing:-1.4px;margin:16px 0 24px;max-width:460px;text-wrap:balance}
-  .cenario-grid p{font-size:16px;color:var(--txt);line-height:1.68;margin-bottom:18px}
-  .cenario-grid p:last-child{margin-bottom:0}
-  .imgframe{position:relative;border-radius:20px;overflow:hidden;box-shadow:0 40px 80px -36px rgba(15,24,41,.5);transition:transform .5s cubic-bezier(.16,.84,.44,1)}
-  .imgframe:hover{transform:translateY(-6px)}
-  .imgframe img{width:100%;height:clamp(320px,44vw,480px);object-fit:cover}
-  .imgtag{position:absolute;left:16px;bottom:16px;background:rgba(15,24,41,.6);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(241,243,230,.16);border-radius:9px;padding:8px 14px;font-family:var(--mono);font-size:10.5px;letter-spacing:1.3px;text-transform:uppercase;color:var(--cream)}
-  .stat85{margin-top:clamp(48px,6vw,68px);background:var(--tan);border-radius:22px;padding:clamp(32px,4.5vw,52px);display:grid;grid-template-columns:auto 1fr;gap:clamp(24px,4vw,48px);align-items:center}
-  .stat85 .num{font-family:var(--disp);font-weight:800;font-size:clamp(64px,10vw,128px);line-height:.82;color:var(--acc);letter-spacing:-3px}
-  .stat85 .t{font-family:var(--disp);font-weight:700;font-size:clamp(19px,2.3vw,27px);color:var(--ink);line-height:1.32;margin-bottom:14px;text-wrap:pretty}
-  .stat85 .t .accent{color:var(--acc)}
-  .stat85 .src{font-family:var(--mono);font-size:11px;color:rgba(15,24,41,.5);text-transform:uppercase;letter-spacing:1.2px}
-
-  /* TIMELINE */
-  .tl-head{max-width:680px;margin:0 auto clamp(38px,5vw,56px);text-align:center}
-  .tl-head h2{font-size:clamp(26px,3.4vw,42px);line-height:1.06;letter-spacing:-1.2px;margin:16px 0 16px;text-wrap:balance}
-  .dark .tl-head h2{color:var(--cream)}
-  .tl-frame{max-width:1080px;margin:0 auto;border-radius:18px;overflow:hidden;box-shadow:0 44px 100px -40px rgba(0,0,0,.7);transition:transform .5s cubic-bezier(.16,.84,.44,1)}
-  .tl-frame:hover{transform:translateY(-5px)}
-  .tl-frame.dark-frame{border:1px solid rgba(241,243,230,.1)}
-  .tl-frame.light-frame{background:#fff;border:1px solid rgba(15,24,41,.1);box-shadow:0 46px 96px -42px rgba(15,24,41,.42)}
-  .tl-bar{display:flex;align-items:center;gap:10px;padding:12px 18px;font-family:var(--mono);font-size:10px;letter-spacing:1.4px;text-transform:uppercase}
-  .tl-bar.d{background:#0a1119;border-bottom:1px solid rgba(241,243,230,.08)}
-  .tl-bar.l{background:var(--cream2);border-bottom:1px solid rgba(15,24,41,.08)}
-  .tl-bar .a{color:var(--acc)}
-  .tl-bar .m{color:rgba(241,243,230,.4)}
-  .tl-bar.l .m{color:rgba(15,24,41,.4)}
-  .tl-bar .z{margin-left:auto;color:rgba(241,243,230,.4)}
-  .tl-bar.l .z{color:rgba(15,24,41,.4)}
-  .tl-frame picture,.tl-frame img{display:block;width:100%;height:auto;cursor:zoom-in}
-  .glowbox{position:absolute;border-radius:50%;z-index:0;pointer-events:none}
-
-  /* DESAFIO */
-  .desafio{position:relative;overflow:hidden}
-  .desafio .g{top:10%;right:-8%;width:480px;height:480px;background:radial-gradient(circle,rgba(255,117,31,.14) 0%,transparent 68%)}
-  .desafio-in{position:relative;z-index:1}
-  .desafio h3{font-size:clamp(27px,3.5vw,42px);line-height:1.06;letter-spacing:-1.2px;margin:16px 0 24px;color:var(--cream);text-wrap:balance}
-  .desafio p{font-size:16px;color:rgba(241,243,230,.78);line-height:1.68;margin-bottom:18px}
-  .pains{display:grid;grid-template-columns:repeat(auto-fit,minmax(212px,1fr));gap:14px;margin-top:40px}
-  .pain{background:#151f2e;border:1px solid rgba(241,243,230,.09);border-radius:15px;padding:26px 24px;transition:transform .35s ease,border-color .35s ease,background .35s ease}
-  .pain:hover{transform:translateY(-4px);border-color:rgba(255,117,31,.45);background:#18232f}
-  .pain .n{font-family:var(--mono);font-size:11px;color:rgba(241,243,230,.35);letter-spacing:1.5px;margin-bottom:14px}
-  .pain .ti{font-family:var(--disp);font-weight:700;font-size:16px;color:var(--acc);margin-bottom:9px}
-  .pain .tx{font-size:14px;color:rgba(241,243,230,.66);line-height:1.55}
-  .desafio-close{margin:clamp(46px,6vw,64px) auto 0;text-align:center;max-width:740px;font-family:var(--disp);font-weight:700;font-size:clamp(21px,2.8vw,32px);color:var(--cream);line-height:1.28;text-wrap:balance}
-  .desafio-close .accent{color:var(--acc)}
-
-  /* METODO */
-  .metodo-head h2{font-size:clamp(29px,3.8vw,48px);line-height:1.02;letter-spacing:-1.6px;margin:16px 0 20px;max-width:600px;text-wrap:balance}
-  .steps{display:flex;flex-direction:column;gap:clamp(52px,7vw,92px);padding-top:clamp(48px,6vw,76px)}
-  .step{display:flex;flex-wrap:wrap;gap:clamp(30px,4vw,60px);align-items:center}
-  .step.rev{flex-direction:row-reverse}
-  .step-text{flex:1 1 300px;min-width:262px}
-  .step-num{font-family:var(--disp);font-weight:800;font-size:clamp(58px,7vw,92px);line-height:.8;letter-spacing:-3px;color:transparent;-webkit-text-stroke:1.6px rgba(255,117,31,.5);margin-bottom:14px}
-  .step-text h3{font-size:clamp(23px,2.8vw,31px);line-height:1.1;letter-spacing:-.6px;margin-bottom:14px}
-  .step-text p{font-size:16px;color:var(--txt);line-height:1.66}
-  .step-media{flex:1.28 1 400px;min-width:308px}
-
-  /* BROWSER FRAME */
-  .bframe{border-radius:16px;overflow:hidden;background:var(--panel);border:1px solid rgba(22,73,92,.5);box-shadow:0 36px 76px -30px rgba(15,24,41,.6);transition:transform .5s cubic-bezier(.16,.84,.44,1),box-shadow .5s ease}
-  .bframe:hover{transform:translateY(-7px);box-shadow:0 46px 90px -30px rgba(15,24,41,.7)}
-  .bbar{display:flex;align-items:center;gap:7px;padding:12px 15px;background:var(--panelbar);border-bottom:1px solid rgba(255,255,255,.06)}
-  .dot{width:11px;height:11px;border-radius:50%}
-  .dot.r{background:#FF6057}.dot.y{background:#FEBC2E}.dot.g{background:#28C840}
-  .url{margin-left:12px;display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.06);border-radius:6px;padding:4px 12px;font-family:var(--mono);font-size:10.5px;color:rgba(241,243,230,.5)}
-  .url::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--green)}
-  .zoomlbl{margin-left:auto;font-family:var(--mono);font-size:9.5px;color:rgba(241,243,230,.34)}
-  .bframe img{width:100%;height:auto;cursor:zoom-in}
-  .photoframe{position:relative;border-radius:18px;overflow:hidden;box-shadow:0 34px 70px -30px rgba(15,24,41,.5);transition:transform .5s cubic-bezier(.16,.84,.44,1)}
-  .photoframe:hover{transform:translateY(-6px)}
-  .photoframe img{width:100%;height:clamp(270px,32vw,400px);object-fit:cover;cursor:zoom-in}
-
-  /* PROGRAMA */
-  .prog-head h2{font-size:clamp(29px,3.8vw,48px);line-height:1.02;letter-spacing:-1.6px;margin:16px 0 18px;max-width:640px;text-wrap:balance}
-  .video{margin:clamp(42px,5vw,60px) 0 0}
-  .video-frame{position:relative;border-radius:20px;overflow:hidden;aspect-ratio:16/7.6;background:linear-gradient(135deg,#0c3d64 0%,#0f1829 100%);box-shadow:0 40px 84px -34px rgba(15,24,41,.6)}
-  .video-grid{position:absolute;inset:0;opacity:.5;background-image:linear-gradient(rgba(241,243,230,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(241,243,230,.05) 1px,transparent 1px);background-size:52px 52px;-webkit-mask-image:radial-gradient(ellipse 60% 60% at 50% 50%,#000,transparent);mask-image:radial-gradient(ellipse 60% 60% at 50% 50%,#000,transparent)}
-  .video-in{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px}
-  .play{position:relative;width:78px;height:78px;border-radius:50%;border:2px solid rgba(241,243,230,.45);background:rgba(255,117,31,.16);color:var(--cream);display:flex;align-items:center;justify-content:center;font-size:26px;padding-left:5px;cursor:pointer;transition:transform .3s ease,background .3s ease}
-  .play:hover{transform:scale(1.06);background:rgba(255,117,31,.28)}
-  .play .ring{position:absolute;inset:-2px;border-radius:50%;border:2px solid var(--acc);animation:pulseRing 2.4s infinite}
-  .video-cap{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:2px;color:rgba(241,243,230,.55);text-align:center;padding:0 24px}
-  .dim{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(26px,4vw,52px);align-items:center;margin-top:clamp(52px,6.5vw,74px)}
-  .dim-badge{font-family:var(--mono);font-size:10.5px;color:var(--acc);letter-spacing:2.6px;text-transform:uppercase;font-weight:500}
-  .dim h3{font-size:clamp(23px,2.7vw,30px);letter-spacing:-.7px;margin:12px 0 14px;line-height:1.1}
-  .dim p{font-size:15.5px;color:var(--txt);line-height:1.64}
-  .simframe{border-radius:16px;overflow:hidden;background:var(--panel);border:1px solid rgba(22,73,92,.5);box-shadow:0 28px 62px -28px rgba(15,24,41,.55);transition:transform .5s cubic-bezier(.16,.84,.44,1)}
-  .simframe:hover{transform:translateY(-6px)}
-  .simframe .bbar{padding:11px 15px}
-  .simframe .dot{width:10px;height:10px}
-  .simframe img{width:100%;height:auto;cursor:zoom-in}
-  .cards{display:grid;gap:14px;margin-top:clamp(30px,4vw,40px)}
-  .cards.c6{grid-template-columns:repeat(auto-fit,minmax(238px,1fr))}
-  .cards.c3{grid-template-columns:repeat(auto-fit,minmax(258px,1fr));gap:16px}
-  .tcard{background:#fff;border:1px solid rgba(15,24,41,.09);border-radius:14px;padding:24px;transition:transform .35s ease,box-shadow .35s ease,border-color .35s ease}
-  .tcard:hover{transform:translateY(-4px);box-shadow:0 22px 44px -26px rgba(15,24,41,.4);border-color:rgba(255,117,31,.4)}
-  .tcard .n{font-family:var(--mono);font-weight:500;font-size:11px;color:var(--acc);letter-spacing:1.4px;margin-bottom:14px}
-  .tcard h4{font-family:var(--disp);font-weight:700;font-size:16px;color:var(--blue);margin-bottom:8px;line-height:1.2}
-  .tcard p{font-size:13.5px;color:var(--txt2);line-height:1.52}
-  .icard{background:#fff;border:1px solid rgba(15,24,41,.09);border-radius:15px;overflow:hidden;box-shadow:0 16px 40px -26px rgba(15,24,41,.35);transition:transform .35s ease,box-shadow .35s ease}
-  .icard:hover{transform:translateY(-5px);box-shadow:0 28px 56px -26px rgba(15,24,41,.45)}
-  .icard .top{background:var(--panel);height:162px;overflow:hidden;display:flex;align-items:flex-start;justify-content:center;cursor:zoom-in}
-  .icard .top img{width:100%;height:auto;object-fit:cover;object-position:top}
-  .icard .body{padding:22px 24px}
-  .icard .n{font-family:var(--mono);font-weight:500;font-size:11px;color:var(--acc);letter-spacing:1.4px;margin-bottom:10px}
-  .icard h4{font-family:var(--disp);font-weight:700;font-size:16px;color:var(--blue);margin-bottom:7px;line-height:1.2}
-  .icard p{font-size:13.5px;color:var(--txt2);line-height:1.52}
-
-  .dim3{max-width:1120px;margin:clamp(52px,6.5vw,76px) auto 0;background:var(--ink);border-radius:24px;padding:clamp(36px,5vw,60px);position:relative;overflow:hidden}
-  .dim3 .g{top:-20%;right:-6%;width:420px;height:420px;background:radial-gradient(circle,rgba(53,189,248,.16) 0%,transparent 68%)}
-  .dim3-head{position:relative;max-width:540px}
-  .dim3-head h3{color:var(--cream);font-size:clamp(23px,2.9vw,32px);letter-spacing:-.7px;margin:12px 0 14px;line-height:1.1}
-  .dim3-head p{font-size:15.5px;color:rgba(241,243,230,.78);line-height:1.62}
-  .d3feat{position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:clamp(32px,4vw,42px)}
-  .d3card{background:var(--bluecard);border:1px solid var(--petrol);border-radius:16px;overflow:hidden;transition:transform .35s ease,border-color .35s ease}
-  .d3card:hover{transform:translateY(-5px);border-color:rgba(53,189,248,.55)}
-  .d3card .top{background:var(--panelbar);overflow:hidden;cursor:zoom-in}
-  .d3card .top img{width:100%;height:auto}
-  .d3card .body{padding:22px 24px}
-  .d3card .n{font-family:var(--mono);font-weight:500;font-size:11px;color:var(--acc);letter-spacing:1.4px;margin-bottom:10px}
-  .d3card h4{font-family:var(--disp);font-weight:700;font-size:16px;color:var(--cream);margin-bottom:7px}
-  .d3card p{font-size:13.5px;color:rgba(241,243,230,.7);line-height:1.52}
-  .d3comp{position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));gap:10px;margin-top:12px}
-  .d3chip{background:var(--bluecard);border:1px solid var(--petrol);border-radius:13px;padding:22px 18px;text-align:center;transition:transform .35s ease,border-color .35s ease}
-  .d3chip:hover{transform:translateY(-4px);border-color:rgba(255,117,31,.5)}
-  .d3chip .n{font-family:var(--mono);font-weight:500;font-size:11px;color:var(--acc);letter-spacing:1.3px;margin-bottom:10px}
-  .d3chip h5{font-family:var(--disp);font-weight:700;font-size:14px;color:var(--cream);margin-bottom:5px;line-height:1.2}
-  .d3chip p{font-size:12px;color:rgba(241,243,230,.62);line-height:1.42}
-
-  /* RESULTADOS */
-  .res h2{font-size:clamp(29px,3.7vw,46px);letter-spacing:-1.5px;margin:16px 0 42px;line-height:1.02;text-wrap:balance}
-  .res-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(224px,1fr));gap:16px;margin-bottom:clamp(42px,5vw,56px)}
-  .res-stat{background:#fff;border:1px solid rgba(15,24,41,.09);border-radius:16px;padding:38px 30px;text-align:center;transition:transform .35s ease,box-shadow .35s ease}
-  .res-stat:hover{transform:translateY(-5px);box-shadow:0 28px 56px -28px rgba(15,24,41,.4)}
-  .res-num{font-family:var(--disp);font-weight:800;font-size:clamp(42px,5.4vw,54px);color:var(--acc);line-height:1;margin-bottom:16px;letter-spacing:-2px}
-  .res-stat p{font-size:14px;color:var(--txt2);line-height:1.5}
-  /* DEPOIMENTOS (portado de lps/banco — carrossel de vídeos + marquee de prints).
-     Classes com prefixo depo- de propósito: o .marquee-* desta página já é o
-     ticker de stats do hero — NÃO reaproveitar. */
-  .depo-sub{margin-bottom:clamp(42px,5vw,56px)}
-  .depo-sub h3{font-size:clamp(22px,2.8vw,30px);letter-spacing:-.8px;text-align:center;margin-bottom:28px}
-  .depo-video-wrap{position:relative;max-width:520px;margin:0 auto}
-  .depo-video-wrap video{width:100%;border-radius:16px;display:block;background:#000;box-shadow:0 30px 60px -28px rgba(15,24,41,.45)}
-  .depo-caption{text-align:center;margin-top:10px;font-size:14px;font-weight:700;color:var(--ink)}
-  .depo-caption .inst{color:var(--acc)}
-  .depo-nav{position:absolute;top:40%;transform:translateY(-50%);width:38px;height:38px;border-radius:50%;border:none;background:var(--ink);color:var(--cream);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(15,24,41,.3);z-index:2}
-  .depo-nav.prev{left:-14px}
-  .depo-nav.next{right:-14px}
-  .depo-dots{display:flex;justify-content:center;gap:8px;margin-top:12px}
-  .depo-dot{height:8px;width:8px;border-radius:4px;border:none;background:rgba(15,24,41,.2);cursor:pointer;transition:all .3s ease;padding:0}
-  .depo-dot.on{width:24px;background:var(--acc)}
-  .depo-marquee-outer{overflow:hidden;width:100%;margin-top:36px}
-  .depo-marquee-track{display:flex;gap:16px;width:max-content;animation:dqDepoMarquee 60s linear infinite}
-  .depo-marquee-track:hover{animation-play-state:paused}
-  @keyframes dqDepoMarquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-  .depo-marquee-item{flex:0 0 auto;width:220px}
-  .depo-marquee-item img{width:100%;border-radius:10px;display:block}
-  .depo-marquee-item .cap{font-size:12.5px;font-weight:600;color:var(--txt2);text-align:center;margin-top:8px}
-  .bio{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));align-items:stretch;background:var(--ink);border-radius:22px;overflow:hidden;box-shadow:0 40px 84px -40px rgba(15,24,41,.55)}
-  .bio-img{min-height:340px;position:relative}
-  .bio-img img{width:100%;height:100%;min-height:340px;object-fit:cover;object-position:50% center}
-  .bio-body{padding:clamp(34px,4.5vw,52px);display:flex;flex-direction:column;justify-content:center}
-  .bio-top{display:flex;align-items:center;gap:14px}
-  .bio-bar{width:3px;height:56px;background:var(--acc);border-radius:2px;flex-shrink:0}
-  .bio-body h3{font-size:24px;color:var(--cream);margin-bottom:5px;letter-spacing:-.5px}
-  .bio-role{font-family:var(--mono);font-size:11px;color:var(--acc);text-transform:uppercase;letter-spacing:1.6px}
-  .bio-body p{font-size:15px;color:rgba(241,243,230,.82);line-height:1.68;margin-top:22px}
-
-  /* INVESTIMENTO */
-  .invest{position:relative;overflow:hidden}
-  .invest .g{top:-10%;left:50%;transform:translateX(-50%);width:760px;height:520px;border-radius:50%;background:radial-gradient(ellipse,rgba(255,117,31,.16) 0%,transparent 66%)}
-  .invest-in{position:relative;max-width:960px;margin:0 auto}
-  .invest-head{text-align:center;max-width:620px;margin:0 auto clamp(38px,5vw,52px)}
-  .invest-head h2{color:var(--cream);font-size:clamp(29px,3.8vw,48px);letter-spacing:-1.6px;margin:16px 0 16px;line-height:1.02}
-  .invest-head p{font-size:16px;color:rgba(241,243,230,.78);line-height:1.6}
-  .pricing{background:linear-gradient(155deg,#122236,#0b1420);border:1px solid rgba(241,243,230,.12);border-radius:24px;overflow:hidden;box-shadow:0 50px 100px -44px rgba(0,0,0,.7)}
-  .pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
-  .pricing-left{padding:clamp(32px,4vw,48px);border-right:1px solid rgba(241,243,230,.1)}
-  .badge{display:inline-block;font-family:var(--mono);font-size:10px;color:var(--acc);letter-spacing:2.4px;border:1px solid rgba(255,117,31,.45);border-radius:6px;padding:7px 15px;margin-bottom:22px;text-transform:uppercase}
-  .pricing-left h3{font-size:clamp(26px,3vw,32px);color:var(--cream);margin-bottom:6px;letter-spacing:-.8px}
-  .pricing-sub{font-size:13.5px;color:rgba(241,243,230,.6);margin-bottom:28px}
-  .incs{display:flex;flex-direction:column;gap:13px}
-  .inc{display:flex;align-items:flex-start;gap:12px}
-  .inc .ck{flex-shrink:0;width:22px;height:22px;border-radius:6px;background:rgba(255,117,31,.18);color:var(--acc);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;margin-top:1px}
-  .inc span.t{font-size:14.5px;color:rgba(241,243,230,.86);line-height:1.42}
-  .pricing-right{padding:clamp(32px,4vw,48px);display:flex;flex-direction:column;justify-content:center;text-align:center;background:rgba(255,255,255,.015)}
-  .pre{font-size:13.5px;color:rgba(241,243,230,.6);margin-bottom:4px}
-  .price{font-family:var(--disp);font-weight:800;font-size:clamp(40px,5.6vw,56px);color:var(--cream);letter-spacing:-2.5px;line-height:1;margin-bottom:8px}
-  .price .sm{font-size:.62em;font-weight:700}
-  .pix{font-size:13.5px;color:rgba(241,243,230,.6);margin-bottom:30px}
-  .cta-full{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;font-size:15.5px;padding:18px}
-  .bonus{margin-top:20px;background:rgba(255,117,31,.1);border:1px solid rgba(255,117,31,.26);border-radius:9px;padding:14px 18px;font-size:13px;color:#ff9d5c;font-style:italic;line-height:1.4}
-  .guar{margin-top:14px;display:flex;align-items:flex-start;gap:9px;text-align:left}
-  .guar .sh{flex-shrink:0;font-size:15px;margin-top:1px}
-  .guar span.t{font-size:12px;color:rgba(241,243,230,.55);line-height:1.5}
-
-  /* DISSECANDO A DIDÁTICA INCLUSA */
-  .dd{position:relative;overflow:hidden;padding-bottom:clamp(40px,5vw,60px)}
-  .dd .g{top:-18%;right:-8%;width:640px;height:480px;border-radius:50%;background:radial-gradient(ellipse,rgba(255,117,31,.13) 0%,transparent 68%)}
-  .dd-in{position:relative;max-width:1020px;margin:0 auto}
-  .dd-head{text-align:center;max-width:660px;margin:0 auto clamp(34px,4.4vw,46px)}
-  .dd-head h2{color:var(--cream);font-size:clamp(27px,3.5vw,44px);letter-spacing:-1.5px;margin:16px 0 16px;line-height:1.04;text-wrap:balance}
-  .dd-head p{font-size:16px;color:rgba(241,243,230,.76);line-height:1.62}
-  .dd-card{background:linear-gradient(155deg,#122236,#0b1420);border:1px solid rgba(241,243,230,.12);border-radius:24px;overflow:hidden;box-shadow:0 44px 92px -46px rgba(0,0,0,.7)}
-  .dd-top{padding:clamp(28px,3.4vw,40px) clamp(26px,3.4vw,44px) clamp(22px,2.6vw,30px);border-bottom:1px solid rgba(241,243,230,.1);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px}
-  .dd-top h3{font-size:clamp(22px,2.6vw,30px);color:var(--cream);letter-spacing:-.9px;line-height:1.12;margin-bottom:7px}
-  .dd-top .sub{font-size:13.5px;color:rgba(241,243,230,.6);line-height:1.45}
-  .dd-tag{display:inline-block;font-family:var(--mono);font-size:10px;color:var(--acc);letter-spacing:2.2px;border:1px solid rgba(255,117,31,.45);border-radius:6px;padding:7px 14px;margin-bottom:15px;text-transform:uppercase}
-  .dd-anchor{flex-shrink:0;text-align:right;min-width:190px}
-  .dd-anchor .old{font-size:14px;color:rgba(241,243,230,.5);text-decoration:line-through;margin-bottom:5px}
-  .dd-anchor .now{font-family:var(--disp);font-weight:800;font-size:clamp(21px,2.5vw,27px);color:var(--acc);letter-spacing:-1px;line-height:1.06}
-  .dd-anchor .fine{font-size:11.5px;color:rgba(241,243,230,.5);margin-top:6px;line-height:1.4}
-  .dd-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(232px,1fr));gap:1px;background:rgba(241,243,230,.1)}
-  .dd-item{background:#0e1b2b;padding:24px clamp(20px,2.4vw,28px)}
-  .dd-item .n{font-family:var(--mono);font-size:11px;color:var(--acc);letter-spacing:2px;margin-bottom:11px}
-  .dd-item h4{font-size:16px;color:var(--cream);letter-spacing:-.4px;margin-bottom:7px;line-height:1.24}
-  .dd-item p{font-size:13.5px;color:rgba(241,243,230,.7);line-height:1.52}
-  .dd-foot{padding:clamp(22px,2.6vw,30px) clamp(26px,3.4vw,44px);border-top:1px solid rgba(241,243,230,.1);display:flex;align-items:flex-start;gap:13px;background:rgba(255,117,31,.07)}
-  .dd-foot .ic{flex-shrink:0;width:26px;height:26px;border-radius:7px;background:rgba(255,117,31,.2);color:var(--acc);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;margin-top:1px}
-  .dd-foot p{font-size:14px;color:rgba(241,243,230,.84);line-height:1.55}
-  .dd-foot b{color:var(--cream);font-weight:700}
-  @media(max-width:640px){
-    .dd-top{flex-direction:column;align-items:flex-start}
-    .dd-anchor{text-align:left;min-width:0}
-  }
-
-  /* FAQ */
-  .faq-wrap{max-width:840px;margin:0 auto}
-  .faq-wrap h2{font-size:clamp(26px,3.4vw,40px);letter-spacing:-1.4px;margin:16px 0 32px;line-height:1.04}
-  .faq-list{display:flex;flex-direction:column}
-  .faq-item{border-bottom:1px solid rgba(15,24,41,.14)}
-  .faq-q{width:100%;background:none;border:0;padding:23px 0;display:flex;justify-content:space-between;align-items:center;gap:16px;cursor:pointer;font-family:var(--disp);font-weight:700;font-size:clamp(16px,1.5vw,18.5px);color:var(--ink);text-align:left}
-  .faq-icon{color:var(--acc);font-size:28px;font-weight:300;line-height:1;transition:transform .3s ease;flex-shrink:0}
-  .faq-item.open .faq-icon{transform:rotate(45deg)}
-  .faq-a{max-height:0;overflow:hidden;transition:max-height .38s ease}
-  .faq-a p{font-size:15px;color:var(--txt2);line-height:1.66;padding-bottom:23px}
-
-  /* CTA FINAL */
-  .ctafinal{position:relative;padding:clamp(90px,12vw,140px) clamp(22px,5vw,56px);text-align:center;overflow:hidden;background:var(--ink)}
-  .ctafinal-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:.4;z-index:0}
-  .ctafinal-scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(to right,rgba(15,24,41,.95) 0%,rgba(15,24,41,.8) 50%,rgba(15,24,41,.92) 100%)}
-  .ctafinal-in{position:relative;z-index:2}
-  .ctafinal h2{color:var(--cream);font-size:clamp(30px,4.2vw,52px);letter-spacing:-1.8px;margin-bottom:16px;line-height:1}
-  .ctafinal p{font-size:17px;color:rgba(241,243,230,.82);max-width:460px;margin:0 auto 34px;line-height:1.55}
-  .ctafinal .fine{margin-top:22px;font-family:var(--mono);font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:rgba(241,243,230,.5)}
-
-  /* FOOTER */
-  .footer{background:#0a1119;border-top:1px solid rgba(241,243,230,.08);padding:44px clamp(22px,5vw,56px);text-align:center}
-  .footer-logo{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:14px}
-  .footer-mark{width:22px;height:22px;border-radius:6px;background:var(--acc);display:inline-flex;align-items:center;justify-content:center}
-  .footer-mark::after{content:"";width:7px;height:7px;background:#fff;border-radius:2px}
-  .footer-word{font-family:var(--disp);font-weight:800;font-size:15px;color:var(--cream);letter-spacing:-.3px}
-  .footer span.c{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:2.4px;color:rgba(241,243,230,.34)}
-
-  /* STICKY BAR */
-  .sticky{position:fixed;left:0;right:0;bottom:0;z-index:110;transform:translateY(130%);transition:transform .45s cubic-bezier(.16,.84,.44,1);padding:0 clamp(12px,3vw,24px) clamp(12px,3vw,20px);pointer-events:none}
-  .sticky.show{transform:translateY(0)}
-  .sticky-in{max-width:900px;margin:0 auto;pointer-events:auto;display:flex;align-items:center;gap:16px;background:rgba(15,24,41,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(241,243,230,.14);border-radius:15px;padding:12px 14px 12px 20px;box-shadow:0 24px 54px -20px rgba(0,0,0,.6)}
-  .sticky-txt{min-width:0;flex:1}
-  .sticky-txt .a{font-family:var(--disp);font-weight:800;font-size:15px;color:var(--cream);line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .sticky-txt .b{font-family:var(--mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:rgba(241,243,230,.55);margin-top:2px}
-  .sticky-cta{flex-shrink:0;display:inline-flex;align-items:center;gap:8px;background:var(--acc);color:#fff;font-family:var(--body);font-weight:700;font-size:14px;padding:13px 22px;border-radius:10px;box-shadow:0 12px 26px -10px rgba(255,117,31,.82);transition:transform .3s ease}
-  .sticky-cta:hover{transform:translateY(-2px)}
-
-  /* LIGHTBOX */
-  .lightbox{position:fixed;inset:0;z-index:1000;display:none;align-items:center;justify-content:center;background:rgba(8,14,20,.93);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);cursor:zoom-out;padding:clamp(16px,4vw,48px)}
-  .lightbox.open{display:flex}
-  .lightbox img{max-width:96vw;max-height:92vh;border-radius:12px;box-shadow:0 40px 100px -20px rgba(0,0,0,.8);object-fit:contain}
-  .lightbox-close{position:absolute;top:clamp(14px,3vw,26px);right:clamp(14px,3vw,26px);width:46px;height:46px;border-radius:50%;border:1px solid rgba(241,243,230,.3);background:rgba(15,24,41,.6);color:var(--cream);font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1}
-  .lightbox-hint{position:absolute;bottom:clamp(14px,3vw,26px);left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:2px;color:rgba(241,243,230,.5)}
-
-  /* REVEAL */
-  .reveal{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.16,.84,.44,1),transform .8s cubic-bezier(.16,.84,.44,1)}
-  .reveal.vis{opacity:1;transform:none}
-
-  /* RESPONSIVE */
-  @media (min-width:1000px){ .hero-float{display:block} }
-  @media (max-width:768px){
-    .nav{height:60px}
-    .nav-word{display:none}
-    .stats{grid-template-columns:repeat(2,1fr)}
-    .step.rev{flex-direction:row}
-    .dim .simframe{order:-1}
-    .pricing-left{border-right:0;border-bottom:1px solid rgba(241,243,230,.1)}
-    .bio-img img{min-height:280px}
-  }
-  @media (prefers-reduced-motion:reduce){
-    *{animation-duration:.001ms!important;animation-iteration-count:1!important}
-    .reveal{opacity:1;transform:none}
-  }
-
-
-/* copia embutida no ao vivo: o conteudo aparece sem depender de scroll dentro do quadro */
-.reveal,.reveal *{opacity:1!important;transform:none!important;visibility:visible!important}
-
-/* ===== ajustes da copia embutida no ao vivo (a LP original nao muda) ===== */
-:host, *{scroll-behavior:auto!important}
-header,.hdr,.nav,.navbar,.topbar,.site-header{display:none!important}
-/* nada preso na tela dentro do quadro; o resto do posicionamento continua como na LP */
-[style*="position:fixed"],[style*="position: fixed"]{position:absolute!important}
-.reveal,.reveal *{opacity:1!important;transform:none!important;visibility:visible!important}
-section,.sec,.hero{min-height:0!important;height:auto!important;padding-top:44px!important;padding-bottom:44px!important}
-.hero{padding-top:36px!important}
-img{max-width:100%;height:auto}
-*{max-width:100%;box-sizing:border-box}
-.wrap,.container,.sec>*{max-width:100%!important}
-table{display:block;overflow-x:auto}
-</style>
-
-
-<div class="grain" aria-hidden="true"></div>
-<div class="progress" id="progress" aria-hidden="true"></div>
-
-<!-- NAV -->
-<nav class="nav" id="nav">
-  <a href="#topo" class="nav-logo"><span class="nav-mark"></span><span class="nav-word">Dossiê IF</span></a>
-  <div class="nav-links" id="navLinks">
-    <a href="#cenario" data-id="cenario">Cenário</a>
-    <a href="#metodo" data-id="metodo">Método</a>
-    <a href="#programa" data-id="programa">Programa</a>
-    <a href="#resultados" data-id="resultados">Resultados</a>
-    <a href="#didatica" data-id="didatica">Didática</a>
-    <a href="#faq" data-id="faq">FAQ</a>
-  </div>
-  <a href="#investimento" class="nav-cta" data-scroll="investimento">Garantir vaga <span aria-hidden="true">→</span></a>
-</nav>
-
-<!-- HERO -->
-<section id="topo" class="hero">
-  <picture>
-    <source type="image/webp" srcset="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/Fachada_campus%20de%20IF%20%2B%20Manoel.webp">
-    <img class="hero-bg" src="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/Fachada_campus%20de%20IF%20%2B%20Manoel.jpg" alt="Campus de Instituto Federal com o Prof. Manoel Machado">
-  </picture>
-  <div class="hero-scrim1"></div>
-  <div class="hero-scrim2"></div>
-  <div class="hero-glow" aria-hidden="true"></div>
-  <div class="hero-grid" aria-hidden="true"></div>
-  <div class="hero-inner">
-    <div class="hero-col">
-      <span class="eyebrow line hero-up" style="animation-delay:0s">Dissecando Questões</span>
-      <h1 class="hero-up" style="animation-delay:.08s">O programa de preparação mais completo para os <span class="accent">Institutos Federais</span></h1>
-      <p class="sub hero-up" style="animation-delay:.16s">Plataforma inteligente. Cronograma que se adapta à sua rotina. Materiais completos em texto. Acompanhamento mensal com o Prof. Manoel Machado.</p>
-      <div class="hero-actions hero-up" style="animation-delay:.24s">
-        <a href="#investimento" class="btn-primary" data-scroll="investimento">Quero ser aprovado <span aria-hidden="true">→</span></a>
-        <a href="#metodo" class="btn-ghost" data-scroll="metodo">Conhecer o método</a>
-      </div>
-      <div class="hero-trust hero-up" style="animation-delay:.32s">
-        <div class="avatars">
-          <img class="av" src="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/avatar-1-fabricio.jpg" alt="" width="34" height="34">
-          <img class="av" src="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/avatar-2-ligiane.jpg" alt="" width="34" height="34">
-          <img class="av" src="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/avatar-3-daniele.jpg" alt="" width="34" height="34">
-          <span class="av av4">+</span>
-        </div>
-        <div class="hero-trust-txt"><strong>+300 professores aprovados</strong><br>em Institutos Federais de 18 estados</div>
-      </div>
-    </div>
-  </div>
-  <div class="hero-float" aria-hidden="true">
-    <div class="inner">
-      <div class="k">Método DQ</div>
-      <div class="big">85% aprovados</div>
-      <div class="s">passam de primeira</div>
-    </div>
-  </div>
-</section>
-
-<!-- STATS -->
-<div class="stats-wrap">
-  <div class="stats reveal">
-    <div class="stats-cell"><div class="stats-val" data-count data-target="9587">9.587</div><div class="stats-label">Vagas EBTT autorizadas</div></div>
-    <div class="stats-cell"><div class="stats-val" data-count data-target="111">111</div><div class="stats-label">Novos campi</div></div>
-    <div class="stats-cell"><div class="stats-val" data-count data-target="724">724</div><div class="stats-label">Unidades na rede</div></div>
-    <div class="stats-cell"><div class="stats-val" data-count data-pre="R$ " data-target="3.9" data-dec="1" data-suf=" bi">R$ 3,9 bi</div><div class="stats-label">Investimento federal</div></div>
-  </div>
-</div>
-
-<!-- MARQUEE -->
-<div class="marquee">
-  <div class="marquee-track">
-    <div class="marquee-group">
-      <span class="marquee-item">+300 professores aprovados</span><span class="marquee-item">18 estados</span><span class="marquee-item">15+ disciplinas</span><span class="marquee-item">R$ 3,9 bi investidos</span><span class="marquee-item">9.587 vagas EBTT</span><span class="marquee-item">111 novos campi</span><span class="marquee-item">724 unidades na rede</span>
-    </div>
-    <div class="marquee-group" aria-hidden="true">
-      <span class="marquee-item">+300 professores aprovados</span><span class="marquee-item">18 estados</span><span class="marquee-item">15+ disciplinas</span><span class="marquee-item">R$ 3,9 bi investidos</span><span class="marquee-item">9.587 vagas EBTT</span><span class="marquee-item">111 novos campi</span><span class="marquee-item">724 unidades na rede</span>
-    </div>
-  </div>
-</div>
-
-<!-- CENARIO -->
-<section id="cenario" class="sec cream" style="scroll-margin-top:82px;padding-bottom:clamp(60px,7vw,88px)">
-  <div class="wrap">
-    <div class="cenario-grid">
-      <div class="reveal">
-        <span class="eyebrow">O Cenário</span>
-        <h2>A expansão é real. A oportunidade é agora.</h2>
-        <p>A Rede Federal de Educação Profissional e Tecnológica vive seu maior ciclo de expansão em uma década. Novos campi foram inaugurados, milhares de vagas foram autorizadas, e o investimento federal ultrapassou R$ 3,9 bilhões. Os concursos não são uma possibilidade — são uma questão de tempo.</p>
-        <p>Da comissão organizadora à data da prova, o processo leva de 6 a 9 meses. Quando o edital sair, o tempo de preparação já vai ter passado. A pergunta que importa não é se vai ter concurso. É se você vai estar pronto quando ele sair.</p>
-      </div>
-      <div class="reveal">
-        <div class="imgframe">
-          <picture>
-            <source type="image/webp" srcset="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/PROFESSOR%20EM%20SALA%20DE%20AULA.webp">
-            <img src="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/PROFESSOR%20EM%20SALA%20DE%20AULA.jpg" alt="Professora orientando alunos em sala de aula de Instituto Federal">
-          </picture>
-          <div class="imgtag">Sala de aula · Rede Federal</div>
-        </div>
-      </div>
-    </div>
-    <div class="stat85 reveal">
-      <div class="num">85%</div>
-      <div>
-        <div class="t">dos aprovados de primeira começaram entre 6 e 10 meses antes da prova. O diferencial não foi intensidade. Foi <span class="accent">antecedência e direção</span>.</div>
-        <div class="src">Dado interno · +300 aprovados pelo método DQ</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- TIMELINE A -->
-<section class="sec dark" style="position:relative;overflow:hidden;padding-top:clamp(70px,9vw,112px);padding-bottom:clamp(70px,9vw,112px)">
-  <div class="hero-grid" aria-hidden="true" style="opacity:.6;-webkit-mask-image:radial-gradient(ellipse 80% 70% at 50% 30%,#000,transparent);mask-image:radial-gradient(ellipse 80% 70% at 50% 30%,#000,transparent);background-size:58px 58px"></div>
-  <div class="wrap" style="position:relative;text-align:center">
-    <div class="tl-head reveal">
-      <span class="eyebrow">Antes do edital</span>
-      <h2>O concurso já começou — você só não foi avisado</h2>
-      <p class="lead" style="text-align:center">O processo leva de 6 a 9 meses entre a autorização e a publicação do edital. Quem entende esse ciclo começa antes — e passa primeiro.</p>
-    </div>
-    <div class="tl-frame dark-frame reveal">
-      <div class="tl-bar d"><span class="a">Fase pré-edital</span><span class="m">· 6 a 9 meses</span><span class="z">ampliar ⤢</span></div>
-      <picture>
-        <source media="(max-width:768px)" srcset="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/Mobile-INFOGR%C3%81FICO%20TIMELINE%20DO%20CONCURSO%20(2).webp">
-        <source type="image/webp" srcset="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/INFOGR%C3%81FICO%20TIMELINE%20DO%20CONCURSO%20(2).webp">
-        <img data-zoom src="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/INFOGR%C3%81FICO%20TIMELINE%20DO%20CONCURSO%20(2).png" alt="Como nasce um concurso IF: as fases do processo pré-edital ao longo de 6 a 9 meses">
-      </picture>
-    </div>
-  </div>
-</section>
-
-<!-- TIMELINE B -->
-<section class="sec cream" style="padding-top:clamp(70px,9vw,116px);padding-bottom:clamp(70px,9vw,116px)">
-  <div class="wrap" style="text-align:center">
-    <div class="tl-head reveal">
-      <span class="eyebrow">As fases do concurso</span>
-      <h2>Da publicação do edital à convocação e posse</h2>
-      <p class="lead" style="text-align:center">Onze fases separam o edital da nomeação. Saber onde você está no caminho muda como você estuda.</p>
-    </div>
-    <div class="tl-frame light-frame reveal">
-      <div class="tl-bar l"><span class="a">11 fases</span><span class="m">· edital → posse</span><span class="z">ampliar ⤢</span></div>
-      <picture>
-        <source media="(max-width:768px)" srcset="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/Mobile-INFOGR%C3%81FICO%20TIMELINE%20DO%20CONCURSO.webp">
-        <source type="image/webp" srcset="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/INFOGR%C3%81FICO%20TIMELINE%20DO%20CONCURSO.webp">
-        <img data-zoom src="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/INFOGR%C3%81FICO%20TIMELINE%20DO%20CONCURSO.png" alt="As 11 fases do concurso EBTT dos Institutos Federais, da publicação do edital à convocação e posse">
-      </picture>
-    </div>
-  </div>
-</section>
-
-<!-- DESAFIO -->
-<section class="sec dark desafio" style="padding-top:clamp(74px,9vw,120px);padding-bottom:clamp(74px,9vw,120px)">
-  <div class="glowbox g" aria-hidden="true"></div>
-  <div class="wrap-sm desafio-in">
-    <div class="reveal">
-      <span class="eyebrow">O Desafio</span>
-      <h3>Você sabe que precisa se preparar. A dúvida é como.</h3>
-      <p>Você dá aula o dia inteiro. Corrige prova, prepara material, atende aluno, participa de reunião. Quando sobra tempo para estudar, sobra pouco — e a dúvida é sempre a mesma: estou estudando a coisa certa?</p>
-      <p>A maioria dos professores que se preparam para concursos de IF enfrenta os mesmos obstáculos: material genérico que não cobre o específico da área, questões espalhadas sem padrão de recorrência, cronograma que dura uma semana antes de ser abandonado, e a sensação constante de que o tempo está passando sem um plano real.</p>
-    </div>
-    <div class="pains reveal">
-      <div class="pain"><div class="n">01</div><div class="ti">Rotina esgotante</div><div class="tx">8h de aula + casa + família. Chega cansado e precisa decidir sozinho o que estudar.</div></div>
-      <div class="pain"><div class="n">02</div><div class="ti">Material genérico</div><div class="tx">Cursos que cobrem o geral e te deixam descoberto no específico da sua área.</div></div>
-      <div class="pain"><div class="n">03</div><div class="ti">Questões espalhadas</div><div class="tx">Questões de IF difíceis de encontrar, sem comentário, sem análise de recorrência.</div></div>
-      <div class="pain"><div class="n">04</div><div class="ti">Sem direcionamento</div><div class="tx">Sem saber o que a banca cobra, você estuda tudo e perde tempo.</div></div>
-    </div>
-    <div class="desafio-close reveal">A maioria reprova não por falta de capacidade, mas por falta de <span class="accent">direcionamento</span>.</div>
-  </div>
-</section>
-
-<!-- METODO -->
-<section id="metodo" class="sec cream" style="scroll-margin-top:82px;padding-bottom:clamp(30px,4vw,48px)">
-  <div class="wrap metodo-head reveal">
-    <span class="eyebrow">O Método</span>
-    <h2>Um sistema de 6 etapas que funciona na sua rotina</h2>
-    <p class="lead" style="max-width:580px">Não é um curso com videoaulas de 2 horas. É um programa de preparação que se adapta ao seu tempo — não contra ele.</p>
-  </div>
-  <div class="wrap steps">
-    <div class="step reveal">
-      <div class="step-text"><div class="step-num">01</div><h3>Diagnóstico da Banca</h3><p>Antes de abrir qualquer material, você entende como a sua banca cobra. O Mapa das Questões analisa os padrões de recorrência por instituto, disciplina e tema. Você não estuda tudo — estuda o que aparece.</p></div>
-      <div class="step-media"><div class="bframe"><div class="bbar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">app.dissecandoquestoes.com</span><span class="zoomlbl">ampliar ⤢</span></div><img data-zoom src="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DO%20MAPA%20DAS%20QUEST%C3%95ES.png" alt="Mapa das Questões — recorrência por tema e banca"></div></div>
-    </div>
-    <div class="step rev reveal">
-      <div class="step-text"><div class="step-num">02</div><h3>Conteúdo Direcionado</h3><p>Com o mapa na mão, você estuda os materiais de conhecimentos básicos e específicos da sua área. Tudo em texto, direto ao ponto, sem videoaula de 2 horas. Cada página existe porque a banca cobra.</p></div>
-      <div class="step-media"><div class="bframe"><div class="bbar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">app.dissecandoquestoes.com</span><span class="zoomlbl">ampliar ⤢</span></div><picture><source type="image/webp" srcset="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DO%20MATERIAL%20DID%C3%81TICO%20ENXUTO.webp"><img data-zoom src="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DO%20MATERIAL%20DID%C3%81TICO%20ENXUTO.png" alt="Material didático enxuto por disciplina específica"></picture></div></div>
-    </div>
-    <div class="step reveal">
-      <div class="step-text"><div class="step-num">03</div><h3>Prática com Inteligência</h3><p>O Banco de Questões Dissecadas traz as provas anteriores com resolução estratégica. Você não só acerta ou erra — entende por que a banca formulou daquele jeito e o que ela quer testar.</p></div>
-      <div class="step-media"><div class="bframe"><div class="bbar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">app.dissecandoquestoes.com</span><span class="zoomlbl">ampliar ⤢</span></div><img data-zoom src="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DE%20QUEST%C3%83O%20DISSECADA.png" alt="Questão dissecada com resolução estratégica"></div></div>
-    </div>
-    <div class="step rev reveal">
-      <div class="step-text"><div class="step-num">04</div><h3>Revisão Espaçada</h3><p>Flashcards calibrados pelo seu desempenho. O que você erra, volta mais vezes. O que você domina, espaça. A revisão é ativa, não passiva — e acontece dentro da plataforma.</p></div>
-      <div class="step-media"><div class="bframe"><div class="bbar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">app.dissecandoquestoes.com</span><span class="zoomlbl">ampliar ⤢</span></div><picture><source type="image/webp" srcset="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DOS%20FLASHCARDS.webp"><img data-zoom src="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DOS%20FLASHCARDS.png" alt="Flashcards com indicadores de desempenho"></picture></div></div>
-    </div>
-    <div class="step reveal">
-      <div class="step-text"><div class="step-num">05</div><h3>Cronograma que se Adapta</h3><p>A plataforma gera seu cronograma com base no tempo que você realmente tem. Se sua semana muda, o plano muda junto. Você não abandona o cronograma — ele se ajusta a você.</p></div>
-      <div class="step-media"><div class="bframe"><div class="bbar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">app.dissecandoquestoes.com</span><span class="zoomlbl">ampliar ⤢</span></div><img data-zoom src="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DO%20CRONOGRAMA%20ADAPT%C3%81VEL.png" alt="Cronograma adaptável com metas semanais"></div></div>
-    </div>
-    <div class="step rev reveal">
-      <div class="step-text"><div class="step-num">06</div><h3>Acompanhamento Real</h3><p>Todo mês, encontro ao vivo com o Prof. Manoel Machado. Correção de rota, dúvidas estratégicas, alinhamento de prioridades. Você não está sozinho — tem alguém que já percorreu esse caminho acompanhando o seu.</p></div>
-      <div class="step-media"><div class="photoframe"><picture><source type="image/webp" srcset="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/FOTO%20DO%20PROF.%20MANOEL%20EM%20MENTORIA%20AO%20VIVO.webp"><img data-zoom src="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/FOTO%20DO%20PROF.%20MANOEL%20EM%20MENTORIA%20AO%20VIVO.jpg" alt="Encontro de mentoria coletiva ao vivo com o Prof. Manoel"></picture><div class="imgtag">Mentoria ao vivo · mensal</div></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- PROGRAMA -->
-<section id="programa" class="sec cream" style="scroll-margin-top:82px;padding-bottom:clamp(56px,7vw,80px)">
-  <div class="wrap">
-    <div class="prog-head reveal">
-      <span class="eyebrow">O Programa</span>
-      <h2>Tudo que está incluído no Dossiê IF</h2>
-      <p class="lead" style="max-width:620px">16 ferramentas e recursos organizados em três dimensões da preparação. Cada item resolve um problema real — nenhum está aqui para encher lista.</p>
-    </div>
-
-    <div class="video reveal">
-      <div class="video-frame" id="apVideoFrame" style="aspect-ratio:16/9">
-        <iframe id="apVideo"
-          src="https://www.youtube.com/embed/plv-D5wQO7I?autoplay=1&mute=1&rel=0&playsinline=1"
-          title="Aula · Apresentação do Método"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen frameborder="0"
-          style="position:absolute;inset:0;width:100%;height:100%;border:0;background:#000"></iframe>
-      </div>
-      <p class="video-cap" style="margin-top:14px">Vídeo · Apresentação do Método + plataforma</p>
-    </div>
-
-    <div class="dim reveal">
-      <div style="max-width:640px">
-        <span class="dim-badge">Dimensão 01</span>
-        <h3>Conteúdo e Inteligência</h3>
-        <p>O conhecimento completo dos Institutos Federais — organizado, direcionado e pronto para estudar. Sem garimpar material, sem improvisar.</p>
-      </div>
-    </div>
-
-    <div class="cards c6 reveal">
-      <div class="tcard"><div class="n">01</div><h4>Materiais Básicos</h4><p>Legislação, didática, pedagogia — tudo que é comum a todos os editais. Em texto, direto ao ponto.</p></div>
-      <div class="tcard"><div class="n">02</div><h4>Materiais Específicos</h4><p>Conteúdo completo para todas as áreas. Feito para IFs, não genérico.</p></div>
-      <div class="tcard"><div class="n">03</div><h4>Banco de Questões</h4><p>Provas anteriores com resolução estratégica. Filtros por banca, instituto e tema.</p></div>
-      <div class="tcard"><div class="n">04</div><h4>Mapa das Questões</h4><p>Recorrência dinâmica por banca e tema. Você sabe o peso de cada assunto.</p></div>
-      <div class="tcard"><div class="n">05</div><h4>Biblioteca de Provas</h4><p>Acervo completo organizado por instituto e disciplina.</p></div>
-      <div class="tcard"><div class="n">06</div><h4>Método DQ</h4><p>Vídeos e documentos com a lógica da preparação.</p></div>
-    </div>
-
-    <div class="dim reveal">
-      <div style="max-width:640px">
-        <span class="dim-badge">Dimensão 02</span>
-        <h3>Prática e Revisão</h3>
-        <p>Treinar como a banca cobra e fixar o que importa. Com ferramentas inteligentes que se adaptam ao seu desempenho.</p>
-      </div>
-    </div>
-
-    <div class="cards c3 reveal">
-      <div class="icard"><div class="top" data-zoom><img src="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DO%20CHAT%20COM%20ROB%C3%94%20TUTOR.png" alt="Chat com o Robô Tutor"></div><div class="body"><div class="n">01</div><h4>Robô Tutor Dissecador</h4><p>Tira-dúvidas por IA especializado nas suas disciplinas. Resposta clara e direta, na hora.</p></div></div>
-      <div class="icard"><div class="top" data-zoom><img src="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DE%20RESULTADO%20DE%20SIMULADO.png" alt="Resultado de simulado"></div><div class="body"><div class="n">02</div><h4>Simulados Dissecados</h4><p>Gerados por histórico de questões, direcionados por banca e área. Ajuste fino para a prova.</p></div></div>
-      <div class="icard"><div class="top" data-zoom><img src="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DA%20TELA%20DE%20FLASHCARDS.png" alt="Tela de flashcards"></div><div class="body"><div class="n">03</div><h4>Flashcards de Revisão</h4><p>Revisão espaçada calibrada pelo desempenho. O que você erra, volta mais vezes.</p></div></div>
-    </div>
-  </div>
-
-  <!-- DIM 3 -->
-  <div class="dim3 reveal">
-    <div class="glowbox g" aria-hidden="true"></div>
-    <div class="dim3-head">
-      <span class="dim-badge">Dimensão 03</span>
-      <h3>Organização e Acompanhamento</h3>
-      <p>A estrutura que transforma estudo disperso em preparação real. Com tecnologia, comunidade e mentoria.</p>
-    </div>
-    <div class="d3feat">
-      <div class="d3card"><div class="top" data-zoom><img src="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DO%20DASHBOARD%20DA%20PLATAFORMA.png" alt="Dashboard da plataforma"></div><div class="body"><div class="n">01</div><h4>Plataforma Inteligente</h4><p>Organiza seu progresso, identifica lacunas e sugere próximos passos. Seu copiloto de preparação.</p></div></div>
-      <div class="d3card"><div class="top" data-zoom><img src="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/SCREENSHOT%20DO%20CRONOGRAMA%20COM%20METAS.png" alt="Cronograma com metas"></div><div class="body"><div class="n">02</div><h4>Cronograma Adaptável</h4><p>Gerado automaticamente com base no seu tempo real. Se a semana muda, o plano muda junto.</p></div></div>
-    </div>
-    <div class="d3comp">
-      <div class="d3chip"><div class="n">03</div><h5>Comunidade por Área</h5><p>Grupo WhatsApp da sua disciplina</p></div>
-      <div class="d3chip"><div class="n">04</div><h5>Mentoria Mensal</h5><p>Ao vivo com Prof. Manoel, gravada</p></div>
-      <div class="d3chip"><div class="n">05</div><h5>Dissecando a Didática</h5><p>Produto completo, incluso no Dossiê</p></div>
-      <div class="d3chip"><div class="n">06</div><h5>Prep. Discursiva</h5><p>Técnica e correção com feedback</p></div>
-      <div class="d3chip"><div class="n">07</div><h5>Suporte WhatsApp</h5><p>Chat individual, horário comercial</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- RESULTADOS -->
-<section id="resultados" class="sec cream res" style="scroll-margin-top:82px">
-  <div class="wrap">
-    <div class="reveal">
-      <span class="eyebrow">Resultados</span>
-      <h2>Números reais de quem seguiu o método</h2>
-    </div>
-    <div class="res-stats reveal">
-      <div class="res-stat"><div class="res-num" data-count data-pre="+" data-target="300">+300</div><p>Professores aprovados em Institutos Federais usando o método DQ</p></div>
-      <div class="res-stat"><div class="res-num" data-count data-target="85" data-suf="%">85%</div><p>Dos aprovados de primeira começaram entre 6 e 10 meses antes da prova</p></div>
-      <div class="res-stat"><div class="res-num" data-count data-target="18" data-suf="+">18+</div><p>Estados com alunos aprovados, em mais de 15 disciplinas diferentes</p></div>
-    </div>
-    <!-- DEPOIMENTOS — portado de lps/banco (carrossel de vídeos + marquee de prints) -->
-    <div class="depo-sub reveal">
-      <h3>Quem já dissecou o IF pelo método DQ</h3>
-      <div class="depo-video-wrap">
-        <video id="depoVideo" controls playsinline preload="metadata">
-          <source id="depoSource" src="https://kqvwmmiguoqfuseabmtt.supabase.co/storage/v1/object/public/depoimentos/depoimento-video-1.mp4" type="video/mp4">
-        </video>
-        <p class="depo-caption" id="depoCaption">Fábio — <span class="inst">aprovado(a) no IFAC</span></p>
-        <button type="button" class="depo-nav prev" id="depoPrev" aria-label="Vídeo anterior">‹</button>
-        <button type="button" class="depo-nav next" id="depoNext" aria-label="Próximo vídeo">›</button>
-        <div class="depo-dots" id="depoDots"></div>
-      </div>
-      <div class="depo-marquee-outer">
-        <div class="depo-marquee-track" id="depoMarqueeTrack"></div>
-      </div>
-    </div>
-    <div class="bio reveal">
-      <div class="bio-img"><picture><source type="image/webp" srcset="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/FOTO%20PROFISSIONAL%20DO%20PROF.%20MANOEL%20MACHADO2.webp"><img src="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/FOTO%20PROFISSIONAL%20DO%20PROF.%20MANOEL%20MACHADO2.jpg" alt="Retrato profissional do Prof. Manoel Machado"></picture></div>
-      <div class="bio-body">
-        <div class="bio-top">
-          <div class="bio-bar"></div>
-          <div>
-            <h3>Prof. Manoel Machado</h3>
-            <span class="bio-role">Criador do Método DQ</span>
-          </div>
-        </div>
-        <p>Criador do Método Dissecando Questões. Mais de 300 alunos aprovados em Institutos Federais de 18 estados. Professor, mentor e especialista de preparação para concursos da Rede Federal.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- DISSECANDO A DIDÁTICA · INCLUSA NO DOSSIÊ -->
-<section id="didatica" class="sec dark dd" style="scroll-margin-top:82px">
-  <div class="glowbox g" aria-hidden="true"></div>
-  <div class="dd-in">
-    <div class="dd-head reveal">
-      <span class="eyebrow">Já incluso no seu acesso</span>
-      <h2>A fase que mais elimina candidato qualificado já vem resolvida</h2>
-      <p>Quem passa na primeira fase e cai na prova didática raramente cai por conteúdo. Cai por estrutura de aula, gestão do tempo e comunicação com a banca. Por isso a Mentoria Dissecando a Didática entra no Dossiê IF desde o primeiro dia, sem custo adicional.</p>
-    </div>
-
-    <div class="dd-card reveal">
-      <div class="dd-top">
-        <div>
-          <span class="dd-tag">Produto completo incluso</span>
-          <h3>Dissecando a Didática</h3>
-          <p class="sub">A aula que aprova. Acesso pleno, com todos os entregáveis, pela mesma duração do seu plano no Dossiê.</p>
-        </div>
-        <div class="dd-anchor">
-          <div class="now">Inclusa no Dossiê</div>
-          <div class="fine">Sem custo adicional</div>
-        </div>
-      </div>
-
-      <div class="dd-grid">
-        <div class="dd-item">
-          <div class="n">01</div>
-          <h4>Curso gravado de aulas estratégicas</h4>
-          <p>Estrutura de aula, gestão de tempo na prova, postura, comunicação com a banca e simulação realista. Módulos curtos, a maioria entre 10 e 20 minutos.</p>
-        </div>
-        <div class="dd-item">
-          <div class="n">02</div>
-          <h4>Modelo de plano de aula nota 10</h4>
-          <p>Template validado em provas reais, adaptável a qualquer disciplina e nível. Organiza objetivos, metodologia, recursos, avaliação e fechamento do jeito que a banca espera.</p>
-        </div>
-        <div class="dd-item">
-          <div class="n">03</div>
-          <h4>Esqueleto de slides matadores</h4>
-          <p>Template editável em Canva e PowerPoint, com hierarquia visual, tipografia e ritmo calibrados para prender a atenção da banca em qualquer tema sorteado.</p>
-        </div>
-        <div class="dd-item">
-          <div class="n">04</div>
-          <h4>IA na preparação didática</h4>
-          <p>Ferramenta exclusiva do DQ. Você informa tema, nível e tempo disponível, e ela propõe estrutura, objetivos, dinâmicas e recursos coerentes com o método.</p>
-        </div>
-        <div class="dd-item">
-          <div class="n">05</div>
-          <h4>Materiais de apoio</h4>
-          <p>Bancos de exemplos por disciplina, técnicas de oratória, guia de gestão de imprevistos, scripts de abertura e fechamento testados e repertório de perguntas da banca por área.</p>
-        </div>
-        <div class="dd-item">
-          <div class="n">06</div>
-          <h4>Grupo exclusivo</h4>
-          <p>Comunidade fechada dos alunos da Dissecando a Didática, com curadoria do DQ. Troca, prova social e suporte entre pares justamente na fase final.</p>
-        </div>
-        <div class="dd-item">
-          <div class="n">07</div>
-          <h4>Encontros mensais com o Mentor</h4>
-          <p>Ajuste individual do seu plano, simulação ao vivo e devolutiva técnica. Turma de no máximo 30 pessoas por encontro.</p>
-        </div>
-        <div class="dd-item">
-          <div class="n">08</div>
-          <h4>Uso ilimitado no período</h4>
-          <p>Você usa o material em quantas provas didáticas precisar enquanto durar o seu acesso. Quem presta concurso em meses diferentes usa o mesmo acesso.</p>
-        </div>
-      </div>
-
-      <div class="dd-foot">
-        <span class="ic" aria-hidden="true">✓</span>
-        <p>Tudo isso <b>já está no valor do Dossiê IF</b> que você vê abaixo. Você não paga nada a mais para chegar preparado à prova didática.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- INVESTIMENTO -->
-<section id="investimento" class="sec dark invest" style="scroll-margin-top:82px">
-  <div class="glowbox g" aria-hidden="true"></div>
-  <div class="invest-in">
-    <div class="invest-head reveal">
-      <span class="eyebrow">Investimento</span>
-      <h2>Comece sua preparação</h2>
-      <p>Acesso completo à plataforma, todos os materiais, ferramentas de prática e revisão, cronograma adaptável, acompanhamento mensal e a Mentoria Dissecando a Didática inclusa.</p>
-    </div>
-    <div class="pricing reveal">
-      <div class="pricing-grid">
-        <div class="pricing-left">
-          <span class="badge">Programa Completo</span>
-          <h3>Dossiê IF</h3>
-          <p class="pricing-sub">Mentoria em grupo + plataforma inteligente de estudos</p>
-          <div class="incs">
-            <div class="inc"><span class="ck">✓</span><span class="t">Acesso completo à plataforma inteligente</span></div>
-            <div class="inc"><span class="ck">✓</span><span class="t">Todos os materiais — básicos e específicos</span></div>
-            <div class="inc"><span class="ck">✓</span><span class="t">Ferramentas de prática e revisão</span></div>
-            <div class="inc"><span class="ck">✓</span><span class="t">Cronograma que se adapta à sua rotina</span></div>
-            <div class="inc"><span class="ck">✓</span><span class="t">Acompanhamento mensal ao vivo com o Prof. Manoel</span></div>
-            <div class="inc"><span class="ck">✓</span><span class="t">Mentoria Dissecando a Didática completa, inclusa sem custo adicional</span></div>
-          </div>
-        </div>
-        <div class="pricing-right">
-          <div style="display:inline-block;background:#ff751f;color:#131f2c;font-weight:800;font-size:13px;letter-spacing:1.4px;padding:7px 13px;border-radius:7px;margin-bottom:10px">CUPOM HOJE500 · SÓ HOJE</div>
-          <div class="pre">em até</div>
-          <div class="price">12x <span class="sm">de</span> R$ 124,70</div>
-          <div class="pix">ou R$ 1.247 à vista no Pix <b style="color:#ff751f">· R$ 500 de desconto</b></div>
-          <!-- CHECKOUT Path A: o href é fallback PRONTO (fail-open, ainda leva os
-               UTMs); o checkout-links.js roteia por campanha quando há config de
-               checkout cadastrada no CRM. NÃO trocar por link montado em JS. -->
-          <a href="https://checkout.dissecandoquestoes.com.br/pay/dossie-1-ano-webinar?coupon=HOJE500" class="btn-primary cta-full" data-comprar="cartao">Garantir com o cupom HOJE500 <span aria-hidden="true">→</span></a>
-          <div class="guar"><span class="sh" aria-hidden="true">🛡️</span><span class="t">Garantia incondicional de 7 dias. Se por qualquer motivo sentir que não é pra você, devolvemos 100% do valor. Sem perguntas.</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FAQ -->
-<section id="faq" class="sec cream" style="scroll-margin-top:82px">
-  <div class="faq-wrap reveal">
-    <span class="eyebrow">Perguntas Frequentes</span>
-    <h2>Tire suas dúvidas</h2>
-    <div class="faq-list" id="faqList">
-      <div class="faq-item"><button type="button" class="faq-q"><span>Funciona para a minha área?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>Sim. O Dossiê IF cobre todas as áreas de atuação com materiais específicos para cada disciplina. Os cadernos de questões, simulados e flashcards são filtrados pela sua área. As comunidades no WhatsApp também são segmentadas por disciplina.</p></div></div>
-      <div class="faq-item"><button type="button" class="faq-q"><span>Tenho pouco tempo. Vai funcionar?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>O Dossiê foi feito para quem tem pouco tempo. O cronograma se adapta às horas que você realmente tem disponíveis na semana. Sessões de 20-30 minutos por dia já geram progresso consistente. É o oposto de ‘videoaula de 2 horas’ — é material direto, consultável, que vai no ponto.</p></div></div>
-      <div class="faq-item"><button type="button" class="faq-q"><span>O material é em vídeo ou texto?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>Os materiais didáticos (básicos e específicos) são 100% em texto — diretos, consultáveis, feitos para quem não pode assistir videoaulas longas. O Método DQ e o Curso Dissecando a Didática incluem vídeo por serem conteúdos de formação.</p></div></div>
-      <div class="faq-item"><button type="button" class="faq-q"><span>E se sair edital durante o meu acesso?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>Melhor cenário possível. Você já vai estar preparado. A plataforma permite ajustar o cronograma para intensificar os estudos quando o edital sair. E como você já domina o mapa de recorrência da banca, sabe exatamente onde focar.</p></div></div>
-      <div class="faq-item"><button type="button" class="faq-q"><span>Posso parcelar?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>Sim, em até 12 vezes de R$ 124,70 no cartão de crédito com o cupom HOJE500. À vista no Pix, R$ 1.247. Diluído no seu período de acesso, o valor por dia fica abaixo de R$ 5.</p></div></div>
-      <div class="faq-item"><button type="button" class="faq-q"><span>A Mentoria Dissecando a Didática está mesmo inclusa?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>Sim, e é a versão completa. Você recebe acesso pleno ao produto, com todos os entregáveis: curso gravado, modelo de plano de aula nota 10, esqueleto de slides matadores, IA na preparação didática, materiais de apoio, grupo exclusivo e encontros mensais com o Mentor. Vale pela mesma duração do seu plano no Dossiê, sem custo adicional.</p></div></div>
-      <div class="faq-item"><button type="button" class="faq-q"><span>Ainda não passei na primeira fase. A Didática faz sentido para mim agora?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>Faz, e é exatamente esse o ponto. Quem deixa para pensar na didática depois de passar costuma ter apenas algumas semanas para preparar a fase que mais elimina candidato qualificado. Estando no Dossiê desde agora, você chega à didática com modelo pronto, esqueleto de slides, IA para ensaiar qualquer tema e encontros mensais com o Mentor. Não é gasto a mais na frente, é proteção contra a etapa mais decisiva.</p></div></div>
-      <div class="faq-item"><button type="button" class="faq-q"><span>E se eu não gostar?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>Você tem 7 dias de garantia incondicional. Se sentir que não é pra você, basta solicitar o reembolso e devolvemos 100% do valor. Sem perguntas, sem burocracia.</p></div></div>
-      <div class="faq-item"><button type="button" class="faq-q"><span>Qual a diferença entre o Dossiê IF e outros cursos?</span><span class="faq-icon" aria-hidden="true">+</span></button><div class="faq-a"><p>A maioria dos cursos entrega conteúdo genérico gravado e te deixa sozinho. O Dossiê IF entrega conteúdo direcionado especificamente para IFs, uma plataforma que adapta o cronograma ao seu tempo, ferramentas de prática inteligente, e acompanhamento mensal ao vivo com o Prof. Manoel Machado.</p></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- CTA FINAL -->
-<section class="ctafinal">
-  <picture>
-    <source type="image/webp" srcset="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/FOTO%20PROFISSIONAL%20DO%20PROF.%20MANOEL%20MACHADO2.webp">
-    <img class="ctafinal-bg" src="https://site.dissecandoquestoes.com/lps/dossie/SCREENSHOTS%20DOSSI%C3%8A%20IF/FOTO%20PROFISSIONAL%20DO%20PROF.%20MANOEL%20MACHADO2.jpg" alt="" aria-hidden="true">
-  </picture>
-  <div class="ctafinal-scrim"></div>
-  <div class="ctafinal-in reveal">
-    <h2>Pronto para começar?</h2>
-    <p>Sua preparação para os Institutos Federais começa aqui.</p>
-    <a href="#investimento" class="btn-primary" data-scroll="investimento">Começar minha preparação <span aria-hidden="true">→</span></a>
-    <div class="fine">Garantia de 7 dias · +300 aprovados · 18 estados</div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-
-
-<!-- STICKY CTA BAR -->
-<div class="sticky" id="sticky">
-  <div class="sticky-in">
-    <div class="sticky-txt">
-      <div class="a">Ainda com dúvida sobre o Dossiê IF?</div>
-      <div class="b">Fale com um consultor de carreira</div>
-    </div>
-    <a href="https://wa.link/dq-consultor" class="sticky-cta" target="_blank" rel="noopener">Falar no WhatsApp <span aria-hidden="true">→</span></a>
-  </div>
-</div>
-
-<!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox">
-  <img id="lightboxImg" alt="">
-  <button type="button" class="lightbox-close" id="lightboxClose" aria-label="Fechar">✕</button>
-  <span class="lightbox-hint">Clique para fechar</span>
-</div>
-
-
-<!-- NÃO REMOVER (contrato CRM): roteia o checkout por campanha (Path A) -->
-<!-- checkout-links.js removido nesta copia: o href do cupom HOJE500 e fixo -->
-</template>
 
 <footer>Dissecando Questões · Prof. Manoel Machado</footer>
 
@@ -1597,29 +618,50 @@ function sincronizarVideo(){
      lemos de volta. Enquanto o vídeo não estiver no ponto, pedimos de novo.
      Assim que ele confirma duas leituras seguidas no lugar certo, soltamos o
      controle, e quem quiser voltar um trecho consegue. */
-  var t0 = Date.now(), apareceu = 0;
+  /* O navegador segura o vídeo mudo até alguém clicar na página, e enquanto
+     esse clique não vem o player ignora a ordem de pular. Era esse o motivo de
+     funcionar só na segunda visita.
+     Então não damos prazo: insistimos até o vídeo REALMENTE chegar no ponto,
+     conferindo a posição de volta pelo currentTime. Só depois de acertar é que
+     seguramos por mais 30 segundos, para vencer o "Continuar Assistindo", e aí
+     soltamos o controle para quem quiser voltar um trecho. */
+  var t0 = Date.now(), acertouEm = 0;
+
   var laco = setInterval(function(){
-    if (Date.now() - t0 > 90000){ clearInterval(laco); return; }   // player nunca subiu: desiste
-
     var p = document.getElementById(VTURB_ID);
-    if (!p || typeof p.seek !== 'function') return;                // ainda carregando
-    if (!apareceu) apareceu = Date.now();
-
-    /* Vigiamos por 30 segundos a partir do momento em que o player aparece.
-       É o tempo de o vídeo carregar e de o "Continuar Assistindo" fazer o que
-       tem de fazer. Passados os 30 segundos soltamos o controle, para quem
-       quiser voltar um trecho conseguir. */
-    if (Date.now() - apareceu > 30000){ clearInterval(laco); return; }
+    if (!p || typeof p.seek !== 'function'){
+      if (Date.now() - t0 > 180000) clearInterval(laco);           // player nunca subiu
+      return;
+    }
 
     var alvo = Math.floor(A.decorridos());
     if (alvo < 5){ clearInterval(laco); return; }                  // entrou no começo
     if (p.duration && alvo > p.duration - 5) alvo = Math.floor(p.duration - 5);
 
     var atual = (typeof p.currentTime === 'number') ? p.currentTime : null;
-    if (atual === null || Math.abs(atual - alvo) > 15){
-      try{ p.seek(alvo); }catch(e){}
+
+    if (atual !== null && Math.abs(atual - alvo) <= 15){
+      if (!acertouEm) acertouEm = Date.now();                      // acertou agora
+      else if (Date.now() - acertouEm > 30000) clearInterval(laco);// segurou 30s, solta
+      return;
     }
+
+    acertouEm = 0;
+    try{ p.seek(alvo); }catch(e){}
+
+    if (Date.now() - t0 > 180000) clearInterval(laco);             // desiste em 3 minutos
   }, 1000);
+
+  /* No primeiro toque da pessoa o navegador libera o som e o player passa a
+     obedecer. Reposicionamos na hora, sem esperar o próximo ciclo. */
+  ['click','touchstart','keydown'].forEach(function(ev){
+    document.addEventListener(ev, function(){
+      var p = document.getElementById(VTURB_ID);
+      if (!p || typeof p.seek !== 'function') return;
+      var alvo = Math.floor(A.decorridos());
+      if (alvo >= 5){ try{ p.seek(alvo); }catch(e){} }
+    }, {once:true, capture:true});
+  });
 }
 
 var saudado=false;
@@ -1669,26 +711,25 @@ function tickLine(){
   if(running) requestAnimationFrame(function(){ setTimeout(tickLine,400); });
 }
 
-var dossieMontado=false;
-function montarDossie(){
-  if(dossieMontado) return; dossieMontado=true;
-  var host=document.getElementById('dossieEmbed'), tpl=document.getElementById('dossieTpl');
-  if(!host||!tpl) return;
-  var sh=host.attachShadow?host.attachShadow({mode:'open'}):null;
-  if(!sh){ host.appendChild(tpl.content.cloneNode(true)); return; }
-  sh.appendChild(tpl.content.cloneNode(true));
-  // nada preso na tela dentro do quadro
-  sh.querySelectorAll('*').forEach(function(el){
-    var pos=getComputedStyle(el).position;
-    if(pos==='fixed'||pos==='sticky') el.style.position='relative';
+var faqPronto=false;
+function montarDossie(){                    // mantém o nome para não mexer no revealOffer
+  if(faqPronto) return; faqPronto=true;
+  // os dois botões de compra recebem o mesmo link, com o cupom embutido
+  document.querySelectorAll('.ofcta').forEach(function(a){ a.href=DOSSIE_CHECKOUT; a.target='_blank'; });
+  document.querySelectorAll('.faq2-q').forEach(function(b){
+    b.addEventListener('click', function(){
+      var it=b.parentElement, aberto=it.classList.contains('open');
+      document.querySelectorAll('.faq2-i.open').forEach(function(o){
+        o.classList.remove('open'); o.querySelector('.faq2-a').style.maxHeight='';
+      });
+      if(!aberto){
+        it.classList.add('open');
+        var a=it.querySelector('.faq2-a'); a.style.maxHeight=a.scrollHeight+'px';
+      }
+    });
   });
-  // o acordeao do FAQ, dentro do shadow
-  sh.querySelectorAll('.faq-q').forEach(function(b){
-    b.addEventListener('click',function(){ var it=b.parentElement; it.classList.toggle('open'); });
-  });
-  // qualquer botao de compra dentro da copia vai para o checkout do webinar com o cupom
-  sh.querySelectorAll('a[href*="checkout"]').forEach(function(a){ a.href=DOSSIE_CHECKOUT; a.target='_blank'; });
 }
+
 function revealOffer(scroll){
   var tb=document.getElementById('teamB'); if(tb) tb.href=EQUIPE_WHATS;
   var oc=document.getElementById('ofCta'); if(oc) oc.href=DOSSIE_CHECKOUT;
