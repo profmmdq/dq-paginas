@@ -1,3 +1,14 @@
+@AGENTS.md
+
+# DQ Páginas — entrada curta para Claude
+
+- As regras operacionais estão em `AGENTS.md` (sessão única). O restante deste arquivo é o
+  contexto do repositório: estrutura, moldes, contrato com o CRM e regras técnicas.
+- Lembrete deste repo: push na `main` É deploy (GitHub Pages). Produção começa no merge, e a
+  validação é por tela e diff; não há build.
+
+---
+
 # DQ Páginas de Captação
 
 ## Sobre
@@ -7,7 +18,11 @@ estudando pra concursos de Instituto Federal (IF), TAE, Magistério
 Superior e Perícia Criminal.
 
 ## Marca
-- Cores: laranja #FF751F (primária/CTA) e verde #6EA27C (secundária)
+- Cores e tipografia: as do design system canônico, `skills/dq-design` no repo dq-editorial
+  (junction em `.claude/skills/dq-design`): laranja `#ff751f` para CTA com texto azul-noite,
+  bege `#f1f3e6`, azul-noite `#131f2c`, azul autoridade `#0c3d64`, azul petróleo `#16495c`;
+  Unbounded para títulos, Plus Jakarta Sans para corpo, Geist Mono para rótulos. Laranja nunca
+  é cor de texto. O verde `#6EA27C` foi aposentado; verde só como cor funcional de status.
 - Tom de voz: direto, técnico, motivador — "Dissecador" e "RAQUeR"
   fazem parte do vocabulário
 - Nunca tom genérico de infoproduto — professor falando com professor

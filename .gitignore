@@ -1,0 +1,5 @@
+# Configuração local do Claude Code e junction para o design system canônico: nunca versionar
+.claude/
+.codex/
+*.antigo-*
+*.log
