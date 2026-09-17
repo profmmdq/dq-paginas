@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><!-- NÃO REMOVER (contrato CRM) -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><!-- NÃO REMOVER (contrato CRM) -->
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     SEO / OPEN GRAPH — a designer é dona de 100% da copy.
+     PREENCHER todos os {{...}}. A og:image precisa ser um link ABSOLUTO e o
+     arquivo tem que estar COMMITADO no repo — senão o preview no WhatsApp /
+     Instagram sai sem imagem (abre local, quebra no ar).
+     EDITE À VONTADE — nada nesta seção é contrato de CRM.
+════════════════════════════════════════════════════════════════════════ -->
+<title>IFs por Disciplina | Dissecando Questões</title><!-- PREENCHER -->
+<meta name="description" content="Consulte os Institutos Federais e as áreas de edital mapeadas por disciplina."><!-- PREENCHER -->
+<link rel="canonical" href="https://site.dissecandoquestoes.com/brinde/ifs-por-disciplina/"><!-- PREENCHER -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://site.dissecandoquestoes.com/brinde/ifs-por-disciplina/"><!-- PREENCHER -->
+<meta property="og:title" content="IFs por Disciplina | Dissecando Questões"><!-- PREENCHER -->
+<meta property="og:description" content="Encontre instituições e áreas de edital relacionadas à sua disciplina."><!-- PREENCHER -->
+<meta property="og:image" content="https://site.dissecandoquestoes.com/brinde/ifs-por-disciplina/og.png"><!-- PREENCHER: URL absoluta, arquivo commitado -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
+<!-- FONTES (opcional) — escolha a família da designer. Descomente e troque {{FONTE}}.
+     Os preconnect só aceleram o carregamento; nenhuma fonte é imposta aqui.
+     EDITE À VONTADE.
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family={{FONTE}}&display=swap" rel="stylesheet">
+-->
+
+<!-- GTM (OPCIONAL) — só descomente se esta página tiver tracking Meta/GA.
+     A captação FUNCIONA sem isto: a página de referência /captacao/radar/ não usa GTM.
+     EDITE À VONTADE.
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-W5TCMGSW');</script>
+-->
+
+<!-- EDITE À VONTADE — cole TODO o seu CSS aqui; pode reescrever do zero.
+     (Não linkamos /assets/css/style.css: ele não é usado por nenhuma página.
+      Cada página carrega o próprio estilo inline.) -->
+<style>
+
+  :root{
+    --accent:#ff751f; --accent-ink:#131f2c; --accent-2:#16495c; --accent-2-ink:#f1f3e6;
+    --paper:#f1f3e6; --surface:#ffffff; --surface-2:#e8ebe2; --ink:#131f2c;
+    --ink-soft:#16495c; --muted:#445566; --border:#cbd6d5;
+    --shadow:0 8px 24px -16px rgba(19,31,44,.22); --radius:18px; color-scheme:light;
+  }
+  *{box-sizing:border-box;}
+  body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Plus Jakarta Sans', system-ui, sans-serif; font-size:15px; line-height:1.5; }
+  ::selection{ background: var(--accent); color: var(--accent-ink); }
+  .num{ font-family:'Geist Mono', monospace; font-variant-numeric: tabular-nums; }
+  a{color:inherit;}
+
+  .shell{ display:flex; min-height:100vh; max-width:1400px; margin:0 auto; }
+  .rail{ width:280px; flex:0 0 280px; border-right:1px solid var(--border); padding: 20px 14px 24px; position:sticky; top:0; align-self:flex-start; height:100vh; overflow-y:auto; }
+  .brand{ display:flex; align-items:baseline; gap:8px; padding: 2px 6px 14px; border-bottom:1px solid var(--border); margin-bottom:14px; }
+  .brand .mark{ font-family:'Unbounded', serif; font-weight:700; font-size:19px; letter-spacing:-0.01em; }
+  .brand .mark em{ color:var(--accent); font-style:normal; }
+
+  .rail-search{ width:100%; padding:8px 10px; border:1px solid var(--border); border-radius:8px; background:var(--surface); color:var(--ink); font:inherit; font-size:13px; margin-bottom:10px; }
+  .rail-search:focus{ outline:2px solid var(--accent); outline-offset:1px; }
+
+  .rail-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:2px; }
+  .rail-item{ display:flex; align-items:center; justify-content:space-between; gap:8px; padding:6px 8px; border-radius:7px; cursor:pointer; font-size:13px; color:var(--ink-soft); }
+  .rail-item:hover{ background:var(--surface-2); color:var(--ink); }
+  .rail-item.active{ background:var(--accent); color:var(--accent-ink); font-weight:600; }
+  .rail-item .badge{ font-size:11px; color:var(--muted); background:var(--surface-2); border-radius:20px; padding:1px 7px; flex:0 0 auto; }
+  .rail-item.active .badge{ background:rgba(0,0,0,.12); color:inherit; }
+  .rail-item span:first-child{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+
+  .main{ flex:1; min-width:0; padding: 28px 32px 60px; }
+
+  header.page{ margin-bottom: 22px; }
+  header.page h1{ font-family:'Unbounded', serif; font-weight:700; font-size: clamp(26px, 3.4vw, 34px); margin: 0 0 6px; text-wrap: balance; letter-spacing:-0.01em; }
+  header.page p.lede{ margin:0 0 16px; color:var(--ink-soft); max-width: 64ch; font-size:14.5px; }
+  .stat-row{ display:flex; gap:10px; flex-wrap:wrap; }
+  .stat{ background:var(--surface); border:1px solid var(--border); border-radius: var(--radius); padding:10px 14px; min-width:110px; box-shadow: var(--shadow); }
+  .stat .n{ font-family:'Geist Mono',monospace; font-size:22px; font-weight:500; color:var(--accent-ink); }
+  :root:not([data-theme="light"]) .stat .n{ color: var(--accent); }
+  :root[data-theme="dark"] .stat .n{ color: var(--accent); }
+  .stat .l{ font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; }
+
+  /* ---------- ranking bars ---------- */
+  .ranking{ background:var(--surface); border:1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); padding:16px 18px 8px; margin-bottom:22px; }
+  .ranking h2{ margin:0 0 3px; font-family:'Unbounded',serif; font-size:16px; font-weight:600; }
+  .ranking p{ margin:0 0 14px; font-size:12.5px; color:var(--muted); }
+  .rbar-row{ display:grid; grid-template-columns: 190px 1fr 34px; align-items:center; gap:10px; padding:5px 0; cursor:pointer; }
+  .rbar-row .rlabel{ font-size:13px; color:var(--ink-soft); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .rbar-track{ background:var(--surface-2); border-radius:5px; height:10px; overflow:hidden; }
+  .rbar-fill{ height:100%; background:linear-gradient(90deg, var(--accent-2), var(--accent)); border-radius:5px; }
+  .rbar-row .rval{ font-family:'Geist Mono',monospace; font-size:12.5px; color:var(--ink-soft); text-align:right; }
+
+  .tabs{ display:flex; gap:4px; border-bottom:1px solid var(--border); margin: 22px 0 18px; }
+  .tab{ font:inherit; font-size:13.5px; font-weight:600; padding:8px 4px 10px; background:none; border:none; cursor:pointer; color:var(--muted); border-bottom:2px solid transparent; margin-right:18px; }
+  .tab.active{ color:var(--ink); border-color:var(--accent); }
+
+  .toolbar{ display:flex; gap:10px; align-items:center; margin-bottom:16px; flex-wrap:wrap; }
+  .search-wrap{ position:relative; flex:1; min-width:220px; max-width:420px; }
+  .search-wrap input{ width:100%; padding:9px 12px 9px 32px; border:1px solid var(--border); border-radius:8px; background:var(--surface); color:var(--ink); font:inherit; font-size:13.5px; }
+  .search-wrap input:focus{ outline:2px solid var(--accent); outline-offset:1px; }
+  .search-wrap svg{ position:absolute; left:10px; top:50%; transform:translateY(-50%); color:var(--muted); }
+  .result-count{ font-size:12.5px; color:var(--muted); white-space:nowrap; }
+
+  /* ---------- Part 1: por área ---------- */
+  .area-section{ background:var(--surface); border:1px solid var(--border); border-radius: var(--radius); margin-bottom:14px; box-shadow: var(--shadow); scroll-margin-top: 16px; }
+  .area-head{ display:flex; align-items:center; justify-content:space-between; gap:10px; padding:13px 16px; cursor:pointer; }
+  .area-head h3{ margin:0; font-family:'Unbounded', serif; font-size:16.5px; font-weight:600; }
+  .area-head .meta{ display:flex; align-items:center; gap:10px; }
+  .area-head .count{ font-family:'Geist Mono', monospace; font-size:12px; background:var(--surface-2); color:var(--ink-soft); padding:2px 9px; border-radius:20px; }
+  .area-head .chev{ transition: transform .15s ease; color:var(--muted); }
+  .area-section.open .chev{ transform: rotate(90deg); }
+  .if-list{ display:none; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap:8px 14px; padding: 2px 16px 16px; }
+  .area-section.open .if-list{ display:grid; }
+  .if-chip{ font-size:13.5px; padding: 6px 0; border-bottom:1px solid var(--border); color:var(--ink-soft); display:flex; flex-direction:column; gap:2px; }
+  .if-chip .ifname-row{ display:flex; align-items:center; gap:6px; color:var(--ink); font-weight:600; }
+  .if-chip .variant{ font-size:11.5px; color:var(--muted); line-height:1.4; }
+  mark{ background: color-mix(in srgb, var(--accent) 35%, transparent); color:var(--ink); border-radius:2px; }
+  .no-results{ color:var(--muted); font-size:13.5px; padding: 20px 4px; }
+
+  /* ---------- Part 2: tabela ---------- */
+  .table-wrap{ border:1px solid var(--border); border-radius: var(--radius); overflow:auto; background:var(--surface); box-shadow: var(--shadow); max-height: 74vh; }
+  table{ width:100%; border-collapse:collapse; font-size:13.5px; }
+  thead th{ position:sticky; top:0; background:var(--surface-2); text-align:left; padding:10px 14px; font-size:11.5px; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); border-bottom:1px solid var(--border); cursor:pointer; user-select:none; white-space:nowrap; }
+  thead th .arrow{ opacity:.4; margin-left:4px; }
+  thead th.sorted .arrow{ opacity:1; color:var(--accent-ink); }
+  :root:not([data-theme="light"]) thead th.sorted .arrow{ color:var(--accent); }
+  tbody td{ padding:8px 14px; border-bottom:1px solid var(--border); vertical-align:top; }
+  tbody tr:hover{ background:var(--surface-2); }
+  tbody td.iff{ white-space:nowrap; font-weight:600; color:var(--ink); }
+
+  footer.page{ margin-top: 30px; padding-top: 16px; border-top:1px solid var(--border); color:var(--muted); font-size:12px; }
+  [hidden]{ display:none !important; }
+
+  @media (max-width: 780px){
+    .shell{ flex-direction:column; }
+    .rail{ position:relative; height:auto; width:100%; flex:none; border-right:none; border-bottom:1px solid var(--border); max-height:260px; }
+    .main{ padding: 20px 16px 48px; }
+    .rbar-row{ grid-template-columns: 110px 1fr 30px; }
+  }
+  .rail-item, .tab, .area-head { min-height:44px; }
+  .rail-item, .area-head { border-radius:12px; }
+  .rail-item.active { background:#16495c; color:#fff; }
+  .brand .mark em { font-style:italic; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { scroll-behavior:auto !important; transition:none !important; animation:none !important; }
+  }
+
+  .gift-intro { max-width:760px; margin:0 auto; padding:52px 20px 64px; }
+  .gift-intro h1 { font-family:'Unbounded',sans-serif; font-size:clamp(28px,5vw,44px); line-height:1.16; color:#131f2c; }
+  .gift-intro p { color:#16495c; max-width:60ch; }
+  .gift-intro form { display:grid; gap:16px; max-width:490px; margin-top:28px; padding:26px; border-radius:24px; background:#fff; border:1px solid #cbd6d5; }
+  .gift-intro label { display:grid; gap:6px; font-weight:600; color:#131f2c; }
+  .gift-intro input { width:100%; min-height:48px; border:1px solid #cbd6d5; border-radius:12px; padding:10px 13px; font:inherit; }
+  .gift-intro input:focus { outline:2px solid #0c3d64; outline-offset:2px; }
+  .gift-intro button { min-height:52px; border:0; border-radius:18px; background:#ff751f; color:#131f2c; font:700 15px 'Plus Jakarta Sans',sans-serif; cursor:pointer; }
+  [data-dq-error] { display:none; color:#9d2929; }
+  [data-dq-error].dq-visible { display:block; }
+  #dataZone { padding:0 0 32px; }
+  #dataZone .shell { border-top:1px solid #cbd6d5; }
+
+</style>
+</head>
+<body>
+
+<!-- GTM noscript (OPCIONAL) — só se você ativou o GTM no <head> acima. EDITE À VONTADE.
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W5TCMGSW" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+-->
+
+<!-- ═══════════════ ÁREA VISUAL (hero, copy, bullets, imagens) ═══════════════
+     Tudo aqui é seu. EDITE À VONTADE. -->
+<main class="gift-intro">
+  <h1>IFs por Disciplina</h1><!-- PREENCHER -->
+  <p>Veja em quais Institutos Federais a sua disciplina aparece nos editais mapeados.</p><!-- PREENCHER -->
+
+  <!-- ─────────────────────────────────────────────────────────────────────
+       COMO ADICIONAR UM CAMPO EXTRA (além de nome / whatsapp / email):
+       cole um input, select ou textarea COM atributo name DENTRO do <form>.
+       Exemplo:
+           <label>Instituto de interesse
+             <select name="instituto" required>
+               <option value="Ver todos / ainda decidindo" selected>Quero ver todos</option>
+               <option value="IFBA (BA)">IFBA — BA</option>
+             </select>
+           </label>
+       CADASTRAR O name NO CRM ANTES (Páginas / UTMs → aba Captação Externa
+          → cadastro da página → campos extras, COM O MESMO name E AS MESMAS
+          OPÇÕES), SENÃO O ENVIO É REJEITADO PELO SERVIDOR.
+          Atalho: o botão Kit do card da página (Kit da Página) entrega o
+          snippet do form já com os campos extras cadastrados — copie de lá.
+       O valor é salvo no lead e vira tag automática (ex.: instituto-ifba-ba).
+  ────────────────────────────────────────────────────────────────────── -->
+
+  <!-- NÃO REMOVER (contrato CRM) — a classe dq-lead-form + data-secao + data-slug
+       são o que liga este form ao lead-capture.js. Sem os três, o submit é
+       IGNORADO (a página recarrega e o lead se perde).
+       brinde/ifs-por-disciplina = os nomes das pastas /{secao}/{slug}/ E o cadastro no CRM. -->
+  <form class="dq-lead-form" data-secao="brinde" data-slug="ifs-por-disciplina">
+    <!-- NÃO REMOVER (contrato CRM): name="nome" e name="whatsapp" são obrigatórios -->
+    <label>Nome
+      <input type="text" name="nome" placeholder="Seu nome" required autocomplete="name">
+    </label>
+    <label>WhatsApp
+      <input type="tel" name="whatsapp" placeholder="(00) 00000-0000" required autocomplete="tel" inputmode="numeric">
+    </label>
+    <!-- email é OPCIONAL — pode apagar este bloco se não for coletar e-mail -->
+    <label>E-mail
+      <input type="email" name="email" placeholder="seu@email.com" autocomplete="email" required>
+    </label>
+
+    <!-- ↓↓↓ CAMPOS EXTRAS entram aqui (veja o comentário-guia acima) — EDITE À VONTADE ↓↓↓ -->
+    <label>Palavra-chave
+      <input type="text" name="palavra_chave" placeholder="Digite a palavra-chave" required autocomplete="off">
+    </label>
+
+    <!-- NÃO REMOVER (contrato CRM): o botão de envio. O texto é seu — PREENCHER. -->
+    <button type="submit">Liberar acesso</button>
+
+    <!-- NÃO REMOVER (contrato CRM): onde o lead-capture.js escreve as mensagens
+         de erro. Estilize [data-dq-error] e [data-dq-error].dq-visible no seu CSS
+         (ex.: começa com display:none e vira visível quando ganha a classe
+         .dq-visible). Se você não estilizar, o script ainda mostra o texto. -->
+    <div data-dq-error></div>
+  </form>
+</main>
+
+<!-- ═══════════ CONTEÚDO LIBERADO — só para o final "Conteúdo" (gate) ═══════════
+     COMO FUNCIONA: se o final pós-cadastro no CRM for CONTEÚDO, o servidor
+     responde unlock e o lead-capture.js dispara o evento dq:unlock. O listener
+     no fim da página escuta esse evento e revela este bloco (que começa oculto).
+
+     ALTERNATIVA sem JS próprio: em vez do #dataZone + listener, marque QUALQUER
+     bloco travado com  data-dq-gate  e  style="display:none"  — o lead-capture.js
+     revela sozinho todo [data-dq-gate] no desbloqueio.
+
+     SE O FINAL FOR Link externo / Obrigado / Brinde: o CRM REDIRECIONA a página.
+     Neste caso APAGUE este #dataZone e o <script> do listener — não são usados.
+
+     Conteúdo interno: EDITE À VONTADE. O wrapper + o listener: NÃO REMOVER se for gate.
+════════════════════════════════════════════════════════════════════════════ -->
+<div id="dataZone" style="display:none"><!-- NÃO REMOVER (contrato CRM) se o final = Conteúdo -->
+  <!-- EDITE À VONTADE: o conteúdo que aparece DEPOIS do cadastro -->
+  <div class="shell"><nav class="rail" aria-label="Lista de áreas">
+    <div class="brand"><span class="mark">IFs por <em>Disciplina</em></span></div>
+    <input class="rail-search" id="railSearch" type="text" placeholder="Filtrar disciplina…" autocomplete="off">
+    <ul class="rail-list" id="railList"></ul>
+  </nav>
+
+  <main class="main">
+    <header class="page">
+      <h1>Disciplinas nos editais dos IFs</h1>
+      <p class="lede">Explore, por <strong>disciplina</strong>, os Institutos Federais e as áreas dos editais mapeados. Variantes relacionadas foram reunidas sob uma disciplina; o nome da área conforme o edital continua visível em cada cartão e na tabela. O levantamento reúne vagas docentes EBTT; o IFCE não aparece porque o material recebido para essa instituição trata de cargos técnico-administrativos.</p>
+      <div class="stat-row">
+        <div class="stat"><div class="n" id="statAreas">–</div><div class="l">Disciplinas distintas</div></div>
+        <div class="stat"><div class="n" id="statPairs">–</div><div class="l">Combinações Disciplina × IF</div></div>
+        <div class="stat"><div class="n" id="statMulti">–</div><div class="l">Disciplinas em +1 IF</div></div>
+      </div>
+    </header>
+
+    <div class="ranking">
+      <h2>Disciplinas mais compartilhadas entre instituições</h2>
+      <p>As 12 disciplinas presentes no maior número de IFs — bons candidatos a conteúdo reaproveitável entre editais.</p>
+      <div id="rankingBars"></div>
+    </div>
+
+    <div class="tabs">
+      <button class="tab active" data-tab="byarea">Por disciplina</button>
+      <button class="tab" data-tab="table">Tabela completa</button>
+    </div>
+
+    <div class="toolbar">
+      <div class="search-wrap">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input type="text" id="globalSearch" placeholder="Buscar disciplina, instituição ou área do edital… (ex.: química, IFSP)" autocomplete="off">
+      </div>
+      <span class="result-count" id="resultCount"></span>
+    </div>
+
+    <section id="viewByArea"></section>
+    <section id="viewTable" hidden>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th data-key="area">Disciplina <span class="arrow">↕</span></th>
+              <th data-key="iff">Instituição <span class="arrow">↕</span></th>
+              <th data-key="variant">Área conforme o edital <span class="arrow">↕</span></th>
+            </tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer class="page">
+      Fonte: mesma base de "Áreas com vaga por IF.md" (arquivos <span class="num">*_disciplinas_pesos_conteudo_programatico.md</span> de cada instituição), agrupada por disciplina (taxonomia de <span class="num">Consolidação por disciplina.md</span>) em vez da área bruta do edital.
+    </footer>
+  </main>
+</div>
+</div>
+
+<!-- NÃO REMOVER (contrato CRM): o motor da captação.
+     O caminho ../../ assume que a página vive em /{secao}/{slug}/ (2 níveis abaixo
+     da raiz). Este template está em /_TEMPLATE-CAPTACAO/ apenas como MOLDE: copie-o
+     para /{secao}/{slug}/index.html e o ../../ passa a resolver corretamente. -->
+<script src="../../assets/js/lead-capture.js"></script>
+
+<!-- NÃO REMOVER (contrato CRM) se o final = Conteúdo: revela o #dataZone no unlock -->
+<script>
+  document.addEventListener('dq:unlock', function () {
+    var zone = document.getElementById('dataZone');
+    if (zone) zone.style.display = 'block';
+    // opcional: rolar suavemente até o conteúdo revelado
+    // if (zone && zone.scrollIntoView) zone.scrollIntoView({ behavior: 'smooth' });
+  });
+</script>
+<script id="area-data" type="application/json">{"disciplinas": {"Administração": {"IF SERTÃO": ["ADMINISTRAÇÃO"], "IF SUDESTE MG": ["Administração"], "IF SUL DE MG": ["Administração"], "IFAC": ["ADMINISTRAÇÃO"], "IFAL": ["ADMINISTRAÇÃO", "LOGÍSTICA"], "IFAM": ["Administração"], "IFAP": ["GESTÃO - ADMINISTRAÇÃO"], "IFBA": ["ADMINISTRAÇÃO"], "IFC": ["ADMINISTRAÇÃO"], "IFG": ["ADMINISTRAÇÃO"], "IFGOIANO": ["ADMINISTRAÇÃO", "ADMINISTRAÇÃO - GESTÃO DO AGRONEGÓCIO"], "IFMG": ["Administração", "Administração Geral e Financeira"], "IFMT": ["Administração"], "IFNMG": ["Administração"], "IFPA": ["Administração"], "IFPE": ["Administração Financeira", "Administração Geral", "Logística"], "IFPI": ["ADMINISTRAÇÃO"], "IFPR": ["Administração", "Comércio Exterior"], "IFRJ": ["ADMINISTRAÇÃO / GESTÃO DE NEGÓCIOS; MARKETING; LOGÍSTICA"], "IFRN": ["ADMINISTRAÇÃO CONTÁBIL E FINANCEIRA"], "IFRS": ["ADMINISTRAÇÃO: FINANÇAS"], "IFS": ["ADMINISTRAÇÃO"], "IFSC": ["Administração"], "IFSUL": ["GESTÃO E NEGÓCIOS"], "IFTM": ["Administração", "Administração/Contabilidade"]}, "Agrimensura, Geoprocessamento e Topografia": {"IFAL": ["TOPOGRAFIA"], "IFAP": ["GEOPROCESSAMENTO"], "IFC": ["AGRIMENSURA"], "IFG": ["AGRIMENSURA E CARTOGRAFIA"], "IFNMG": ["Agrimensura"], "IFPE": ["Topografia e Geoprocessamento"], "IFPI": ["GEOPROCESSAMENTO"], "IFS": ["ENGENHARIA CARTOGRÁFICA OU AGRIMENSOR"], "IFTM": ["Desenho Técnico/Cartografia/Topografia — Construções Rurais"], "IFTO": ["Agrimensura com ênfase em Topografia e Geodésia para Agrimensura (20 horas)"]}, "Agroindústria e Alimentos": {"IF SERTÃO": ["AGROINDÚSTRIA"], "IFAC": ["ALIMENTOS"], "IFAP": ["AGROINDÚSTRIA"], "IFBA": ["ENGENHARIA DE ALIMENTOS"], "IFC": ["ENGENHARIA DE ALIMENTOS"], "IFFAR": ["CIÊNCIA E TECNOLOGIA DE ALIMENTOS"], "IFMA": ["Ciência de Alimentos — Ciência e Tecnologia de Alimentos"], "IFPE": ["Produção Alimentícia"], "IFPI": ["ALIMENTOS"], "IFRN": ["PROCESSAMENTO DE ALIMENTOS"], "IFRO": ["ALIMENTOS"], "IFS": ["ALIMENTOS"]}, "Agronegócio": {"IFAC": ["AGRONEGÓCIO"]}, "Agronomia e Ciências Agrárias": {"IF SERTÃO": ["AGRONOMIA"], "IF SUDESTE MG": ["Agronomia: Tecnologia E Produção De Sementes, Propagação Vegetativa, Viveiros De Produção De Mudas, Arborização Urbana, Paisagismo, Jardinagem E Plantas Medicinais"], "IF SUL DE MG": ["Engenharia Agrícola"], "IFAC": ["AGRONOMIA"], "IFAM": ["Agroecologia", "Agronomia"], "IFAP": ["AGRONOMIA", "ENGENHARIA AGRÍCOLA"], "IFBA": ["AGRONOMIA"], "IFC": ["ENGENHARIA AGRÍCOLA", "FITOTECNIA — FRUTICULTURA"], "IFFAR": ["AGRONOMIA/ FITOTECNIA E DEFESA FITOSSANITÁRIA"], "IFG": ["AGRONOMIA"], "IFGOIANO": ["AGRONOMIA - FITOPATOLOGIA / MICROBIOLOGIA AGRÍCOLA / TECNOLOGIA DE APLICAÇÃO", "AGRONOMIA 1 - FRUTICULTURA / OLERICULTURA / FLORICULTURA / PAISAGISMO / PLANTAS MEDICINAIS / PRODUÇÃO DE SEMENTES", "AGRONOMIA 2 - SILVICULTURA / CULTURAS PERENES / PERÍCIA / LEGISLAÇÃO AMBIENTAL E AGRÁRIA / AGROECOLOGIA", "AGRONOMIA – PLANTAS DANINHAS", "ENGENHARIA AGRÍCOLA - AGRICULTURA DIGITAL / AUTOMAÇÃO E ROBÓTICA APLICADA À AGRICULTURA / ELETRIFICAÇÃO E ENERGIZAÇÃO RURAL / MECANIZAÇÃO AGRÍCOLA E TOPOGRAFIA"], "IFMA": ["Ciências Agrárias — Agronomia"], "IFMS": ["Ciências Agrárias/Zootecnia"], "IFPE": ["Agroecologia"], "IFPR": ["Agronomia"], "IFRN": ["PROJETOS AGRÍCOLAS E AGRICULTURA DE PRECISÃO"], "IFRO": ["AGRONOMIA (ENGENHARIA AGRONÔMICA)"], "IFRS": ["AGRONOMIA: FITOTECNIA/FRUTICULTURA", "MECANIZAÇÃO E TECNOLOGIAS AGRÍCOLAS"], "IFS": ["AGROECOLOGIA", "AGRONOMIA"]}, "Arquitetura e Urbanismo": {"IF SERTÃO": ["ARQUITETURA"], "IFAC": ["ARQUITETURA"], "IFBA": ["ARQUITETURA E URBANISMO"], "IFFAR": ["ARQUITETURA E URBANISMO/ PLANEJAMENTO URBANO E REGIONAL"], "IFFLU": ["Arquitetura e Urbanismo"], "IFPA": ["Arquitetura"], "IFPB": ["ARQUITETURA E URBANISMO"], "IFPE": ["Arquitetura"], "IFRR": ["ARQUITETURA"], "IFS": ["ARQUITETURA E URBANISMO"], "IFSP": ["ARQUITETURA"]}, "Artes": {"IFAC": ["ARTES / SUBÁREA ARTES VISUAIS"], "IFAM": ["Artes"], "IFAP": ["ARTES"], "IFBA": ["ARTES"], "IFBAIANO": ["ARTE"], "IFFAR": ["ARTES"], "IFFLU": ["Dança"], "IFGOIANO": ["ARTES - ENSINO DE ARTES"], "IFMA": ["Arte — Arte"], "IFMG": ["Artes"], "IFPA": ["Artes"], "IFPE": ["Artes", "Artes Visuais"], "IFPI": ["ARTE"], "IFS": ["ARTES"], "IFSC": ["Artes Cênicas", "Artes Visuais"], "IFSP": ["ARTES"]}, "Biologia": {"IF SERTÃO": ["BIOLOGIA"], "IF SUL DE MG": ["Biologia I", "Biologia II"], "IFAC": ["BIOLOGIA"], "IFAL": ["BIOLOGIA"], "IFAM": ["Biologia"], "IFAP": ["BIOLOGIA"], "IFBA": ["BIOLOGIA"], "IFBAIANO": ["BIOLOGIA"], "IFC": ["BIOLOGIA"], "IFFAR": ["BIOLOGIA/ BOTÂNICA"], "IFG": ["BIOLOGIA"], "IFGOIANO": ["BIOLOGIA", "BIOLOGIA I - BIOLOGIA GERAL / BIOLOGIA CELULAR/ BIOLOGIA MOLECULAR / MICROBIOLOGIA", "BIOLOGIA II - BIOLOGIA GERAL / ZOOLOGIA / FISIOLOGIA ANIMAL / ANATOMIA ANIMAL / ENSINO DE BIOLOGIA", "BIOLOGIA III - BIOLOGIA GERAL/ BOTÂNICA / ECOLOGIA"], "IFMA": ["Biologia — Biologia"], "IFMS": ["Biologia"], "IFPA": ["Biologia"], "IFPB": ["CIÊNCIAS BIOLÓGICAS"], "IFPE": ["Biologia"], "IFPI": ["BIOLOGIA"], "IFPR": ["Biologia"], "IFRJ": ["BIOLOGIA / BOTÂNICA", "BIOLOGIA / CITOLOGIA; SERES VIVOS; ECOLOGIA; EDUCAÇÃO AMBIENTAL E SUSTENTABILIDADE", "BIOLOGIA / VIROLOGIA VEGETAL E CULTURA DE TECIDOS VEGETAIS", "BOTÂNICA", "MICROBIOLOGIA / BIOLOGIA GERAL", "ZOOLOGIA"], "IFRN": ["BIOLOGIA"], "IFRO": ["CIÊNCIAS BIOLÓGICAS (BIOLOGIA)"], "IFRS": ["BIOLOGIA: BOTÂNICA", "BIOLOGIA: ZOOLOGIA"], "IFS": ["BIOLOGIA"], "IFTM": ["Biologia"], "IFTO": ["Biologia (20 horas e 40 horas Dedicação Exclusiva)"]}, "Biomedicina e Biotecnologia": {"IF SERTÃO": ["BIOTECNOLOGIA"], "IFG": ["QUÍMICA/BIOTECNOLOGIA"], "IFRO": ["BIOMEDICINA", "BIOTECNOLOGIA"], "IFSP": ["BIOTECNOLOGIA"]}, "Comunicação, Design e Audiovisual": {"IFAM": ["Publicidade"], "IFAP": ["COMUNICAÇÃO"], "IFB": ["Animação Digital", "Captação, edição e mixagem de áudio", "Cinematografia", "Edição, videografismo e finalização", "Fundamentos de audiovisual"], "IFBA": ["COMUNICAÇÃO"], "IFFLU": ["Design Gráfico"], "IFG": ["CINEMA"], "IFMA": ["Design — Design"], "IFMS": ["Design Gráfico"], "IFPB": ["DESIGN GRÁFICO E MULTIMÍDIA"], "IFPE": ["Animação e Jogos", "Audiovisual", "Design e Interação"], "IFPR": ["Produção de Áudio e Vídeo"], "IFS": ["COMUNICAÇÃO SOCIAL", "DESIGNER DE ANIMAÇÃO", "DESIGNER GRÁFICO"], "IFSUL": ["DESIGN I", "DESIGN II", "DESIGN III", "INFORMAÇÃO E COMUNICAÇÃO"]}, "Contabilidade": {"CEFET-RJ": ["Ciências Contábeis"], "IFAC": ["CONTABILIDADE"], "IFAL": ["CONTABILIDADE"], "IFAM": ["Contabilidade"], "IFAP": ["GESTÃO - CONTABILIDADE"], "IFFAR": ["CONTABILIDADE"], "IFGOIANO": ["CIÊNCIAS CONTÁBEIS"], "IFPE": ["Contabilidade"], "IFPR": ["Ciências Contábeis"], "IFRJ": ["CONTABILIDADE / GESTÃO / EMPREENDORISMO"], "IFS": ["CIÊNCIAS CONTÁBEIS"]}, "Cães-guia": {"IFC": ["CÃES-GUIA"]}, "Defesa Civil": {"IFC": ["DEFESA CIVIL"]}, "Direito": {"IFAC": ["DIREITO"], "IFAL": ["DIREITO"], "IFAP": ["DIREITO"], "IFFLU": ["Direito"], "IFPE": ["Direito"], "IFPI": ["DIREITO"], "IFRS": ["DIREITO"], "IFS": ["DIREITO"]}, "Economia": {"IFAC": ["ECONOMIA"], "IFAM": ["Economia"], "IFAP": ["GESTÃO - ECONOMIA"], "IFGOIANO": ["ECONOMIA - ECONOMIA GERAL / ECONOMIA RURAL E AGRÍCOLA / ECONOMIA APLICADA AO AGRONEGÓCIO / ECONOMIA EMPRESARIAL E ORGANIZAÇÃO / AGROINDUSTRIAL / ECONOMETRIA E ESTATÍSTICA ECONÔMICA"], "IFPA": ["Economia"], "IFPE": ["Economia"], "IFPR": ["Economia"], "IFS": ["ECONOMIA"]}, "Educação Especial e AEE": {"CPII": ["Atendimento Educacional Especializado"], "IF SUDESTE MG": ["Atendimento Educacional Especializado"], "IF SUL DE MG": ["Atendimento Educacional Especializado"], "IFAC": ["EDUCAÇÃO ESPECIAL E INCLUSIVA"], "IFAL": ["ATENDIMENTO EDUCACIONAL ESPECIALIZADO - AEE"], "IFAM": ["Atendimento Educacional Especializado"], "IFAP": ["EDUCAÇÃO ESPECIAL E INCLUSIVA"], "IFBA": ["ATENDIMENTO EDUCACIONAL ESPECIALIZADO"], "IFBAIANO": ["ATENDIMENTO EDUCACIONAL ESPECIALIZADO (AEE)"], "IFC": ["ATENDIMENTO EDUCACIONAL ESPECIALIZADO"], "IFFLU": ["Atendimento Educacional Especializado"], "IFPE": ["Atendimento Educacional Especializado - AEE"], "IFRS": ["ATENDIMENTO EDUCACIONAL ESPECIALIZADO"], "IFSUL": ["ATENDIMENTO EDUCACIONAL ESPECIALIZADO"]}, "Educação Física": {"IF SERTÃO": ["EDUCAÇÃO FÍSICA"], "IF SUDESTE MG": ["Educação Física"], "IFAC": ["EDUCAÇÃO FÍSICA"], "IFAL": ["EDUCAÇÃO FÍSICA"], "IFAP": ["EDUCAÇÃO FÍSICA"], "IFBA": ["EDUCAÇÃO FÍSICA"], "IFBAIANO": ["EDUCAÇÃO FÍSICA"], "IFC": ["EDUCAÇÃO FÍSICA"], "IFFLU": ["Educação Física"], "IFGOIANO": ["EDUCAÇÃO FÍSICA - EDUCAÇÃO FÍSICA / LUTAS / ACADEMIA / RECREAÇÃO E LAZER", "EDUCAÇÃO FÍSICA 1 - INOVAÇÃO TECNOLÓGICA APLICADA ÀS CIÊNCIAS DA SAÚDE E AO ESPORTE / BIOESTATÍSTICA / EPIDEMIOLOGIA / BIOMECÂNICA / METODOLOGIA DOS ESPORTES COLETIVOS E ATLETISMO", "EDUCAÇÃO FÍSICA 2 - GINÁSTICAS E VIVÊNCIAS CORPORAIS / APRENDIZAGEM MOTORA E PSICOMOTRICIDADE / ESPORTES DE COMBATE E ARTES GUERREIRAS / ESTÁGIO EM PRÁTICAS CORPORAIS ADAPTADAS"], "IFMA": ["Educação Física — Educação Física"], "IFMS": ["Educação Física"], "IFNMG": ["Educação Física"], "IFPA": ["Educação Física"], "IFPB": ["EDUCAÇÃO FÍSICA"], "IFPE": ["Educação Física"], "IFPI": ["EDUCAÇÃO FÍSICA"], "IFPR": ["Educação Física"], "IFRN": ["EDUCAÇÃO FÍSICA"], "IFRO": ["EDUCAÇÃO FÍSICA"], "IFS": ["EDUCAÇÃO FÍSICA"], "IFSC": ["Educação Física"], "IFSUL": ["EDUCAÇÃO FÍSICA"], "IFTM": ["Educação Física"], "IFTO": ["Educação Física (20 horas e 40 horas Dedicação Exclusiva)"]}, "Educação, Didática e Pedagogia": {"CEFET-RJ": ["Pedagogia"], "IF SERTÃO": ["PEDAGOGIA"], "IF SUL DE MG": ["Educação Matemática"], "IFAC": ["PEDAGOGIA"], "IFAM": ["Pedagogia"], "IFAP": ["EDUCAÇÃO"], "IFBA": ["PEDAGOGIA"], "IFC": ["PEDAGOGIA", "PEDAGOGIA DO CAMPO: GESTÃO EDUCACIONAL"], "IFFAR": ["PEDAGOGIA"], "IFMA": ["Educação — Educação"], "IFMG": ["EDUCAÇÃO/ PEDAGOGIA"], "IFPA": ["Educação do Campo", "Pedagogia"], "IFPE": ["Pedagogia"], "IFPI": ["BNCC", "DISCIPLINAS PEDAGÓGICAS"], "IFPR": ["Pedagogia"], "IFRN": ["DIDÁTICA", "POLÍTICAS E GESTÃO ESCOLAR"], "IFRS": ["PEDAGOGIA"], "IFS": ["PEDAGOGIA"], "IFSUL": ["SUPERVISÃO PEDAGÓGICA"], "IFTO": ["Pedagogia (40 horas Dedicação Exclusiva)"]}, "Enfermagem": {"IFAM": ["Enfermagem"], "IFBA": ["ENFERMAGEM"], "IFFAR": ["ENFERMAGEM"], "IFFLU": ["Enfermagem"], "IFPB": ["ENFERMAGEM"], "IFPE": ["Enfermagem - Assistência Hospitalar", "Enfermagem - Cirúrgica", "Enfermagem - Cuidados Intensivos", "Enfermagem - Gestão em Serviços de Saúde", "Enfermagem - Neonatal e Pediátrica", "Enfermagem - Urgência e Emergência"], "IFRO": ["ENFERMAGEM"], "IFRR": ["ENFERMAGEM"], "IFRS": ["ENFERMAGEM"]}, "Engenharia Ambiental, Sanitária e Gestão Ambiental": {"IFAC": ["ENGENHARIA AMBIENTAL", "GESTÃO AMBIENTAL"], "IFBA": ["ENGENHARIA SANITÁRIA E AMBIENTAL"], "IFMA": ["Engenharia Sanitária — Engenharia Sanitária"], "IFMG": ["Engenharia Ambiental e Sanitária"], "IFPE": ["Ambiental", "Gestão Ambiental"], "IFPI": ["GESTÃO AMBIENTAL"], "IFPR": ["Engenharia Ambiental"], "IFRJ": ["GESTÃO AMBIENTAL / MEIO AMBIENTE, GESTÃO DA QUALIDADE E EMPREENDEDORISMO, POLÍTICAS AMBIENTAIS"], "IFRN": ["GESTÃO AMBIENTAL"], "IFS": ["ENGENHARIA SANITÁRIA E AMBIENTAL"]}, "Engenharia Civil, Construção e Edificações": {"IF SUDESTE MG": ["Desenho Técnico, Desenho Técnico Mecânico, Desenho Arquitetônico, Desenho Auxiliado Por Cad"], "IFAL": ["HIDROLOGIA/ CONSTRUÇÃO CIVIL"], "IFBA": ["DESENHO TÉCNICO", "ENGENHARIA CIVIL"], "IFG": ["ENGENHARIA CIVIL/HIDRÁULICA"], "IFGOIANO": ["ENGENHARIA CIVIL - HIDRÁULICA / RECURSOS HÍDRICOS / CONSTRUÇÃO CIVIL"], "IFMA": ["Engenharia Civil — Engenharia Civil"], "IFMG": ["Engenharia Civil"], "IFMS": ["Edificações"], "IFNMG": ["Engenharia Civil"], "IFPA": ["Engenharia Civil"], "IFPB": ["ENGENHARIA CIVIL", "ENGENHARIA CIVIL COM ÊNFASE EM SEGURANÇA DO TRABALHO"], "IFPE": ["Engenharia Civil", "Estruturas"], "IFPI": ["ENGENHARIA CIVIL"], "IFRJ": ["DESENHO TÉCNICO / SEGURANÇA DO TRABALHO", "SEGURANÇA DO TRABALHO / GESTÃO DE RISCOS/HIGIENE DO TRABALHO / GESTÃO INTEGRADA: QUALIDADE, MEIO AMBIENTE / SEGURANÇA NA CONSTRUÇÃO / QUALIDADE, SEGURANÇA, MEIO AMBIENTE E SAÚDE / DESENHO TÉCNICO / ERGONOMIA/PROCESSOS INDUSTRIAIS"], "IFRN": ["DESENHO TÉCNICO"], "IFRR": ["ENGENHARIA CIVIL"], "IFS": ["ENGENHARIA CIVIL"], "IFSC": ["Geotécnica"], "IFSP": ["CONSTRUÇÃO CIVIL"]}, "Engenharia de Minas, Geologia e Petróleo": {"IFAP": ["MINERAÇÃO"], "IFBA": ["ENGENHARIA DE MINAS", "GEOLOGIA", "PETRÓLEO E GÁS NATURAL"], "IFG": ["GEOLOGIA"], "IFNMG": ["Engenharia De Minas"], "IFPB": ["GEOLOGIA"]}, "Engenharia de Produção": {"IFAC": ["ENGENHARIA DE PRODUÇÃO"], "IFG": ["ENGENHARIA DE PRODUÇÃO"], "IFPE": ["Engenharia de Produção"], "IFSP": ["ENGENHARIA DE PRODUÇÃO"], "IFTO": ["Engenharia da Produção (40 horas Dedicação Exclusiva)"]}, "Engenharia Elétrica, Eletrônica e Automação": {"CEFET-RJ": ["ENGENHARIA ELÉTRICA — Eletrotécnica e Sistemas Elétricos de Potência", "Engenharia Eletrônica (Robótica)", "Engenharia Elétrica — Sistemas Elétricos de Potência"], "IF SERTÃO": ["ENGENHARIA ELÉTRICA COM ÊNFASE EM SEGURANÇA DO TRABALHO"], "IF SUDESTE MG": ["Engenharia Elétrica E Engenharia Ferroviária E Metroviária"], "IFAC": ["ENGENHARIA ELÉTRICA / ELETRÔNICA"], "IFAL": ["ELETROTÉCNICA"], "IFBA": ["ELETROMECÂNICA", "ENGENHARIA ELÉTRICA"], "IFC": ["ENGENHARIA ELÉTRICA"], "IFFAR": ["ENGENHARIA ELÉTRICA"], "IFFLU": ["Controle e Automação", "Eletrotécnica", "Engenharia Elétrica"], "IFG": ["ELETRÔNICOS - EEI", "ENGENHARIA/SISTEMAS DE CONTROLE"], "IFGOIANO": ["ENGENHARIA ELÉTRICA - MÁQUINAS ELÉTRICAS E DISPOSITIVOS DE POTÊNCIA / ELETRÔNICAS / INSTRUMENTAÇÃO", "ENGENHARIA ELÉTRICA - SISTEMAS ELÉTRICOS DE POTÊNCIA / GERAÇÃO DE ENERGIA ELÉTRICA / TRANSMISSÃO DE ENERGIA ELÉTRICA / DISTRIBUIÇÃO DE ENERGIA ELÉTRICA", "ENGENHARIA ELÉTRICA COM FOCO EM TECNOLOGIAS DA INFORMAÇÃO E AUTOMAÇÃO"], "IFMA": ["Engenharia Elétrica — Engenharia Elétrica"], "IFMG": ["Controle e Automação", "Eletrônica", "Engenharia de Controle e Automação"], "IFMS": ["Elétrica/Automação"], "IFNMG": ["Engenharia Elétrica"], "IFPE": ["Automação", "Eletroeletrônica", "Eletrotécnica"], "IFPI": ["ELETROTÉCNICA/ENGENHARIA ELÉTRICA"], "IFPR": ["Automação Industrial", "Engenharia Eletrônica", "Engenharia Elétrica"], "IFRN": ["ELETROELETRÔNICA"], "IFRO": ["ENGENHARIA DE CONTROLE E AUTOMAÇÃO", "ENGENHARIA ELÉTRICA"], "IFRS": ["AUTOMAÇÃO: ROBÓTICA, CONTROLE E SISTEMAS DE MANUFATURA", "ELETRÔNICA ANALÓGICA"], "IFS": ["ELETROTÉCNICA", "ELETRÔNICA"], "IFSC": ["Automação Industrial", "Eletrônica Geral", "Instalações e Acionamentos", "Sistema de Energia"], "IFSP": ["CONTROLE E AUTOMAÇÃO", "ELETRÔNICA", "ELÉTRICA"], "IFTM": ["Eletrônica"]}, "Engenharia Florestal": {"IFAC": ["ENGENHARIA FLORESTAL"], "IFAM": ["Engenharia Florestal"], "IFAP": ["ENGENHARIA FLORESTAL"]}, "Engenharia Mecânica e Fabricação": {"CEFET-RJ": ["Engenharia Mecânica"], "IF SUDESTE MG": ["Desenho Técnico, Desenho Técnico Mecânico, Desenho Arquitetônico, Desenho Auxiliado Por Cad", "Engenharia Mecânica E Engenharia Ferroviária E Metroviária"], "IFAL": ["MECÂNICA"], "IFB": ["Mecânica"], "IFBA": ["ENGENHARIA MECÂNICA"], "IFFLU": ["Mecânica I", "Mecânica II"], "IFG": ["ENGENHARIA MECÂNICA/FABRICAÇÃO E MATERIAIS"], "IFMA": ["Engenharia Mecânica — Engenharia Mecânica"], "IFPA": ["Engenharia Mecânica"], "IFPE": ["Mecânica", "Refrigeração"], "IFPR": ["Engenharia de Materiais"], "IFRJ": ["ENGENHARIA MECÂNICA COM ÊNFASE EM MECÂNICA TÉRMICA / ENGENHARIA DE SEGURANÇA DO TRABALHO"], "IFSC": ["Fabricação Mecânica", "Projetos Mecânicos"], "IFSP": ["MECÂNICA"]}, "Engenharia Química": {"IFMA": ["Engenharia Química — Engenharia Química"], "IFPE": ["Engenharia Química"], "IFRO": ["ENGENHARIA QUÍMICA"], "IFSUL": ["ENGENHARIA QUÍMICA"]}, "Enologia": {"IF SERTÃO": ["ENOLOGIA"], "IFSC": ["Enologia"], "IFSUL": ["ENOLOGIA"]}, "Estatística": {"IFGOIANO": ["MATEMÁTICA / ESTATÍSTICA"], "IFPA": ["Estatística"], "IFRJ": ["ESTATÍSTICA / ESTATÍSTICA; PROBABILIDADE E ESTATÍSTICA", "MATEMÁTICA / ESTATÍSTICA"]}, "Filosofia": {"IF SERTÃO": ["FILOSOFIA"], "IFAC": ["FILOSOFIA"], "IFAL": ["FILOSOFIA"], "IFAM": ["Filosofia"], "IFAP": ["FILOSOFIA"], "IFBA": ["FILOSOFIA"], "IFBAIANO": ["FILOSOFIA"], "IFC": ["FILOSOFIA"], "IFFAR": ["FILOSOFIA"], "IFFLU": ["Filosofia"], "IFGOIANO": ["FILOSOFIA"], "IFMA": ["Filosofia — Filosofia"], "IFMG": ["Filosofia"], "IFMS": ["Filosofia"], "IFNMG": ["Filosofia"], "IFPA": ["Filosofia"], "IFPB": ["FILOSOFIA"], "IFPE": ["Filosofia"], "IFPI": ["FILOSOFIA"], "IFRN": ["FILOSOFIA"], "IFRO": ["FILOSOFIA"], "IFS": ["FILOSOFIA"], "IFSUL": ["FILOSOFIA"], "IFTM": ["Filosofia", "Filosofia/Sociologia"], "IFTO": ["Filosofia (20 horas)"]}, "Física": {"CEFET-RJ": ["Física"], "IF SERTÃO": ["FÍSICA"], "IF SUDESTE MG": ["Física"], "IFAC": ["FÍSICA"], "IFAL": ["FÍSICA"], "IFAP": ["FÍSICA"], "IFBA": ["FÍSICA"], "IFBAIANO": ["FÍSICA"], "IFC": ["FÍSICA"], "IFFAR": ["FÍSICA"], "IFFLU": ["Física"], "IFG": ["FÍSICA"], "IFGOIANO": ["FÍSICA - ENSINO DE FÍSICA"], "IFMA": ["Física — Física"], "IFMG": ["Física"], "IFMS": ["Física"], "IFMT": ["Física"], "IFPA": ["Física"], "IFPB": ["FÍSICA"], "IFPE": ["Física"], "IFPI": ["FÍSICA"], "IFPR": ["Física"], "IFRJ": ["FÍSICA"], "IFRN": ["FÍSICA"], "IFRO": ["FÍSICA"], "IFS": ["FÍSICA"], "IFSC": ["Física"], "IFSUL": ["FÍSICA"], "IFTM": ["Física"], "IFTO": ["Física (20 horas e 40 horas Dedicação Exclusiva)"]}, "Gastronomia": {"IFFAR": ["GASTRONOMIA"], "IFPI": ["GASTRONOMIA"], "IFS": ["GASTRONOMIA"], "IFSP": ["GASTRONOMIA"]}, "Geografia": {"IF SERTÃO": ["GEOGRAFIA"], "IF SUDESTE MG": ["Geografia"], "IFAC": ["GEOGRAFIA"], "IFAL": ["GEOGRAFIA"], "IFAM": ["Geografia"], "IFAP": ["GEOGRAFIA"], "IFC": ["GEOGRAFIA"], "IFFAR": ["GEOGRAFIA"], "IFFLU": ["Geografia"], "IFGOIANO": ["GEOGRAFIA - GEOGRAFIA / GEOLOGIA / PALEONTOLOGIA"], "IFMA": ["Geografia — Geografia"], "IFNMG": ["Geografia"], "IFPA": ["Geografia"], "IFPE": ["Geografia"], "IFPI": ["GEOGRAFIA"], "IFPR": ["Geografia"], "IFRN": ["GEOGRAFIA"], "IFRO": ["GEOGRAFIA"], "IFRR": ["GEOGRAFIA"], "IFS": ["GEOGRAFIA"], "IFSC": ["Geografia"], "IFSUL": ["GEOGRAFIA"], "IFTO": ["Geografia (20 horas e 40 horas Dedicação Exclusiva)"]}, "História": {"IF SERTÃO": ["HISTÓRIA"], "IF SUDESTE MG": ["História"], "IFAC": ["HISTÓRIA"], "IFAL": ["HISTÓRIA"], "IFAP": ["HISTÓRIA"], "IFBA": ["HISTÓRIA"], "IFBAIANO": ["HISTÓRIA"], "IFC": ["HISTÓRIA"], "IFFLU": ["História"], "IFGOIANO": ["HISTÓRIA - HISTÓRIA / HUMANIDADES"], "IFMA": ["História — História"], "IFMS": ["História"], "IFNMG": ["História"], "IFPA": ["História"], "IFPE": ["História"], "IFRN": ["HISTÓRIA"], "IFRO": ["HISTÓRIA"], "IFS": ["HISTÓRIA"], "IFSC": ["História"], "IFSUL": ["HISTÓRIA"], "IFTO": ["História (20 horas)"]}, "Informática e Computação": {"CEFET-RJ": ["Tecnologia da Informação/Computação/Sistemas de Informação/Engenharia da Computação/Ciência da Computação"], "IF SERTÃO": ["INFORMÁTICA"], "IF SUL DE MG": ["Informática"], "IFAC": ["INFORMÁTICA"], "IFAL": ["INFORMÁTICA"], "IFAP": ["INFORMÁTICA"], "IFBA": ["CIÊNCIA DA COMPUTAÇÃO"], "IFBAIANO": ["INFORMÁTICA"], "IFC": ["CIÊNCIA DA COMPUTAÇÃO", "INFORMÁTICA", "INFORMÁTICA: BANCO DE DADOS", "INFORMÁTICA: ENGENHARIA DE SOFTWARE E BANCO DE DADOS", "INFORMÁTICA: HARDWARE E REDES", "INFORMÁTICA: PROGRAMAÇÃO BÁSICA E PROGRAMAÇÃO WEB", "INFORMÁTICA: PROGRAMAÇÃO DE SISTEMAS"], "IFFAR": ["INFORMÁTICA GERAL", "INFORMÁTICA: REDES DE COMPUTADORES E SISTEMA DISTRIBUÍDO"], "IFFLU": ["Engenharia da Computação", "Informática Educativa"], "IFGOIANO": ["INFORMÁTICA", "INFORMÁTICA 1- DESENVOLVIMENTO WEB / BANCO DE DADOS / ENGENHARIA DE SOFTWARE", "INFORMÁTICA 2 - AUTOMAÇÃO E CONTROLE / INTERNET DAS COISAS / INTELIGÊNCIA ARTIFICIAL"], "IFMA": ["Ciência da Computação — Ciência da Computação", "Engenharia — Engenharia da Computação"], "IFMG": ["Ciência da Computação", "Ciência da Computação e Sistemas de Informação", "Informática", "Sistemas de Computação"], "IFMS": ["Informática/Desenvolvimento Web"], "IFMT": ["Informática"], "IFPA": ["Informática"], "IFPB": ["INFORMÁTICA - PERFIL 1", "INFORMÁTICA - PERFIL 2"], "IFPE": ["Redes", "Sistemas Digitais e Segurança de Dados"], "IFPI": ["INFORMÁTICA"], "IFPR": ["Informática", "Informática/Redes"], "IFRJ": ["CIÊNCIA DA COMPUTAÇÃO / DESENVOLVIMENTO DE APLICATIVOS MULTIPLATAFORMA E JOGOS DIGITAIS COM ENGINES", "INFORMÁTICA / ENGENHARIA DE SOFTWARE; DESENVOLVIMENTO DE SISTEMAS; PROGRAMAÇÃO", "INFORMÁTICA / PROGRAMAÇÃO", "INFORMÁTICA / SISTEMAS OPERACIONAIS; INFRAESTRUTURA DE REDE DE COMPUTADORES; SEGURANÇA DA INFORMAÇÃO", "REDES DE COMPUTADORES; ADMINISTRAÇÃO DE REDES; ARQUITETURA DE COMPUTADORES; SISTEMAS OPERACIONAIS; SEGURANÇA DA INFORMAÇÃO; MANUTENÇÃO DE HARDWARE"], "IFRN": ["DESENVOLVIMENTO DE JOGOS DIGITAIS", "MANUTENÇÃO E SUPORTE EM INFORMÁTICA", "REDES DE COMPUTADORES", "SISTEMAS DE INFORMAÇÃO"], "IFRO": ["INFORMÁTICA"], "IFS": ["INFORMÁTICA"], "IFSC": ["Informática"], "IFSP": ["INFORMÁTICA"], "IFTM": ["Informática"]}, "Libras": {"IF SERTÃO": ["LIBRAS", "LIBRAS COM ÊNFASE EM PEDAGOGIA"], "IFAL": ["LIBRAS"], "IFAM": ["Libras"], "IFBA": ["LIBRAS"], "IFC": ["LETRAS/LIBRAS"], "IFG": ["LETRAS – PORTUGUÊS/LIBRAS"], "IFMA": ["Língua Portuguesa e LIBRAS — LIBRAS", "Língua Portuguesa e LIBRAS — Língua Portuguesa"], "IFPB": ["LÍNGUA PORTUGUESA/LIBRAS"], "IFPE": ["Libras"], "IFPI": ["DISCIPLINAS PEDAGÓGICAS/LIBRAS"], "IFPR": ["Letras Português/Libras"], "IFRR": ["LÍNGUAS DE SINAIS BRASILEIRA"], "IFS": ["LIBRAS"], "IFSP": ["PORTUGUÊS/LIBRAS"], "IFTO": ["Letras: Português/Libras (40 horas Dedicação Exclusiva)"]}, "Literatura": {"IFBAIANO": ["LETRAS/ LÍNGUA PORTUGUESA E LITERATURA"], "IFFLU": ["Português/Literatura"], "IFGOIANO": ["LINGUAGENS 1 - LÍNGUA PORTUGUESA / LITERATURA", "LINGUAGENS 2 - LÍNGUA PORTUGUESA / LITERATURA / LÍNGUA INGLESA"], "IFRJ": ["LETRAS / PORTUGUÊS E LITERATURA", "PORTUGUÊS / LITERATURAS"], "IFRN": ["LÍNGUA PORTUGUESA E LITERATURA BRASILEIRA"], "IFSUL": ["LETRAS – PORTUGUÊS/LITERATURA"]}, "Língua Espanhola": {"IF SUL DE MG": ["Português/Espanhol"], "IFAC": ["ESPANHOL"], "IFAL": ["LÍNGUA ESPANHOLA"], "IFBA": ["LÍNGUA ESTRANGEIRA MODERNA: ESPANHOL"], "IFFLU": ["Português/Espanhol"], "IFMG": ["Letras — Português/Espanhol"], "IFMT": ["Português/Espanhol"], "IFPA": ["Letras/Espanhol"], "IFPE": ["Espanhol"], "IFPI": ["ESPANHOL"], "IFPR": ["Letras Português/Espanhol"], "IFRO": ["LETRAS/ESPANHOL"], "IFRS": ["LETRAS: PORTUGUÊS/ESPANHOL"], "IFS": ["LETRAS PORTUGUÊS/ESPANHOL"], "IFSC": ["Espanhol"], "IFTO": ["Letras: Português/Espanhol (40 horas Dedicação Exclusiva)"]}, "Língua Inglesa": {"IF SERTÃO": ["LÍNGUA INGLESA"], "IF SUDESTE MG": ["Língua Portuguesa/Inglês"], "IFAC": ["INGLÊS"], "IFAL": ["LÍNGUA INGLESA"], "IFAP": ["LÍNGUA INGLESA"], "IFBA": ["LÍNGUA ESTRANGEIRA MODERNA: INGLÊS"], "IFBAIANO": ["LÍNGUA ESTRANGEIRA MODERNA: INGLÊS"], "IFFAR": ["LETRAS – INGLÊS", "LETRAS – PORTUGUÊS/INGLÊS"], "IFG": ["LETRAS – PORTUGUÊS/INGLÊS"], "IFGOIANO": ["LINGUAGENS - LÍNGUA PORTUGUESA / LÍNGUA INGLESA", "LINGUAGENS 2 - LÍNGUA PORTUGUESA / LITERATURA / LÍNGUA INGLESA"], "IFMA": ["Letras — Língua Portuguesa e Língua Inglesa — Língua Inglesa", "Letras — Língua Portuguesa e Língua Inglesa — Língua Portuguesa"], "IFMS": ["Português/Inglês"], "IFNMG": ["Língua Portuguesa/Língua Inglesa"], "IFPA": ["Letras/Inglês"], "IFPE": ["Inglês"], "IFPI": ["INGLÊS"], "IFPR": ["Letras Português/Inglês"], "IFRJ": ["LETRAS / PORTUGUÊS E INGLÊS", "LETRAS / PORTUGUÊS-INGLÊS"], "IFRN": ["LÍNGUA INGLESA"], "IFRO": ["LETRAS/INGLÊS"], "IFS": ["LETRAS INGLÊS", "LETRAS PORTUGUÊS/INGLÊS"], "IFSC": ["Inglês"], "IFSP": ["PORTUGUÊS/INGLÊS"], "IFSUL": ["LETRAS – PORTUGUÊS/INGLÊS"], "IFTM": ["Letras/Português/Inglês"], "IFTO": ["Letras: Português/Inglês (40 horas Dedicação Exclusiva)"]}, "Língua Portuguesa": {"IF SERTÃO": ["LÍNGUA PORTUGUESA"], "IF SUDESTE MG": ["Língua Portuguesa/Inglês"], "IF SUL DE MG": ["Português/Espanhol"], "IFAC": ["LÍNGUA PORTUGUESA"], "IFAL": ["LÍNGUA PORTUGUESA"], "IFAP": ["LÍNGUA PORTUGUESA"], "IFBA": ["LÍNGUA PORTUGUESA"], "IFBAIANO": ["LETRAS/ LÍNGUA PORTUGUESA E LITERATURA"], "IFC": ["INFORMÁTICA: LINGUAGENS DA PROGRAMAÇÃO", "LETRAS/LIBRAS"], "IFFAR": ["LETRAS – INGLÊS", "LETRAS – PORTUGUÊS/INGLÊS"], "IFFLU": ["Língua Portuguesa", "Português/Espanhol", "Português/Literatura"], "IFG": ["LETRAS – PORTUGUÊS", "LETRAS – PORTUGUÊS/INGLÊS", "LETRAS – PORTUGUÊS/LIBRAS"], "IFGOIANO": ["LINGUAGENS - LÍNGUA PORTUGUESA / LÍNGUA INGLESA", "LINGUAGENS 1 - LÍNGUA PORTUGUESA / LITERATURA", "LINGUAGENS 2 - LÍNGUA PORTUGUESA / LITERATURA / LÍNGUA INGLESA"], "IFMA": ["Letras — Língua Portuguesa e Língua Inglesa — Língua Inglesa", "Letras — Língua Portuguesa e Língua Inglesa — Língua Portuguesa", "Língua Portuguesa", "Língua Portuguesa e LIBRAS — LIBRAS", "Língua Portuguesa e LIBRAS — Língua Portuguesa"], "IFMG": ["Letras — Português/Espanhol"], "IFMS": ["Português/Inglês", "Português/Português"], "IFMT": ["Português/Espanhol"], "IFNMG": ["Língua Portuguesa", "Língua Portuguesa/Língua Inglesa"], "IFPA": ["Letras/Espanhol", "Letras/Inglês", "Letras/Português"], "IFPB": ["LÍNGUA PORTUGUESA", "LÍNGUA PORTUGUESA/LIBRAS"], "IFPE": ["Português"], "IFPI": ["LÍNGUA PORTUGUESA"], "IFPR": ["Letras Português", "Letras Português/Espanhol", "Letras Português/Inglês", "Letras Português/Libras"], "IFRJ": ["LETRAS / PORTUGUÊS E INGLÊS", "LETRAS / PORTUGUÊS E LITERATURA", "LETRAS / PORTUGUÊS-INGLÊS", "PORTUGUÊS / LITERATURAS"], "IFRN": ["LÍNGUA PORTUGUESA E LITERATURA BRASILEIRA"], "IFRO": ["LETRAS/ESPANHOL", "LETRAS/INGLÊS"], "IFRS": ["LETRAS: PORTUGUÊS/ESPANHOL"], "IFS": ["LETRAS INGLÊS", "LETRAS PORTUGUÊS", "LETRAS PORTUGUÊS/ESPANHOL", "LETRAS PORTUGUÊS/INGLÊS"], "IFSP": ["PORTUGUÊS/INGLÊS", "PORTUGUÊS/LIBRAS"], "IFSUL": ["LETRAS – PORTUGUÊS/INGLÊS", "LETRAS – PORTUGUÊS/LITERATURA"], "IFTM": ["Letras/Português/Inglês", "Letras/Redação"], "IFTO": ["Letras: Português/Espanhol (40 horas Dedicação Exclusiva)", "Letras: Português/Inglês (40 horas Dedicação Exclusiva)", "Letras: Português/Libras (40 horas Dedicação Exclusiva)"]}, "Matemática": {"CEFET-RJ": ["MATEMÁTICA"], "IF SERTÃO": ["MATEMÁTICA"], "IF SUL DE MG": ["Matemática"], "IFAC": ["MATEMÁTICA"], "IFAL": ["MATEMÁTICA"], "IFAP": ["MATEMÁTICA"], "IFB": ["Matemática"], "IFBA": ["MATEMÁTICA"], "IFBAIANO": ["MATEMÁTICA"], "IFC": ["MATEMÁTICA E EDUCAÇÃO MATEMÁTICA"], "IFFLU": ["Matemática"], "IFGOIANO": ["MATEMÁTICA", "MATEMÁTICA / ESTATÍSTICA"], "IFMA": ["Matemática — Matemática"], "IFMG": ["Matemática"], "IFMT": ["Matemática"], "IFNMG": ["Matemática"], "IFPA": ["Matemática"], "IFPB": ["MATEMÁTICA"], "IFPE": ["Matemática"], "IFPI": ["MATEMÁTICA"], "IFPR": ["Matemática"], "IFRJ": ["MATEMÁTICA", "MATEMÁTICA / ESTATÍSTICA"], "IFRN": ["MATEMÁTICA"], "IFRO": ["MATEMÁTICA"], "IFRR": ["MATEMÁTICA"], "IFS": ["MATEMÁTICA"], "IFSC": ["Matemática"], "IFSUL": ["MATEMÁTICA"], "IFTM": ["Matemática"], "IFTO": ["Matemática (20 horas e 40 horas Dedicação Exclusiva)"]}, "Mecânica de Aeronaves": {"IFMT": ["Manutenção de Aeronaves"], "IFSP": ["PRÁTICAS EM MANUTENÇÃO DE AERONAVES"]}, "Medicina": {"IFMG": ["Medicina do Trabalho e Ergonomia"]}, "Medicina Veterinária": {"IFAC": ["VETERINÁRIA"], "IFAL": ["MEDICINA VETERINÁRIA"], "IFBAIANO": ["MEDICINA VETERINÁRIA"], "IFC": ["MEDICINA VETERINÁRIA: MICROBIOLOGIA"], "IFGOIANO": ["MEDICINA VETERINÁRIA 1 - MEDICINA VETERINÁRIA PREVENTIVA, COM ÊNFASE EM SUÍNOS E PEQUENOS RUMINANTES", "MEDICINA VETERINÁRIA 2 - CLÍNICA CIRÚRGICA ANIMAL"], "IFMG": ["Medicina Veterinária - Anestesiologia Veterinária", "Medicina Veterinária - Clínica Médica de Grandes Animais", "Medicina Veterinária - Reprodução Animal"], "IFMT": ["Medicina Veterinária – Clínica médica e cirurgia de grandes animais", "Medicina Veterinária – Clínica médica e cirurgia de pequenos animais"], "IFNMG": ["Medicina Veterinária: Clínica E Cirurgia De Grandes Animais"], "IFPB": ["MEDICINA VETERINÁRIA"], "IFPR": ["Medicina Veterinária/Aquicultura"], "IFRO": ["MEDICINA VETERINÁRIA", "MEDICINA VETERINÁRIA ‒ CLÍNICA E CIRURGIA DE ANIMAIS"], "IFS": ["VETERINÁRIA"], "IFTO": ["Medicina Veterinária, Ciência Animal, Ciência e Saúde animal (20 horas e 40 horas Dedicação"]}, "Música": {"IF SERTÃO": ["MÚSICA COM ÊNFASE EM EDUCAÇÃO MUSICAL E CORDAS FRICCIONADAS"], "IFAL": ["MÚSICA", "MÚSICA: CLARINETE", "MÚSICA: SAXOFONE", "MÚSICA: TROMBONE"], "IFBAIANO": ["MÚSICA"], "IFPE": ["Música", "Música/Piano"], "IFPI": ["MÚSICA"]}, "Processos Industriais": {"IFPB": ["CONTROLE E PROCESSOS INDUSTRIAIS - PERFIL 01", "CONTROLE E PROCESSOS INDUSTRIAIS - PERFIL 02", "CONTROLE E PROCESSOS INDUSTRIAIS - PERFIL 03"], "IFRJ": ["SEGURANÇA DO TRABALHO / GESTÃO DE RISCOS/HIGIENE DO TRABALHO / GESTÃO INTEGRADA: QUALIDADE, MEIO AMBIENTE / SEGURANÇA NA CONSTRUÇÃO / QUALIDADE, SEGURANÇA, MEIO AMBIENTE E SAÚDE / DESENHO TÉCNICO / ERGONOMIA/PROCESSOS INDUSTRIAIS"], "IFSUL": ["CONTROLE E PROCESSOS INDUSTRIAIS"]}, "Psicologia": {"IFAC": ["PSICOLOGIA"], "IFPE": ["Psicologia"], "IFS": ["PSICOLOGIA"]}, "Química": {"IF SERTÃO": ["QUÍMICA"], "IF SUDESTE MG": ["Química Geral, Química Orgânica, Química Inorgânica, Físico-Química, Química Analítica E Química Ambiental"], "IFAC": ["QUÍMICA"], "IFAL": ["QUÍMICA"], "IFAP": ["QUÍMICA"], "IFBA": ["QUÍMICA"], "IFBAIANO": ["QUÍMICA"], "IFC": ["QUÍMICA"], "IFFAR": ["QUÍMICA"], "IFFLU": ["Química (Engenharia)", "Química (Licenciatura)"], "IFG": ["QUÍMICA", "QUÍMICA/BIOTECNOLOGIA"], "IFGOIANO": ["QUÍMICA - FÍSICO-QUÍMICA (TERMODINÂMICA / CINÉTICA / ELETROQUÍMICA)"], "IFMA": ["Química — Química"], "IFMG": ["Química"], "IFMS": ["Química"], "IFMT": ["Química"], "IFNMG": ["Química"], "IFPA": ["Química"], "IFPB": ["QUÍMICA"], "IFPE": ["Química"], "IFPI": ["QUÍMICA"], "IFPR": ["Química"], "IFRJ": ["QUÍMICA"], "IFRN": ["QUÍMICA"], "IFS": ["QUÍMICA", "QUÍMICA - PROCESSOS QUÍMICOS", "QUÍMICA - QUÍMICA ANALÍTICA"], "IFSC": ["Química Geral"], "IFSP": ["QUÍMICA", "QUÍMICA INDUSTRIAL"], "IFTM": ["Química"], "IFTO": ["Farmácia/Bioquímica (40 horas Dedicação Exclusiva)", "Química (20 horas e 40 horas Dedicação Exclusiva)"]}, "Recursos Naturais e Meio Ambiente": {"IFAP": ["MEIO AMBIENTE"], "IFB": ["Meio Ambiente"], "IFBAIANO": ["MEIO AMBIENTE"], "IFG": ["MEIO AMBIENTE"], "IFPB": ["MEIO AMBIENTE"], "IFRJ": ["SEGURANÇA DO TRABALHO / GESTÃO DE RISCOS/HIGIENE DO TRABALHO / GESTÃO INTEGRADA: QUALIDADE, MEIO AMBIENTE / SEGURANÇA NA CONSTRUÇÃO / QUALIDADE, SEGURANÇA, MEIO AMBIENTE E SAÚDE / DESENHO TÉCNICO / ERGONOMIA/PROCESSOS INDUSTRIAIS"], "IFSUL": ["AMBIENTE E SAÚDE", "RECURSOS NATURAIS I", "RECURSOS NATURAIS II"]}, "Recursos Pesqueiros, Aquicultura e Pesca": {"IFAM": ["Recursos Pesqueiros"], "IFMA": ["Recursos Pesqueiros e Engenharia de Pesca"], "IFPR": ["Medicina Veterinária/Aquicultura"]}, "Saúde: Nutrição, Farmácia, Fisioterapia, Odontologia e Radiologia": {"IFBA": ["RADIOLOGIA"], "IFGOIANO": ["NUTRIÇÃO 1 - NUTRIÇÃO E SAÚDE / NUTRIÇÃO CLÍNICA", "NUTRIÇÃO 2 - NUTRIÇÃO E SAÚDE PÚBLICA / ALIMENTAÇÃO COLETIVA"], "IFPE": ["Radiologia"], "IFPR": ["Odontologia", "Prótese Dentária"], "IFRJ": ["FARMÁCIA / TECNOLOGIA FARMACÊUTICA E COSMÉTICA, FARMACOTÉCNICA (ALOPÁTICA E HOMEOPÁTICA), GESTÃO E CONTROLE DA QUALIDADE", "FISIOTERAPIA DO TRABALHO, ESTÁGIO SUPERVISIONADO EM FISIOTERAPIA, PRÁTICAS ASSISTIVAS, INTRODUÇÃO À BIOSSEGURANÇA E PROJETO DE INTERVENÇÃO (CTACS)"], "IFS": ["NUTRIÇÃO"]}, "Segurança do Trabalho": {"IF SERTÃO": ["SEGURANÇA DO TRABALHO"], "IF SUL DE MG": ["Segurança do Trabalho"], "IFAL": ["SEGURANÇA DO TRABALHO"], "IFFLU": ["Segurança do Trabalho"], "IFMA": ["Higiene e Segurança do Trabalho"], "IFMG": ["Medicina do Trabalho e Ergonomia", "Segurança do Trabalho"], "IFPB": ["ENGENHARIA CIVIL COM ÊNFASE EM SEGURANÇA DO TRABALHO"], "IFPE": ["Segurança do Trabalho"], "IFRJ": ["DESENHO TÉCNICO / SEGURANÇA DO TRABALHO", "SEGURANÇA DO TRABALHO / GESTÃO DE RISCOS/HIGIENE DO TRABALHO / GESTÃO INTEGRADA: QUALIDADE, MEIO AMBIENTE / SEGURANÇA NA CONSTRUÇÃO / QUALIDADE, SEGURANÇA, MEIO AMBIENTE E SAÚDE / DESENHO TÉCNICO / ERGONOMIA/PROCESSOS INDUSTRIAIS"], "IFS": ["SEGURANÇA DO TRABALHO"], "IFSC": ["Segurança e Higiene do Trabalho"]}, "Sistemas Biomédicos": {"IFAL": ["SISTEMAS BIOMÉDICOS"]}, "Sociologia e Ciências Sociais": {"IF SUL DE MG": ["Sociologia"], "IFAC": ["SOCIOLOGIA"], "IFAL": ["SOCIOLOGIA"], "IFAM": ["Sociologia"], "IFAP": ["SOCIOLOGIA"], "IFFAR": ["SOCIOLOGIA"], "IFGOIANO": ["SOCIOLOGIA"], "IFMA": ["Sociologia — Sociologia"], "IFMG": ["Ciências Humanas/História"], "IFNMG": ["Sociologia"], "IFPA": ["Sociologia"], "IFPE": ["Sociologia"], "IFPI": ["SOCIOLOGIA"], "IFRO": ["SOCIOLOGIA"], "IFRR": ["CIÊNCIAS HUMANAS", "CIÊNCIAS SOCIAIS", "SOCIOLOGIA"], "IFS": ["SOCIOLOGIA"], "IFSC": ["Sociologia"], "IFSUL": ["SOCIOLOGIA"], "IFTM": ["Filosofia/Sociologia"]}, "Transportes": {"IF SUDESTE MG": ["Transporte E Trânsito (Necessário Conhecer Sobre Gerenciamento De Projetos E Instalações Estruturais E Hidráulicas)"], "IFG": ["TRANSPORTE"]}, "Turismo, Hotelaria e Eventos": {"IFAL": ["HOTELARIA"], "IFBA": ["TURISMO"], "IFS": ["HOTELARIA", "TURISMO"], "IFSP": ["TURISMO E HOSPITALIDADE"], "IFTM": ["Turismo"]}, "Vestuário e Têxteis": {"IFPI": ["VESTUÁRIO"], "IFRN": ["MODA E PRODUÇÃO DE VESTUÁRIO"], "IFSC": ["Processos Têxteis"]}, "Zootecnia e Produção Animal": {"IF SUL DE MG": ["Zootecnia I — Avicultura de Corte e Postura e Piscicultura", "Zootecnia II — Suinocultura, Nutrição e Produção Animal", "Zootecnia III — Bioclimatologia e Animais Silvestres", "Zootecnia IV — Fisiologia Animal"], "IFAC": ["ZOOTECNIA"], "IFBA": ["ZOOTECNIA"], "IFBAIANO": ["ZOOTECNIA"], "IFC": ["PRODUÇÃO ANIMAL", "ZOOTECNIA"], "IFGOIANO": ["ZOOTECNIA", "ZOOTECNIA 1 - NÃO RUMINANTES / TECNOLOGIA DE PRODUTOS CÁRNEOS E PESCADOS / FORMULAÇÃO E FÁBRICA DE RAÇÃO", "ZOOTECNIA 2 - MELHORAMENTO GENÉTICO / ESTATÍSTICA / RUMINANTES"], "IFMA": ["Zootecnia — Zootecnia"], "IFMS": ["Ciências Agrárias/Zootecnia"], "IFMT": ["Zootecnia"], "IFPE": ["Produção Animal"], "IFPI": ["ZOOTECNIA"], "IFPR": ["Zootecnia"], "IFRO": ["ZOOTECNIA"], "IFS": ["ZOOTECNIA"], "IFSC": ["Produção Animal"], "IFTO": ["Produção animal (40 horas Dedicação Exclusiva)"]}}, "notes": {"IFMT": "Removida entrada duplicada 'Composição específica para Português/Espanhol' (já contabilizada em 'Português/Espanhol').", "IFTO": "Edital do IFTO combina cargos TAE (técnico-administrativo) e Professor EBTT; mantidas aqui apenas as áreas do concurso docente (EBTT), fora do escopo TAE.", "IFGOIANO": "Áreas consolidadas por campus: quando a mesma área (ex.: Administração, Biologia, Linguagens, Matemática, Sociologia, Informática) aparecia repetida em múltiplos câmpus sem especialização técnica distinta, as entradas foram reunidas em uma única linha. Perfis com especialização claramente distinta (ex.: Zootecnia 1/2, Medicina Veterinária 1/2, Engenharia Elétrica com focos diferentes) foram mantidos separados, pois representam vagas/conteúdos de fato diferentes, ainda que sob o mesmo nome de área.", "IFRJ": "Áreas consolidadas quando o mesmo nome de área (Física, Química, Matemática) se repetia em câmpus diferentes com o mesmo escopo geral. Perfis com foco técnico distinto (ex.: Informática/Programação vs. Informática/Redes) foram mantidos separados.", "IFSUL": "\"Controle e Processos Industriais I/II/III/IV\" no edital correspondem à mesma área aberta em 4 câmpus diferentes (Charqueadas, Lajeado, Santana do Livramento, Sapiranga) e foram consolidadas em uma única entrada. \"Design I/II/III\" (todas no câmpus Pelotas) e \"Recursos Naturais I/II\" (ambas no câmpus Bagé) são perfis distintos dentro do mesmo câmpus e foram mantidas separadas."}, "excluded_institutions": {"IFCE": "O edital do IFCE consolidado neste pacote refere-se integralmente a cargos de Técnico-Administrativo em Educação (TAE) — nenhuma das 32 \"áreas\" listadas corresponde a vaga docente (Professor EBTT). Como o negócio do DQ é preparação para concursos de Professor EBTT, o IFCE foi removido desta consolidação. Trecho do edital: \"Este material foi elaborado a partir do edital do Instituto Federal de Educação, Ciência e Tecnologia do Ceará — IFCE, para os cargos de Técnico-Administrativo em Educação.\""}, "n_ifs": 38, "n_disciplinas": 58}</script>
+<script>
+(function(){
+  "use strict";
+  var raw = JSON.parse(document.getElementById('area-data').textContent);
+  var byDisc = raw.disciplinas;
+  var discNames = Object.keys(byDisc).sort(function(a,b){ return a.localeCompare(b,'pt'); });
+
+  var rows = [];
+  discNames.forEach(function(disc){
+    var ifDict = byDisc[disc];
+    Object.keys(ifDict).sort(function(a,b){ return a.localeCompare(b,'pt'); }).forEach(function(iff){
+      ifDict[iff].forEach(function(variant){ rows.push({area: disc, iff: iff, variant: variant}); });
+    });
+  });
+
+  function ifCount(disc){ return Object.keys(byDisc[disc]).length; }
+  var pairCount = discNames.reduce(function(sum, d){ return sum + ifCount(d); }, 0);
+  var multiCount = discNames.filter(function(d){ return ifCount(d) > 1; }).length;
+  document.getElementById('statAreas').textContent = discNames.length;
+  document.getElementById('statPairs').textContent = pairCount;
+  document.getElementById('statMulti').textContent = multiCount;
+
+  // ---------- ranking ----------
+  var ranked = discNames.slice().sort(function(a,b){ return ifCount(b) - ifCount(a); }).slice(0,12);
+  var maxN = ifCount(ranked[0]);
+  var rankingEl = document.getElementById('rankingBars');
+  ranked.forEach(function(disc){
+    var n = ifCount(disc);
+    var row = document.createElement('div');
+    row.className = 'rbar-row';
+    row.innerHTML = '<div class="rlabel" title="'+esc(disc)+'">'+esc(disc)+'</div>' +
+      '<div class="rbar-track"><div class="rbar-fill" style="width:'+(n/maxN*100)+'%"></div></div>' +
+      '<div class="rval">'+n+'</div>';
+    row.addEventListener('click', function(){ jumpTo(disc); });
+    rankingEl.appendChild(row);
+  });
+
+  // ---------- rail ----------
+  var railList = document.getElementById('railList');
+  discNames.forEach(function(disc){
+    var li = document.createElement('li');
+    li.className = 'rail-item';
+    li.dataset.area = disc;
+    li.innerHTML = '<span>'+esc(disc)+'</span><span class="badge">'+ifCount(disc)+'</span>';
+    li.addEventListener('click', function(){ jumpTo(disc); });
+    railList.appendChild(li);
+  });
+
+  document.getElementById('railSearch').addEventListener('input', function(e){
+    var q = e.target.value.trim().toLowerCase();
+    Array.prototype.forEach.call(railList.children, function(li){
+      li.hidden = q && li.dataset.area.toLowerCase().indexOf(q) === -1;
+    });
+  });
+
+  function jumpTo(disc){
+    setTab('byarea');
+    var el = document.getElementById('sec-'+cssSafe(disc));
+    if(el){ el.classList.add('open'); el.scrollIntoView({behavior:'smooth', block:'start'}); highlightRail(disc); }
+  }
+
+  function highlightRail(disc){
+    Array.prototype.forEach.call(railList.children, function(li){
+      li.classList.toggle('active', li.dataset.area === disc);
+    });
+  }
+
+  function cssSafe(s){ return s.replace(/[^a-zA-Z0-9]/g,'_'); }
+  function esc(s){ return s.replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  function highlight(text, q){
+    if(!q) return esc(text);
+    var idx = text.toLowerCase().indexOf(q.toLowerCase());
+    if(idx === -1) return esc(text);
+    return esc(text.slice(0,idx)) + '<mark>' + esc(text.slice(idx, idx+q.length)) + '</mark>' + esc(text.slice(idx+q.length));
+  }
+
+  // ---------- Part 1: by disciplina ----------
+  var viewByArea = document.getElementById('viewByArea');
+  function renderByArea(q){
+    viewByArea.innerHTML = '';
+    var anyMatch = false;
+    discNames.forEach(function(disc){
+      var ifDict = byDisc[disc];
+      var ifNames = Object.keys(ifDict).sort(function(a,b){ return a.localeCompare(b,'pt'); });
+      var discMatches = !q || disc.toLowerCase().indexOf(q) !== -1;
+      var matchedIfs = ifNames.filter(function(iff){
+        if(discMatches) return true;
+        if(iff.toLowerCase().indexOf(q) !== -1) return true;
+        return ifDict[iff].some(function(v){ return v.toLowerCase().indexOf(q) !== -1; });
+      });
+      if(q && matchedIfs.length === 0) return;
+      anyMatch = true;
+      var sec = document.createElement('div');
+      sec.className = 'area-section' + (q ? ' open' : '');
+      sec.id = 'sec-' + cssSafe(disc);
+      sec.innerHTML =
+        '<div class="area-head"><h3>'+highlight(disc,q)+'</h3><div class="meta"><span class="count">'+ifNames.length+' IF'+(ifNames.length!==1?'s':'')+'</span><svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></div></div>' +
+        '<div class="if-list">' + matchedIfs.map(function(iff){
+          var variantTxt = ifDict[iff].map(function(v){ return highlight(v, q); }).join('; ');
+          return '<div class="if-chip"><div class="ifname-row">'+highlight(iff, q)+'</div><div class="variant">'+variantTxt+'</div></div>';
+        }).join('') + '</div>';
+      sec.querySelector('.area-head').addEventListener('click', function(){
+        sec.classList.toggle('open');
+        if(sec.classList.contains('open')) highlightRail(disc);
+      });
+      viewByArea.appendChild(sec);
+    });
+    if(!anyMatch){
+      viewByArea.innerHTML = '<div class="no-results">Nenhuma disciplina, instituição ou área encontrada para "'+esc(q)+'".</div>';
+    }
+  }
+
+  // ---------- Part 2: table ----------
+  var tableBody = document.getElementById('tableBody');
+  var sortState = {key:'area', dir:1};
+  function renderTable(q){
+    var filtered = rows.filter(function(r){
+      return !q || r.area.toLowerCase().indexOf(q) !== -1 || r.iff.toLowerCase().indexOf(q) !== -1 || r.variant.toLowerCase().indexOf(q) !== -1;
+    });
+    filtered.sort(function(a,b){
+      var av = a[sortState.key].toLowerCase(), bv = b[sortState.key].toLowerCase();
+      if(av < bv) return -1*sortState.dir;
+      if(av > bv) return 1*sortState.dir;
+      return a.iff.localeCompare(b.iff, 'pt');
+    });
+    tableBody.innerHTML = filtered.map(function(r){
+      return '<tr><td>'+highlight(r.area,q)+'</td><td class="iff">'+highlight(r.iff,q)+'</td><td>'+highlight(r.variant,q)+'</td></tr>';
+    }).join('') || '<tr><td colspan="3" class="no-results">Nenhum resultado.</td></tr>';
+    return filtered.length;
+  }
+
+  document.querySelectorAll('thead th').forEach(function(th){
+    th.addEventListener('click', function(){
+      var key = th.dataset.key;
+      if(sortState.key === key) sortState.dir *= -1; else { sortState.key = key; sortState.dir = 1; }
+      document.querySelectorAll('thead th').forEach(function(t){ t.classList.remove('sorted'); });
+      th.classList.add('sorted');
+      th.querySelector('.arrow').textContent = sortState.dir === 1 ? '↑' : '↓';
+      applySearch();
+    });
+  });
+
+  // ---------- tabs ----------
+  var currentTab = 'byarea';
+  function setTab(tab){
+    currentTab = tab;
+    document.querySelectorAll('.tab').forEach(function(b){ b.classList.toggle('active', b.dataset.tab === tab); });
+    document.getElementById('viewByArea').hidden = tab !== 'byarea';
+    document.getElementById('viewTable').hidden = tab !== 'table';
+    applySearch();
+  }
+  document.querySelectorAll('.tab').forEach(function(b){
+    b.addEventListener('click', function(){ setTab(b.dataset.tab); });
+  });
+
+  // ---------- search ----------
+  var searchInput = document.getElementById('globalSearch');
+  var resultCount = document.getElementById('resultCount');
+  function applySearch(){
+    var q = searchInput.value.trim().toLowerCase();
+    if(currentTab === 'byarea'){
+      renderByArea(q);
+      resultCount.textContent = '';
+    } else {
+      var n = renderTable(q);
+      resultCount.textContent = n + ' de ' + rows.length + ' linhas (área × edital)';
+    }
+  }
+  searchInput.addEventListener('input', applySearch);
+
+  // ---------- init ----------
+  renderByArea('');
+  renderTable('');
+})();
+</script>
+<script>
+  document.addEventListener('dq:unlock', function () {
+    document.getElementById('dataZone')?.scrollIntoView({ behavior: 'smooth' });
+  });
+</script>
+</body>
+</html>
