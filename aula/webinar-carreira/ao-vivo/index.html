@@ -332,105 +332,94 @@ var BONUS_SHOW_MS = 10000;  // quanto tempo o card do brinde fica na tela antes 
 
 /* CHAT — cada item: {t(seg), nome, msg, host?, link?, linkTxt?} */
 var CHAT = [
-  { t:    20, nome:"Cláudia R.", msg:"Boa noite! Consegui chegar 🙌" },   // 0:20
-  { t:    23, nome:"Marcos A.", msg:"boa noite professor" },   // 0:23
-  { t:    34, nome:"Simone P.", msg:"Teresina PI aqui" },   // 0:34
-  { t:    38, nome:"Prof. Manoel", host:true, msg:"Boa noite! Chega chegando e diz de onde você é." },   // 0:38
-  { t:    40, nome:"Rodrigo M.", msg:"Uberlândia MG" },   // 0:40
-  { t:    52, nome:"Ana Paula", msg:"Feira de Santana, boa noite a todos" },   // 0:52
-  { t:    58, nome:"Wesley T.", msg:"Belém PA" },   // 0:58
-  { t:    63, nome:"Juliana C.", msg:"Curitiba! saindo da aula agora, cheguei atrasada" },   // 1:03
-  { t:    68, nome:"Fernanda L.", msg:"Campo Grande MS 👋" },   // 1:08
-  { t:    77, nome:"Paulo H.", msg:"São Paulo capital" },   // 1:17
+  { t:    18, nome:"Cláudia R.", msg:"Boa noite! Consegui chegar 🙌" },   // 0:18
+  { t:    22, nome:"Marcos A.", msg:"boa noite professor" },   // 0:22
+  { t:    28, nome:"Prof. Manoel", host:true, msg:"Boa noite! Chega chegando e diz de onde você é." },   // 0:28
+  { t:    41, nome:"Simone P.", msg:"Teresina PI aqui" },   // 0:41
+  { t:    46, nome:"Rodrigo M.", msg:"Uberlândia MG" },   // 0:46
+  { t:    55, nome:"Ana Paula", msg:"Feira de Santana, boa noite a todos" },   // 0:55
+  { t:    61, nome:"Wesley T.", msg:"Belém PA" },   // 1:01
+  { t:    68, nome:"Juliana C.", msg:"Curitiba! saindo da aula agora, cheguei atrasada" },   // 1:08
+  { t:    74, nome:"Fernanda L.", msg:"Campo Grande MS 👋" },   // 1:14
+  { t:    81, nome:"Paulo H.", msg:"São Paulo capital" },   // 1:21
   { t:   102, nome:"Alda · equipe", msg:"Boa noite, pessoal! Estou aqui no chat com vocês durante toda a aula." },   // 1:42
-  { t:   104, nome:"Marcos A.", msg:"sou de história, tem vaga pra mim?" },   // 1:44
-  { t:   113, nome:"Cláudia R.", msg:"dá pra ver depois? trabalho amanhã cedo" },   // 1:53
-  { t:   131, nome:"Alda · equipe", msg:"Assiste até o fim se conseguir. A parte do plano é no meio da aula." },   // 2:11
-  { t:   163, nome:"Simone P.", msg:"eu só tenho especialização, achei que precisava de mestrado" },   // 2:43
-  { t:   165, nome:"Rodrigo M.", msg:"essa é a dúvida de todo mundo" },   // 2:45
-  { t:   189, nome:"Prof. Manoel", host:true, msg:"Graduação. O IF é ensino básico, técnico e tecnológico." },   // 3:09
-  { t:   194, nome:"Simone P.", msg:"então eu posso 😳" },   // 3:14
-  { t:   246, nome:"Juliana C.", msg:"16 a 20 horas de sala?? eu dou 40" },   // 4:06
-  { t:   267, nome:"Wesley T.", msg:"é isso que me interessa, o resto do tempo pra pesquisa" },   // 4:27
-  { t:   278, nome:"Fernanda L.", msg:"o RSC eu não conhecia, explica de novo?" },   // 4:38
-  { t:   302, nome:"Alda · equipe", msg:"O RSC é a gratificação por titulação. Ele está explicando agora." },   // 5:02
-  { t:   319, nome:"Paulo H.", msg:"especialista ganhando como mestre, isso muda tudo" },   // 5:19
-  { t:   359, nome:"Ana Paula", msg:"3552 postos?!" },   // 5:59
-  { t:   368, nome:"Marcos A.", msg:"anotando aqui" },   // 6:08
-  { t:   390, nome:"Rodrigo M.", msg:"isso é só desse segundo reforço ou no total?" },   // 6:30
-  { t:   413, nome:"Prof. Manoel", host:true, msg:"Desse segundo. E não é promessa, é dotação publicada em diário oficial." },   // 6:53
-  { t:   419, nome:"Juliana C.", msg:"1887 de TAE, meu irmão vai querer ver isso" },   // 6:59
-  { t:   433, nome:"Simone P.", msg:"111 campi novos... no PI tem algum?" },   // 7:13
-  { t:   461, nome:"Wesley T.", msg:"como assim a vaga já tem dono" },   // 7:41
-  { t:   480, nome:"Fernanda L.", msg:"entendi. quem começou antes já está na frente" },   // 8:00
-  { t:   497, nome:"Paulo H.", msg:"60 a 90 dias do edital até a prova é muito pouco" },   // 8:17
-  { t:   511, nome:"Ana Paula", msg:"foi exatamente o que aconteceu comigo no último 😔" },   // 8:31
-  { t:   530, nome:"Prof. Manoel", host:true, msg:"Você não fez nada de errado. Só entrou no relógio errado." },   // 8:50
-  { t:   537, nome:"Cláudia R.", msg:"85% começaram de 6 a 10 meses antes" },   // 8:57
-  { t:   549, nome:"Rodrigo M.", msg:"antecedência e não intensidade, boa" },   // 9:09
-  { t:   553, nome:"Juliana C.", msg:"printei" },   // 9:13
-  { t:   612, nome:"Marcos A.", msg:"doutorando em química e acertou metade?" },   // 10:12
-  { t:   615, nome:"Simone P.", msg:"nossa" },   // 10:15
-  { t:   636, nome:"Paulo H.", msg:"isso me assustou de verdade" },   // 10:36
-  { t:   656, nome:"Fernanda L.", msg:"eu ia jurar que na minha área eu passava fácil" },   // 10:56
-  { t:   682, nome:"Prof. Manoel", host:true, msg:"A objetiva não mede o que você sabe. Ela elimina quem não treinou do jeito dela." },   // 11:22
-  { t:   698, nome:"Ana Paula", msg:"250 subtópicos 😵" },   // 11:38
-  { t:   720, nome:"Wesley T.", msg:"por isso que eu nunca terminava o edital" },   // 12:00
-  { t:   740, nome:"Cláudia R.", msg:"eu estudava tudo igual, agora entendi o erro" },   // 12:20
-  { t:   754, nome:"Rodrigo M.", msg:"a conta realmente não fecha" },   // 12:34
-  { t:   804, nome:"Alda · equipe", msg:"Presta atenção agora, é a parte que vocês pediram." },   // 13:24
-  { t:   806, nome:"Juliana C.", msg:"anotando os 3 passos" },   // 13:26
-  { t:   826, nome:"Paulo H.", msg:"1 selecionar 2 planejar 3 acelerar" },   // 13:46
-  { t:   839, nome:"Simone P.", msg:"obrigada Paulo kkk salvou" },   // 13:59
-  { t:   860, nome:"Marcos A.", msg:"e isso serve pra TAE também?" },   // 14:20
-  { t:   888, nome:"Prof. Manoel", host:true, msg:"Serve. Serve para qualquer concurso que cobre conhecimento específico." },   // 14:48
-  { t:   930, nome:"Fernanda L.", msg:"específico valendo 120 e pedagógico 10, eu estudava ao contrário" },   // 15:30
-  { t:   954, nome:"Ana Paula", msg:"essa parte dos pesos ninguém fala" },   // 15:54
-  { t:   997, nome:"Wesley T.", msg:"1 hora por dia dá?" },   // 16:37
-  { t:  1021, nome:"Alda · equipe", msg:"Dá. O ponto é a constância, não o tanto de horas." },   // 17:01
-  { t:  1061, nome:"Cláudia R.", msg:"8 a 9 semanas até pegar o ritmo, isso é honesto" },   // 17:41
-  { t:  1092, nome:"Rodrigo M.", msg:"gostei que ele fala que vai falhar mesmo" },   // 18:12
-  { t:  1145, nome:"Juliana C.", msg:"assistir aula de colega da minha área... é isso que eu faço hoje 😅" },   // 19:05
-  { t:  1190, nome:"Paulo H.", msg:"aprovado em cinco IFs?" },   // 19:50
-  { t:  1219, nome:"Simone P.", msg:"o Gabriel tirou 89 na objetiva" },   // 20:19
-  { t:  1240, nome:"Marcos A.", msg:"e nem era doutor" },   // 20:40
-  { t:  1270, nome:"Ana Paula", msg:"onde vejo esses depoimentos?" },   // 21:10
-  { t:  1294, nome:"Alda · equipe", msg:"Tem vídeo deles no Instagram do Manoel, @manoelmachado.if" },   // 21:34
-  { t:  1326, nome:"Fernanda L.", msg:"é a mentoria dele né" },   // 22:06
-  { t:  1362, nome:"Wesley T.", msg:"quero ver como funciona por dentro" },   // 22:42
-  { t:  1417, nome:"Cláudia R.", msg:"ele foi aprovado em perícia criminal também" },   // 23:37
-  { t:  1454, nome:"Rodrigo M.", msg:"em 4 meses migrando o mesmo método" },   // 24:14
-  { t:  1493, nome:"Juliana C.", msg:"as 3 ferramentas fazem sentido" },   // 24:53
-  { t:  1540, nome:"Paulo H.", msg:"material feito a partir das questões, nunca vi assim" },   // 25:40
-  { t:  1602, nome:"Ana Paula", msg:"o cronograma monta sozinho?" },   // 26:42
-  { t:  1624, nome:"Alda · equipe", msg:"Você escolhe a área e as horas por dia, e ele monta." },   // 27:04
-  { t:  1657, nome:"Simone P.", msg:"1 hora de segunda a sexta e já gera" },   // 27:37
-  { t:  1702, nome:"Marcos A.", msg:"toda a 8112 em 23 páginas 👏" },   // 28:22
-  { t:  1758, nome:"Fernanda L.", msg:"gabarito comentado alternativa por alternativa" },   // 29:18
-  { t:  1806, nome:"Wesley T.", msg:"o robô tutor resume o tópico que errei, isso é ótimo" },   // 30:06
-  { t:  1845, nome:"Cláudia R.", msg:"tem material da minha área? pedagogia" },   // 30:45
-  { t:  1862, nome:"Alda · equipe", msg:"Tem. Ele está mostrando o de pedagogia agora." },   // 31:02
-  { t:  1906, nome:"Rodrigo M.", msg:"o dashboard por disciplina é o que me faltava" },   // 31:46
-  { t:  1951, nome:"Paulo H.", msg:"apareceu aqui" },   // 32:31
-  { t:  1957, nome:"Juliana C.", msg:"quero" },   // 32:37
-  { t:  1963, nome:"Prof. Manoel", host:true, msg:"Abri as condições aqui embaixo do vídeo. Quem está ao vivo entra por elas." },   // 32:43
-  { t:  1972, nome:"Ana Paula", msg:"quanto tempo de acesso?" },   // 32:52
-  { t:  1993, nome:"Alda · equipe", msg:"Um ano completo, com as atualizações de pós-edital incluídas." },   // 33:13
-  { t:  1995, nome:"Simone P.", msg:"e se sair o edital no meio?" },   // 33:15
-  { t:  2019, nome:"Alda · equipe", msg:"A plataforma refaz o cronograma em até 72 horas, já com a data da prova." },   // 33:39
-  { t:  2023, nome:"Marcos A.", msg:"5 vagas pro encontro individual" },   // 33:43
-  { t:  2035, nome:"Fernanda L.", msg:"corre gente" },   // 33:55
-  { t:  2069, nome:"Wesley T.", msg:"12x de 99,70" },   // 34:29
-  { t:  2100, nome:"Cláudia R.", msg:"menos que eu gasto com aplicativo de comida no mês" },   // 35:00
-  { t:  2116, nome:"Rodrigo M.", msg:"a segunda área já vem junto?" },   // 35:16
-  { t:  2140, nome:"Alda · equipe", msg:"Vem. Você escolhe duas áreas, ou uma de professor e uma de TAE." },   // 35:40
-  { t:  2157, nome:"Paulo H.", msg:"fechei aqui" },   // 35:57
-  { t:  2181, nome:"Ana Paula", msg:"e quem quer só TAE?" },   // 36:21
-  { t:  2204, nome:"Prof. Manoel", host:true, msg:"Tem condição própria, estou explicando agora." },   // 36:44
-  { t:  2233, nome:"Juliana C.", msg:"eu vou de professor, dá pra fazer os dois depois" },   // 37:13
-  { t:  2275, nome:"Alda · equipe", msg:"Qualquer dúvida antes de decidir, fala comigo no botão abaixo do vídeo." },   // 37:55
-  { t:  2280, nome:"Simone P.", msg:"obrigada professor, aula muito boa" },   // 38:00
-  { t:  2287, nome:"Marcos A.", msg:"valeu demais" },   // 38:07
+  { t:   128, nome:"Marcos A.", msg:"sou de história, tem vaga pra mim?" },   // 2:08
+  { t:   137, nome:"Cláudia R.", msg:"dá pra ver depois? trabalho amanhã cedo" },   // 2:17
+  { t:   162, nome:"Alda · equipe", msg:"Assiste até o fim se conseguir. A parte do plano é no meio da aula." },   // 2:42
+  { t:   216, nome:"Simone P.", msg:"eu só tenho especialização, achei que precisava de mestrado" },   // 3:36
+  { t:   229, nome:"Rodrigo M.", msg:"essa é a dúvida de todo mundo" },   // 3:49
+  { t:   244, nome:"Prof. Manoel", host:true, msg:"Graduação. O IF é ensino básico, técnico e tecnológico." },   // 4:04
+  { t:   252, nome:"Simone P.", msg:"então eu posso 😳" },   // 4:12
+  { t:   300, nome:"Juliana C.", msg:"16 a 20 horas de sala?? eu dou 40" },   // 5:00
+  { t:   312, nome:"Fernanda L.", msg:"o RSC eu não conhecia, explica de novo?" },   // 5:12
+  { t:   320, nome:"Wesley T.", msg:"é isso que me interessa, o resto do tempo pra pesquisa" },   // 5:20
+  { t:   334, nome:"Alda · equipe", msg:"O RSC é a gratificação por titulação. Foi o que ele acabou de explicar." },   // 5:34
+  { t:   345, nome:"Paulo H.", msg:"especialista ganhando como mestre, isso muda tudo" },   // 5:45
+  { t:   388, nome:"Ana Paula", msg:"3552 postos?!" },   // 6:28
+  { t:   395, nome:"Marcos A.", msg:"anotando aqui" },   // 6:35
+  { t:   417, nome:"Rodrigo M.", msg:"isso é só desse segundo reforço ou no total?" },   // 6:57
+  { t:   425, nome:"Simone P.", msg:"111 campi novos... no PI tem algum?" },   // 7:05
+  { t:   443, nome:"Prof. Manoel", host:true, msg:"Desse segundo. E isso não é promessa minha, é dotação publicada no Diário Oficial." },   // 7:23
+  { t:   467, nome:"Fernanda L.", msg:"entendi. quem começou antes já está na frente" },   // 7:47
+  { t:   483, nome:"Paulo H.", msg:"60 a 90 dias do edital até a prova é muito pouco" },   // 8:03
+  { t:   490, nome:"Ana Paula", msg:"foi exatamente o que aconteceu comigo no último 😔" },   // 8:10
+  { t:   512, nome:"Prof. Manoel", host:true, msg:"Você não fez nada de errado. Você só começou tarde demais no relógio do concurso." },   // 8:32
+  { t:   643, nome:"Marcos A.", msg:"doutorando em química e acertou metade?" },   // 10:43
+  { t:   649, nome:"Simone P.", msg:"nossa" },   // 10:49
+  { t:   667, nome:"Fernanda L.", msg:"eu ia jurar que na minha área eu passava fácil" },   // 11:07
+  { t:   695, nome:"Prof. Manoel", host:true, msg:"A objetiva não mede o que você sabe. Ela elimina quem não treinou do jeito dela." },   // 11:35
+  { t:   708, nome:"Ana Paula", msg:"250 subtópicos 😵" },   // 11:48
+  { t:   716, nome:"Cláudia R.", msg:"eu estudava tudo igual, agora entendi o erro" },   // 11:56
+  { t:   725, nome:"Wesley T.", msg:"agora entendi por que eu nunca conseguia terminar o edital" },   // 12:05
+  { t:   757, nome:"Rodrigo M.", msg:"a conta realmente não fecha" },   // 12:37
+  { t:   790, nome:"Alda · equipe", msg:"Presta atenção agora, é a parte que vocês pediram." },   // 13:10
+  { t:   800, nome:"Juliana C.", msg:"anotando os 3 passos" },   // 13:20
+  { t:   830, nome:"Fernanda L.", msg:"específico valendo 120 e pedagógico 10, eu estudava ao contrário" },   // 13:50
+  { t:   838, nome:"Paulo H.", msg:"1 selecionar 2 planejar 3 acelerar" },   // 13:58
+  { t:   850, nome:"Simone P.", msg:"obrigada Paulo kkk salvou" },   // 14:10
+  { t:   858, nome:"Ana Paula", msg:"essa parte dos pesos ninguém fala" },   // 14:18
+  { t:   870, nome:"Marcos A.", msg:"e isso serve pra TAE também?" },   // 14:30
+  { t:   896, nome:"Prof. Manoel", host:true, msg:"Serve. Serve para qualquer concurso que cobre conhecimento específico." },   // 14:56
+  { t:   960, nome:"Alda · equipe", msg:"Quem ficou com dúvida sobre a sua área ou sobre o seu tempo de estudo, fala comigo aqui no particular que eu respondo uma a uma.", link:EQUIPE_WHATS, linkTxt:"Falar com a consultora" },   // 16:00
+  { t:  1052, nome:"Rodrigo M.", msg:"gostei que ele fala que vai falhar mesmo" },   // 17:32
+  { t:  1063, nome:"Cláudia R.", msg:"gostei de ouvir que leva 8 a 9 semanas pra pegar o ritmo, isso é honesto" },   // 17:43
+  { t:  1072, nome:"Wesley T.", msg:"1 hora por dia dá?" },   // 17:52
+  { t:  1092, nome:"Alda · equipe", msg:"Dá. O ponto é a constância, não o tanto de horas." },   // 18:12
+  { t:  1161, nome:"Juliana C.", msg:"assistir aula de colega da minha área... é isso que eu faço hoje 😅" },   // 19:21
+  { t:  1212, nome:"Rodrigo M.", msg:"antecedência e não intensidade, boa" },   // 20:12
+  { t:  1228, nome:"Paulo H.", msg:"aprovado em cinco IFs?" },   // 20:28
+  { t:  1258, nome:"Simone P.", msg:"o Gabriel tirou 89 na objetiva" },   // 20:58
+  { t:  1266, nome:"Marcos A.", msg:"e nem era doutor" },   // 21:06
+  { t:  1275, nome:"Ana Paula", msg:"onde vejo esses depoimentos?" },   // 21:15
+  { t:  1297, nome:"Alda · equipe", msg:"Tem vídeo deles no Instagram do Manoel, @dissecadordequestoes" },   // 21:37
+  { t:  1320, nome:"Fernanda L.", msg:"é a mentoria dele né" },   // 22:00
+  { t:  1340, nome:"Wesley T.", msg:"quero ver como funciona por dentro" },   // 22:20
+  { t:  1412, nome:"Cláudia R.", msg:"ele foi aprovado em perícia criminal também" },   // 23:32
+  { t:  1450, nome:"Juliana C.", msg:"as 3 ferramentas fazem sentido" },   // 24:10
+  { t:  1480, nome:"Paulo H.", msg:"material feito a partir das questões, nunca vi assim" },   // 24:40
+  { t:  1601, nome:"Ana Paula", msg:"o cronograma monta sozinho?" },   // 26:41
+  { t:  1621, nome:"Alda · equipe", msg:"Você escolhe a área e as horas por dia, e ele monta." },   // 27:01
+  { t:  1682, nome:"Marcos A.", msg:"toda a 8112 em 23 páginas 👏" },   // 28:02
+  { t:  1743, nome:"Fernanda L.", msg:"gabarito comentado alternativa por alternativa" },   // 29:03
+  { t:  1788, nome:"Wesley T.", msg:"o robô tutor resume o tópico que errei, isso é ótimo" },   // 29:48
+  { t:  1865, nome:"Cláudia R.", msg:"tem material da minha área? pedagogia" },   // 31:05
+  { t:  1886, nome:"Alda · equipe", msg:"Tem. Ele está mostrando o de pedagogia agora." },   // 31:26
+  { t:  1943, nome:"Paulo H.", msg:"apareceu aqui" },   // 32:23
+  { t:  1949, nome:"Juliana C.", msg:"quero" },   // 32:29
+  { t:  1960, nome:"Prof. Manoel", host:true, msg:"Abri as condições aqui embaixo do vídeo. Quem está ao vivo entra por elas." },   // 32:40
+  { t:  1975, nome:"Ana Paula", msg:"quanto tempo de acesso?" },   // 32:55
+  { t:  1984, nome:"Simone P.", msg:"e se sair o edital no meio?" },   // 33:04
+  { t:  1998, nome:"Alda · equipe", msg:"Um ano completo, com as atualizações de pós-edital incluídas." },   // 33:18
+  { t:  2020, nome:"Alda · equipe", msg:"A plataforma refaz o cronograma em até 72 horas, já com a data da prova." },   // 33:40
+  { t:  2143, nome:"Rodrigo M.", msg:"a segunda área já vem junto?" },   // 35:43
+  { t:  2167, nome:"Alda · equipe", msg:"Vem. Você escolhe duas áreas, ou uma de professor e uma de TAE." },   // 36:07
+  { t:  2185, nome:"Paulo H.", msg:"fechei aqui" },   // 36:25
+  { t:  2195, nome:"Ana Paula", msg:"e quem quer só TAE?" },   // 36:35
+  { t:  2215, nome:"Prof. Manoel", host:true, msg:"Tem condição própria, estou explicando agora." },   // 36:55
+  { t:  2277, nome:"Juliana C.", msg:"eu vou de professor, dá pra fazer os dois depois" },   // 37:57
+  { t:  2285, nome:"Alda · equipe", msg:"Qualquer dúvida antes de decidir, fala comigo no botão abaixo do vídeo." },   // 38:05
+  { t:  2290, nome:"Simone P.", msg:"obrigada professor, aula muito boa" },   // 38:10
+  { t:  2293, nome:"Marcos A.", msg:"valeu demais" },   // 38:13
 ];
 /* ============================================================= */
 
