@@ -120,6 +120,12 @@
   .plan.tae .dois b{color:var(--cream)}
   .cta{display:block;text-align:center;margin:22px 0 0;background:var(--acc);color:var(--ink2);font-family:var(--disp);font-weight:800;font-size:clamp(15px,2.4vw,19px);border-radius:13px;padding:18px 22px;text-decoration:none;box-shadow:0 18px 34px -14px rgba(255,117,31,.8)}
   .cta small{display:block;font-weight:700;font-size:12px;opacity:.75;margin-top:3px}
+  .plan .dois{margin-bottom:20px}
+  .plan .cta{margin-top:auto}
+  .cta.alt{background:var(--cream);box-shadow:0 18px 34px -16px rgba(241,243,230,.45)}
+  .ctas{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:26px}
+  .ctas .cta{margin:0}
+  @media(max-width:760px){.ctas{grid-template-columns:1fr}}
   .gar{margin-top:18px;text-align:center;font-size:13.5px;color:var(--muted);line-height:1.55}
 
   .faq h3{font-family:var(--disp);font-weight:800;color:var(--cream);font-size:clamp(20px,3vw,26px);letter-spacing:-.9px;text-align:center;margin-bottom:12px}
@@ -206,6 +212,8 @@
           <div class="parc"><span class="x">12x de</span> <b>R$ 99,70</b></div>
           <div class="avista">ou <b>R$ 997</b> à vista · 1 ano de acesso</div>
           <div class="dois"><b>+ R$ 500 para virar 2 anos:</b> R$ 1.497 no total, R$ 62,38 por mês nos 24 meses.</div>
+          <a class="cta" id="cta-prof-1" data-plano="prof" href="#" target="_blank" rel="noopener">Quero o Dossiê IF Professor
+            <small>12x de R$ 99,70 ou R$ 997 à vista</small></a>
         </div>
 
         <div class="plan tae">
@@ -220,11 +228,11 @@
           <div class="parc"><span class="x">12x de</span> <b>R$ 75,00</b></div>
           <div class="avista">ou <b>R$ 750</b> à vista · 1 ano de acesso</div>
           <div class="dois"><b>+ R$ 500 para virar 2 anos:</b> R$ 1.250 no total, R$ 52,08 por mês nos 24 meses.</div>
+          <a class="cta alt" id="cta-tae-1" data-plano="tae" href="#" target="_blank" rel="noopener">Quero o Dossiê IF TAE
+            <small>12x de R$ 75 ou R$ 750 à vista</small></a>
         </div>
       </div>
 
-      <a class="cta" id="cta1" href="#" target="_blank" rel="noopener">Falar com a equipe e escolher o meu plano
-        <small>atendimento pelo WhatsApp</small></a>
       <p class="gar">Garantia incondicional de 7 dias. Se sentir que não é para você, devolvemos 100% do valor.</p>
     </div>
 
@@ -239,8 +247,12 @@
       <div class="faq-i"><button class="faq-q" type="button">E se sair edital durante o meu acesso?<span class="faq-ic">+</span></button><div class="faq-a"><p>Melhor cenário possível. Você já vai estar preparado. A plataforma permite ajustar o cronograma para intensificar os estudos quando o edital sair, e você já sabe onde focar.</p></div></div>
       <div class="faq-i"><button class="faq-q" type="button">E se eu não gostar?<span class="faq-ic">+</span></button><div class="faq-a"><p>Você tem 7 dias de garantia incondicional. Se sentir que não é para você, basta solicitar o reembolso e devolvemos 100% do valor.</p></div></div>
 
-      <a class="cta" id="cta2" href="#" target="_blank" rel="noopener" style="margin-top:26px">Falar com a equipe e escolher o meu plano
-        <small>atendimento pelo WhatsApp</small></a>
+      <div class="ctas">
+        <a class="cta" id="cta-prof-2" data-plano="prof" href="#" target="_blank" rel="noopener">Quero o Dossiê IF Professor
+          <small>12x de R$ 99,70 ou R$ 997 à vista</small></a>
+        <a class="cta alt" id="cta-tae-2" data-plano="tae" href="#" target="_blank" rel="noopener">Quero o Dossiê IF TAE
+          <small>12x de R$ 75 ou R$ 750 à vista</small></a>
+      </div>
     </div>
   </section>
 </div>
@@ -256,7 +268,8 @@ var VTURB_ACCOUNT   = "8fb0c85a-c7c1-400e-a28a-5dc648d0969c";
 var VTURB_PLAYER_ID = "6ac7de6de95fdc3d8d0830ca";   // player do resumo no Vturb
 var OFFER_AT        = 2282;          // 38:02, onde começa "o que é que a mentoria Dossiê IF lhe entrega?"
 var FALLBACK_EXTRA  = 60;            // gatilho redundante: se o player nunca expuser o tempo, libera em OFFER_AT + 60 s após carregar
-var EQUIPE_WHATS    = "https://wa.link/dq-consultor";
+var CHECKOUT_PROF  = "https://checkout.dissecandoquestoes.com.br/pay/dossie-1-ano-desconto";
+var CHECKOUT_TAE   = "https://checkout.dissecandoquestoes.com.br/pay/dossie-1-ano-tae";
 var STORE_KEY       = "dq_resumo_oferta_liberada";
 
 /* ================================================= */
@@ -277,8 +290,9 @@ function mountVturb(){
 }
 
 function bindOffer(){
-  document.getElementById('cta1').href = EQUIPE_WHATS;
-  document.getElementById('cta2').href = EQUIPE_WHATS;
+  document.querySelectorAll('a.cta[data-plano]').forEach(function(a){
+    a.href = a.getAttribute('data-plano')==='tae' ? CHECKOUT_TAE : CHECKOUT_PROF;
+  });
   document.querySelectorAll('.faq-q').forEach(function(b){
     b.addEventListener('click', function(){
       var it=b.parentElement, aberto=it.classList.contains('open');
