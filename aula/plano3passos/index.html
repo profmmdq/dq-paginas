@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resumo da aula | Dissecando Questões</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
+<script>!function(i,n){i._plt=i._plt||(n&&n.timeOrigin?n.timeOrigin+n.now():Date.now())}(window,performance);</script>
+<link rel="preload" href="https://scripts.converteai.net/8fb0c85a-c7c1-400e-a28a-5dc648d0969c/players/6ac77b438380d780bf34fad2/v4/player.js" as="script">
+<link rel="preload" href="https://scripts.converteai.net/lib/js/smartplayer-wc/v4/smartplayer.js" as="script">
+<link rel="preload" href="https://cdn.converteai.net/8fb0c85a-c7c1-400e-a28a-5dc648d0969c/6ac77b08b6a475f61547383c/main.m3u8" as="fetch">
+<link rel="dns-prefetch" href="https://cdn.converteai.net">
+<link rel="dns-prefetch" href="https://scripts.converteai.net">
+<link rel="dns-prefetch" href="https://images.converteai.net">
+<link rel="dns-prefetch" href="https://license.vturb.com">
+<style>
+  :root{--ink:#0f1829;--ink2:#0b1220;--panel:#0a1119;--blue:#0c3d64;--green:#104438;
+    --acc:#ff751f;--acc2:#ff9a54;--cream:#f1f3e6;--sand:#ecdcc1;--line:rgba(241,243,230,.1);--muted:#9aa6b2;
+    --disp:'Montserrat',sans-serif;--body:'Montserrat',system-ui,sans-serif;--mono:'Geist Mono',monospace;}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--body);background:var(--ink2);color:var(--cream);min-height:100vh;-webkit-font-smoothing:antialiased;line-height:1.5}
+  .bar{display:flex;align-items:center;gap:12px;padding:11px 18px;background:rgba(10,17,25,.9);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+  .brand{display:inline-flex;background:var(--cream);border-radius:10px;padding:5px 10px}
+  .brand img{height:26px;display:block}
+  .badge{display:inline-flex;align-items:center;gap:6px;background:rgba(241,243,230,.08);border:1px solid var(--line);color:var(--sand);font-family:var(--mono);font-size:10px;letter-spacing:1.2px;text-transform:uppercase;padding:5px 10px;border-radius:7px;font-weight:700}
+
+  .wrap{max-width:1000px;margin:0 auto;padding:22px 16px 8px}
+  .head{margin-bottom:18px}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--acc)}
+  .title{font-family:var(--disp);font-weight:800;font-size:clamp(22px,3.6vw,34px);line-height:1.1;letter-spacing:-.9px;margin:8px 0 8px;text-wrap:balance}
+  .sub{font-size:14.5px;color:var(--muted);max-width:680px}
+
+  .stage{position:relative;border-radius:16px;overflow:hidden;background:#000;aspect-ratio:16/9;box-shadow:0 34px 74px -36px rgba(0,0,0,.8);border:1px solid var(--line)}
+  .vhost{position:absolute;inset:0;background:#000}
+  .vhost vturb-smartplayer{width:100%;display:block}
+  .noplayer{position:absolute;inset:0;display:none;align-items:center;justify-content:center;text-align:center;padding:24px;font-size:14px;color:var(--muted)}
+  .noplayer.on{display:flex}
+
+  .lock{margin-top:16px;display:flex;align-items:center;gap:14px;background:rgba(241,243,230,.04);border:1px dashed rgba(241,243,230,.22);border-radius:14px;padding:16px 18px}
+  .lock.off{display:none}
+  .lock .ic{flex:none;width:40px;height:40px;border-radius:11px;background:rgba(255,117,31,.14);color:var(--acc);display:flex;align-items:center;justify-content:center}
+  .lock .ic svg{width:20px;height:20px}
+  .lock b{display:block;font-family:var(--disp);font-weight:800;font-size:15px}
+  .lock span{font-size:13px;color:var(--muted)}
+
+  /* ====== OFERTA (liberada no momento da oferta) ====== */
+  .vendas{display:none;margin-top:34px;padding-bottom:34px}
+  .vendas.on{display:block;animation:pop .5s ease}
+  @keyframes pop{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  .sec{margin-top:34px}
+  .sec:first-child{margin-top:0}
+  .sec-k{font-family:var(--mono);font-size:11px;letter-spacing:2.2px;text-transform:uppercase;color:var(--acc)}
+  .sec-h{font-family:var(--disp);font-weight:800;font-size:clamp(22px,3.4vw,32px);line-height:1.1;letter-spacing:-1px;margin:8px 0 10px;text-wrap:balance}
+  .sec-p{font-size:15px;color:rgba(241,243,230,.8);max-width:680px}
+
+  .feat{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:18px}
+  @media(max-width:640px){.feat{grid-template-columns:1fr}}
+  .f{background:rgba(241,243,230,.04);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+  .f .n{font-family:var(--mono);color:var(--acc);font-size:12px}
+  .f h4{font-family:var(--disp);font-weight:800;font-size:16px;margin:4px 0 4px}
+  .f p{font-size:13.5px;color:rgba(241,243,230,.78)}
+  .tools{margin-top:14px;background:linear-gradient(150deg,rgba(16,68,56,.45),rgba(11,20,32,.3));border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+  .tools h4{font-family:var(--disp);font-weight:800;font-size:14.5px;margin-bottom:10px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{background:rgba(241,243,230,.06);border:1px solid var(--line);border-radius:999px;padding:7px 13px;font-size:12.5px;color:var(--cream);font-weight:600}
+  .second{margin-top:10px;background:rgba(255,117,31,.08);border:1px solid rgba(255,117,31,.32);border-radius:14px;padding:14px 18px;font-size:14px}
+  .second b{color:var(--acc2)}
+
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
+  @media(max-width:640px){.stats{grid-template-columns:1fr}}
+  .stats>div{background:rgba(12,61,100,.28);border:1px solid var(--line);border-radius:14px;padding:16px;text-align:center}
+  .stats b{display:block;font-family:var(--disp);font-weight:800;font-size:28px;color:var(--acc2);letter-spacing:-1px}
+  .stats span{font-size:12px;color:var(--muted)}
+
+  .plans{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:18px}
+  @media(max-width:760px){.plans{grid-template-columns:1fr}}
+  .plan{background:linear-gradient(180deg,#102033 0%,#0b1420 100%);border:1px solid var(--line);border-radius:20px;padding:26px 22px;text-align:center;display:flex;flex-direction:column}
+  .plan.pro{border-color:rgba(255,117,31,.45)}
+  .plan .pk{font-family:var(--mono);font-size:11px;letter-spacing:2.4px;text-transform:uppercase;color:var(--acc2)}
+  .plan .pt{font-family:var(--disp);font-weight:800;font-size:30px;letter-spacing:-1px;margin:6px 0 2px}
+  .plan .pa{font-size:13px;color:var(--muted)}
+  .rows{margin:18px 0 6px;text-align:left;border-top:1px solid var(--line)}
+  .row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+  .row small{display:block;color:var(--muted);font-size:11.5px}
+  .row s,.row>b{color:var(--muted);white-space:nowrap}
+  .row.full b{color:var(--cream)}
+  .row>b:not(:first-child){color:var(--cream)}
+  .row.full b{font-weight:700}
+  .vant{margin:10px auto 0;display:inline-block;background:rgba(241,243,230,.08);border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:12.5px;color:var(--sand)}
+  .vant b{color:var(--cream)}
+  .parc{margin-top:16px;font-family:var(--disp);font-weight:800;color:var(--cream);font-size:clamp(34px,6vw,48px);letter-spacing:-2px;line-height:1}
+  .parc .x{font-size:.42em;font-weight:700;letter-spacing:-.4px;color:var(--muted)}
+  .parc b{color:var(--acc)}
+  .avista{margin-top:8px;font-size:14.5px;color:var(--sand)}
+  .avista b{color:var(--cream);font-weight:800}
+  .dois{margin-top:16px;background:rgba(255,117,31,.1);border:1px solid rgba(255,117,31,.35);border-radius:13px;padding:12px 14px;font-size:13px;line-height:1.45}
+  .dois b{color:var(--acc2)}
+  .plan.tae .dois{background:rgba(241,243,230,.06);border-color:var(--line)}
+  .plan.tae .dois b{color:var(--cream)}
+  .cta{display:block;text-align:center;margin:22px 0 0;background:var(--acc);color:var(--ink2);font-family:var(--disp);font-weight:800;font-size:clamp(15px,2.4vw,19px);border-radius:13px;padding:18px 22px;text-decoration:none;box-shadow:0 18px 34px -14px rgba(255,117,31,.8)}
+  .cta small{display:block;font-weight:700;font-size:12px;opacity:.75;margin-top:3px}
+  .gar{margin-top:18px;text-align:center;font-size:13.5px;color:var(--muted);line-height:1.55}
+
+  .faq h3{font-family:var(--disp);font-weight:800;color:var(--cream);font-size:clamp(20px,3vw,26px);letter-spacing:-.9px;text-align:center;margin-bottom:12px}
+  .faq-i{border-bottom:1px solid var(--line)}
+  .faq-q{width:100%;background:none;border:0;cursor:pointer;text-align:left;display:flex;justify-content:space-between;align-items:center;gap:14px;padding:18px 0;font-family:var(--disp);font-weight:700;font-size:15.5px;color:var(--cream);line-height:1.35}
+  .faq-ic{color:var(--acc);font-size:24px;font-weight:300;line-height:1;flex:none;transition:transform .3s ease}
+  .faq-i.open .faq-ic{transform:rotate(45deg)}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease}
+  .faq-a p{font-size:14.5px;color:var(--muted);line-height:1.7;padding-bottom:18px}
+
+  footer{font-family:var(--mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);text-align:center;padding:18px}
+</style>
+</head>
+<body>
+<div class="bar">
+  <span class="brand"><img src="/aula/webinar/assets/logo-dq.png" alt="Dissecando Questões"></span>
+  <span class="badge">Resumo da aula</span>
+</div>
+
+<div class="wrap">
+  <div class="head">
+    <div class="eyebrow">Aula de 1º de outubro · versão resumida</div>
+    <h1 class="title">Por que estudar mais não vai te aprovar no concurso IF e o que fazer em vez disso</h1>
+    <p class="sub">O erro de 90% dos candidatos em concursos de IF. Assista até o final: no momento da oferta, a página libera o plano completo e a apresentação do Dossiê IF.</p>
+  </div>
+
+  <div class="stage">
+    <div id="vhost" class="vhost"></div>
+    <div class="noplayer" id="noplayer">Player não configurado. Informe o ID do player Vturb em VTURB_PLAYER_ID.</div>
+  </div>
+
+  <div class="lock" id="lock">
+    <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg></span>
+    <div><b>A oferta é liberada durante a aula</b><span>Quando o Manoel chegar nela, o plano completo e a apresentação do Dossiê IF aparecem aqui embaixo.</span></div>
+  </div>
+
+  <section class="vendas" id="vendas" aria-live="polite">
+
+    <div class="sec">
+      <div class="sec-k">Apresentação do Dossiê IF</div>
+      <h2 class="sec-h">O que a mentoria Dossiê IF entrega</h2>
+      <p class="sec-p">Tudo o que você viu na aula organizado em uma plataforma só, para estudar o que a banca cobra no tempo que você realmente tem.</p>
+      <div class="feat">
+        <div class="f"><span class="n">01</span><h4>Mapa das Questões</h4><p>A incidência real de cada tópico, por banca e por instituto. Você sabe o peso de cada assunto antes de estudar.</p></div>
+        <div class="f"><span class="n">02</span><h4>Banco de Questões Ultrasselecionadas</h4><p>Questões dissecadas uma a uma, com resolução estratégica para você entender o que a banca quis testar.</p></div>
+        <div class="f"><span class="n">03</span><h4>Materiais condensados</h4><p>Materiais ultradirecionados, em texto, feitos a partir das questões. Cada página existe porque a banca cobra.</p></div>
+        <div class="f"><span class="n">04</span><h4>Cronograma Tático</h4><p>Do tamanho das suas horas: 2 por dia, menos ou mais. Se a sua semana muda, o plano muda junto.</p></div>
+        <div class="f"><span class="n">05</span><h4>Comunidades e encontros</h4><p>Grupo da sua área e encontros com o Prof. Manoel, com acompanhamento mensal.</p></div>
+        <div class="f"><span class="n">06</span><h4>Ferramentas exclusivas e atualizações</h4><p>Atualizações pós-edital em 72h, enquanto o seu acesso durar.</p></div>
+      </div>
+      <div class="tools">
+        <h4>Também dentro da plataforma</h4>
+        <div class="chips">
+          <span class="chip">Robô Tutor</span><span class="chip">Flashcards</span><span class="chip">Simulados</span>
+          <span class="chip">Baú de provas</span><span class="chip">Biblioteca de editais</span><span class="chip">Calculadora de salário</span>
+        </div>
+      </div>
+      <div class="second"><b>Segunda área incluída:</b> qualquer área de qualquer IF, para professor ou TAE.</div>
+    </div>
+
+    <div class="sec">
+      <div class="stats">
+        <div><b>+300</b><span>professores aprovados em Institutos Federais</span></div>
+        <div><b>18</b><span>estados com alunos aprovados</span></div>
+        <div><b>85%</b><span>dos aprovados de primeira começaram de 6 a 10 meses antes da prova</span></div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-k">A oferta desta aula</div>
+      <h2 class="sec-h">Escolha o seu plano</h2>
+      <p class="sec-p">1 ano de acesso completo à plataforma. Se quiser mais prazo, por R$ 500 a mais você dobra o acesso para 2 anos.</p>
+
+      <div class="plans">
+        <div class="plan pro">
+          <div class="pk">Professor</div>
+          <div class="pt">1 ano</div>
+          <div class="pa">de acesso completo à plataforma</div>
+          <div class="rows">
+            <div class="row"><span>Mentoria Dossiê IF<small>R$ 1.997 × 1 ano</small></span><s>R$ 1.997</s></div>
+            <div class="row"><span>Segunda área, qualquer área de qualquer IF<small>R$ 997 × 1 ano · incluída</small></span><s>R$ 997</s></div>
+            <div class="row full"><b>Valor cheio de tudo isso</b><b>R$ 2.994</b></div>
+          </div>
+          <div><span class="vant">Vantagem de <b>R$ 1.997</b> sobre o valor cheio</span></div>
+          <div class="parc"><span class="x">12x de</span> <b>R$ 99,70</b></div>
+          <div class="avista">ou <b>R$ 997</b> à vista · 1 ano de acesso</div>
+          <div class="dois"><b>+ R$ 500 para virar 2 anos:</b> R$ 1.497 no total, R$ 62,38 por mês nos 24 meses.</div>
+        </div>
+
+        <div class="plan tae">
+          <div class="pk">TAE</div>
+          <div class="pt">1 ano</div>
+          <div class="pa">de acesso completo à plataforma</div>
+          <div class="rows">
+            <div class="row"><span>Mentoria Dossiê IF, cargo de TAE<small>mapa, questões, materiais e cronograma</small></span><b>incluída</b></div>
+            <div class="row"><span>Segunda área<small>professor ou TAE</small></span><b>incluída</b></div>
+            <div class="row"><span>Ferramentas exclusivas e atualizações pós-edital em 72h</span><b>incluídas</b></div>
+          </div>
+          <div class="parc"><span class="x">12x de</span> <b>R$ 75,00</b></div>
+          <div class="avista">ou <b>R$ 750</b> à vista · 1 ano de acesso</div>
+          <div class="dois"><b>+ R$ 500 para virar 2 anos:</b> R$ 1.250 no total, R$ 52,08 por mês nos 24 meses.</div>
+        </div>
+      </div>
+
+      <a class="cta" id="cta1" href="#" target="_blank" rel="noopener">Falar com a equipe e escolher o meu plano
+        <small>atendimento pelo WhatsApp</small></a>
+      <p class="gar">Garantia incondicional de 7 dias. Se sentir que não é para você, devolvemos 100% do valor.</p>
+    </div>
+
+    <div class="sec faq">
+      <h3>Perguntas frequentes</h3>
+      <div class="faq-i"><button class="faq-q" type="button">Funciona para a minha área?<span class="faq-ic">+</span></button><div class="faq-a"><p>Sim. O Dossiê IF cobre todas as áreas de atuação com materiais específicos para cada disciplina. Os cadernos de questões, simulados e flashcards são filtrados pela sua área. As comunidades no WhatsApp também são segmentadas por disciplina.</p></div></div>
+      <div class="faq-i"><button class="faq-q" type="button">Tenho pouco tempo. Vai funcionar?<span class="faq-ic">+</span></button><div class="faq-a"><p>O Dossiê foi feito para quem tem pouco tempo. O cronograma se adapta às horas que você realmente tem disponíveis na semana. Sessões de 20 a 30 minutos por dia já geram progresso consistente.</p></div></div>
+      <div class="faq-i"><button class="faq-q" type="button">O material é em vídeo ou texto?<span class="faq-ic">+</span></button><div class="faq-a"><p>Os materiais didáticos, básicos e específicos, são 100% em texto: diretos, consultáveis, feitos para quem não pode assistir videoaulas longas.</p></div></div>
+      <div class="faq-i"><button class="faq-q" type="button">Qual a diferença entre o plano de professor e o de TAE?<span class="faq-ic">+</span></button><div class="faq-a"><p>O plano de TAE é mais barato porque o cargo tem menos disciplinas e não tem a parte de conhecimentos pedagógicos. É a mesma mentoria, com mapa, questões, materiais e cronograma para o seu cargo.</p></div></div>
+      <div class="faq-i"><button class="faq-q" type="button">O que é a segunda área?<span class="faq-ic">+</span></button><div class="faq-a"><p>É uma segunda área de estudo, de qualquer área de qualquer IF, incluída no plano de professor e no de TAE. Serve para quem quer prestar concurso em mais de uma área.</p></div></div>
+      <div class="faq-i"><button class="faq-q" type="button">Posso ter mais prazo de acesso?<span class="faq-ic">+</span></button><div class="faq-a"><p>Sim. Por R$ 500 a mais você dobra o acesso para 2 anos. Para professor, o total fica em R$ 1.497 (R$ 62,38 por mês nos 24 meses). Para TAE, R$ 1.250 (R$ 52,08 por mês).</p></div></div>
+      <div class="faq-i"><button class="faq-q" type="button">E se sair edital durante o meu acesso?<span class="faq-ic">+</span></button><div class="faq-a"><p>Melhor cenário possível. Você já vai estar preparado. A plataforma permite ajustar o cronograma para intensificar os estudos quando o edital sair, e você já sabe onde focar.</p></div></div>
+      <div class="faq-i"><button class="faq-q" type="button">E se eu não gostar?<span class="faq-ic">+</span></button><div class="faq-a"><p>Você tem 7 dias de garantia incondicional. Se sentir que não é para você, basta solicitar o reembolso e devolvemos 100% do valor.</p></div></div>
+
+      <a class="cta" id="cta2" href="#" target="_blank" rel="noopener" style="margin-top:26px">Falar com a equipe e escolher o meu plano
+        <small>atendimento pelo WhatsApp</small></a>
+    </div>
+  </section>
+</div>
+
+<footer>Dissecando Questões · Prof. Manoel Machado</footer>
+
+<script>
+/* ==================== CONFIG ====================
+   Tempos em SEGUNDOS, na linha do tempo do VÍDEO (resumo de 41min30).
+   A oferta é liberada pelo TEMPO REAL DO VÍDEO (currentTime do player), não pelo relógio.
+   ================================================= */
+var VTURB_ACCOUNT   = "8fb0c85a-c7c1-400e-a28a-5dc648d0969c";
+var VTURB_PLAYER_ID = "6ac77b438380d780bf34fad2";   // player do resumo no Vturb
+var OFFER_AT        = 2284;          // 38:04, onde começa "o que é que a mentoria Dossiê IF lhe entrega?"
+var FALLBACK_EXTRA  = 60;            // gatilho redundante: se o player nunca expuser o tempo, libera em OFFER_AT + 60 s após carregar
+var EQUIPE_WHATS    = "https://wa.link/dq-consultor";
+var STORE_KEY       = "dq_resumo_oferta_liberada";
+
+/* ================================================= */
+var VTURB_ID  = "vid-" + VTURB_PLAYER_ID;
+var VTURB_SRC = "https://scripts.converteai.net/" + VTURB_ACCOUNT + "/players/" + VTURB_PLAYER_ID + "/v4/player.js";
+var vhost = document.getElementById('vhost');
+var offerDone = false, readable = false, mountedAt = 0, poll = null;
+
+function mountVturb(){
+  if(!VTURB_PLAYER_ID){ document.getElementById('noplayer').classList.add('on'); return false; }
+  var el=document.createElement('vturb-smartplayer'); el.id=VTURB_ID;
+  el.style.cssText='display:block;margin:0 auto;width:100%';
+  var ph=document.createElement('div'); ph.className='vturb-player-placeholder';
+  ph.style.cssText='position:relative;width:100%;padding:56.25% 0 0;z-index:0;background-color:black';
+  el.appendChild(ph); vhost.appendChild(el);
+  var s=document.createElement('script'); s.type='text/javascript'; s.async=true; s.src=VTURB_SRC; vhost.appendChild(s);
+  return true;
+}
+
+function bindOffer(){
+  document.getElementById('cta1').href = EQUIPE_WHATS;
+  document.getElementById('cta2').href = EQUIPE_WHATS;
+  document.querySelectorAll('.faq-q').forEach(function(b){
+    b.addEventListener('click', function(){
+      var it=b.parentElement, aberto=it.classList.contains('open');
+      document.querySelectorAll('.faq-i.open').forEach(function(o){ o.classList.remove('open'); o.querySelector('.faq-a').style.maxHeight=''; });
+      if(!aberto){ it.classList.add('open'); var a=it.querySelector('.faq-a'); a.style.maxHeight=a.scrollHeight+'px'; }
+    });
+  });
+}
+
+function revealOffer(scroll){
+  if(offerDone) return; offerDone = true;
+  if(poll) clearInterval(poll);
+  try{ localStorage.setItem(STORE_KEY,'1'); }catch(e){}
+  document.getElementById('lock').classList.add('off');
+  var v=document.getElementById('vendas'); v.classList.add('on');
+  if(scroll) v.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function playerTime(){
+  var p=document.getElementById(VTURB_ID);
+  if(!p) return null;
+  var t=p.currentTime;
+  return (typeof t==='number' && isFinite(t)) ? t : null;
+}
+
+function tick(){
+  var t = playerTime();
+  if(t!==null){
+    readable = true;
+    if(t >= OFFER_AT) revealOffer(true);
+    return;
+  }
+  // gatilho redundante: o player nunca expôs o tempo
+  if(!readable && (Date.now()-mountedAt)/1000 >= OFFER_AT + FALLBACK_EXTRA) revealOffer(true);
+}
+
+bindOffer();
+
+(function init(){
+  var q = location.search;
+  // ?oferta=1 libera tudo (conferência da equipe, sem depender do vídeo)
+  if(/[?&]oferta=1\b/.test(q)){ revealOffer(false); }
+  var salvo=false; try{ salvo = localStorage.getItem(STORE_KEY)==='1'; }catch(e){}
+  if(salvo){ revealOffer(false); }
+  if(mountVturb()){
+    mountedAt = Date.now();
+    if(!offerDone) poll = setInterval(tick, 500);
+  }
+})();
+</script>
+</body>
+</html>
