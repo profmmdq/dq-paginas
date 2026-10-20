@@ -75,8 +75,17 @@
   .sec-h{font-family:var(--disp);font-weight:800;font-size:clamp(22px,3.4vw,32px);line-height:1.1;letter-spacing:-1px;margin:8px 0 10px;text-wrap:balance}
   .sec-p{font-size:15px;color:rgba(241,243,230,.8);max-width:680px}
 
-  .feat{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:18px}
-  @media(max-width:640px){.feat{grid-template-columns:1fr}}
+  .feat{display:flex;gap:10px;margin-top:18px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;overscroll-behavior-x:contain}
+  .feat::-webkit-scrollbar{display:none}
+  .feat .f{flex:0 0 calc(50% - 5px);scroll-snap-align:start}
+  @media(max-width:640px){.feat .f{flex-basis:84%}}
+  .fnav{display:flex;align-items:center;justify-content:space-between;margin-top:12px}
+  .fdots{display:flex;gap:7px}
+  .fdots button{width:8px;height:8px;border-radius:50%;border:0;padding:0;background:rgba(241,243,230,.22);cursor:pointer;transition:all .2s}
+  .fdots button.on{background:var(--acc);width:22px;border-radius:6px}
+  .farr{display:flex;gap:8px}
+  .farr button{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:rgba(241,243,230,.06);color:var(--cream);font-size:20px;line-height:1;cursor:pointer}
+  .farr button:disabled{opacity:.35;cursor:default}
   .f{background:rgba(241,243,230,.04);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
   .f .n{font-family:var(--mono);color:var(--acc);font-size:12px}
   .f h4{font-family:var(--disp);font-weight:800;font-size:16px;margin:4px 0 4px}
@@ -286,6 +295,7 @@
         <div class="f"><span class="n">05</span><h4>Cadernos e anotações</h4><p>Crie cadernos de revisão e de erros repetidos e anote o que errou, tudo organizado por matéria e tópico.</p></div>
         <div class="f"><span class="n">06</span><h4>Acompanhamento do desempenho</h4><p>Painel com acertos, o que falta fazer e o seu progresso em cada disciplina e tópico.</p></div>
       </div>
+      <div class="fnav"><div class="fdots" id="fdots"></div><div class="farr"><button type="button" id="fprev" aria-label="Anterior">&#8249;</button><button type="button" id="fnext" aria-label="Próximo">&#8250;</button></div></div>
     </div>
 
     <div class="sec">
@@ -536,6 +546,35 @@ bindOffer();
   if(salvo && (f.id===1 || f.id===2)){ revealOffer(false); }
   relogio();
   setInterval(relogio, 1000);
+})();
+</script>
+<script>
+/* Carrossel "Tudo integrado em um só lugar": rolagem com snap, setas e pontos */
+(function(){
+  var tr=document.querySelector('.feat'); if(!tr) return;
+  var cards=[].slice.call(tr.children), dots=document.getElementById('fdots'),
+      prev=document.getElementById('fprev'), next=document.getElementById('fnext'), pages=0;
+  function step(){ return cards.length>1 ? cards[1].offsetLeft-cards[0].offsetLeft : tr.clientWidth; }
+  function idx(){ var st=step(); return st? Math.round(tr.scrollLeft/st):0; }
+  function build(){
+    var st=step(); if(!st) return;
+    var vis=Math.max(1,Math.round(tr.clientWidth/st)); pages=Math.max(1,cards.length-vis+1);
+    dots.innerHTML='';
+    for(var i=0;i<pages;i++){ (function(i){ var b=document.createElement('button'); b.type='button'; b.setAttribute('aria-label','Ir para '+(i+1)); b.onclick=function(){ tr.scrollTo({left:i*step(),behavior:'smooth'}); }; dots.appendChild(b); })(i); }
+    upd();
+  }
+  function upd(){
+    var i=Math.min(idx(),pages-1), atEnd=tr.scrollLeft>=tr.scrollWidth-tr.clientWidth-2;
+    if(atEnd) i=pages-1;
+    [].forEach.call(dots.children,function(b,k){ b.className = k===i?'on':''; });
+    prev.disabled = tr.scrollLeft<=2; next.disabled = atEnd;
+  }
+  prev.onclick=function(){ tr.scrollBy({left:-step(),behavior:'smooth'}); };
+  next.onclick=function(){ tr.scrollBy({left:step(),behavior:'smooth'}); };
+  tr.addEventListener('scroll',function(){ window.requestAnimationFrame(upd); },{passive:true});
+  window.addEventListener('resize',build);
+  if(window.ResizeObserver){ new ResizeObserver(build).observe(tr); } else { build(); }
+  build();
 })();
 </script>
 </body>
