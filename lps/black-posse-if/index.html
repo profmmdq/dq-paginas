@@ -49,7 +49,7 @@ h1 em{font-style:normal;color:var(--or)}
 .btn:hover{transform:translateY(2px);box-shadow:0 5px 0 #b94c1c,0 10px 18px rgba(0,0,0,.28)}
 .btn.off{background:#9aa7a2;box-shadow:0 7px 0 #6c7a75;color:#26302d;pointer-events:none}
 .trust{margin-top:14px;font-size:13px;opacity:.88}
-.hero .pic{position:relative;align-self:end}
+.hero .pic{position:relative;align-self:end;margin-bottom:72px}
 .hero .pic .cw{max-width:440px;margin:0 0 0 auto;-webkit-mask-image:linear-gradient(to right,transparent 0,#000 16%,#000 84%,transparent 100%);mask-image:linear-gradient(to right,transparent 0,#000 16%,#000 84%,transparent 100%)}.hero .pic img.cut{width:100%;-webkit-mask-image:linear-gradient(to bottom,#000 88%,transparent 100%);mask-image:linear-gradient(to bottom,#000 88%,transparent 100%)}
 .hero .pic img.seal{position:absolute;left:-6px;top:6%;width:min(40%,170px);transform:rotate(-9deg);filter:drop-shadow(0 12px 14px rgba(0,0,0,.45))}
 
@@ -200,7 +200,7 @@ footer img{height:38px;margin:0 auto 12px;opacity:.9}
    <h1>Black da Posse no IF: <em>novas vagas</em> abertas</h1>
    <p class="sub">Eu reabri a <b>Mentoria Dossiê IF</b> com <b>3 anos de acesso</b> para quem ficou de fora. Estude com direção para chegar à posse em um Instituto Federal.</p>
    <div class="timerbox">
-    <div class="tlabel" id="tlabel">Vagas abertas até terça, 17/11, às 23h59</div>
+    <div class="tlabel" id="tlabel">Vagas abertas até quinta, 19/11, às 23h59</div>
     <div class="tm" id="tm"><div><b id="d">00</b><small>dias</small></div><div><b id="h">00</b><small>horas</small></div><div><b id="m">00</b><small>min</small></div><div><b id="s">00</b><small>seg</small></div></div>
    </div>
    <div class="price"><s>de R$ 2.497</s><span class="p12">12x de R$ 99,70</span><span class="av">ou R$ 997 à vista</span></div>
@@ -389,22 +389,18 @@ footer img{height:38px;margin:0 auto 12px;opacity:.9}
   if(now<=T.thuClose)return"wed";
   return"closed";
  }
- var LAB={
-  before:"Vagas abrem terça, 17/11, às 9h",
-  tue:"Vagas abertas até terça, 17/11, às 23h59",
-  gap:"Vagas fechadas por enquanto. Reabrem quarta, 18/11, às 9h",
-  wed:"Segunda abertura até quinta, 19/11, às 23h59",
-  closed:"Vagas encerradas"
- };
- var PILL={before:"Abre terça às 9h",tue:"Vagas reabertas",gap:"Reabre quarta",wed:"Última abertura",closed:"Vagas encerradas"};
+ var UNTIL="Vagas abertas até quinta, 19/11, às 23h59";
+ var LAB={before:UNTIL,tue:UNTIL,gap:UNTIL,wed:UNTIL,closed:"Vagas encerradas"};
+ var PILL={before:"Vagas reabertas",tue:"Vagas reabertas",gap:"Vagas reabertas",wed:"Vagas reabertas",closed:"Vagas encerradas"};
+ var BONUS="O bônus Mentoria Dissecando a Didática entra só para quem se inscreve na terça.";
  var FL={
-  before:"Terça, 17/11, das 9h às 23h59, com o bônus Mentoria Dissecando a Didática.",
-  tue:"Hoje até 23h59, com o bônus Mentoria Dissecando a Didática.",
-  gap:"Segunda abertura de quarta, 18/11, até quinta, 19/11, às 23h59, sem o bônus.",
+  before:"Até quinta, 19/11, às 23h59. "+BONUS,
+  tue:"Até quinta, 19/11, às 23h59. "+BONUS,
+  gap:"Até quinta, 19/11, às 23h59. Nesta abertura o bônus não está incluído.",
   wed:"Até quinta, 19/11, às 23h59. Nesta abertura o bônus não está incluído.",
   closed:"As vagas desta Black foram encerradas. Fale com o atendimento oficial."
  };
- function target(ph){return ph==="before"?T.tueOpen:ph==="tue"?T.tueClose:ph==="gap"?T.wedOpen:ph==="wed"?T.thuClose:null}
+ function target(ph){return ph==="closed"?null:T.thuClose}
  function setCTA(ph){
   var closed=(ph==="closed");
   ctas.forEach(function(a){
