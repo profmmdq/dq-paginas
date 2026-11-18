@@ -59,7 +59,7 @@ h1 em{font-style:normal;color:var(--or)}
 .trust{margin-top:14px;font-size:13px;opacity:.88}
 .hero .pic{position:relative;align-self:end;margin-bottom:72px}
 .hero .pic .cw{max-width:440px;margin:0 0 0 auto;-webkit-mask-image:linear-gradient(to right,transparent 0,#000 16%,#000 84%,transparent 100%);mask-image:linear-gradient(to right,transparent 0,#000 16%,#000 84%,transparent 100%)}.hero .pic img.cut{width:100%;-webkit-mask-image:linear-gradient(to bottom,#000 88%,transparent 100%);mask-image:linear-gradient(to bottom,#000 88%,transparent 100%)}
-.hero .pic .seal{height:auto;aspect-ratio:1;position:absolute;left:-6px;top:6%;width:min(40%,170px);transform:rotate(-9deg);filter:drop-shadow(0 12px 14px rgba(0,0,0,.45))}
+.hero .pic .seal{height:auto;aspect-ratio:1;position:absolute;left:auto;right:-6px;top:6%;width:min(40%,170px);transform:rotate(9deg);filter:drop-shadow(0 12px 14px rgba(0,0,0,.45))}
 
 
 /* hero: video, lista e botao de rolagem */
@@ -269,11 +269,22 @@ footer img{height:38px;margin:0 auto 12px;opacity:.9}
 .bar .btn{padding:13px 22px;font-size:15px;box-shadow:0 5px 0 #b94c1c}
 .bar .cd{font-variant-numeric:tabular-nums;font-weight:800;font-size:12px;opacity:.9}
 
+
+/* conta da aula (slide A SOMA) */
+.cc.soma{text-align:left;display:flex;flex-direction:column}
+.cc.soma .lab{text-align:center;margin-bottom:10px}
+.cc.soma .ln{display:flex;align-items:baseline;gap:8px;padding:11px 0;border-top:1px solid #e1e5d8;font-weight:600;font-size:15px;line-height:1.25}
+.cc.soma .ln i{flex:1;min-width:10px;border-bottom:2px dotted #c5ccbd;transform:translateY(-3px)}
+.cc.soma .ln b{font-weight:900;white-space:nowrap;color:var(--gr)}
+.cc.soma .tt{margin-top:auto;border-top:2px solid var(--mut);padding-top:14px;text-align:center}
+.cc.soma .tt small{display:block;font-weight:900;font-size:12px;letter-spacing:.16em;text-transform:uppercase}
+.cc.soma .tt s{display:block;margin-top:6px;font-weight:900;line-height:1;font-size:clamp(38px,6vw,54px);letter-spacing:-.03em;text-decoration-thickness:3px;text-decoration-color:#a13e12}
+
 @media (min-width:821px){
  .hero .wrap{grid-template-columns:1fr 1.02fr}
  .hero .pic{margin-bottom:56px}
  .hero .pic .cw{max-width:660px}
- .hero .pic .seal{left:2%;top:8%;width:min(30%,190px)}
+ .hero .pic .seal{left:auto;right:2%;top:8%;width:min(30%,190px)}
 }
 @media (max-width:820px){
  .cgrid,.dl{grid-template-columns:1fr}
@@ -295,7 +306,7 @@ footer img{height:38px;margin:0 auto 12px;opacity:.9}
  .hero .btn.go{order:6;justify-self:start}
  .hero .timerbox{order:7;margin:6px 0 0}
  .hero .trust{order:8;margin:8px 0 56px}
- .hero .pic .seal{left:6px;top:-18px;width:84px}
+ .hero .pic .seal{left:auto;right:6px;top:-18px;width:84px}
  .hero{padding-top:22px}
  .steps,.items,.offer,.who ul,.proof,.pg{grid-template-columns:1fr}
  .guar{grid-template-columns:1fr;text-align:center}
@@ -515,15 +526,15 @@ footer img{height:38px;margin:0 auto 12px;opacity:.9}
  <div class="wrap">
   <span class="kicker">A conta dos 3 anos</span>
   <h2>Quanto custa <em>cada mês</em> e cada dia da sua preparação</h2>
-  <p class="lead">O acesso é de 3 anos. Dividindo o investimento normal e o da Black pelo mesmo período, a diferença aparece no mês e no dia.</p>
+  <p class="lead">A mesma conta que o Prof. Manoel fez na aula: o que as duas mentorias e o encontro individual somam em 3 anos de acesso, e quanto fica com a Black.</p>
   <div class="cgrid">
-   <div class="cc norm">
-    <div class="lab">Investimento normal</div>
-    <div class="tot"><s>R$ 2.497</s></div>
-    <div class="sub2">por 3 anos de acesso</div>
-    <div class="row"><b>R$ 69,36</b><span>por mês</span></div>
-    <div class="row"><b>R$ 2,28</b><span>por dia</span></div>
-    <div class="gain">Sem a oferta da Black</div>
+   <div class="cc norm soma">
+    <div class="lab">A soma, sem a oferta da Black</div>
+    <div class="ln"><span>Mentoria Dossiê IF, por ano</span><i></i><b>R$ 1.747</b></div>
+    <div class="ln"><span>Mentoria Dissecando a Didática, por ano</span><i></i><b>R$ 997</b></div>
+    <div class="ln"><span>3 anos de acesso</span><i></i><b>× 3</b></div>
+    <div class="ln"><span>Encontro individual com o Prof. Manoel</span><i></i><b>+ R$ 500</b></div>
+    <div class="tt"><small>Total</small><s>R$ 8.732</s></div>
    </div>
    <div class="cc blk">
     <div class="lab">Black Friday</div>
@@ -531,7 +542,7 @@ footer img{height:38px;margin:0 auto 12px;opacity:.9}
     <div class="sub2">à vista, pelos mesmos 3 anos de acesso</div>
     <div class="row"><b>R$ 27,69</b><span>por mês</span></div>
     <div class="row"><b>R$ 0,91</b><span>por dia</span></div>
-    <div class="gain">R$ 1.500 a menos que o investimento normal</div>
+    <div class="gain">R$ 7.735 a menos que a soma</div>
    </div>
   </div>
   <p class="cnote">Conta feita sobre 3 anos de acesso: 36 meses e 1.095 dias. Parcelado em 12x de R$ 99,70 (total de R$ 1.196,40), são R$ 33,23 por mês e R$ 1,09 por dia.</p>
