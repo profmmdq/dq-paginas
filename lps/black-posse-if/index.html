@@ -370,6 +370,16 @@ footer img{height:38px;margin:0 auto 12px;opacity:.9}
 .tdots i.on{width:26px;border-radius:8px;background:var(--or)}
 #prova .note{font-size:13px;color:var(--mut);margin-top:12px;max-width:680px}
 @media (max-width:640px){.ts{flex-basis:88%}.ttrack{gap:12px}}
+
+/* botao flutuante: oferta de 1 ano apos inatividade na secao de preco */
+.fab{position:fixed;right:16px;bottom:18px;z-index:60;display:flex;align-items:center;gap:6px;max-width:calc(100% - 32px);transform:translateY(160%);opacity:0;pointer-events:none;transition:transform .35s ease,opacity .35s ease,bottom .25s}
+.fab.on{transform:none;opacity:1;pointer-events:auto}
+.fab a{display:flex;align-items:center;gap:12px;background:var(--gr);color:var(--off);text-decoration:none;border:3px solid var(--or);border-radius:60px;padding:12px 22px 12px 14px;box-shadow:6px 6px 0 var(--or),0 16px 28px rgba(0,0,0,.28);font-weight:800;font-size:14px;line-height:1.2}
+.fab a b{display:block;font-weight:900;font-size:16px;color:var(--or)}
+.fab .ic{flex:none;width:40px;height:40px;border-radius:50%;background:var(--or);color:var(--gr);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;letter-spacing:-.02em}
+.fab .fx{flex:none;width:30px;height:30px;border-radius:50%;border:0;background:var(--off);color:var(--gr);font-weight:900;font-size:18px;line-height:1;cursor:pointer;box-shadow:0 3px 8px rgba(0,0,0,.3)}
+@media (max-width:520px){.fab{left:12px;right:12px;max-width:none}.fab a{flex:1}}
+@media (prefers-reduced-motion:reduce){.fab{transition:none}}
 </style>
 </head>
 <body>
@@ -647,6 +657,8 @@ footer img{height:38px;margin:0 auto 12px;opacity:.9}
  <p style="margin-top:6px">Nenhuma informação desta página deve ser interpretada como garantia de aprovação. Os resultados dependem do estudo de cada pessoa.</p>
 </footer>
 
+<div class="fab" id="fab"><a href="https://checkout.dissecandoquestoes.com.br/pay/black-if-1-ano" rel="noopener" aria-label="Comprar 1 ano de acesso à Mentoria Dossiê IF"><span class="ic">1 ano</span><span>Prefere 1 ano de acesso?<b>R$ 497 ou 12x de R$ 49,70</b></span></a><button type="button" class="fx" aria-label="Fechar">×</button></div>
+
 <div class="bar" id="bar"><div class="in">
  <div class="t"><b>Black Friday</b><span class="cd" id="barcd"></span></div>
  <a class="btn go" href="#levar">Quero conhecer o Dossiê IF e ver o investimento ↓</a>
@@ -697,8 +709,15 @@ footer img{height:38px;margin:0 auto 12px;opacity:.9}
  $("mq").innerHTML=one+one+one+one;
  // barra fixa
  var bar=$("bar");
- function sc(){var y=window.pageYOffset||0;var l=document.getElementById("levar");var ly=l?l.getBoundingClientRect().top:9999;bar.classList.toggle("show",y>520&&ly>window.innerHeight*0.9)}
+ function sc(){var y=window.pageYOffset||0;var l=document.getElementById("levar");var ly=l?l.getBoundingClientRect().top:9999;bar.classList.toggle("show",y>520&&ly>window.innerHeight*0.9);fabPos()}
  window.addEventListener("scroll",sc,{passive:true});sc();
+ var fab=$("fab"),off=$("oferta"),inSec=false,idle=null,fshown=false,fclosed=false;
+ function fabPos(){if(!fab)return;fab.style.bottom=(bar.classList.contains("show")?"92px":"18px")}
+ function arm(){clearTimeout(idle);idle=null;if(fab&&inSec&&!fshown&&!fclosed){idle=setTimeout(function(){fshown=true;fab.classList.add("on");fabPos()},20000)}}
+ if(fab&&off&&"IntersectionObserver" in window){new IntersectionObserver(function(es){inSec=es[0].isIntersecting;arm()},{threshold:.25}).observe(off)}
+ ["scroll","wheel","pointermove","pointerdown","touchstart","keydown"].forEach(function(ev){window.addEventListener(ev,arm,{passive:true})});
+ if(fab){fab.querySelector(".fx").addEventListener("click",function(){fclosed=true;fab.classList.remove("on")})}
+
 })();
 </script>
 </body>
